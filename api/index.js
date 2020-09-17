@@ -13,7 +13,7 @@ import store from '@/store';
 import connectionCheck from '@classes/connectionCheck';
 import * as sockets from '@api/socket';
 import { client } from './socket/client';
-import { IS_ELECTRON } from '../../shared/Constants';
+import { IS_ELECTRON } from '@sdk/Constants';
 
 if (IS_DEV) {
   axios.defaults.baseURL = process.env.VUE_APP_DEV_URL;
