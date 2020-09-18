@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
   window.IS_WIN = IS_WIN;
   window.IS_MAC = IS_MAC;
   window.IS_LINUX = IS_LINUX;
-  IS_ELECTRON = window && window.process && window.process.type;
+  IS_ELECTRON = Boolean(window && window.process && window.process.type);
   window.IS_ELECTRON = IS_ELECTRON;
 }
 

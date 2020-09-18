@@ -68,12 +68,12 @@ function middleware(func, functionName) {
         connectionCheck.handleServerAvailability(true);
       }
 
-      checkAndRefreshTokens();
+      await checkAndRefreshTokens();
 
       return await func.apply(null, arguments);
     } catch (err) {
       if (err.response === undefined) {
-        handleError(err);
+        await handleError(err);
 
         return;
       }
@@ -93,7 +93,7 @@ function middleware(func, functionName) {
       }
 
       /** Global error handler */
-      handleError(err);
+      await handleError(err);
     }
   };
 }

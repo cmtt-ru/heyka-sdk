@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import { desktopCapturer } from 'electron';
 
 const THUMBNAIL_SIZE = 150;
 
@@ -9,6 +8,16 @@ const THUMBNAIL_SIZE = 150;
  */
 class MediaCapturer extends EventEmitter {
   /**
+   * Init. Add desktopSources function for Electron
+   *
+   * @param {function} desktopSources - electron.desktopCapturer.getSources
+   */
+  constructor(desktopSources = () => null) {
+    super();
+    this.desktopSources = desktopSources;
+  }
+
+  /**
    * Get media sources
    *
    * @param {string} type – source type. Can be 'screen' or 'window'
@@ -16,7 +25,7 @@ class MediaCapturer extends EventEmitter {
    * @returns {Promise<Electron.DesktopCapturerSource[]>}
    */
   async getSources(type, thumbnailSize = THUMBNAIL_SIZE) {
-    const sources = await desktopCapturer.getSources({
+    const sources = await this.desktopSources({
       types: [
         type,
       ],
@@ -103,4 +112,4 @@ class MediaCapturer extends EventEmitter {
   }
 }
 
-export default new MediaCapturer();
+export default MediaCapturer;
