@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import CallControls from './CallControls';
+import CallControls from '@sdk/views/Call/CallControls';
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
 import WindowManager from '@shared/WindowManager/WindowManagerRenderer';
