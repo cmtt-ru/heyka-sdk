@@ -16,7 +16,7 @@ const audioTest = new Audio(require('@assets/audio/test-sound.mp3'));
 /**
  * Class for detecting AudioTrouble
  */
-class AudioCheck extends EventEmitter {
+export default class AudioCheck extends EventEmitter {
   /**
  * Init checker
  *
@@ -312,5 +312,3 @@ class AudioCheck extends EventEmitter {
     await store.dispatch('app/addPush', push);
   }
 }
-
-export default AudioCheck;

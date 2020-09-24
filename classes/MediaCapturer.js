@@ -6,7 +6,7 @@ const THUMBNAIL_SIZE = 150;
  * Class for media capturer.
  * Can capture screens, windows & webcameras
  */
-class MediaCapturer extends EventEmitter {
+export default class MediaCapturer extends EventEmitter {
   /**
    * Init. Add desktopSources function for Electron
    *
@@ -111,5 +111,3 @@ class MediaCapturer extends EventEmitter {
     return stream.getVideoTracks().map(track => track.getSettings().aspectRatio);
   }
 }
-
-export default MediaCapturer;
