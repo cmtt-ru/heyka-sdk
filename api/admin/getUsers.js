@@ -2,7 +2,6 @@ import axios from 'axios';
 
 /**
  * Get users of specific workspace
- *
  * @param {string} workspaceId – workspace id
  * @returns {array}
  */
