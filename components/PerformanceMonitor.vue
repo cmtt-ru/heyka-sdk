@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="IS_DEV"
+    v-if="IS_DEV && enabled"
     class="stat"
   >
     <p>CPU: {{ totalCpuUsage }}%</p>
@@ -23,7 +23,7 @@ export default {
       IS_DEV,
       processList: [],
       interval: true,
-      enabled: true,
+      enabled: false,
       avgCpuValues: [],
     };
   },
