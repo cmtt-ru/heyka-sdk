@@ -21,6 +21,18 @@ let tokens = {
 };
 
 /**
+ * Contains promise that will resolve when token update is finish
+ * @type {Promise<void>}
+ */
+let tokenUpdatePromise = null;
+
+/**
+ * Contains resolve function of `tokenUpdatePromise`
+ * @type {function}
+ */
+let tokenUpdatePromiseResolve = null;
+
+/**
  * Set access token in axios headers
  *
  * @param {string} token – access token
@@ -53,6 +65,16 @@ export function setTokens(newTokens) {
  * @returns {Promise<void>}
  */
 export async function updateTokens() {
+  /** Return promise if exists */
+  if (tokenUpdatePromise) {
+    return tokenUpdatePromise;
+  }
+
+  /** Create dummy promise & store resolve function for future */
+  tokenUpdatePromise = new Promise(resolve => {
+    tokenUpdatePromiseResolve = resolve;
+  });
+
   try {
     const freshTokens = await refreshToken({
       accessToken: tokens.accessToken,
@@ -63,6 +85,11 @@ export async function updateTokens() {
   } catch (err) {
     await handleError(err);
   }
+
+  /** Resolve & clear dummy promise */
+  tokenUpdatePromiseResolve();
+  tokenUpdatePromise = null;
+  tokenUpdatePromiseResolve = null;
 }
 
 /**
