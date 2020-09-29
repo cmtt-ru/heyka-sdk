@@ -1,4 +1,5 @@
 /* eslint-disable require-jsdoc */
+import API from '@api';
 import { EventEmitter } from 'events';
 import JanusEvents from '@sdk/classes/janusEvents';
 import store from '@/store';
@@ -30,8 +31,9 @@ class SpeedTest extends EventEmitter {
     });
 
     JanusEvents.on('left', () => {
-      this.sendToApi();
+      this.saveStats();
       this.bitrates = [];
+      this.connectionInfo = [];
       // this.lostPackets = false;
       // this.gotAwful = false;
       // this.gotBad = false;
@@ -39,18 +41,40 @@ class SpeedTest extends EventEmitter {
     });
 
     JanusEvents.on('submit-data', () => {
-      this.sendToApi();
+      this.saveStats(true);
     });
   }
 
-  sendToApi() {
-    const data = {
-      janusServerUrl: store.state.janus.janusServerUrl,
-      meanBitrate: this.simpleMean(this.bitrates, 'outvalueInt'),
-      connectionInfo: this.connectionInfo,
-    };
+  async saveStats(showNotification = false) {
+    const cleanConnectionInfo = this.connectionInfo.filter(c => {
+      return c.output && c.input;
+    });
 
-    console.log(data);
+    if (cleanConnectionInfo.length > 0) {
+      const data = {
+        janusServerUrl: store.state.janus.janusServerUrl,
+        meanBitrate: this.simpleMean(this.bitrates, 'outvalueInt') || 0,
+        connectionInfo: cleanConnectionInfo,
+        triggerType: showNotification ? 'user' : 'auto',
+      };
+
+      try {
+        await API.app.setStats(data);
+
+        if (showNotification) {
+          const notification = {
+            lifespan: 3000,
+            data: {
+              text: 'Thanks, we\'ll figure it out',
+            },
+          };
+
+          store.dispatch('app/addNotification', notification);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 
   addBitrate(val) {
