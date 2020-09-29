@@ -1,0 +1,25 @@
+{
+  "name": "heyka-sdk",
+  "version": "1.0.0",
+  "description": "Heyka SDK",
+  "scripts": {
+    "lint": "eslint . --ext .js,.vue"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmtt-ru/heyka-sdk.git"
+  },
+  "author": "kmtt",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/cmtt-ru/heyka-sdk/issues"
+  },
+  "homepage": "https://github.com/cmtt-ru/heyka-sdk#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-strict-vue": "^1.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "standard": "^14.3.4"
+  }
+}

@@ -1,0 +1,26 @@
+name: Linter
+
+on:
+  push:
+    branches:
+      - linter
+    
+jobs:
+  linter-checking:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/cache
+          !~/cache/exclude
+          **/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+    - name: install dependencies
+      run: npm install
+    - name: Run linter
+      run: npm run lint
+      env:
+        CI: true
