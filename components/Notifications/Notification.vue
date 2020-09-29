@@ -278,7 +278,7 @@ $ANIM_DELAY = 200ms
   margin 0 12px 12px
   overflow hidden
   width calc(100% - 24px)
-  height 60px // TODO: if notifications will be with auto height, we need to do js-height-calculation for smooth animations
+  height 60px // TODO: js-height-calculation for smooth animations
   box-sizing border-box
   border-radius 6px
   box-shadow 0px 3px 8px rgba(0, 0, 0, 0.15)
