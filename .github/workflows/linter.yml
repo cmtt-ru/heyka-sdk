@@ -1,9 +1,9 @@
 name: Linter
 
 on:
-  push:
+  pull_request:
     branches:
-      - linter
+      - master
     
 jobs:
   linter-checking:
