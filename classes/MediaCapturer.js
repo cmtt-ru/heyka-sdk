@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import getUserMedia from 'getusermedia';
 
 const THUMBNAIL_SIZE = 150;
 
@@ -109,5 +110,29 @@ export default class MediaCapturer extends EventEmitter {
    */
   getRatioList(stream) {
     return stream.getVideoTracks().map(track => track.getSettings().aspectRatio);
+  }
+
+  /**
+   * Request camera & microphone permissions
+   * @returns {void}
+   */
+  async requestMediaPermissions() {
+    const MAX_WAIT_TIMEOUT = 500;
+
+    return new Promise((resolve, reject) => {
+      const startTime = Date.now();
+      let immediate = false;
+
+      getUserMedia((err, stream) => {
+        immediate = Date.now() - startTime < MAX_WAIT_TIMEOUT;
+
+        if (err) {
+          reject(err);
+        } else {
+          this.destroyStream(stream);
+          resolve(immediate);
+        }
+      });
+    });
   }
 }

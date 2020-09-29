@@ -107,7 +107,10 @@ export async function getAccessToken() {
  * @returns {void}
  */
 export function clearTokens() {
-  authFileStore.clear();
+  authFileStore.set('accessToken', null);
+  authFileStore.set('accessTokenExpiredAt', null);
+  authFileStore.set('refreshToken', null);
+  authFileStore.set('refreshTokenExpiredAt', null);
   setAxiosTokenHeader('');
   tokens = {};
 }
