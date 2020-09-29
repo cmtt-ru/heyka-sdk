@@ -10,7 +10,7 @@
         :user-id="speakingUser.id"
         :image="userAvatar(speakingUser.id, 36)"
         :size="36"
-        round-corners
+        border-radius="4"
       />
 
       <div class="call-controls__col">
