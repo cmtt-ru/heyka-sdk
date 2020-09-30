@@ -50,7 +50,6 @@ export default {
       speakers: state => state.mediaState.speakers,
       speaking: state => state.mediaState.speaking,
     }),
-    ...mapState([ 'isSocketConnected' ]),
     ...mapState('app', {
       selectedMicrophoneDevice: state => state.selectedDevices.microphone,
       selectedSpeakerDevice: state => state.selectedDevices.speaker,
@@ -139,34 +138,6 @@ export default {
       }
     },
 
-    isSocketConnected(value) {
-      const disconnectedReactionDelay = 1000; // milliseconds
-      const isChannelSelected = this.selectedChannelId !== '' && this.selectedChannelId !== null;
-
-      if (!isChannelSelected) {
-        return;
-      }
-
-      if (!value) {
-        if (this.socketDisconnectedDelay) {
-          clearTimeout(this.socketDisconnectedDelay);
-          this.socketDisconnectedDelay = null;
-        }
-        this.socketDisconnectedDelay = setTimeout(() => {
-          this.onSocketDisconnected();
-        }, disconnectedReactionDelay);
-      } else {
-        if (this.socketDisconnectedDelay) {
-          clearTimeout(this.socketDisconnectedDelay);
-          this.socketDisconnectedDelay = null;
-        }
-
-        if (!janusWrapper) {
-          this.selectChannel();
-        }
-      }
-    },
-
     selectedSpeakerDevice(deviceId) {
       this.$refs.audio.setSinkId(deviceId);
     },
@@ -233,7 +204,6 @@ export default {
         debug: process.env.VUE_APP_JANUS_DEBUG === 'true',
       });
 
-      // common events
       janusWrapper.on(JanusWrapper.events.channelJoined, () => {
         this.setOperationFinish('join');
         if (this.microphone) {
@@ -246,7 +216,7 @@ export default {
       JanusEvents.emit('joined');
 
       bitrateInterval = setInterval(() => {
-        JanusEvents.emit('bitrate', janusWrapper.__audiobridgePlugin.getBitrate());
+        JanusEvents.emit('bitrate', janusWrapper.getAudioBitrate());
       }, BITRATE_CHECK_TIMEOUT);
 
       // audio events
