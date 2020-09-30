@@ -34,6 +34,7 @@ export default {
     return {
       socketDisconnectedDelay: null,
       currentOperation: '',
+      janusChannelSelected: false,
     };
   },
   computed: {
@@ -234,19 +235,33 @@ export default {
       });
 
       // common events
+      janusWrapper.on(JanusWrapper.events.webrtcCleanUp, () => {
+        this.janusChannelSelected = false;
+        cnsl.log('webrtc Cleanup');
+      });
+
       janusWrapper.on(JanusWrapper.events.channelJoined, () => {
         this.setOperationFinish('join');
+        cnsl.log('janus: channel joined');
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
           AudioCheck.subscribeMutedTalk();
         }
+        if (this.screen && !this.janusChannelSelected) {
+          this.startSharingScreen();
+        }
+        if (this.camera && !this.janusChannelSelected) {
+          this.startSharingCamera();
+        }
+
+        this.janusChannelSelected = true;
       });
 
       JanusEvents.emit('joined');
 
       bitrateInterval = setInterval(() => {
-        JanusEvents.emit('bitrate', janusWrapper.__audiobridgePlugin.getBitrate());
+        JanusEvents.emit('bitrate', janusWrapper.getAudioBitrate());
       }, BITRATE_CHECK_TIMEOUT);
 
       // audio events

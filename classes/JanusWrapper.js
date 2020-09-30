@@ -315,6 +315,15 @@ class JanusWrapper extends EventEmitter {
   }
 
   /**
+   * Get bitrate info
+   *
+   * @returns {object}
+   */
+  getAudioBitrate() {
+    return this.__audiobridgePlugin.getBitrate() || null;
+  }
+
+  /**
    * Connects to the Janus server
    * @private
    * @returns {Promise<null>}
