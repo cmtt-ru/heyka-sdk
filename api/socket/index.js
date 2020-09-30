@@ -235,6 +235,7 @@ function bindChannelEvents() {
 
   /** Unselect channel */
   client.on(eventNames.userUnselectedChannel, data => {
+    console.log('userUnselectedChannel', data);
     // Перемещение пользователя между каналами осуществляется
     // методами selectChannel/unselectChannel
     if (data.socketId === client.id) {
