@@ -34,7 +34,6 @@ export default {
     return {
       socketDisconnectedDelay: null,
       currentOperation: '',
-      janusChannelSelected: false,
     };
   },
   computed: {
