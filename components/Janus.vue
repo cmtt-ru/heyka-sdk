@@ -207,7 +207,6 @@ export default {
 
       janusWrapper.on(JanusWrapper.events.channelJoined, () => {
         this.setOperationFinish('join');
-        cnsl.log('janus: channel joined');
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
