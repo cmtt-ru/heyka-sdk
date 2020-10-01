@@ -322,7 +322,6 @@ export default {
      * @returns {void}
      */
     submitHandler() {
-      console.log('enter');
       if (this.enterSubmit === true) {
         this.$parent.$emit('ui-submit');
       }
