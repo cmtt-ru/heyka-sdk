@@ -51,9 +51,9 @@ export default {
       speaking: state => state.mediaState.speaking,
     }),
     ...mapState('app', {
-      selectedMicrophoneDevice: state => state.selectedDevices.microphone,
-      selectedSpeakerDevice: state => state.selectedDevices.speaker,
-      selectedCameraDevice: state => state.selectedDevices.camera,
+      selectedMicrophoneDevice: state => state.realSelectedDevices.microphone,
+      selectedSpeakerDevice: state => state.realSelectedDevices.speaker,
+      selectedCameraDevice: state => state.realSelectedDevices.camera,
       microphonesDeviceList: state => state.devices.microphones,
       speakersDeviceList: state => state.devices.speakers,
     }),
@@ -148,19 +148,21 @@ export default {
       }
     },
 
-    microphonesDeviceList() {
-      if (this.selectedMicrophoneDevice === 'default') {
-        if (janusWrapper) {
-          janusWrapper.setMicrophoneDevice(this.selectedMicrophoneDevice);
-        }
-      }
-    },
-
-    speakersDeviceList() {
-      if (this.selectedSpeakerDevice === 'default') {
-        this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
-      }
-    },
+    // microphonesDeviceList() {
+    //   if (this.selectedMicrophoneDevice === 'default') {
+    //     if (janusWrapper) {
+    //       console.log('microphonesDeviceList', this.selectedMicrophoneDevice);
+    //       janusWrapper.setMicrophoneDevice(this.selectedMicrophoneDevice);
+    //     }
+    //   }
+    // },
+    //
+    // speakersDeviceList() {
+    //   if (this.selectedSpeakerDevice === 'default') {
+    //     console.log('speakersDeviceList', this.selectedSpeakerDevice);
+    //     this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
+    //   }
+    // },
   },
   async created() {
     await JanusWrapper.init();
