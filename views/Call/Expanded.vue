@@ -50,9 +50,11 @@
       size="medium"
       icon="settings"
     />
-    <router-link :to="{ name: 'grid'}">
+    <router-link
+      class="badge expanded"
+      :to="{ name: 'grid'}"
+    >
       <ui-button
-        class="badge expanded"
         :type="7"
         size="medium"
         icon="grid"
@@ -346,8 +348,8 @@ export default {
 
   .expanded-window
     position relative
-    width 100%
-    height 100%
+    height 100vh
+    width 100vw
 
   .wrapper
     position absolute

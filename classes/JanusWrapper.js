@@ -320,7 +320,11 @@ class JanusWrapper extends EventEmitter {
    * @returns {object}
    */
   getAudioBitrate() {
-    return this.__audiobridgePlugin.getBitrate() || null;
+    if (this.__audiobridgePlugin) {
+      return this.__audiobridgePlugin.getBitrate();
+    }
+
+    return null;
   }
 
   /**
