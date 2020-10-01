@@ -75,13 +75,11 @@
 import CallControls from '@sdk/views/Call/CallControls';
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
-// import WindowManager from '@shared/WindowManager/WindowManagerRenderer';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters, mapState } from 'vuex';
 import Tablet from '@components/Drawing/Tablet';
 import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
-// import { ipcRenderer } from 'electron';
 
 /* variable for watching page size */
 let __resizeObserver = {};
@@ -163,20 +161,11 @@ export default {
     __resizeObserver = new ResizeObserver(this.watchPageDimensions);
     __resizeObserver.observe(page);
 
-    // const w = WindowManager.getCurrentWindow();
-
-    // w.on('blur', () => {
-    //   this.showControls = false;
-    // });
-    // w.on('focus', () => {
-    //   this.showControls = true;
-    // });
-
-    broadcastEvents.on('blur', () => {
+    broadcastEvents.on('grid-expanded-blur', () => {
       this.showControls = false;
     });
 
-    broadcastEvents.on('focus', () => {
+    broadcastEvents.on('grid-expanded-focus', () => {
       this.showControls = true;
     });
 
@@ -214,15 +203,10 @@ export default {
   },
 
   destroyed() {
-    broadcastEvents.removeAllListeners('blur');
-    broadcastEvents.removeAllListeners('focus');
+    broadcastEvents.removeAllListeners('grid-expanded-blur');
+    broadcastEvents.removeAllListeners('grid-expanded-focus');
     broadcastEvents.removeAllListeners('grid');
     broadcastEvents.removeAllListeners('grid-expanded-set-video-frame');
-
-    // const w = WindowManager.getCurrentWindow();
-
-    // w.removeAllListeners('blur');
-    // w.removeAllListeners('focus');
   },
 
   methods: {
@@ -249,12 +233,7 @@ export default {
      * @returns {void}
      */
     showGridHandler() {
-      // if (WindowManager.getCurrentWindow().isFullscreen()) {
-      //   ipcRenderer.send('exit-fullscreen');
-      // }
-
       broadcastEvents.dispatch('exit-fullscreen');
-
       this.$router.replace({ name: 'grid' });
     },
 
