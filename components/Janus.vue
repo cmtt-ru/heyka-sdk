@@ -206,8 +206,6 @@ export default {
         debug: process.env.VUE_APP_JANUS_DEBUG === 'true',
       });
 
-      window.janusWrapper = janusWrapper;
-
       janusWrapper.on(JanusWrapper.events.channelJoined, () => {
         this.setOperationFinish('join');
         if (this.microphone) {
