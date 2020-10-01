@@ -373,7 +373,10 @@ export default {
       if (!this.hasVideo(id) || id === this.myId) {
         return;
       }
-      this.$router.push({ path: `/call-window/expanded/${id}` });
+      this.$router.push({
+        name: 'expanded',
+        params: { id },
+      });
     },
 
     userAvatar: getUserAvatarUrl,

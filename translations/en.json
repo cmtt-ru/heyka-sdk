@@ -11,7 +11,8 @@
       "invite": "Copy invite link",
       "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
-      "invitesDeleted": "All invites are deleted"
+      "invitesDeleted": "All invites are deleted",
+      "audioLags": "Trouble hearing me"
     },
     "user": {
       "privateTalkButton": "Private talk",

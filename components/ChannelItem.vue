@@ -37,7 +37,7 @@
         <div class="channel__users__avatars">
           <avatar
             v-for="person in users"
-            :key="person.name"
+            :key="person.id"
             :user-id="person.id"
             :image="userAvatar(person.id, 12)"
             :size="12"

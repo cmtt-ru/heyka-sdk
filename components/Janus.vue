@@ -220,7 +220,9 @@ export default {
       JanusEvents.emit('joined');
 
       bitrateInterval = setInterval(() => {
-        JanusEvents.emit('bitrate', janusWrapper.getAudioBitrate());
+        if (janusWrapper) {
+          JanusEvents.emit('bitrate', janusWrapper.getAudioBitrate());
+        }
       }, BITRATE_CHECK_TIMEOUT);
 
       // audio events

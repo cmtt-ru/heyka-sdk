@@ -107,7 +107,10 @@ export async function getAccessToken() {
  * @returns {void}
  */
 export function clearTokens() {
-  authFileStore.clear();
+  authFileStore.set('accessToken', null);
+  authFileStore.set('accessTokenExpiredAt', null);
+  authFileStore.set('refreshToken', null);
+  authFileStore.set('refreshTokenExpiredAt', null);
   setAxiosTokenHeader('');
   tokens = {};
 }
@@ -131,7 +134,12 @@ export function isTokenExpired() {
  */
 export async function prepareTokens() {
   if (authFileStore.has('accessToken')) {
-    tokens = authFileStore.get();
+    tokens = {
+      accessToken: authFileStore.get('accessToken'),
+      accessTokenExpiredAt: authFileStore.get('accessTokenExpiredAt'),
+      refreshToken: authFileStore.get('refreshToken'),
+      refreshTokenExpiredAt: authFileStore.get('refreshTokenExpiredAt'),
+    };
 
     await checkAndRefreshTokens();
 
