@@ -90,18 +90,9 @@ class MediaDevices extends EventEmitter {
       /** Look for bluetooth word in label */
       newDevice.bluetooth = label.indexOf('bluetooth') > -1;
 
-      /**
-       * Remove all unnecessary words in brackets
-       * @example:
-       * FaceTime HD Camera (Built-in) (05ac:8514)
-       * becomes:
-       * FaceTime HD Camera
-       */
-      // newDevice.label = newDevice.label.replace(/\s*\(.+/gi, '');
-
       /** Rename default device to Default */
       if (device.deviceId === 'default') {
-        newDevice.label = 'Default';
+        // newDevice.label = 'Default';
       }
 
       /** Categorize devices */
