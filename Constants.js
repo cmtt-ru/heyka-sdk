@@ -27,7 +27,7 @@ if (IS_ELECTRON || location.hostname === 'localhost') {
 } else {
   // It's supposed, that the domain name is (back/web)-(dev/stage).dev.k8s.heyka.io
   WEB_URL = location.origin;
-  API_URL = location.origin.replace('back', 'web');
+  API_URL = location.origin.replace('web', 'back');
 }
 
 module.exports = {
