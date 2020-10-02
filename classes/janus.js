@@ -2853,7 +2853,11 @@ function Janus(gatewayCallbacks) {
 									(res.googCodecName === "VP8" || res.googCodecName === "")) {
 									// Older Chromer versions
 									inStats = true;
-								}
+								} else if (res.mediaType === "audio" && res.bytesReceived) {
+                  inStats = true;
+                } else if (res.mediaType === "audio" && res.bytesSent) {
+                  outStats = true;
+                }
 								// Parse stats now
 								if(inStats) {
 									config.bitrate.receivedPacketsBefore = config.bitrate.receivedPackets;

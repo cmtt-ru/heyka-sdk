@@ -6,6 +6,8 @@ export const errorMessages = {
   badRequest: 'Invalid request params input',
   serverIsDown: 'Server is down',
   invalidRequestPayloadInput: 'Invalid request payload input',
+  unknownConnection: 'Unknow socket connection',
+  connectionNotInChannel: 'Socket connection not in a channel',
 
   // Universal error messages
   accessDenied: 'Access denied',
