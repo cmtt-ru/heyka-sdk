@@ -17,7 +17,7 @@ import { IS_ELECTRON } from '@sdk/Constants';
 
 if (IS_DEV) {
   axios.defaults.baseURL = process.env.VUE_APP_DEV_URL;
-} else {
+} else if (IS_ELECTRON) {
   axios.defaults.baseURL = process.env.VUE_APP_PROD_URL;
 }
 
