@@ -94,7 +94,6 @@ export default {
   data() {
     return {
       videoAspectRatio: 1,
-      userId: this.$route.params.id,
       showControls: true,
       controlsOptions: {
         boundingElement: document.documentElement,
@@ -102,6 +101,7 @@ export default {
         resetInitialPos: false,
       },
       showPreview: false,
+      isStreamPlaying: false,
       myColor: 'black',
       canDraw: false,
     };
@@ -140,12 +140,21 @@ export default {
       return this.$store.getters.getUsersWhoShareMedia.includes(this.userId);
     },
 
+    userId() {
+      return this.$route.params.id;
+    },
+
   },
   watch: {
     isUserSharingMedia(val) {
       if (val === false) {
         this.showGridHandler();
       }
+    },
+
+    userId() {
+      broadcastEvents.dispatch('grid-expanded-ready');
+      this.handleVideoStream();
     },
   },
 
@@ -210,7 +219,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Re-adjust controls position on page resize
      * @returns {void}
@@ -238,6 +246,7 @@ export default {
     },
 
     handleVideoStream() {
+      this.isStreamPlaying = false;
       // try to get working video stream
       const activePublishers = janusVideoroomWrapper.getActivePublishers();
       const ourPublisher = activePublishers.find(publishers => publishers.userId === this.userId);
@@ -271,11 +280,13 @@ export default {
       video.onloadedmetadata = () => {
         this.videoAspectRatio = mediaCapturer.getRatioList(stream)[0];
         video.play();
-        this.showPreview = null;
+        this.isStreamPlaying = true;
+        this.showPreview = false;
+        console.log('------- PLAYING');
       };
 
       video.onerror = () => {
-        this.showPreview = null;
+        this.showPreview = false;
       };
     },
 
@@ -285,9 +296,12 @@ export default {
      * @returns {void}
      */
     setVideoFrame(base64Image) {
-      this.$refs.preview.src = base64Image;
-      if (this.showPreview === false) {
-        this.showPreview = true;
+      console.log('------- SET PREVIEW');
+      if (!this.isStreamPlaying) {
+        this.$refs.preview.src = base64Image;
+        if (!this.showPreview) {
+          this.showPreview = true;
+        }
       }
     },
 
@@ -332,8 +346,8 @@ export default {
 
   .wrapper
     position absolute
-    top 0px
-    left 0px
+    top 0
+    left 0
     height 100vh
     width 100vw
     flex-direction column
