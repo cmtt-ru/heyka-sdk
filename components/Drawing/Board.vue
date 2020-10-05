@@ -109,6 +109,8 @@ export default {
       startRectPosition: null,
       visibleDots: [],
 
+      active: false,
+
     };
   },
   computed: {
@@ -214,8 +216,13 @@ export default {
   },
 
   beforeDestroy() {
+    this.active = false;
     clearTimeout(this.bufferTimer);
     clearTimeout(this.clearWhiteBoardTimeout);
+  },
+
+  mounted() {
+    this.active = true;
   },
 
   methods: {
@@ -231,6 +238,7 @@ export default {
       } else {
         this.dotsQueue = [...incomeDots.reverse(), ...this.dotsQueue];
       }
+
       this.bufferTimer = setTimeout(() => {
         this.parseRecievedDots();
       }, this.bufferDelay);
@@ -242,9 +250,14 @@ export default {
      * @returns {void}
      */
     parseRecievedDots() {
+      if (!this.active) {
+        return;
+      }
+
       if (this.dotsQueue.length === 0 || this.recieveDrawInterval !== null) {
         return;
       }
+
       try {
         this.$refs.cursor.$el.classList.remove('cursor--hiding');
       } finally {
@@ -291,6 +304,10 @@ export default {
      * @returns {void}
      */
     updatePath() {
+      if (!this.active) {
+        return;
+      }
+
       if (this.dotsQueue.length === 0) {
         try {
           this.$refs.cursor.$el.classList.add('cursor--hiding');
