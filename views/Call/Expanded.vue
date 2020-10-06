@@ -282,7 +282,6 @@ export default {
         video.play();
         this.isStreamPlaying = true;
         this.showPreview = false;
-        console.log('------- PLAYING');
       };
 
       video.onerror = () => {
