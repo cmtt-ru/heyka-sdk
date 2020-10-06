@@ -296,7 +296,6 @@ export default {
      * @returns {void}
      */
     setVideoFrame(base64Image) {
-      console.log('------- SET PREVIEW');
       if (!this.isStreamPlaying) {
         this.$refs.preview.src = base64Image;
         if (!this.showPreview) {
