@@ -109,13 +109,15 @@ export default {
       startRectPosition: null,
       visibleDots: [],
 
+      active: false,
+
     };
   },
   computed: {
-
     bufferDelay() {
       return this.local ? 0 : RECIEVE_DELAY;
     },
+
     /**
      * Position cursor
      * @returns {object}
@@ -131,6 +133,7 @@ export default {
         transform: `translate(${this.cursorCoords.x * this.boardDimensions.width}px, ${this.cursorCoords.y * this.boardDimensions.height}px)`,
       };
     },
+
     /**
      * Position click animation
      * @returns {object}
@@ -148,6 +151,7 @@ export default {
         left: `${this.highlightCoords.x * this.boardDimensions.width}px`,
       };
     },
+
     /**
      * set viewbox for svg canvas
      * @returns {string}
@@ -155,6 +159,7 @@ export default {
     svgViewBox() {
       return `0 0 ${this.boardDimensions.width || 0} ${this.boardDimensions.height || 0}`;
     },
+
     /**
      * new income dots array
      * @returns {array}
@@ -162,6 +167,7 @@ export default {
     newDots() {
       return this.incomeData.dots || [];
     },
+
     /**
      * color of line
      * @returns {string}
@@ -169,6 +175,7 @@ export default {
     color() {
       return this.incomeData.color || '#000';
     },
+
     /**
      * sender's id
      * @returns {string}
@@ -176,6 +183,7 @@ export default {
     userId() {
       return this.incomeData.userId || '';
     },
+
     /**
      * sender's profile data
      * @returns {object}
@@ -207,6 +215,16 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    this.active = false;
+    clearTimeout(this.bufferTimer);
+    clearTimeout(this.clearWhiteBoardTimeout);
+  },
+
+  mounted() {
+    this.active = true;
+  },
+
   methods: {
     /**
      * Add new dots to local queue and trigger 'parseRecievedDots' after this.bufferDelay
@@ -220,7 +238,8 @@ export default {
       } else {
         this.dotsQueue = [...incomeDots.reverse(), ...this.dotsQueue];
       }
-      setTimeout(() => {
+
+      this.bufferTimer = setTimeout(() => {
         this.parseRecievedDots();
       }, this.bufferDelay);
     },
@@ -231,9 +250,14 @@ export default {
      * @returns {void}
      */
     parseRecievedDots() {
+      if (!this.active) {
+        return;
+      }
+
       if (this.dotsQueue.length === 0 || this.recieveDrawInterval !== null) {
         return;
       }
+
       try {
         this.$refs.cursor.$el.classList.remove('cursor--hiding');
       } finally {
@@ -280,6 +304,10 @@ export default {
      * @returns {void}
      */
     updatePath() {
+      if (!this.active) {
+        return;
+      }
+
       if (this.dotsQueue.length === 0) {
         try {
           this.$refs.cursor.$el.classList.add('cursor--hiding');
