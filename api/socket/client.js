@@ -1,14 +1,8 @@
 import io from 'socket.io-client';
 import eventNames from './eventNames';
-import { IS_DEV, IS_ELECTRON } from '@sdk/Constants';
+import { API_URL } from '@sdk/Constants';
 
-let socketUrl = null;
-
-if (IS_DEV) {
-  socketUrl = process.env.VUE_APP_DEV_URL;
-} else if (IS_ELECTRON) {
-  socketUrl = process.env.VUE_APP_PROD_URL;
-}
+const socketUrl = API_URL;
 
 const client = io(socketUrl, { autoConnect: false });
 
