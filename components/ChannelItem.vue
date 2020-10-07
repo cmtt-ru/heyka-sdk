@@ -58,6 +58,9 @@
 import Avatar from '@components/Avatar';
 import UiButton from '@components/UiButton';
 import { mapGetters } from 'vuex';
+import { setTimeout } from 'requestanimationframe-timer';
+
+const ANIM_TIME = 1000; // must be higher than in css in Sidebar.vue (include API time)
 
 const ICON_MAP = {
   public: 'channel',
@@ -84,13 +87,19 @@ export default {
       },
     },
     /**
-     * Whether we should explude us from avatar row
+     * Whether channel is "top-selected"
      * (just for smooth connect-to-channel-animations)
      */
-    excludeMe: {
+    topChannel: {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      duringAnimation: false,
+      animTimeout: null,
+    };
   },
 
   computed: {
@@ -98,19 +107,32 @@ export default {
       myId: 'me/getMyId',
       me: 'myInfo',
       userAvatar: 'users/getUserAvatarUrl',
+      animationChannel: 'app/getAnimationChannel',
     }),
+
+    /**
+     * Get pseudo-selected channel for faster bubbling animation
+     * @returns {object} - channel
+     */
+    selectedChannel() {
+      const selectedChannelId = this.$store.state.app.animationChannel || '';
+
+      return this.$store.getters['channels/getChannelById'](selectedChannelId);
+    },
 
     /**
      * Get users array
      * @returns {array} array of users
      */
     users() {
-      const otherUsers = this.$store.getters.getUsersByChannel(this.channel.id).filter((user) => user.id !== this.myId);
+      const users = this.$store.getters.getUsersByChannel(this.channel.id);
 
-      if (this.excludeMe) {
-        return otherUsers;
+      if (this.topChannel) {
+        return [this.me, ...users.filter((user) => user.id !== this.myId)];
+      } else if (!this.topChannel && this.duringAnimation) {
+        return users.filter((user) => user.id !== this.myId);
       } else {
-        return [this.me, ...otherUsers];
+        return users;
       }
     },
 
@@ -170,6 +192,17 @@ export default {
      */
     isSelected() {
       return this.$route.params.id === this.channel.id;
+    },
+  },
+
+  watch: {
+    animationChannel() {
+      this.duringAnimation = true;
+      console.log(this.animTimeout);
+      clearTimeout(this.animTimeout);
+      this.animTimeout = setTimeout(() => {
+        this.duringAnimation = false;
+      }, ANIM_TIME);
     },
   },
 
