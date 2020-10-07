@@ -63,7 +63,9 @@
       "finish": "was created, now you can open it and invite new members",
       "openApp": "Open app",
       "copy": "Copy invite link",
-      "copied": "Copied!"
+      "copied": "Copied!",
+      "emptyFields": "Some fields are empty",
+      "largeName": "Name is too large"
     }
   },
   "settings": {
