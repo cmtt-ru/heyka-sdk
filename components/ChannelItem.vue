@@ -58,7 +58,6 @@
 import Avatar from '@components/Avatar';
 import UiButton from '@components/UiButton';
 import { mapGetters } from 'vuex';
-import { setTimeout } from 'requestanimationframe-timer';
 
 const ANIM_TIME = 1000; // must be higher than in css in Sidebar.vue (include API time)
 
