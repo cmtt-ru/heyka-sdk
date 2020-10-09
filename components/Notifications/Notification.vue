@@ -1,7 +1,11 @@
 <template>
-  <transition name="notification-fade">
+  <transition
+    name="notification-fade"
+    @before-enter="beforeEnter"
+  >
     <div
       v-if="mounted"
+      ref="notification"
       v-hammer:pan.horizontal="pan"
       v-hammer:panstart="onPanStart"
       v-hammer:panend="onPanEnd"
@@ -121,6 +125,8 @@ export default {
   mounted() {
     this.mounted = true;
     this.$nextTick(() => {
+      console.log(this.$refs.notification.offsetHeight);
+      this.$refs.notification.style.setProperty('--offset', this.$refs.notification.offsetHeight + 'px');
       this.$emit('mounted', this.id);
     });
 
@@ -136,6 +142,28 @@ export default {
   },
 
   methods: {
+
+    beforeEnter(el) {
+      console.log('beforeEnter');
+
+      const pseudo = document.createElement('div');
+
+      pseudo.innerHTML = ` <div class="notification__text">
+        ${this.data.text}
+      </div>
+      <div class="notification__button-wrapper">
+        <div
+          class="notification__button"
+          style="width: 160px; height: 24px;"
+        >
+          Cancel
+        </div>
+      </div>`;
+      pseudo.classList.add('notification');
+      document.body.appendChild(pseudo);
+      console.log('pseudo height:', pseudo.offsetHeight);
+      document.body.removeChild(pseudo);
+    },
 
     /**
      * Handle clicked button: strart closing sequence and trigger button action if found one
@@ -266,7 +294,11 @@ export default {
 $ANIM = 330ms
 $ANIM_DELAY = 200ms
 
+// $ANIM = 1330ms
+// $ANIM_DELAY = 800ms
+
 .notification
+  --offset 45px
   background-color var(--app-bg)
   color var(--text-0)
   flex-shrink 0
@@ -278,7 +310,6 @@ $ANIM_DELAY = 200ms
   margin 0 12px 12px
   overflow hidden
   width calc(100% - 24px)
-  height 60px // TODO: js-height-calculation for smooth animations
   box-sizing border-box
   border-radius 6px
   box-shadow 0px 3px 8px rgba(0, 0, 0, 0.15)
@@ -297,8 +328,8 @@ $ANIM_DELAY = 200ms
 
 .notification-fade-enter
   opacity 0
-  transform translateY(60px)
-  margin-bottom -60px
+  transform translateY(var(--offset))
+  margin-bottom calc(var(--offset) * -1)
 
 .notification-fade-enter-to
   pointer-events none
@@ -310,8 +341,8 @@ $ANIM_DELAY = 200ms
 
 .notification-fade-leave-to
   opacity 0
-  transform translateY(60px)
-  margin-bottom -60px
+  transform translateY(var(--offset))
+  margin-bottom calc(var(--offset) * -1)
   transition opacity $ANIM ease, margin-bottom $ANIM ease $ANIM_DELAY, transform $ANIM ease
 
 </style>
