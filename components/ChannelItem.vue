@@ -197,7 +197,6 @@ export default {
   watch: {
     animationChannel() {
       this.duringAnimation = true;
-      console.log(this.animTimeout);
       clearTimeout(this.animTimeout);
       this.animTimeout = setTimeout(() => {
         this.duringAnimation = false;
