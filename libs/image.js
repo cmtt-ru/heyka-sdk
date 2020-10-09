@@ -5,6 +5,7 @@
 export const RETINA_MULTIPLICATOR = 2;
 
 const AVATAR_SIZE_32 = 32;
+const AVATAR_SIZE_64 = 64;
 
 /**
  * Checks if user has retina display
@@ -62,7 +63,13 @@ export function getUserAvatarUrl(obj, size = AVATAR_SIZE_32) {
       size *= RETINA_MULTIPLICATOR;
     }
 
-    return size <= AVATAR_SIZE_32 ? obj.avatarSet.image32x32 : obj.avatarSet.image64x64;
+    if (size < AVATAR_SIZE_32) {
+      return obj.avatarSet.image32x32;
+    } else if (size < AVATAR_SIZE_64) {
+      return obj.avatarSet.image64x64;
+    } else {
+      return obj.avatarSet.image128x128;
+    }
   }
 
   if (obj.avatar) {
