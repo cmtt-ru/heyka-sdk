@@ -508,6 +508,12 @@ class JanusVideoroomWrapper extends EventEmitter {
       stopped: null,
     };
 
+    const sameUserPublisherIndex = this.__publishers.findIndex(p => p.userId === publisherObject.userId);
+
+    if (sameUserPublisherIndex >= 0) {
+      this.__publishers.splice(sameUserPublisherIndex, 1);
+    }
+
     this.__publishers.push(publisherObject);
 
     this.emit('publisher-joined', {
