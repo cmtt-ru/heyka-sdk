@@ -266,7 +266,6 @@ export default {
       JanusEvents.emit('left');
       clearInterval(bitrateInterval);
       AudioCheck.destroyMediaStream();
-      this.$store.commit('app/ANIMATION_CHANNEL_ID', null);
     },
 
     /**
