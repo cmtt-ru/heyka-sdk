@@ -43,8 +43,6 @@ class Network extends EventEmitter {
     this.active = false;
     this.reconnectAttempts = 0;
 
-    this.loop();
-
     window.network = this;
   }
 
@@ -173,6 +171,14 @@ class Network extends EventEmitter {
     }
 
     return delay;
+  }
+
+  /**
+   * Start watching internet state
+   * @return {void}
+   */
+  watchInternetState() {
+    this.loop();
   }
 }
 
