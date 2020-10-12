@@ -107,13 +107,14 @@ export default {
       closeRunning: false,
       styles: {
         transition: null,
-        opacity: null,
+        opacity: 0,
         transform: null,
         height: null,
         padding: null,
         margin: null,
         position: 'absolute',
         '--offset': '45px',
+        'pointer-events': 'none',
       },
     };
   },
@@ -130,6 +131,8 @@ export default {
     this.$nextTick(() => {
       this.styles['--offset'] = `${this.$refs.notification.offsetHeight}px`;
       this.styles.position = null;
+      this.styles.opacity = null;
+      this.styles['pointer-events'] = null;
       this.mounted = false;
       this.transitionName = 'notification-fade';
       this.$emit('mounted', this.id);
@@ -150,34 +153,6 @@ export default {
   },
 
   methods: {
-
-    beforeEnter(el) {
-      console.log('beforeEnter');
-
-      const pseudo = document.createElement('div');
-
-      pseudo.innerHTML = ` <div class="notification__text">
-        ${this.data.text}
-      </div>
-      <div class="notification__button-wrapper">
-        <div
-          class="notification__button"
-          style="width: 160px; height: 24px;"
-        >
-          Cancel
-        </div>
-        <div
-          class="notification__button"
-          style="width: 160px; height: 24px;"
-        >
-          Cancel
-        </div>
-      </div>`;
-      pseudo.classList.add('notification');
-      document.body.appendChild(pseudo);
-      console.log('pseudo height:', pseudo.offsetHeight);
-      document.body.removeChild(pseudo);
-    },
 
     /**
      * Handle clicked button: strart closing sequence and trigger button action if found one
