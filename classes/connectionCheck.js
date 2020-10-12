@@ -33,8 +33,6 @@ class ConnectionCheck extends EventEmitter {
     this.onlineState = true;
 
     network.on('internet-state', this.internetStateHandler.bind(this));
-
-    window.checker = this;
   }
 
   /**
@@ -50,7 +48,6 @@ class ConnectionCheck extends EventEmitter {
     } else if (this.internetTryingToReconnect === true) {
       this.internetTryingToReconnect = false;
       this.emit('internet-reconnected');
-      console.log('========internet - reconnected');
     }
 
     if (state === true && this.onlineStatePromiseResole) {
