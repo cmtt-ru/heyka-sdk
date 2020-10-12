@@ -169,7 +169,6 @@ export default {
     await JanusWrapper.init();
 
     network.on('ip-changed', () => {
-      console.log('!!!!!! IP CHANGED');
       if (this.selectedChannelId && janusWrapper) {
         this.unselectChannel();
         this.selectChannel();
