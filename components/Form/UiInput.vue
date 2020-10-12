@@ -24,12 +24,9 @@
       <svg-icon
         v-if="isPass"
         class="input__eye"
-        :class="{'input__eye--active': localType === 'text'}"
-        name="eye"
-        size="large"
-        @mousedown.native.stop="iconClickHandler(true)"
-        @mouseup.native.stop="iconClickHandler()"
-        @mouseleave.native.stop="iconClickHandler()"
+        :name="eyeIcon"
+        size="medium"
+        @click.native.stop="passIconClickHandler()"
       />
     </div>
     <div
@@ -180,7 +177,7 @@ export default {
       id: uuid4(),
       validate: (!!this.required || !!this.minlength || !!this.maxlength || this.numbers || this.email || !!this.regex),
       errorText: null,
-      localType: this.type || 'text',
+      passVisible: false,
     };
   },
 
@@ -207,6 +204,26 @@ export default {
       return this.type === 'password';
     },
 
+    eyeIcon() {
+      if (this.passVisible) {
+        return 'eye';
+      }
+
+      return 'eye-closed';
+    },
+
+    localType() {
+      if (this.isPass) {
+        if (this.passVisible) {
+          return 'text';
+        }
+
+        return 'password';
+      }
+
+      return this.type;
+    },
+
   },
 
   watch: {
@@ -224,15 +241,8 @@ export default {
       this.$refs.input.focus();
     },
 
-    iconClickHandler(state = false) {
-      if (this.type !== 'password') {
-        return;
-      }
-      if (state) {
-        this.localType = 'text';
-      } else {
-        this.localType = 'password';
-      }
+    passIconClickHandler(state = false) {
+      this.passVisible = !this.passVisible;
     },
 
     /**
@@ -369,12 +379,9 @@ export default {
 
   &__eye
     position absolute
-    top 7px
-    right 4px
+    top 8px
+    right 9px
     color var(--icon-1)
-
-    &--active
-      color var(--color-2)
 
   &--with-icon
     padding-left 30px
