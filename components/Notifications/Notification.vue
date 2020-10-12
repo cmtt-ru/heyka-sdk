@@ -297,7 +297,7 @@ $ANIM_DELAY = 200ms
   width calc(100% - 24px)
   box-sizing border-box
   border-radius 6px
-  box-shadow 0px 3px 8px rgba(0, 0, 0, 0.15)
+  box-shadow 0 3px 8px rgba(0, 0, 0, 0.15)
   pointer-events auto
   transition all $ANIM ease
   opacity 1
@@ -306,7 +306,6 @@ $ANIM_DELAY = 200ms
     flex-shrink 0
     flex-grow 0
     margin-left 8px
-    margin-bottom 12px
 
   &__button
     margin 0 4px
