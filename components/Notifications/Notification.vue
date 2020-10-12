@@ -1,7 +1,11 @@
 <template>
-  <transition name="notification-fade">
+  <transition
+    :name="transitionName"
+  >
     <div
       v-if="mounted"
+
+      ref="notification"
       v-hammer:pan.horizontal="pan"
       v-hammer:panstart="onPanStart"
       v-hammer:panend="onPanEnd"
@@ -96,17 +100,21 @@ export default {
 
   data() {
     return {
+      transitionName: null,
       mounted: false,
       holding: false,
       timeoutEnded: false,
       closeRunning: false,
       styles: {
         transition: null,
-        opacity: null,
+        opacity: 0,
         transform: null,
         height: null,
         padding: null,
         margin: null,
+        position: 'absolute',
+        '--offset': '45px',
+        'pointer-events': 'none',
       },
     };
   },
@@ -121,7 +129,16 @@ export default {
   mounted() {
     this.mounted = true;
     this.$nextTick(() => {
+      this.styles['--offset'] = `${this.$refs.notification.offsetHeight}px`;
+      this.styles.position = null;
+      this.styles.opacity = null;
+      this.styles['pointer-events'] = null;
+      this.mounted = false;
+      this.transitionName = 'notification-fade';
       this.$emit('mounted', this.id);
+      this.$nextTick(() => {
+        this.mounted = true;
+      });
     });
 
     if (!this.infinite) {
@@ -278,7 +295,6 @@ $ANIM_DELAY = 200ms
   margin 0 12px 12px
   overflow hidden
   width calc(100% - 24px)
-  height 60px // TODO: js-height-calculation for smooth animations
   box-sizing border-box
   border-radius 6px
   box-shadow 0px 3px 8px rgba(0, 0, 0, 0.15)
@@ -297,8 +313,8 @@ $ANIM_DELAY = 200ms
 
 .notification-fade-enter
   opacity 0
-  transform translateY(60px)
-  margin-bottom -60px
+  transform translateY(var(--offset))
+  margin-bottom calc(var(--offset) * -1)
 
 .notification-fade-enter-to
   pointer-events none
@@ -310,8 +326,8 @@ $ANIM_DELAY = 200ms
 
 .notification-fade-leave-to
   opacity 0
-  transform translateY(60px)
-  margin-bottom -60px
+  transform translateY(var(--offset))
+  margin-bottom calc(var(--offset) * -1)
   transition opacity $ANIM ease, margin-bottom $ANIM ease $ANIM_DELAY, transform $ANIM ease
 
 </style>
