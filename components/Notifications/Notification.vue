@@ -113,6 +113,7 @@ export default {
         padding: null,
         margin: null,
         position: 'absolute',
+        '--offset': '45px',
       },
     };
   },
@@ -127,18 +128,13 @@ export default {
   mounted() {
     this.mounted = true;
     this.$nextTick(() => {
-      console.log(this.$refs.notification.style.getPropertyValue('--offset'));
-      console.log(this.$refs.notification.offsetHeight);
-      this.$refs.notification.style.setProperty('--offset', this.$refs.notification.offsetHeight + 'px');
+      this.styles['--offset'] = `${this.$refs.notification.offsetHeight}px`;
       this.styles.position = null;
       this.mounted = false;
       this.transitionName = 'notification-fade';
       this.$emit('mounted', this.id);
       this.$nextTick(() => {
         this.mounted = true;
-        this.$nextTick(() => {
-          console.log(this.$refs.notification.style.getPropertyValue('--offset'));
-        });
       });
     });
 
@@ -313,7 +309,6 @@ $ANIM = 330ms
 $ANIM_DELAY = 200ms
 
 .notification
-  --offset 45px
   background-color var(--app-bg)
   color var(--text-0)
   flex-shrink 0
