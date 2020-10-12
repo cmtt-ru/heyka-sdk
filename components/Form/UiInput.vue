@@ -381,6 +381,7 @@ export default {
     position absolute
     top 8px
     right 9px
+    cursor pointer
     color var(--icon-1)
 
   &--with-icon
