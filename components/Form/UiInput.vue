@@ -241,7 +241,7 @@ export default {
       this.$refs.input.focus();
     },
 
-    passIconClickHandler(state = false) {
+    passIconClickHandler() {
       this.passVisible = !this.passVisible;
     },
 
