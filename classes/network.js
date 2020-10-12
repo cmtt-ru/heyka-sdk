@@ -1,6 +1,9 @@
 import { EventEmitter } from 'events';
 import axios from 'axios';
 import sleep from 'es7-sleep';
+import Logger from '@sdk/classes/logger';
+
+const cnsl = new Logger('Network', '#95b11c');
 
 /**
  * Default long polling response timeout
@@ -62,7 +65,7 @@ class Network extends EventEmitter {
 
       /** Internet is online — continue produce long polling requests */
       if (this.internetState === true) {
-        console.log('~~~~~ restart long polling');
+        cnsl.log('restart long polling');
         await this.poll(LONG_POLLING_TIMEOUT);
       }
 
@@ -72,10 +75,10 @@ class Network extends EventEmitter {
         const state = await this.poll(LONG_POLLING_RECONNECT_TIMEOUT, REQUEST_TIMEOUT);
 
         if (state === false) {
-          console.log('~~~~~ poll reconnect attempt', this.reconnectAttempts, 'in', this.getReconnectDelay(), 'ms');
+          cnsl.log('poll reconnect attempt', this.reconnectAttempts, 'in', this.getReconnectDelay(), 'ms');
           await sleep(this.getReconnectDelay());
         } else {
-          console.log('~~~~~ poll reconnect success');
+          cnsl.log('poll reconnect success');
           this.resetReconnectAttempts();
           await sleep(REQUEST_TIMEOUT);
         }
@@ -118,7 +121,7 @@ class Network extends EventEmitter {
    */
   updateIp(ip) {
     if (this.clientIp !== ip && this.clientIp !== null) {
-      console.log('~~~~~ poll ip changed');
+      cnsl.log('poll ip changed');
       this.emit('ip-changed');
     }
 
@@ -132,7 +135,7 @@ class Network extends EventEmitter {
    */
   updateState(state) {
     if (this.internetState !== state) {
-      console.log('~~~~~ poll internet state', state);
+      cnsl.log('poll internet state', state);
       this.emit('internet-state', state);
     }
 

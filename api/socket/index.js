@@ -2,7 +2,7 @@ import store from '@/store';
 import eventNames from './eventNames';
 import { client, connect } from './client';
 import { getAccessToken } from '../tokens';
-import connectionCheck from '@classes/connectionCheck';
+import connectionCheck from '@sdk/classes/connectionCheck';
 import { handleError } from '@api/errors';
 import Logger from '@sdk/classes/logger';
 import sounds from '@sdk/classes/sounds';

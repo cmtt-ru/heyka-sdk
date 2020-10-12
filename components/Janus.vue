@@ -10,7 +10,7 @@
 
 <script>
 import JanusWrapper from '@sdk/classes/JanusWrapper.js';
-import connectionCheck from '@classes/connectionCheck';
+import connectionCheck from '@sdk/classes/connectionCheck';
 import AudioCheck from '@classes/audioCheck';
 import JanusEvents from '@sdk/classes/janusEvents';
 import mediaCapturer from '@classes/mediaCapturer';
