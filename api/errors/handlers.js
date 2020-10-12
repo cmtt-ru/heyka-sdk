@@ -1,6 +1,6 @@
 import { errorMessages } from './types';
 import logout from '@api/auth/logout';
-import connectionCheck from '@classes/connectionCheck';
+import connectionCheck from '@sdk/classes/connectionCheck';
 import Logger from '@sdk/classes/logger';
 const cnsl = new Logger('api errors', '#CD5C5C');
 

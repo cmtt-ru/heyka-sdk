@@ -10,12 +10,13 @@
 
 <script>
 import JanusWrapper from '@sdk/classes/JanusWrapper.js';
-import connectionCheck from '@classes/connectionCheck';
+import connectionCheck from '@sdk/classes/connectionCheck';
 import AudioCheck from '@classes/audioCheck';
 import JanusEvents from '@sdk/classes/janusEvents';
 import mediaCapturer from '@classes/mediaCapturer';
 import { mapState } from 'vuex';
 import Logger from '@sdk/classes/logger';
+import network from '@sdk/classes/network';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 const BITRATE_CHECK_TIMEOUT = 1000;
@@ -166,6 +167,14 @@ export default {
   },
   async created() {
     await JanusWrapper.init();
+
+    network.on('ip-changed', () => {
+      if (this.selectedChannelId && janusWrapper) {
+        this.unselectChannel();
+        this.selectChannel();
+      }
+    });
+
     cnsl.log('JanusWrapper was initialized');
   },
   beforeDestroy() {
@@ -206,12 +215,24 @@ export default {
         debug: process.env.VUE_APP_JANUS_DEBUG === 'true',
       });
 
-      janusWrapper.on(JanusWrapper.events.channelJoined, () => {
+      janusWrapper.on(JanusWrapper.events.channelJoined, async () => {
         this.setOperationFinish('join');
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
           AudioCheck.subscribeMutedTalk();
+        }
+
+        if (this.camera) {
+          janusWrapper.publishVideoStream('camera', this.selectedCameraDevice);
+        }
+
+        if (this.screen) {
+          if (IS_ELECTRON) {
+            janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id);
+          } else {
+            janusWrapper.publishVideoStream('stream', await mediaCapturer.getScreenStream());
+          }
         }
       });
 
