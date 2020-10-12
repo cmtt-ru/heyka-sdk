@@ -6,6 +6,7 @@ import discardPass from './discardPass';
 import check from './check';
 import link from './link';
 import detachSocial from './detachSocial';
+import verify from './verify';
 
 export default {
   signin,
@@ -16,4 +17,5 @@ export default {
   check,
   link,
   detachSocial,
+  verify,
 };

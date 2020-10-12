@@ -1,12 +1,8 @@
 import io from 'socket.io-client';
 import eventNames from './eventNames';
-import { IS_DEV } from '@sdk/Constants';
+import { API_URL } from '@sdk/Constants';
 
-let socketUrl = process.env.VUE_APP_PROD_URL;
-
-if (IS_DEV) {
-  socketUrl = process.env.VUE_APP_DEV_URL;
-}
+const socketUrl = API_URL;
 
 const client = io(socketUrl, { autoConnect: false });
 

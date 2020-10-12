@@ -113,9 +113,11 @@ class JanusVideoroomWrapper extends EventEmitter {
     // If channel if changed, leave previous channel first
     if (this.__janusOptions.videoRoomId && this.__janusOptions.videoRoomId !== options.videoRoomId) {
       await this.leave();
+      await this._connect(options.janusServerUrl, options.janusWsServerUrl, options.janusAuthToken);
     }
 
     // If trying to connect the same channel do nothing
+    // Impossible case. JanusOptions will be destroyed when leave channel
     if (this.__janusOptions.videoRoomId && this.__janusOptions.videoRoomId === options.videoRoomId) {
       return;
     }

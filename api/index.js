@@ -13,13 +13,9 @@ import store from '@/store';
 import connectionCheck from '@classes/connectionCheck';
 import * as sockets from '@api/socket';
 import { client } from './socket/client';
-import { IS_ELECTRON } from '@sdk/Constants';
+import { IS_ELECTRON, API_URL } from '@sdk/Constants';
 
-if (IS_DEV) {
-  axios.defaults.baseURL = process.env.VUE_APP_DEV_URL;
-} else if (IS_ELECTRON) {
-  axios.defaults.baseURL = process.env.VUE_APP_PROD_URL;
-}
+axios.defaults.baseURL = API_URL;
 
 /**
  * Inject's middleware function in all api methods
@@ -86,7 +82,11 @@ function middleware(func, functionName) {
       }
 
       /** Try to reconnect sockets */
-      if (err.response.data.message === errorMessages.socketNotFound || (client.id === undefined && client.connected === true)) {
+      if (
+        err.response.data.message === errorMessages.socketNotFound ||
+        err.response.data.message === errorMessages.unknownConnection ||
+        (client.id === undefined && client.connected === true)
+      ) {
         await sockets.reconnect();
 
         return middleware(func, functionName).apply(null, arguments);

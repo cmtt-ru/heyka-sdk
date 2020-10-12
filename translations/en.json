@@ -55,6 +55,17 @@
       "sendSuccess": "You have successfully sent",
       "inviteAmount": "1 invitation | {n} invitations",
       "moreInvites": "Send more invites"
+    },
+    "create": {
+      "title": "Name your workspace",
+      "namePlaceHolder": "Name",
+      "createButton": "Create",
+      "finish": "was created, now you can open it and invite new members",
+      "openApp": "Open app",
+      "copy": "Copy invite link",
+      "copied": "Copied!",
+      "emptyFields": "Some fields are empty",
+      "largeName": "Name is too large"
     }
   },
   "settings": {
