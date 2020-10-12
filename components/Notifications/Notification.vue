@@ -1,10 +1,10 @@
 <template>
   <transition
-    name="notification-fade"
-    @before-enter="beforeEnter"
+    :name="transitionName"
   >
     <div
       v-if="mounted"
+
       ref="notification"
       v-hammer:pan.horizontal="pan"
       v-hammer:panstart="onPanStart"
@@ -100,6 +100,7 @@ export default {
 
   data() {
     return {
+      transitionName: null,
       mounted: false,
       holding: false,
       timeoutEnded: false,
@@ -111,6 +112,7 @@ export default {
         height: null,
         padding: null,
         margin: null,
+        position: 'absolute',
       },
     };
   },
@@ -125,9 +127,19 @@ export default {
   mounted() {
     this.mounted = true;
     this.$nextTick(() => {
+      console.log(this.$refs.notification.style.getPropertyValue('--offset'));
       console.log(this.$refs.notification.offsetHeight);
       this.$refs.notification.style.setProperty('--offset', this.$refs.notification.offsetHeight + 'px');
+      this.styles.position = null;
+      this.mounted = false;
+      this.transitionName = 'notification-fade';
       this.$emit('mounted', this.id);
+      this.$nextTick(() => {
+        this.mounted = true;
+        this.$nextTick(() => {
+          console.log(this.$refs.notification.style.getPropertyValue('--offset'));
+        });
+      });
     });
 
     if (!this.infinite) {
@@ -152,6 +164,12 @@ export default {
         ${this.data.text}
       </div>
       <div class="notification__button-wrapper">
+        <div
+          class="notification__button"
+          style="width: 160px; height: 24px;"
+        >
+          Cancel
+        </div>
         <div
           class="notification__button"
           style="width: 160px; height: 24px;"
@@ -293,9 +311,6 @@ export default {
 
 $ANIM = 330ms
 $ANIM_DELAY = 200ms
-
-// $ANIM = 1330ms
-// $ANIM_DELAY = 800ms
 
 .notification
   --offset 45px
