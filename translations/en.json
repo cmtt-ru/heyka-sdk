@@ -225,13 +225,18 @@
     },
     "notImplemented": "This feature is not implemented yet",
     "deleteChannel": {
-      "text": "Are you sure you want to delete channel",
+      "text": "Are you sure you want to delete channel?",
       "yes": "Yes, delete",
       "no": "No"
     },
     "login": {
       "wrongPass": "Wrong email/password!",
       "passReset": "Check your email inbox!"
+    },
+    "importantSetting": {
+      "text": "This setting requires Heyka to restart. Do you want to proceed?",
+      "yes": "Yes",
+      "no": "Cancel"
     }
   },
   "push": {
