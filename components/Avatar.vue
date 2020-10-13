@@ -206,6 +206,7 @@ export default {
             height 100%
             border-radius 50%
             object-fit cover
+            background-color #ffffff
 
             &--square
               border-radius 0 !important
