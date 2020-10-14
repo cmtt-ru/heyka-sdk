@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { IS_ELECTRON } from '@sdk/Constants'
+import { IS_ELECTRON } from '@sdk/Constants';
 
 /**
  * Class for broadcasting state
