@@ -12,8 +12,10 @@ class BroadcastActions extends EventEmitter {
   constructor() {
     super();
 
-    this.broadcastChannel = new BroadcastChannel('actions');
-    this.broadcastChannel.onmessage = this.messageReceived.bind(this);
+    if (IS_ELECTRON) {
+      this.broadcastChannel = new BroadcastChannel('actions');
+      this.broadcastChannel.onmessage = this.messageReceived.bind(this);
+    }
   }
 
   /**
