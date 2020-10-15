@@ -34,7 +34,11 @@
                 "--shadow-15": "rgba(0,0,0,0.15)",
                 "--shadow-20": "rgba(0,0,0,0.20)",
                 "--shadow-50": "rgba(0,0,0,0.50)",
-                "--new-appbar": "#EBEFF4"
+                "--new-appbar": "#EBEFF4",
+                "--new-appbar-unfocus": "",
+                "--new-button-appbar-hover": "rgba(0, 0, 0, 0.1)",
+                "--new-button-appbar-active": "rgba(0, 0, 0, 0.15)",
+                "--new-icon-0": "#525B67"
                 
             },
             "navbar": {
@@ -107,7 +111,11 @@
                 "--shadow-15": "rgba(255,255,255,0.15)",
                 "--shadow-20": "rgba(255,255,255,0.20)",
                 "--shadow-50": "rgba(255,255,255,0.50)",
-                "--new-appbar": "rgba(39, 42, 48, 1)"
+                "--new-appbar": "rgba(39, 42, 48, 1)",
+                "--new-appbar-unfocus": "",
+                "--new-button-appbar-hover": "rgba(255, 255, 255, 0.1)",
+                "--new-button-appbar-active": "rgba(255, 255, 255, 0.15)",
+                "--new-icon-0": "#4F5660"
             },
             "navbar": {
                 "--app-bg": "#191919",
