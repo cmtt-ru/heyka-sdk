@@ -219,8 +219,8 @@ export default {
             height calc(100% * 1/3)
             min-width 4px
             min-height 4px
-            max-width 12px
-            max-height 12px
+            max-width 8px
+            max-height 8px
             border-radius 50%
             background-color var(--app-bg)
             border 2px solid var(--app-bg)
