@@ -3,6 +3,7 @@
     :class="classList"
     :height="dimension(height)"
     :width="dimension(width)"
+    :color="color"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title v-if="title">{{ title }}</title>
@@ -80,9 +81,9 @@ export default {
     },
 
     /**
-     * Icon stroke color. Hex, rgba or none (default to 'inherit')
+     * Icon color. Hex, rgba or none (default to 'inherit')
      */
-    stroke: {
+    color: {
       type: [ String ],
       default: 'currentColor',
     },
