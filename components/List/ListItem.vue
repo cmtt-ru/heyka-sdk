@@ -74,7 +74,7 @@ export default {
       return this.parentFilterBy.split('').map((sym) => {
         const ind = this.parentlang.arr.indexOf(sym);
 
-        if (ind === -1) {
+        if (ind === -1 || !this.lang.arr) {
           return sym;
         } else {
           return this.lang.arr[ind];

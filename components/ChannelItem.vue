@@ -2,6 +2,7 @@
   <router-link
     :to="'/main-window/workspace/channel/' + channel.id"
     class="channel"
+    :class="{'channel--top': topChannel}"
   >
     <svg-icon
       class="channel__type"
@@ -20,7 +21,6 @@
           {{ channel.name }}
         </div>
         <ui-button
-          v-show="isSelected"
           v-stop-propagation
           v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
           :type="7"
@@ -154,15 +154,15 @@ export default {
       if (this.channel.isPrivate && !this.channel.isTemporary) {
         return {
           name: ICON_MAP['private'],
-          color: this.isChannelActive ? 'var(--color-1)' : 'var(--new-UI-01)',
+          color: 'var(--new-UI-01)',
         };
       } else if (this.channel.isPrivate && this.channel.isTemporary) {
         return {
           name: ICON_MAP['temp'],
-          color: this.isChannelActive ? 'var(--color-1)' : 'var(--new-UI-01)',
+          color: 'var(--new-UI-01)',
         };
       } else {
-        if (this.isChannelActive) {
+        if (this.topChannel) {
           return {
             name: ICON_MAP['publicOnline'],
           };
@@ -220,6 +220,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.router-link-active
+  background-color var(--new-UI-07)
+
 .channel
   padding 4px 0
   margin 2px 0
@@ -233,8 +236,15 @@ export default {
   &:hover
     background-color var(--new-UI-07)
 
+    & .channel__more
+      visibility visible
+
   &:active
     background-color var(--new-UI-08)
+
+  &--top
+    background-color var(--new-UI-09)
+    box-shadow var(--new-shadow-02)
 
   &__type
     margin 0 8px 0 6px
@@ -250,22 +260,23 @@ export default {
 
   &__name
     width 134px
-    height 20px
+    height 16px
     box-sizing border-box
     line-height 16px
-    padding 2px 0
+    margin 2px 0
 
   &__more
     color var(--icon-1)
     margin 0 4px
     flex-shrink 0
+    visibility hidden
 
     &:hover
       background-color var(--new-UI-07)
 
   &__users
     height 12px
-    margin-bottom 3px
+    margin 2px 0
     display flex
     flex-direction row
     align-items center
@@ -285,7 +296,4 @@ export default {
       margin-left 4px
       color var(--text-1)
 
-.router-link-active
-  background-color var(--new-UI-09)
-  box-shadow var(--new-shadow-02)
 </style>

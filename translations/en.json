@@ -3,7 +3,12 @@
   "workspace": {
     "navbar": {
       "channelsHeader": "Channels",
-      "usersHeader": "Users"
+      "usersHeader": "Users",
+      "search": "Search",
+      "createChannel": "Create",
+      "showChannels": "Show more",
+      "hideChannels": "Show less",
+      "inviteUser": "Invite"
     },
     "channel": {
       "join": "Join",
