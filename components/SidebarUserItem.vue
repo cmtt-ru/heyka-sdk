@@ -6,10 +6,10 @@
   >
     <avatar
       class="user__avatar"
-      :image="userAvatar(user.id, 14)"
+      :image="userAvatar(user.id, 20)"
       :status="isStrangeStatus"
       :user-id="user.id"
-      :size="14"
+      :size="20"
     />
 
     <div
@@ -21,11 +21,10 @@
     </div>
 
     <ui-button
-      v-show="isSelected"
       :type="7"
       class="user__more"
       size="small"
-      height="16"
+      height="20"
       icon="more"
       @click="moreHandler"
     />
@@ -102,31 +101,29 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.router-link-active
+    background-color var(--new-UI-07)
 .user
+    padding 4px 4px 4px 6px
+    margin 2px 0
+    width 100%
+    border-radius 6px
     display flex
     flex-direction row
     justify-content flex-start
     align-items center
-    padding 4px
-    margin 2px 0
-    width 100%
-    border-radius 4px
 
     &:hover
-        background-color var(--item-bg-hover)
-        opacity 1
+      background-color var(--new-UI-07)
 
-    &--offline
-        opacity 0.5
-        filter grayscale(1)
+      & .user__more
+        display inline-flex
 
-        &:hover
-          background-color var(--item-bg-hover)
-          opacity 0.8
+    &:active
+      background-color var(--new-UI-08)
 
     &__avatar
         flex-shrink 0
-        margin 1px
 
     &__name
         padding-left 4px
@@ -135,9 +132,7 @@ export default {
 
     &__more
         margin-left 4px
-
-.router-link-active
-    background-color var(--item-bg-active)
-    opacity 1
-    box-shadow 0px 1px 2px rgba(0, 0, 0, 0.1)
+        display none
+        flex-shrink 0
+        color var(--new-UI-04)
 </style>

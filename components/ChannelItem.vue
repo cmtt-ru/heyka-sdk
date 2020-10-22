@@ -237,7 +237,7 @@ export default {
     background-color var(--new-UI-07)
 
     & .channel__more
-      visibility visible
+      display inline-flex
 
   &:active
     background-color var(--new-UI-08)
@@ -269,7 +269,7 @@ export default {
     color var(--icon-1)
     margin 0 4px
     flex-shrink 0
-    visibility hidden
+    display none
 
     &:hover
       background-color var(--new-UI-07)
@@ -294,6 +294,6 @@ export default {
     &__more
       font-size 12px
       margin-left 4px
-      color var(--text-1)
+      color var(--new-UI-04)
 
 </style>
