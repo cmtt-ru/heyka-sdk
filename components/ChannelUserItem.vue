@@ -53,7 +53,6 @@ import { mapGetters } from 'vuex';
 const ICON_MAP = {
   mic: 'mic-off',
   headphones: 'headphones-off',
-  admin: 'admin',
 };
 
 export default {
@@ -97,9 +96,6 @@ export default {
     iconArray() {
       const icons = [];
 
-      if (this.user.role === 'admin') {
-        icons.push(ICON_MAP['admin']);
-      }
       if (this.user.microphone === false) {
         icons.push(ICON_MAP['mic']);
       }

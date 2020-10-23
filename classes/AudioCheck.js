@@ -306,6 +306,7 @@ export default class AudioCheck extends EventEmitter {
     const push = {
       inviteId: Date.now().toString(),
       local: true,
+      name: 'noSound',
       message: { action: 'muted' },
     };
 
