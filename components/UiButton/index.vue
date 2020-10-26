@@ -50,7 +50,7 @@ import ConditionalWrapper from '@components/ConditionalWrapper';
  */
 const ICON_SIZES = {
   small: 16,
-  medium: 20,
+  medium: 18,
   large: 24,
 };
 
@@ -148,6 +148,22 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    /**
+     * true if button is with icon only and shoud be square
+     */
+    square: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * true if button is in app's header
+     */
+    header: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
@@ -199,6 +215,18 @@ export default {
        * @type {boolean}
        */
       classes[`${baseClass}--disabled`] = this.disabled;
+
+      /**
+       * Header class
+       * @type {boolean}
+       */
+      classes[`${baseClass}--header`] = this.header;
+
+      /**
+       * square class
+       * @type {boolean}
+       */
+      classes[`${baseClass}--square`] = this.square;
 
       /**
        * Loading class

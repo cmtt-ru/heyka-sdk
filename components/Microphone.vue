@@ -2,7 +2,7 @@
   <div
     class="mic"
     :style="buttonSizeComp"
-    :class="{'mic--disabled': disabled}"
+    :class="{'mic--disabled': disabled, 'mic--header': header}"
     @click="$emit('click')"
   >
     <div
@@ -47,7 +47,7 @@ const STATES = {
  */
 const ICON_SIZES = {
   small: 16,
-  medium: 20,
+  medium: 18,
   large: 24,
 };
 
@@ -57,13 +57,13 @@ const ICON_SIZES = {
  */
 const BUTTON_SIZES = {
   small: {
-    width: '24px',
-    height: '24px',
+    width: '28px',
+    height: '28px',
     'border-radius': '4px',
   },
   medium: {
-    width: '36px',
-    height: '36px',
+    width: '32px',
+    height: '32px',
     'border-radius': '4px',
   },
   large: {
@@ -112,6 +112,14 @@ export default {
      * Disabled state
      */
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * true if button is in app's header
+     */
+    header: {
       type: Boolean,
       default: false,
     },
@@ -210,6 +218,16 @@ export default {
     &--disabled
       pointer-events none
       opacity 0.5
+
+    &--header
+
+      &:hover
+        background var(--new-button-appbar-hover)
+        mix-blend-mode luminosity
+
+      &:active
+        background var(--new-button-appbar-active)
+        mix-blend-mode luminosity
 
 .volume-wrapper
   position absolute

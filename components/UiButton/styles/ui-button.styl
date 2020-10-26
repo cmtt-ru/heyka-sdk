@@ -80,19 +80,30 @@
     background-color $bg-color
 
     &^[0]--small
-      width 24px
+      width 28px
       height 24px
       border-radius 4px
 
+      &^[0]--square
+        height 28px
+
     &^[0]--medium
       width 36px
-      height 36px
+      height 32px
       border-radius 4px
+
+      &^[0]--square
+        width 32px
 
     &^[0]--large
       width 64px
-      height 64px
+      height 56px
       border-radius 8px
+
+      &^[0]--square
+        height 64px
+
+    
 
   /**
    * Button with 100% width
@@ -311,3 +322,12 @@
 
   &:active
     buttonActiveState()
+
+  &--header
+    color var(--new-UI-03)
+
+    &:hover
+      background var(--new-UI-07)
+
+    &:active
+      background var(--new-UI-08)

@@ -7,8 +7,13 @@
   >
     <title v-if="title">{{ title }}</title>
 
-    <use
+    <!-- <use
       :style="{strokeWidth, stroke}"
+      :xlink:href="iconPath"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    /> -->
+
+    <use
       :xlink:href="iconPath"
       xmlns:xlink="http://www.w3.org/1999/xlink"
     />
