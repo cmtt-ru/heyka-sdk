@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { IS_ELECTRON } from '@sdk/Constants';
 
 /**
  * Class for broadcasting state
@@ -10,8 +11,10 @@ class BroadcastState extends EventEmitter {
   constructor() {
     super();
 
-    this.broadcastChannel = new BroadcastChannel('state');
-    this.broadcastChannel.onmessage = this.messageReceived.bind(this);
+    if (IS_ELECTRON) {
+      this.broadcastChannel = new BroadcastChannel('state');
+      this.broadcastChannel.onmessage = this.messageReceived.bind(this);
+    }
   }
 
   /**
@@ -19,9 +22,11 @@ class BroadcastState extends EventEmitter {
    * @returns {void}
    */
   requestState() {
-    this.broadcastChannel.postMessage({
-      action: 'state-request',
-    });
+    if (IS_ELECTRON) {
+      this.broadcastChannel.postMessage({
+        action: 'state-request',
+      });
+    }
   }
 
   /**
@@ -30,10 +35,12 @@ class BroadcastState extends EventEmitter {
    * @returns {void}
    */
   resolveState(state) {
-    this.broadcastChannel.postMessage({
-      action: 'state',
-      data: JSON.stringify(state),
-    });
+    if (IS_ELECTRON) {
+      this.broadcastChannel.postMessage({
+        action: 'state',
+        data: JSON.stringify(state),
+      });
+    }
   }
 
   /**
