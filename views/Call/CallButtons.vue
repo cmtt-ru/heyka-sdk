@@ -4,15 +4,15 @@
     class="call-buttons"
     :size="size"
   >
-    <microphone
+    <ui-button
       v-if="buttons.includes('microphone')"
-      class="call-buttons__button ui-button"
       :disabled="!isDeviceAvailable('microphone') || janusInProgress"
-      :active="mediaState.microphone"
+      class="call-buttons__button"
+      :type="7"
       :size="size"
-      :icon-color="true"
-      fill-color="var(--text-0)"
-      @click.native="switchProp('microphone')"
+      :icon="buttonIcons.mic.icon"
+      :color="buttonIcons.mic.color"
+      @click="switchProp('microphone')"
     />
 
     <ui-button
@@ -22,7 +22,7 @@
       :type="7"
       :size="size"
       :icon="buttonIcons.camera.icon"
-      :stroke="buttonIcons.camera.stroke"
+      :color="buttonIcons.camera.color"
       @click="cameraHandler"
     />
 
@@ -33,7 +33,7 @@
       :type="7"
       :size="size"
       :icon="buttonIcons.screen.icon"
-      :stroke="buttonIcons.screen.stroke"
+      :color="buttonIcons.screen.color"
       @click="sharingHandler"
     />
 
@@ -43,7 +43,7 @@
       :type="7"
       :size="size"
       :icon="buttonIcons.speakers.icon"
-      :stroke="buttonIcons.speakers.stroke"
+      :color="buttonIcons.speakers.color"
       @click.native="switchProp('speakers')"
     />
 
@@ -72,41 +72,50 @@
 import UiButton from '@components/UiButton';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
-import Microphone from '@components/Microphone';
 import { mapGetters } from 'vuex';
 
 /**
  * Map media state points to corresponding icons
  */
 const ICON_MAP = {
+  mic: {
+    true: {
+      icon: 'mic',
+      color: 'var(--text-0)',
+    },
+    false: {
+      icon: 'mic-off',
+      color: 'var(--text-1)',
+    },
+  },
   speakers: {
     true: {
       icon: 'headphones',
-      stroke: 'var(--text-0)',
+      color: 'var(--text-0)',
     },
     false: {
       icon: 'headphones-off',
-      stroke: 'var(--text-1)',
+      color: 'var(--text-1)',
     },
   },
   camera: {
     true: {
       icon: 'video',
-      stroke: 'var(--text-0)',
+      color: 'var(--text-0)',
     },
     false: {
       icon: 'video-off',
-      stroke: 'var(--text-1)',
+      color: 'var(--text-1)',
     },
   },
   screen: {
     true: {
       icon: 'screencast',
-      stroke: 'var(--text-0)',
+      color: 'var(--text-0)',
     },
     false: {
       icon: 'screencast-off',
-      stroke: 'var(--text-1)',
+      color: 'var(--text-1)',
     },
   },
 };
@@ -114,7 +123,6 @@ const ICON_MAP = {
 export default {
   components: {
     UiButton,
-    Microphone,
   },
 
   props: {
@@ -151,6 +159,7 @@ export default {
      */
     buttonIcons() {
       return {
+        mic: ICON_MAP.mic[this.mediaState.microphone],
         speakers: ICON_MAP.speakers[this.mediaState.speakers],
         camera: ICON_MAP.camera[this.mediaState.camera],
         screen: ICON_MAP.screen[this.mediaState.screen],

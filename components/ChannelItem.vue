@@ -2,12 +2,14 @@
   <router-link
     :to="'/main-window/workspace/channel/' + channel.id"
     class="channel"
+    :class="{'channel--top': topChannel}"
   >
     <svg-icon
       class="channel__type"
       :name="dynamicIcon.name"
-      :stroke="dynamicIcon.color"
-      size="medium"
+      :color="dynamicIcon.color"
+      width="20"
+      height="20"
     />
 
     <div class="channel__content">
@@ -19,13 +21,12 @@
           {{ channel.name }}
         </div>
         <ui-button
-          v-show="isSelected"
           v-stop-propagation
           v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
           :type="7"
           class="channel__more"
           size="small"
-          height="16"
+          height="20"
           icon="more"
         />
       </div>
@@ -150,24 +151,25 @@ export default {
      * @returns {string} name of correct icon
      */
     dynamicIcon() {
-      if (this.channel.isPrivate && !this.channel.isTemporary) { // TODO: lifespan
+      if (this.channel.isPrivate && !this.channel.isTemporary) {
         return {
           name: ICON_MAP['private'],
-          color: this.isChannelActive ? 'var(--color-1)' : undefined,
+          color: 'var(--new-UI-01)',
         };
       } else if (this.channel.isPrivate && this.channel.isTemporary) {
         return {
           name: ICON_MAP['temp'],
-          color: this.isChannelActive ? 'var(--color-1)' : undefined,
+          color: 'var(--new-UI-01)',
         };
       } else {
-        if (this.isChannelActive) {
+        if (this.topChannel) {
           return {
             name: ICON_MAP['publicOnline'],
           };
         } else {
           return {
             name: ICON_MAP['public'],
+            color: 'var(--new-UI-01)',
           };
         }
       }
@@ -218,25 +220,38 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.router-link-active
+  background-color var(--new-UI-07)
+
 .channel
-  padding 1px 0
+  padding 4px 0
   margin 2px 0
   width 100%
-  border-radius 4px
+  border-radius 6px
   display flex
   flex-direction row
   align-items flex-start
   justify-content flex-start
 
   &:hover
-    background-color var(--item-bg-hover)
+    background-color var(--new-UI-07)
+
+    & .channel__more
+      display inline-flex
+
+  &:active
+    background-color var(--new-UI-08)
+
+  &--top
+    background-color var(--new-UI-09)
+    box-shadow var(--new-shadow-02)
 
   &__type
-    margin 3px 4px 0 4px
+    margin 0 8px 0 6px
     display flex
+    flex-shrink 0
 
   &__name-wrapper
-    padding 3px 0
     display flex
     flex-direction row
     align-items center
@@ -244,18 +259,24 @@ export default {
     width 100%
 
   &__name
-    font-style normal
-    font-weight normal
-    width 136px
+    width 134px
+    height 16px
+    box-sizing border-box
     line-height 16px
+    margin 2px 0
 
   &__more
     color var(--icon-1)
     margin 0 4px
+    flex-shrink 0
+    display none
+
+    &:hover
+      background-color var(--new-UI-07)
 
   &__users
     height 12px
-    margin-bottom 3px
+    margin 2px 0
     display flex
     flex-direction row
     align-items center
@@ -273,9 +294,6 @@ export default {
     &__more
       font-size 12px
       margin-left 4px
-      color var(--text-1)
+      color var(--new-UI-04)
 
-.router-link-active
-  background-color var(--item-bg-active)
-  box-shadow 0 1px 2px rgba(0, 0, 0, 0.1)
 </style>
