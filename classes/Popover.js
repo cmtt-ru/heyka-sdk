@@ -3,7 +3,7 @@ import router from '@/router';
 import store from '@/store';
 import i18n from '@sdk/translations/i18n';
 import { createPopper } from '@popperjs/core';
-import API from '@api';
+import Permissions from '@sdk/classes/permissions';
 
 /**
  * @typedef {object} PopoverModes
@@ -160,9 +160,7 @@ export default class Popover {
     }
 
     if (this.permissions) {
-      const permissions = await API.user.checkPermissions(this.permissions);
-
-      this.vueProps.permissions = permissions || {};
+      this.vueProps.permissions = await Permissions.canI(this.permissions) || {};
     }
 
     const Component = await this.loadComponent(this.componentName);
