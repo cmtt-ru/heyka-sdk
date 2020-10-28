@@ -34,4 +34,7 @@ export default Object.freeze({
   inviteCancelled: 'invite-cancelled',
   mutedForAll: 'muted-for-all',
   kickedFromWorkspace: 'kicked-from-workspace',
+
+  workspaceAdded: 'workspace-added',
+  workspaceUpdated: 'workspace-updated',
 });
