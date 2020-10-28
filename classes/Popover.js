@@ -103,6 +103,8 @@ export default class Popover {
     this.instance = null;
     this.popper = null;
 
+    this.showInProgress = false;
+
     this.mouseCoordinates = {
       x: 0,
       y: 0,
@@ -303,6 +305,12 @@ export default class Popover {
    * @returns {Promise<void>}
    */
   async show(state = true) {
+    if (this.showInProgress) {
+      return;
+    }
+
+    this.showInProgress = true;
+
     if (state) {
       await this.mount();
 
@@ -329,6 +337,8 @@ export default class Popover {
         this.popper = null;
       }
     }
+
+    this.showInProgress = false;
   }
 
   /**
