@@ -7,6 +7,7 @@ import adminApi from './admin';
 import { errorMessages } from './errors/types';
 import { handleError } from './errors';
 import trottleAPI from './throttle';
+import initialProcess from './initialProcess';
 import axios from 'axios';
 import { updateTokens, checkAndRefreshTokens } from './tokens';
 import store from '@/store';
@@ -87,6 +88,11 @@ function middleware(func, functionName) {
         err.response.data.message === errorMessages.unknownConnection ||
         (client.id === undefined && client.connected === true)
       ) {
+        /** Don't try to reconnect if initial is not finished yet */
+        if (initialProcess.getState()) {
+          throw new Error(`Can't call API method '${functionName}'. Initial is occuring now`);
+        }
+        console.log('trying to reconnect');
         await sockets.reconnect();
 
         return middleware(func, functionName).apply(null, arguments);

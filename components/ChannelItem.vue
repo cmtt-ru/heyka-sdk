@@ -165,6 +165,7 @@ export default {
         if (this.topChannel) {
           return {
             name: ICON_MAP['publicOnline'],
+            color: 'var(--new-signal-02)',
           };
         } else {
           return {

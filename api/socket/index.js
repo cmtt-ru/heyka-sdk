@@ -32,6 +32,9 @@ export async function init() {
     handleError(e);
   }
 
+  /** Unbind all events */
+  unbindEvents();
+
   /** Bind error events */
   bindErrorEvents();
 
@@ -89,11 +92,20 @@ export async function reconnect() {
  * @returns {Promise<void>}
  */
 export function destroy() {
+  unbindEvents();
+  client.disconnect();
+}
+
+/**
+ * unbind events
+ *
+ * @returns {Promise<void>}
+ */
+function unbindEvents() {
   Object.values(eventNames).forEach(eventName => {
     client.removeAllListeners(eventName);
   });
   client.off('connect', connectHandler);
-  client.disconnect();
 }
 
 /**
@@ -313,6 +325,7 @@ function bindUserEvents() {
 
   /** User info changed */
   client.on(eventNames.userUpdated, data => {
+    console.log('userUpdated', data);
     store.commit('users/UPDATE_USER', data.user);
   });
 
