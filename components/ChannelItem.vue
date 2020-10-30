@@ -164,7 +164,7 @@ export default {
       } else {
         if (this.topChannel) {
           return {
-            name: ICON_MAP['publicOnline'],
+            name: ICON_MAP['public'],
             color: 'var(--new-signal-02)',
           };
         } else {
