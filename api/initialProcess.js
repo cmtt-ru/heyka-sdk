@@ -38,20 +38,6 @@ class InitialProcess {
   setState(state) {
     this.state = state;
   }
-
-  /**
-   * Return true if function can be called during initial
-   * @param {string} apiName – api function Name
-   *
-   * @returns {boolean}
-   */
-  initialWhitelist(apiName) {
-    if (INITIAL_METHODS.includes(apiName)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 
 export default new InitialProcess();
