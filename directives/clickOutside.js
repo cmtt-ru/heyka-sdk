@@ -11,10 +11,10 @@ export default {
         vnode.context[binding.expression](event);
       }
     };
-    document.body.addEventListener('click', el.clickOutsideEvent);
+    document.body.addEventListener('mousedown', el.clickOutsideEvent);
   },
   unbind: function (el) {
-    document.body.removeEventListener('click', el.clickOutsideEvent);
+    document.body.removeEventListener('mousedown', el.clickOutsideEvent);
     el.clickOutsideEvent = null;
   },
 };

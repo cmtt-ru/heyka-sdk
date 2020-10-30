@@ -1,12 +1,4 @@
 /**
- * Initial methods used during "initial" vuex action
- */
-
-const INITIAL_METHODS = [
-  'select',
-];
-
-/**
  * Class for storing throttle times for some API methods
  */
 class InitialProcess {

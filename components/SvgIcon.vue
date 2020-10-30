@@ -40,7 +40,7 @@ const ICON_STROKES = {
 const ICON_SIZES = {
   small: 12,
   medium: 16,
-  large: 24,
+  large: 20,
 };
 
 export default {

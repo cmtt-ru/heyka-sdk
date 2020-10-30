@@ -78,7 +78,11 @@ export default {
 <style scoped lang="stylus">
   .ui-tabs
     &__nav
-      padding-bottom 12px
+      display inline-block
+      margin-bottom 12px
+      background var(--new-UI-06)
+      border-radius 100px
+      padding 4px
 
     &__content
       padding 0

@@ -2,13 +2,13 @@
   <div class="container">
     <div
       class="input-wrapper"
-      :class="{'input-wrapper--disabled': disabled}"
+      :class="{'input-wrapper--disabled': disabled, 'ui-error': errorText}"
     >
       <svg-icon
         v-if="icon"
         class="input__icon"
         :name="icon"
-        size="medium"
+        size="large"
       />
 
       <input
@@ -16,7 +16,7 @@
         v-model="localValue"
         :type="localType"
         class="input"
-        :class="{'input--with-icon': icon, 'input--with-eye': isPass, 'ui-error': errorText}"
+        :class="{'input--with-icon': icon, 'input--with-eye': isPass}"
         :placeholder="placeholder"
         @input="debounceCheck"
         @keyup.enter="submitHandler"
@@ -243,6 +243,7 @@ export default {
 
     passIconClickHandler() {
       this.passVisible = !this.passVisible;
+      this.focusInput();
     },
 
     /**
@@ -352,49 +353,69 @@ export default {
   display flex
   flex-direction row
   align-items center
-  background-color var(--input)
+  background-color var(--new-UI-06)
+  border 1px solid transparent
+  border-radius 6px
+  box-sizing border-box
+
+  &:hover
+    background-color var(--new-UI-07)
+
+  &:focus-within
+    border-color var(--new-UI-01)
+    background-color var(--new-UI-09)
 
   &--disabled
-    opacity 0.5
+    background-color var(--new-UI-08)
     pointer-events none
+
+    & .input
+      opacity 0.5
 
 .input
   width 100%
-  min-height 32px
+  min-height 36px
   padding 0 12px
   box-sizing border-box
-  border 1px solid var(--stroke-3)
-  border-radius 4px
+  border none
   background-color transparent
   font-family Inter, sans-serif
   font-size 14px
   line-height 18px
-  color var(--text-0)
+  color var(--new-UI-02)
+
+  &::placeholder
+    color var(--new-UI-04)
 
   &__icon
     position absolute
-    top 8px
-    left 9px
-    color var(--icon-1)
+    top 0
+    bottom 0
+    margin auto 0
+    left 6px
+    color var(--new-UI-01)
+    pointer-events none
 
   &__eye
     position absolute
-    top 8px
-    right 9px
+    top 0
+    bottom 0
+    margin auto 0
+    right 8px
     cursor pointer
-    color var(--icon-1)
+    color var(--new-UI-01)
 
   &--with-icon
-    padding-left 30px
+    padding-left 34px
 
   &--with-eye
     padding-right 30px
 
 .ui-error
-  border-color var(--color-0)
+  border-color var(--new-signal-03)
 
 .error-text
-  color var(--text-tech-0)
+  color var(--new-signal-03)
   font-size 10px
   line-height 12px
   min-height 16px
