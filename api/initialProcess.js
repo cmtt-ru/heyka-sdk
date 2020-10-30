@@ -16,7 +16,6 @@ class InitialProcess {
    * TrottleAPI constructor
   */
   constructor() {
-    super();
     this.state = false;
   }
 
