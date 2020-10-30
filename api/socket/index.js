@@ -325,7 +325,6 @@ function bindUserEvents() {
 
   /** User info changed */
   client.on(eventNames.userUpdated, data => {
-    console.log('userUpdated', data);
     store.commit('users/UPDATE_USER', data.user);
   });
 
