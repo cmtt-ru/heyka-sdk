@@ -199,6 +199,9 @@ export default {
         this.currentOperation = '';
       }
     },
+    resetOperations() {
+      this.setOperationFinish(this.currentOperation);
+    },
     /**
      * Join to the Janus channel
      * Subscribe for event from JanusWrapper
@@ -284,6 +287,7 @@ export default {
         janusWrapper = null;
       }
 
+      this.resetOperations();
       JanusEvents.emit('left');
       clearInterval(bitrateInterval);
       AudioCheck.destroyMediaStream();
