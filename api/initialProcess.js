@@ -11,7 +11,7 @@ const INITIAL_METHODS = [
 /**
  * Class for storing throttle times for some API methods
  */
-class InitialProcess extends EventEmitter {
+class InitialProcess {
   /**
    * TrottleAPI constructor
   */
