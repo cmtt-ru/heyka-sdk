@@ -92,7 +92,6 @@ function middleware(func, functionName) {
         if (initialProcess.getState()) {
           throw new Error(`Can't call API method '${functionName}'. Initial is occuring now`);
         }
-        console.log('trying to reconnect');
         await sockets.reconnect();
 
         return middleware(func, functionName).apply(null, arguments);
