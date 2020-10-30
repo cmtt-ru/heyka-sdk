@@ -1,5 +1,3 @@
-import { EventEmitter } from 'events';
-
 /**
  * Initial methods used during "initial" vuex action
  */
