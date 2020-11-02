@@ -291,7 +291,7 @@ export default class Popover {
     }
 
     if (this.element.__clickOutsideHandler) {
-      document.body.removeEventListener('mousedown', this.element.__clickOutsideHandler);
+      document.body.removeEventListener('mouseup', this.element.__clickOutsideHandler);
       this.element.__clickOutsideHandler = null;
     }
   }
@@ -317,12 +317,12 @@ export default class Popover {
       refElement = null;
       setTimeout(() => {
         this.popper.update();
-        document.body.addEventListener('mousedown', this.element.__clickOutsideHandler);
+        document.body.addEventListener('mouseup', this.element.__clickOutsideHandler);
       }, 0);
     } else {
       await this.unmount();
       if (this.element && this.element.__clickOutsideHandler) {
-        document.body.removeEventListener('mousedown', this.element.__clickOutsideHandler);
+        document.body.removeEventListener('mouseup', this.element.__clickOutsideHandler);
       }
       if (this.popper) {
         this.popper.destroy();

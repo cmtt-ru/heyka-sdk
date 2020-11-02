@@ -84,12 +84,12 @@ export async function updateTokens() {
     setTokens(freshTokens);
   } catch (err) {
     await handleError(err);
+  } finally {
+    /** Resolve & clear dummy promise */
+    tokenUpdatePromiseResolve();
+    tokenUpdatePromise = null;
+    tokenUpdatePromiseResolve = null;
   }
-
-  /** Resolve & clear dummy promise */
-  tokenUpdatePromiseResolve();
-  tokenUpdatePromise = null;
-  tokenUpdatePromiseResolve = null;
 }
 
 /**
