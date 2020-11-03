@@ -393,7 +393,6 @@ function bindWorkspaceEvents() {
   /** Workspace added */
   client.on(eventNames.workspaceAdded, () => {
     store.dispatch('workspaces/updateList');
-    console.log('workspaces/updateList');
   });
 
   /** Workspace updated */
