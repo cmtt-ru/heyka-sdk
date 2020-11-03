@@ -2,6 +2,9 @@ import axios from 'axios';
 import { authFileStore } from '@/store/localStore';
 import refreshToken from './auth/refreshToken';
 import { handleError } from './errors';
+import Logger from '@sdk/classes/logger';
+
+const cnsl = new Logger('tokens', '#1da8e9');
 
 /**
  * Max date difference before expiration in milliseconds
@@ -83,13 +86,14 @@ export async function updateTokens() {
 
     setTokens(freshTokens);
   } catch (err) {
+    cnsl.log('refreshing error', err);
     await handleError(err);
+  } finally {
+    /** Resolve & clear dummy promise */
+    tokenUpdatePromiseResolve();
+    tokenUpdatePromise = null;
+    tokenUpdatePromiseResolve = null;
   }
-
-  /** Resolve & clear dummy promise */
-  tokenUpdatePromiseResolve();
-  tokenUpdatePromise = null;
-  tokenUpdatePromiseResolve = null;
 }
 
 /**

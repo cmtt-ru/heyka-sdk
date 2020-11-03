@@ -65,7 +65,7 @@ class Network extends EventEmitter {
 
       /** Internet is online — continue produce long polling requests */
       if (this.internetState === true) {
-        cnsl.log('restart long polling');
+        // cnsl.log('restart long polling');
         await this.poll(LONG_POLLING_TIMEOUT);
       }
 

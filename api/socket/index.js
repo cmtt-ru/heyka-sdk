@@ -97,14 +97,15 @@ export function destroy() {
 }
 
 /**
- * unbind events
+ * Unbind socket events
  *
- * @returns {Promise<void>}
+ * @returns {void}
  */
 function unbindEvents() {
   Object.values(eventNames).forEach(eventName => {
     client.removeAllListeners(eventName);
   });
+
   client.off('connect', connectHandler);
 }
 
