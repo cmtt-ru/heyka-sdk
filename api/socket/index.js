@@ -47,6 +47,9 @@ export async function init() {
   /** Push events */
   bindPushEvents();
 
+  /** Workspace events */
+  bindWorkspaceEvents();
+
   /** Trying to authorize */
   try {
     await authorize();
@@ -192,7 +195,7 @@ function bindErrorEvents() {
 
   client.on('connect', connectHandler);
 
-  client.on(eventNames.reconnecting, data => {
+  client.on(eventNames.reconnecting, () => {
     connectionCheck.handleSocketReconnecting(true);
   });
 
@@ -342,17 +345,17 @@ function bindUserEvents() {
   });
 
   /** User joined workspace */
-  client.on(eventNames.userJoined, async data => {
+  client.on(eventNames.userJoined, async () => {
     store.dispatch('updateCurrentWorkspaceState');
   });
 
   /** User leaved workspace */
-  client.on(eventNames.userLeavedWorkspace, async data => {
+  client.on(eventNames.userLeavedWorkspace, async () => {
     store.dispatch('updateCurrentWorkspaceState');
   });
 
   /** Me kicked from workspace */
-  client.on(eventNames.kickedFromWorkspace, async data => {
+  client.on(eventNames.kickedFromWorkspace, async () => {
     broadcastEvents.dispatch('logout');
   });
 }
@@ -391,6 +394,23 @@ function bindPushEvents() {
   /** Remove push notification */
   client.on(eventNames.inviteCancelled, data => {
     store.dispatch('app/removePush', data.inviteId);
+  });
+}
+
+/**
+ * Bind workspace events
+ *
+ * @returns {void}
+ */
+function bindWorkspaceEvents() {
+  /** Workspace added */
+  client.on(eventNames.workspaceAdded, () => {
+    store.dispatch('workspaces/updateList');
+  });
+
+  /** Workspace updated */
+  client.on(eventNames.workspaceUpdated, () => {
+    store.dispatch('workspaces/updateList');
   });
 }
 
