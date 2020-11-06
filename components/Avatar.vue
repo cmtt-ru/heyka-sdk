@@ -237,10 +237,10 @@ export default {
 
         &__onair
             position absolute
-            bottom 0
-            right 0
-            left 0
-            top 0
+            bottom -4px
+            right -4px
+            left -4px
+            top -4px
             border-radius 50%
             background-color transparent
             border 2px solid var(--color-1)
