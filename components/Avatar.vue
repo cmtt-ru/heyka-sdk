@@ -32,10 +32,12 @@
       />
     </div>
 
-    <div
-      v-if="onair && mic"
-      class="avatar__onair"
-    />
+    <transition name="fade">
+      <div
+        v-if="onair && mic"
+        class="avatar__onair"
+      />
+    </transition>
   </div>
 </template>
 
@@ -188,71 +190,85 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-    .avatar
-        position relative
+  .avatar
+    position relative
 
-        &__no-image
-            position absolute
-            top 0
-            left 0
-            width 100%
-            height 100%
-            border-radius 50%
+    &__no-image
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      border-radius 50%
 
-        &__image
-            position relative
-            display block
-            width 100%
-            height 100%
-            border-radius 50%
-            object-fit cover
-            background-color #ffffff
+    &__image
+      position relative
+      display block
+      width 100%
+      height 100%
+      border-radius 50%
+      object-fit cover
+      background-color #ffffff
+      z-index 2
 
-            &--square
-              border-radius 0 !important
+      &--square
+        border-radius 0 !important
 
-        &__status
-            position absolute
-            bottom -2px
-            right -2px
-            width calc(100% * 1/3)
-            height calc(100% * 1/3)
-            min-width 4px
-            min-height 4px
-            max-width 8px
-            max-height 8px
-            border-radius 50%
-            background-color var(--app-bg)
-            border 2px solid var(--app-bg)
+    &__status
+      position absolute
+      bottom -2px
+      right -2px
+      width calc(100% * 1 / 3)
+      height calc(100% * 1 / 3)
+      min-width 4px
+      min-height 4px
+      max-width 8px
+      max-height 8px
+      border-radius 50%
+      background-color var(--app-bg)
+      border 2px solid var(--app-bg)
+      z-index 3
 
-            &__dot
-                position absolute
-                box-sizing border-box
-                bottom 0
-                right 0
-                width 100%
-                height 100%
-                border-radius 50%
-                border: 2px solid
+      &__dot
+        position absolute
+        box-sizing border-box
+        bottom 0
+        right 0
+        width 100%
+        height 100%
+        border-radius 50%
+        border: 2px solid
 
-        &__onair
-            position absolute
-            bottom -4px
-            right -4px
-            left -4px
-            top -4px
-            border-radius 50%
-            background-color transparent
-            border 2px solid var(--color-1)
+    &__onair
+      position absolute
+      bottom -4px
+      right -4px
+      left -4px
+      top -4px
+      border-radius 50%
+      border 2px solid transparent
+      background-image linear-gradient(var(--new-bg-04), var(--new-bg-04)), linear-gradient(180deg, #48DA85 0%, #14A49B 100%)
+      background-origin border-box
+      background-clip content-box, border-box
 
-            &::after
-                content ''
-                position absolute
-                bottom 0
-                right 0
-                left 0
-                top 0
-                border-radius 50%
-                background-color transparent
-                border 2px solid var(--app-bg)
+      z-index 1
+
+      &::after
+        content ''
+        position absolute
+        bottom 0
+        right 0
+        left 0
+        top 0
+        border-radius 50%
+        background-color transparent
+        border 2px solid var(--app-bg)
+
+  .fade-enter-active,
+  .fade-leave-active
+    transition all 0.125s ease
+
+  .fade-enter,
+  .fade-leave-to
+    opacity 0
 </style>
