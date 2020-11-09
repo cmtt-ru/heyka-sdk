@@ -103,11 +103,11 @@ export default {
     &__header
       display flex
       align-items center
-      flex 0 0 40px
+      flex 0 0 38px
       font-size 14px
       font-weight 500
       background var(--app-bg)
-      padding 0 12px
+      padding 6px 15px 0 16px
       transition box-shadow 0.15s ease
 
       &__close
@@ -121,11 +121,13 @@ export default {
       padding 0 12px
 
     &__footer
+      display flex
       flex 0 0 56px
       background var(--app-bg)
-      padding 12px
+      padding 16px
       box-sizing border-box
       transition box-shadow 0.15s ease
+      flex-direction row-reverse
 
       &--with-shadow
         box-shadow 0 0 0 1px var(--line-stroke)

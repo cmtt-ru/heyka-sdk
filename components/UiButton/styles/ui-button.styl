@@ -191,8 +191,13 @@
       background var(--new-UI-01-2)
 
   &--2
-    buttonBorder(var(--button-bg-4), var(--text-0), var(--stroke-3))
-    buttonDefaultHoverState()
+    buttonSolid(var(--new-UI-06), var(--text-0))
+
+    &:hover
+      background var(--new-UI-07)
+
+    &:active
+      background var(--new-UI-08)
 
   &--3
     buttonBorder(var(--app-bg), var(--text-0), var(--stroke-3))
