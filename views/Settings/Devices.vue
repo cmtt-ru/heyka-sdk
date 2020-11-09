@@ -1,6 +1,18 @@
 <template>
   <div class="settings-page">
     <div class="settings__label">
+      {{ texts.micLabel }}
+    </div>
+    <ui-select
+      v-model="selectedMicrophone"
+      :data="devices.microphones"
+    />
+    <progress-bar
+      class="l-mt-8"
+      :value="microphoneVolume"
+    />
+
+    <div class="settings__label">
       {{ texts.speakersLabel }}
     </div>
     <div class="setting-with-icon">
@@ -16,18 +28,6 @@
         @click.native="playTestSound"
       />
     </div>
-
-    <div class="settings__label">
-      {{ texts.micLabel }}
-    </div>
-    <ui-select
-      v-model="selectedMicrophone"
-      :data="devices.microphones"
-    />
-    <progress-bar
-      class="l-mt-8"
-      :value="microphoneVolume"
-    />
 
     <div class="settings__label">
       {{ texts.cameraLabel }}
