@@ -61,7 +61,8 @@
                 "--new-system-02": "#FF6157",
                 "--new-system-02-1": "#FFB0AB",
                 "--new-system-02-2": "#E24640",
-                "--new-shadow-02": "0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)"
+                "--new-shadow-02": "0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)",
+                "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)"
             },
             "navbar": {
                 "--app-bg": "#EFEFF1",
@@ -133,7 +134,7 @@
                 "--shadow-15": "rgba(255,255,255,0.15)",
                 "--shadow-20": "rgba(255,255,255,0.20)",
                 "--shadow-50": "rgba(255,255,255,0.50)",
-                "--new-signal-01": "#FFC876", 
+                "--new-signal-01": "#FFC876",
                 "--new-signal-02": "#62C971",
                 "--new-signal-02-1": "#2B6233",
                 "--new-signal-03": "#FFA9A4",

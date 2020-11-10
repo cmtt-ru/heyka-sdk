@@ -103,7 +103,7 @@
       &^[0]--square
         height 64px
 
-    
+
 
   /**
    * Button with 100% width
@@ -242,20 +242,27 @@
 
   &--11
     color var(--text-0)
-    stroke var(--text-0)
     justify-content flex-start
     padding 0 8px
+    border-radius 6px
+
+    svg
+      color var(--new-UI-01)
+      width 18px
+      height 18px
 
     & ^[0]__icon
-      margin-right 5px
+      margin-right 8px
 
     & ^[0]__caption
       margin-left 0
       margin-right auto
 
     &:hover
-      background-color var(--item-bg-hover)
+      background var(--new-UI-06)
 
+    &:active
+      background var(--new-UI-07)
 
   &--12
     buttonSolid(var(--color-0), var(--text-tech-3))

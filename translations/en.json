@@ -179,9 +179,7 @@
     "workspace": {
       "invite": "Invite members",
       "manage": "Manage workspace",
-      "new": "New workspace",
-      "settings": "Settings",
-      "quit": "Quit Heyka"
+      "new": "New workspace"
     },
     "griduser": {
       "fullscreen": "Fullscreen",
@@ -191,7 +189,9 @@
       "profile": "Profile",
       "online": "Online",
       "idle": "Away",
-      "offline": "Invisible"
+      "offline": "Invisible",
+      "settings": "Settings",
+      "quit": "Quit Heyka"
     },
     "userInChannel": {
       "profile": "Open profile",
