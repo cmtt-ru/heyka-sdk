@@ -105,7 +105,6 @@ export default {
     matchesFilter() {
       if (!this.parentFilterBy.length) {
         this.matches = true;
-        this.parent.$emit('match-results');
 
         return;
       }
@@ -113,19 +112,16 @@ export default {
       /* Simple comparison */
       if (this.similarity(this.filterKey, this.parentFilterBy)) {
         this.matches = true;
-        this.parent.$emit('match-results');
 
         return;
       }
 
       this.matches = false;
-      this.parent.$emit('match-results');
 
       /* Comparison with ru->en translit */
       if (this.parentlang.code === 'ru' && this.lang.code === 'en') {
         if (this.similarity(this.filterKey, cyrillicToTranslit().transform(this.parentFilterBy))) {
           this.matches = true;
-          this.parent.$emit('match-results');
 
           return;
         }
@@ -135,7 +131,6 @@ export default {
       if (this.parentlang.code === 'en' && this.lang.code === 'ru') {
         if (this.similarity(this.filterKey, cyrillicToTranslit().reverse(this.parentFilterBy))) {
           this.matches = true;
-          this.parent.$emit('match-results');
 
           return;
         }
@@ -145,7 +140,6 @@ export default {
       if (this.parentlang.code !== this.lang.code) {
         if (this.similarity(this.filterKey, this.switchedParentLayout)) {
           this.matches = true;
-          this.parent.$emit('match-results');
         }
       }
     },

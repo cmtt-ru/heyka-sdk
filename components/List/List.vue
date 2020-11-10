@@ -6,16 +6,17 @@
     <slot />
     <div
       v-show="itemsAmount===0"
+      v-textfade
       class="no-results"
     >
-      {{ noResultsString }}
+      {{ noResultsString || $t('inputErrors.noResults') }} «{{ filterBy }}»
     </div>
   </div>
 </template>
 
 <script>
-import { debounce } from 'throttle-debounce';
-const DEBOUNCE_TIMEOUT = 20;
+// eslint-disable-next-line no-magic-numbers
+const CHECK_TIMEOUTS = [10, 10, 30, 50, 900];
 
 export default {
   props: {
@@ -31,7 +32,7 @@ export default {
      */
     noResultsString: {
       type: String,
-      default: 'No results found!',
+      default: null,
     },
     /**
      * Determine if list's items can be selected
@@ -44,20 +45,35 @@ export default {
   data() {
     return {
       itemsAmount: null,
-      countResults: null,
+      countResultsTimeout: null,
     };
   },
 
-  mounted() {
-    this.countResults = debounce(DEBOUNCE_TIMEOUT, false, function () {
-      this.itemsAmount = this.$children.filter(el => el.matches).length;
-    });
+  watch: {
+    filterBy() {
+      clearTimeout(this.countResultsTimeout);
+      this.countResults([ ...CHECK_TIMEOUTS ]);
+    },
+  },
 
+  mounted() {
     this.$on('selected', this.selectedChildren);
-    this.$on('match-results', this.countResults);
   },
 
   methods: {
+
+    countResults(timeouts) {
+      if (timeouts.length === 0) {
+        return;
+      }
+
+      const timeout = timeouts.shift();
+
+      this.countResultsTimeout = setTimeout(() => {
+        this.itemsAmount = this.$children.filter(el => el.matches).length;
+        this.countResults(timeouts);
+      }, timeout);
+    },
 
     /**
      * Gather all list-items that have prop "selected"
