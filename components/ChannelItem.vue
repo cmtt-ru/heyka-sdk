@@ -21,13 +21,13 @@
           {{ channel.name }}
         </div>
         <ui-button
-          v-stop-propagation
           v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
           :type="7"
           class="channel__more"
           size="small"
           height="20"
           icon="more"
+          @click.native.prevent
         />
       </div>
 

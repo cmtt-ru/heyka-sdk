@@ -179,9 +179,7 @@
     "workspace": {
       "invite": "Пригласить участника",
       "manage": "Настроить workspace",
-      "new": "Новый workspace",
-      "settings": "Настройки",
-      "quit": "Выйти из приложения"
+      "new": "Новый workspace"
     },
     "griduser": {
       "fullscreen": "Полный экран",
@@ -191,7 +189,9 @@
       "profile": "Профиль",
       "online": "В сети",
       "idle": "Отошел",
-      "offline": "Невидимый"
+      "offline": "Невидимый",
+      "settings": "Настройки",
+      "quit": "Выйти из приложения"
     },
     "userInChannel": {
       "profile": "Перейти в профиль",

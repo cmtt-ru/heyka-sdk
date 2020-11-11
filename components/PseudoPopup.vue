@@ -118,7 +118,7 @@ export default {
 
     &__body
       flex 1 1 auto
-      padding 0 12px
+      padding 0 16px
 
     &__footer
       display flex

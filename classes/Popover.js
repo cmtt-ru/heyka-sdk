@@ -36,7 +36,7 @@ const DEFAULT_POPPER_OPTIONS = {
       name: 'offset',
       options: {
         // eslint-disable-next-line no-magic-numbers
-        offset: [0, 8],
+        offset: [0, 4],
       },
     },
     {
