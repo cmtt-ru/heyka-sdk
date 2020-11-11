@@ -289,6 +289,7 @@
     "numbers": "only numbers allowed",
     "minlength": "min length is:",
     "maxlength": "max length is:",
-    "passNotMatch": "passwords do not match"
+    "passNotMatch": "passwords do not match",
+    "noResults": "No results for"
   }
 }
