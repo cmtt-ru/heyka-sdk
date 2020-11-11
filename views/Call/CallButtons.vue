@@ -12,6 +12,7 @@
       :size="size"
       :icon="buttonIcons.mic.icon"
       :color="buttonIcons.mic.color"
+      :height="buttonHeight"
       @click="switchProp('microphone')"
     />
 
@@ -23,6 +24,7 @@
       :size="size"
       :icon="buttonIcons.camera.icon"
       :color="buttonIcons.camera.color"
+      :height="buttonHeight"
       @click="cameraHandler"
     />
 
@@ -34,6 +36,7 @@
       :size="size"
       :icon="buttonIcons.screen.icon"
       :color="buttonIcons.screen.color"
+      :height="buttonHeight"
       @click="sharingHandler"
     />
 
@@ -44,6 +47,7 @@
       :size="size"
       :icon="buttonIcons.speakers.icon"
       :color="buttonIcons.speakers.color"
+      :height="buttonHeight"
       @click.native="switchProp('speakers')"
     />
 
@@ -53,6 +57,7 @@
       :type="7"
       :size="size"
       icon="grid"
+      :height="buttonHeight"
       @click="gridHandler()"
     />
 
@@ -63,6 +68,7 @@
       :type="7"
       :size="size"
       icon="disconnect"
+      :height="buttonHeight"
       @click="disconnectHandler"
     />
   </div>
@@ -164,6 +170,11 @@ export default {
         camera: ICON_MAP.camera[this.mediaState.camera],
         screen: ICON_MAP.screen[this.mediaState.screen],
       };
+    },
+
+    buttonHeight() {
+      // eslint-disable-next-line no-magic-numbers
+      return this.size === 'medium' ? 36 : 64;
     },
   },
 

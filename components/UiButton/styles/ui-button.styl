@@ -11,11 +11,12 @@
    * Small size button
    */
   buttonSmallSize()
-    height 24px
+    height 28px
     line-height 24px
-    font-size 14px
+    font-size 13px
+    font-weight 500
     padding 0 12px
-    border-radius 4px
+    border-radius 6px
 
   /**
    * Medium size button
@@ -24,8 +25,9 @@
     height 32px
     line-height 32px
     font-size 14px
+    font-weight 500
     padding 0 12px
-    border-radius 4px
+    border-radius 6px
 
   /**
    * Large size button
@@ -35,7 +37,7 @@
     line-height 30px
     font-size 13px
     padding 0 15px
-    border-radius 4px
+    border-radius 6px
 
   /**
    * Button with solid background
@@ -88,9 +90,9 @@
         height 28px
 
     &^[0]--medium
-      width 36px
-      height 32px
-      border-radius 4px
+      width 32px
+      height 28px
+      border-radius 6px
 
       &^[0]--square
         width 32px
@@ -103,7 +105,7 @@
       &^[0]--square
         height 64px
 
-    
+
 
   /**
    * Button with 100% width
@@ -162,7 +164,7 @@
    * used for all buttons
    */
   buttonActiveState()
-    transform translateY(1px)
+    //transform translateY(1px)
 
   /**
   * Button size classes
@@ -180,12 +182,22 @@
    * Button type classes
    */
   &--1
-    buttonSolid(var(--color-2), var(--text-tech-3))
-    buttonDefaultHoverState()
+    buttonSolid(var(--new-UI-01), var(--text-tech-3))
+
+    &:hover
+      background var(--new-UI-01-1)
+
+    &:active
+      background var(--new-UI-01-2)
 
   &--2
-    buttonBorder(var(--button-bg-4), var(--text-0), var(--stroke-3))
-    buttonDefaultHoverState()
+    buttonSolid(var(--new-UI-06), var(--text-0))
+
+    &:hover
+      background var(--new-UI-07)
+
+    &:active
+      background var(--new-UI-08)
 
   &--3
     buttonBorder(var(--app-bg), var(--text-0), var(--stroke-3))
@@ -208,6 +220,7 @@
 
     &:hover
       background var(--new-UI-07)
+
     &:active
       background var(--new-UI-08)
 
@@ -258,8 +271,13 @@
 
 
   &--12
-    buttonSolid(var(--color-0), var(--text-tech-3))
-    buttonDefaultHoverState()
+    buttonSolid(var(--new-signal-03), var(--text-tech-3))
+
+    &:hover
+      background var(--new-signal-03-1)
+
+    &:active
+      background var(--new-signal-03-2)
 
   &--13
     border-radius 100px
@@ -309,6 +327,16 @@
 
     &:hover:not(.ui-button--active)
       color var(--new-UI-02-1)
+
+  &--16
+    buttonSquareIcon(var(--button-bg-5))
+    background var(--new-UI-06)
+
+    &:hover
+      background var(--new-UI-07)
+
+    &:active
+      background var(--new-UI-08)
 
   &--icon&--caption&--wide
     buttonWithIconAndCaption()
