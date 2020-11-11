@@ -12,6 +12,7 @@
 <script>
 /* eslint-disable no-magic-numbers */
 
+import sleep from 'es7-sleep';
 import levenshtein from 'fast-levenshtein';
 import * as cyrillicToTranslit from 'cyrillic-to-translit-js';
 
@@ -102,7 +103,7 @@ export default {
      * Decide if item matches List's filter
      * @returns {void}
      */
-    matchesFilter() {
+    async matchesFilter() {
       if (!this.parentFilterBy.length) {
         this.matches = true;
 
@@ -117,6 +118,8 @@ export default {
       }
 
       this.matches = false;
+
+      await sleep(0);
 
       /* Comparison with ru->en translit */
       if (this.parentlang.code === 'ru' && this.lang.code === 'en') {
