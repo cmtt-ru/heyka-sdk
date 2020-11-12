@@ -164,6 +164,15 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    /**
+     * true if button is in some kind of popover
+     */
+    popover: {
+      type: Boolean,
+      default: false,
+    },
+
   },
 
   computed: {
@@ -221,6 +230,12 @@ export default {
        * @type {boolean}
        */
       classes[`${baseClass}--header`] = this.header;
+
+      /**
+       * Popover class
+       * @type {boolean}
+       */
+      classes[`${baseClass}--popover`] = this.popover;
 
       /**
        * square class

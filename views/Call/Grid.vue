@@ -512,6 +512,7 @@ export default {
       align-items center
       text-align center
       position relative
+      z-index 3
 
       &__you
         color var(--text-1)

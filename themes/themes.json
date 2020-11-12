@@ -64,6 +64,9 @@
                 "--new-system-02": "#FF6157",
                 "--new-system-02-1": "#FFB0AB",
                 "--new-system-02-2": "#E24640",
+                "--new-overlay-01": "#333333",
+                "--new-overlay-02": "#404040",
+                "--new-overlay-03": "#262626",
                 "--new-shadow-02": "0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)",
                 "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)"
             },
@@ -166,7 +169,10 @@
                 "--new-system-01-2": "#DFA023",
                 "--new-system-02": "#FF6157",
                 "--new-system-02-1": "#FFB0AB",
-                "--new-system-02-2": "#E24640"
+                "--new-system-02-2": "#E24640",
+                "--new-overlay-01": "#333333",
+                "--new-overlay-02": "#404040",
+                "--new-overlay-03": "#262626"
             },
             "navbar": {
                 "--app-bg": "#191919",

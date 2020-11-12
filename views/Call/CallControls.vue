@@ -4,16 +4,22 @@
     class="call-controls"
     :class="{'call-controls--row': row}"
   >
-    <div class="call-controls__row">
+    <div
+
+      class="call-controls__row"
+    >
       <avatar
         class="call-controls__avatar"
         :user-id="speakingUser.id"
-        :image="userAvatar(speakingUser.id, 36)"
-        :size="36"
-        :border-radius="4"
+        :image="userAvatar(speakingUser.id, 44)"
+        :size="44"
+        :border-radius="11"
       />
 
-      <div class="call-controls__col">
+      <div
+        v-if="!row"
+        class="call-controls__col"
+      >
         <p class="call-controls__user-name">
           {{ speakingUserName }}
         </p>
@@ -26,7 +32,7 @@
             <svg-icon
               :key="channelIcon"
               :name="channelIcon"
-              size="small"
+              size="large"
             />
           </transition>
           <transition
@@ -196,11 +202,11 @@ export default {
   .call-controls
     display flex
     flex-direction column
-    padding 8px
+    padding 12px
 
     &__row
       display flex
-      margin-bottom 8px
+      margin-bottom 12px
 
       &--controls
         flex-shrink 0
@@ -209,33 +215,45 @@ export default {
         margin-bottom 0
 
     &__col
-      margin-left 8px
+      margin-left 12px
 
     &__avatar
       display block
-      width 36px
-      height 36px
-      border-radius 4px
+      box-sizing border-box
       flex-shrink 0
+      overflow hidden
+      position relative
+
+      &:after
+        content ''
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        border-radius 11px
+        border 2px solid rgba(255,255,255,0.1)
+        z-index 2
 
     &__user-name
-      margin-top 3px
+      margin-top 4px
+      font-size 15px
+      line-height 18px
       overflow hidden
       text-overflow ellipsis
       white-space nowrap
 
     &__channel
       display flex
-      color var(--text-1)
+      color rgba(255,255,255,0.6) //! поменять, когда появится цвет в дизайне
       align-items center
-      font-size 12px
-      line-height 14px
-      margin-left -2px
-      margin-top 1px
+      line-height 18px
+      margin-left -4px
+      margin-top 2px
 
       svg
         flex-shrink 0
-        margin-top -1px
+        color var(--new-signal-02)
 
       span
         min-width 0
