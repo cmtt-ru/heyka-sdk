@@ -8,6 +8,7 @@ export const errorMessages = {
   invalidRequestPayloadInput: 'Invalid request payload input',
   unknownConnection: 'Unknow socket connection',
   connectionNotInChannel: 'Socket connection not in a channel',
+  socketAuthInvalidAccessToken: 'Invalid access token',
 
   // Universal error messages
   accessDenied: 'Access denied',

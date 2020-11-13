@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import eventNames from './eventNames';
 import { API_URL } from '@sdk/Constants';
+import connectionCheck from '@sdk/classes/connectionCheck';
 
 const socketUrl = API_URL;
 
@@ -25,6 +26,9 @@ function connect() {
 
     client.once('connect', data => {
       client.lastSocketId = client.id;
+
+      connectionCheck.handleSocketReconnecting(false);
+
       resolve(data);
     });
 

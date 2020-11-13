@@ -102,6 +102,8 @@ export async function updateTokens() {
  * @returns {string}
  */
 export async function getAccessToken() {
+  await checkAndRefreshTokens();
+
   return tokens.accessToken;
 }
 
