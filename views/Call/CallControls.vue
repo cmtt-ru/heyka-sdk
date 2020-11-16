@@ -14,6 +14,7 @@
         :image="userAvatar(speakingUser.id, 44)"
         :size="44"
         :border-radius="11"
+        @click.native="avatarClickHandler"
       />
 
       <div
@@ -52,6 +53,8 @@
 </template>
 
 <script>
+import broadcastActions from '@sdk/classes/broadcastActions';
+import broadcastEvents from '@sdk/classes/broadcastEvents';
 import CallButtons from './CallButtons';
 import Avatar from '@components/Avatar';
 import { mapGetters } from 'vuex';
@@ -194,6 +197,15 @@ export default {
     enableTransitions() {
       this.transitionName = 'fade';
     },
+
+    /**
+     * Avatar click handler
+     * @returns {void}
+     */
+    avatarClickHandler() {
+      broadcastActions.dispatch('openGrid');
+      broadcastEvents.dispatch('grid');
+    },
   },
 };
 </script>
@@ -223,6 +235,8 @@ export default {
       flex-shrink 0
       overflow hidden
       position relative
+      cursor pointer
+      -webkit-app-region no-drag
 
       &:after
         content ''

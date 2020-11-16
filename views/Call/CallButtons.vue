@@ -4,12 +4,10 @@
     class="call-buttons"
     :size="size"
   >
-    <ui-button
+    <microphone
       v-if="buttons.includes('microphone')"
       :disabled="!isDeviceAvailable('microphone') || janusInProgress"
       class="call-buttons__button"
-      :type="7"
-      popover
       :active="mediaState.microphone"
       :size="size"
       :icon="buttonIcons.mic.icon"
@@ -85,6 +83,7 @@ import UiButton from '@components/UiButton';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
+import Microphone from '../../components/Microphone.vue';
 
 /**
  * Map media state points to corresponding icons
@@ -128,6 +127,7 @@ const ICON_MAP = {
 export default {
   components: {
     UiButton,
+    Microphone,
   },
 
   props: {

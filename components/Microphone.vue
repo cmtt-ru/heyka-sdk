@@ -6,22 +6,17 @@
     @click="$emit('click')"
   >
     <div
-      class="volume-wrapper"
-      :style="iconWrapperSizeComp"
-    >
-      <div
-        v-if="active"
-        class="mic__volume"
-        :style="volume"
-      />
-      <svg-icon
-        class="mic__icon"
-        :name="iconProp.icon"
-        :stroke="iconColor && iconProp.stroke"
-        :width="iconSizeComp"
-        :height="iconSizeComp"
-      />
-    </div>
+      v-if="active"
+      class="mic__volume"
+      :style="volume"
+    />
+    <svg-icon
+      class="mic__icon"
+      :name="iconProp.icon"
+      :stroke="iconColor && iconProp.stroke"
+      :width="iconSizeComp"
+      :height="iconSizeComp"
+    />
   </div>
 </template>
 
@@ -62,9 +57,9 @@ const BUTTON_SIZES = {
     'border-radius': '4px',
   },
   medium: {
-    width: '32px',
-    height: '32px',
-    'border-radius': '4px',
+    width: '44px',
+    height: '44px',
+    'border-radius': '11px',
   },
   large: {
     width: '64px',
@@ -181,10 +176,7 @@ export default {
 <style lang="stylus" scoped>
 .mic
     position relative
-    width 24px
-    height 24px
-    background-color var(--button-bg-5)
-    border-radius 4px
+    background var(--new-overlay-01)
     cursor pointer
     display flex
     flex-direction row
@@ -192,12 +184,13 @@ export default {
     justify-content center
     flex-shrink 0
     -webkit-app-region no-drag
+    overflow hidden
 
     &:hover
-        background var(--button-bg-6)
+      background var(--new-overlay-02)
 
     &:active
-        transform translateY(1px)
+      background var(--new-overlay-03)
 
     &__volume
         will-change transform
@@ -205,11 +198,11 @@ export default {
         backface-visibility hidden
         perspective 1000
         background-color var(--color-1)
-        width 24%
         position absolute
-        bottom 42%
-        left 38%
-        height 46%
+        bottom 0
+        left 0
+        right 0
+        height 100%
         transform-origin bottom left
 
     &__icon
