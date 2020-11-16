@@ -21,13 +21,13 @@
           {{ channel.name }}
         </div>
         <ui-button
-          v-stop-propagation
           v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
           :type="7"
           class="channel__more"
           size="small"
           height="20"
           icon="more"
+          @click.native.prevent
         />
       </div>
 
@@ -267,7 +267,7 @@ export default {
     margin 2px 0
 
   &__more
-    color var(--icon-1)
+    color var(--new-UI-04)
     margin 0 4px
     flex-shrink 0
     display none
@@ -295,6 +295,6 @@ export default {
     &__more
       font-size 12px
       margin-left 4px
-      color var(--new-UI-04)
+      color var(--new-UI-03)
 
 </style>

@@ -4,14 +4,14 @@
     class="call-buttons"
     :size="size"
   >
-    <ui-button
+    <microphone
       v-if="buttons.includes('microphone')"
       :disabled="!isDeviceAvailable('microphone') || janusInProgress"
       class="call-buttons__button"
-      :type="7"
+      :active="mediaState.microphone"
       :size="size"
       :icon="buttonIcons.mic.icon"
-      :color="buttonIcons.mic.color"
+      :height="buttonHeight"
       @click="switchProp('microphone')"
     />
 
@@ -20,9 +20,11 @@
       :disabled="!isDeviceAvailable('camera') || janusInProgress"
       class="call-buttons__button"
       :type="7"
+      popover
+      :active="mediaState.camera"
       :size="size"
       :icon="buttonIcons.camera.icon"
-      :color="buttonIcons.camera.color"
+      :height="buttonHeight"
       @click="cameraHandler"
     />
 
@@ -31,9 +33,11 @@
       :disabled="janusInProgress"
       class="call-buttons__button"
       :type="7"
+      popover
+      :active="mediaState.screen"
       :size="size"
       :icon="buttonIcons.screen.icon"
-      :color="buttonIcons.screen.color"
+      :height="buttonHeight"
       @click="sharingHandler"
     />
 
@@ -41,9 +45,11 @@
       v-if="buttons.includes('speakers')"
       class="call-buttons__button"
       :type="7"
+      popover
+      :active="mediaState.speakers"
       :size="size"
       :icon="buttonIcons.speakers.icon"
-      :color="buttonIcons.speakers.color"
+      :height="buttonHeight"
       @click.native="switchProp('speakers')"
     />
 
@@ -51,8 +57,10 @@
       v-if="buttons.includes('grid')"
       class="call-buttons__button"
       :type="7"
+      popover
       :size="size"
       icon="grid"
+      :height="buttonHeight"
       @click="gridHandler()"
     />
 
@@ -61,8 +69,10 @@
       :disabled="janusInProgress"
       class="call-buttons__button call-buttons__button--disconnect"
       :type="7"
+      popover
       :size="size"
       icon="disconnect"
+      :height="buttonHeight"
       @click="disconnectHandler"
     />
   </div>
@@ -73,6 +83,7 @@ import UiButton from '@components/UiButton';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
+import Microphone from '../../components/Microphone.vue';
 
 /**
  * Map media state points to corresponding icons
@@ -81,21 +92,17 @@ const ICON_MAP = {
   mic: {
     true: {
       icon: 'mic',
-      color: 'var(--text-0)',
     },
     false: {
       icon: 'mic-off',
-      color: 'var(--text-1)',
     },
   },
   speakers: {
     true: {
       icon: 'headphones',
-      color: 'var(--text-0)',
     },
     false: {
       icon: 'headphones-off',
-      color: 'var(--text-1)',
     },
   },
   camera: {
@@ -105,17 +112,14 @@ const ICON_MAP = {
     },
     false: {
       icon: 'video-off',
-      color: 'var(--text-1)',
     },
   },
   screen: {
     true: {
       icon: 'screencast',
-      color: 'var(--text-0)',
     },
     false: {
       icon: 'screencast-off',
-      color: 'var(--text-1)',
     },
   },
 };
@@ -123,6 +127,7 @@ const ICON_MAP = {
 export default {
   components: {
     UiButton,
+    Microphone,
   },
 
   props: {
@@ -165,6 +170,11 @@ export default {
         screen: ICON_MAP.screen[this.mediaState.screen],
       };
     },
+
+    buttonHeight() {
+      // eslint-disable-next-line no-magic-numbers
+      return this.size === 'medium' ? 44 : 64;
+    },
   },
 
   methods: {
@@ -188,9 +198,9 @@ export default {
     cameraHandler() {
       this.switchProp('camera');
 
-      if (IS_ELECTRON && this.mediaState.camera) {
-        this.gridHandler();
-      }
+      // if (IS_ELECTRON && this.mediaState.camera) {
+      //   this.gridHandler();
+      // }
     },
 
     /**
@@ -250,14 +260,15 @@ export default {
       flex-shrink 0
 
       &--disconnect
-        color var(--color-0)
+        color var(--new-signal-03)
 
       &:last-child
         margin-right 0 !important
 
     &[size="medium"]
       & ^[-1]__button
-        margin-right 8px
+        margin-right 12px
+        border-radius 11px
 
     &[size="large"]
       & ^[-1]__button

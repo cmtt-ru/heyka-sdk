@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="matchesFilter"
+    v-if="matches"
     class="list-item"
     :class="{'list-item--selected': selected}"
     @click="clickHandler()"
@@ -12,6 +12,7 @@
 <script>
 /* eslint-disable no-magic-numbers */
 
+import sleep from 'es7-sleep';
 import levenshtein from 'fast-levenshtein';
 import * as cyrillicToTranslit from 'cyrillic-to-translit-js';
 
@@ -45,7 +46,7 @@ export default {
       selected: false,
       parent: this.$parent,
       lang: {},
-
+      matches: true,
     };
   },
   computed: {
@@ -83,51 +84,68 @@ export default {
         .join('');
     },
 
+  },
+
+  watch: {
+    parentFilterBy() {
+      this.matchesFilter();
+    },
+  },
+
+  mounted() {
+    this.lang = this.detectLang(this.filterKey);
+    this.matchesFilter();
+  },
+
+  methods: {
+
     /**
      * Decide if item matches List's filter
-     * @returns {boolean}
+     * @returns {void}
      */
-    matchesFilter() {
+    async matchesFilter() {
       if (!this.parentFilterBy.length) {
-        return true;
+        this.matches = true;
+
+        return;
       }
 
       /* Simple comparison */
       if (this.similarity(this.filterKey, this.parentFilterBy)) {
-        return true;
+        this.matches = true;
+
+        return;
       }
+
+      this.matches = false;
+
+      await sleep(0);
 
       /* Comparison with ru->en translit */
       if (this.parentlang.code === 'ru' && this.lang.code === 'en') {
         if (this.similarity(this.filterKey, cyrillicToTranslit().transform(this.parentFilterBy))) {
-          return true;
+          this.matches = true;
+
+          return;
         }
       }
 
       /* Comparison with en->ru translit */
       if (this.parentlang.code === 'en' && this.lang.code === 'ru') {
         if (this.similarity(this.filterKey, cyrillicToTranslit().reverse(this.parentFilterBy))) {
-          return true;
+          this.matches = true;
+
+          return;
         }
       }
 
       /* Comparison with accidentally incorrect layout */
       if (this.parentlang.code !== this.lang.code) {
         if (this.similarity(this.filterKey, this.switchedParentLayout)) {
-          return true;
+          this.matches = true;
         }
       }
-
-      return false;
     },
-
-  },
-
-  mounted() {
-    this.lang = this.detectLang(this.filterKey);
-  },
-
-  methods: {
 
     /**
      * Compare substring with string

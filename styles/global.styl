@@ -49,7 +49,7 @@ generateLayoutClasses($layout-grid)
       padding-top $n * 1px
 
     &pr-{$n}
-      padding-left $n * 1px
+      padding-right $n * 1px
 
     &pb-{$n}
       padding-bottom $n * 1px
@@ -64,7 +64,7 @@ generateLayoutClasses($layout-grid)
  *   `l-mt-8` means `margin-top: 8px`
  */
 .l-
-  $sizes = 4, 8, 10, 12, 16, 18, 24, 36, 48
+  $sizes = 4, 6, 8, 10, 12, 16, 18, 24, 36, 48
   generateLayoutClasses($sizes)
 
 .l-ml-auto

@@ -99,6 +99,7 @@ export default {
       if (this.user.microphone === false) {
         icons.push(ICON_MAP['mic']);
       }
+
       if (this.user.speakers === false) {
         icons.push(ICON_MAP['headphones']);
       }
@@ -124,10 +125,9 @@ export default {
     flex-direction row
     justify-content flex-start
     align-items center
-    padding 4px
-    margin 2px 0
+    padding 6px
     width 100%
-    border-radius 4px
+    border-radius 6px
 
     &:hover,
     &.context-menu--opened
@@ -146,7 +146,8 @@ export default {
         flex-shrink 0
 
         &__icon
-            padding-left 4px
+            margin-left 6px
+            color var(--new-UI-03)
 
     &__sharing
         flex-shrink 0
