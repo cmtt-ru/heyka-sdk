@@ -3,6 +3,12 @@
     class="avatar"
     :style="containerSize"
   >
+    <transition name="fade">
+      <div
+        v-if="onair && mic"
+        class="avatar__onair"
+      />
+    </transition>
     <div
       class="avatar__no-image"
       :class="{'avatar__image--square': square}"
@@ -31,13 +37,6 @@
         class="avatar__status__dot"
       />
     </div>
-
-    <transition name="fade">
-      <div
-        v-if="onair && mic"
-        class="avatar__onair"
-      />
-    </transition>
   </div>
 </template>
 
@@ -209,7 +208,6 @@ export default {
       border-radius 50%
       object-fit cover
       background-color #ffffff
-      z-index 2
 
       &--square
         border-radius 0 !important
@@ -225,8 +223,8 @@ export default {
       max-width 8px
       max-height 8px
       border-radius 50%
-      background-color var(--app-bg)
-      border 2px solid var(--app-bg)
+      background-color var(--new-bg-04)
+      border 2px solid var(--new-bg-04)
       z-index 3
 
       &__dot
@@ -247,11 +245,9 @@ export default {
       top -4px
       border-radius 50%
       border 2px solid transparent
-      background-image linear-gradient(var(--new-bg-04), var(--new-bg-04)), linear-gradient(180deg, #48DA85 0%, #14A49B 100%)
+      background-image linear-gradient(transparent, transparent), linear-gradient(180deg, #48DA85 0%, #14A49B 100%)
       background-origin border-box
       background-clip content-box, border-box
-
-      z-index 1
 
       &::after
         content ''
@@ -262,7 +258,7 @@ export default {
         top 0
         border-radius 50%
         background-color transparent
-        border 2px solid var(--app-bg)
+        border 2px solid var(--new-bg-04)
 
   .fade-enter-active,
   .fade-leave-active
