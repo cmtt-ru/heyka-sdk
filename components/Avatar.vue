@@ -223,8 +223,8 @@ export default {
       max-width 8px
       max-height 8px
       border-radius 50%
-      background-color var(--app-bg)
-      border 2px solid var(--app-bg)
+      background-color var(--new-bg-04)
+      border 2px solid var(--new-bg-04)
       z-index 3
 
       &__dot
@@ -258,7 +258,7 @@ export default {
         top 0
         border-radius 50%
         background-color transparent
-        border 2px solid var(--app-bg)
+        border 2px solid var(--new-bg-04)
 
   .fade-enter-active,
   .fade-leave-active
