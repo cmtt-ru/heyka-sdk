@@ -16,6 +16,18 @@
     />
 
     <ui-button
+      v-if="buttons.includes('drawing')"
+      class="call-buttons__button"
+      :type="7"
+      popover
+      :active="allowDraw"
+      :size="size"
+      :icon="buttonIcons.drawing.icon"
+      :height="buttonHeight"
+      @click.native="switchDrawing"
+    />
+
+    <ui-button
       v-if="buttons.includes('camera')"
       :disabled="!isDeviceAvailable('camera') || janusInProgress"
       class="call-buttons__button"
@@ -97,6 +109,14 @@ const ICON_MAP = {
       icon: 'mic-off',
     },
   },
+  drawing: {
+    true: {
+      icon: 'drawing',
+    },
+    false: {
+      icon: 'drawing-off',
+    },
+  },
   speakers: {
     true: {
       icon: 'headphones',
@@ -158,6 +178,15 @@ export default {
       selectedDevices: 'app/getSelectedDevices',
     }),
 
+    allowDraw: {
+      get() {
+        return this.$store.state.me.allowDraw;
+      },
+      set(val) {
+        this.$store.commit('me/SET_ALLOW_DRAW', val);
+      },
+    },
+
     /**
      * Determine which icons to show
      * @returns {object}
@@ -165,6 +194,7 @@ export default {
     buttonIcons() {
       return {
         mic: ICON_MAP.mic[this.mediaState.microphone],
+        drawing: ICON_MAP.drawing[this.allowDraw],
         speakers: ICON_MAP.speakers[this.mediaState.speakers],
         camera: ICON_MAP.camera[this.mediaState.camera],
         screen: ICON_MAP.screen[this.mediaState.screen],
@@ -189,6 +219,16 @@ export default {
       newState[property] = !this.mediaState[property];
 
       broadcastActions.dispatch('me/setMediaState', newState);
+    },
+
+    /**
+     * Change drawing state
+     *
+     * @returns {void}
+     */
+    switchDrawing() {
+      this.allowDraw = !this.allowDraw;
+      broadcastEvents.dispatch('toggleDrawing', this.allowDraw);
     },
 
     /**

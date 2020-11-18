@@ -8,7 +8,12 @@
     <div
       v-if="active"
       class="mic__volume"
-      :style="volume"
+      :style="volumeTransform"
+    />
+    <div
+      v-if="active"
+      class="mic__volume"
+      :style="medianVolumeTransform"
     />
     <svg-icon
       class="mic__icon"
@@ -68,6 +73,8 @@ const BUTTON_SIZES = {
   },
 };
 
+const NEW_VOLUME_WEIGHT = 0.1;
+
 export default {
   props: {
     /**
@@ -120,6 +127,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      medianVolume: 0,
+    };
+  },
+
   computed: {
     /**
      * Display either active or inactive icon
@@ -129,17 +142,32 @@ export default {
       return STATES[this.active];
     },
 
+    currentVolume() {
+      return this.$store.getters['app/getMicrophoneVolume'];
+    },
+
     /**
-     * Convert DB to height in percentage, filling up the mic icon
+     * Convert DB to height in percentage, filling up the mic button
      * @returns {object}
      */
-    volume() {
+    volumeTransform() {
       return {
         // eslint-disable-next-line no-magic-numbers
-        transform: `scaleY(${Math.floor(this.$store.getters['app/getMicrophoneVolume'] + 100) / 100})`,
-        backgroundColor: this.fillColor,
+        transform: `scaleY(${Math.floor(this.currentVolume + 100) / 100})`,
       };
     },
+
+    /**
+     * Convert DB to height in percentage, filling up the mic button, BUT IN OTHER WAY
+     * @returns {object}
+     */
+    medianVolumeTransform() {
+      return {
+        // eslint-disable-next-line no-magic-numbers
+        transform: `scaleY(${Math.floor(this.medianVolume + 100) / 100})`,
+      };
+    },
+
     /**
      * Compute right icon size
      *
@@ -170,6 +198,12 @@ export default {
       return BUTTON_SIZES[this.size];
     },
   },
+
+  watch: {
+    currentVolume(volume) {
+      this.medianVolume = this.medianVolume * (1 - NEW_VOLUME_WEIGHT) + volume * NEW_VOLUME_WEIGHT;
+    },
+  },
 };
 </script>
 
@@ -197,8 +231,9 @@ export default {
         transform translateZ(0)
         backface-visibility hidden
         perspective 1000
-        background-color var(--color-1)
+        background-color var(--new-signal-02)
         position absolute
+        opacity 0.5
         bottom 0
         left 0
         right 0
