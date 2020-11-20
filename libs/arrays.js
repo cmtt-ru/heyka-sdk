@@ -93,6 +93,9 @@ export function sortAny(options = [ {
         } else if (field.type === 'boolean') {
           firstValue = a[field.key] ? 1 : 0;
           secondValue = b[field.key] ? 1 : 0;
+        } else if (field.type === 'array-count') {
+          firstValue = a[field.key].length;
+          secondValue = b[field.key].length;
         }
 
         if (firstValue > secondValue) {
