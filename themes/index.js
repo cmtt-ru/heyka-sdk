@@ -38,7 +38,7 @@ class Themes {
     }
 
     /* Listen to native theme update (in case we have automode on) */
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(() => {
       if (this.storeVue.auto) {
         this.autoSetTheme();
       }
