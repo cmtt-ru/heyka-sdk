@@ -190,6 +190,8 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {object}
    */
   getBitrate() {
+    console.log(this.__pluginHandle.webrtcStuff);
+
     return this.__pluginHandle.webrtcStuff.bitrate;
   }
 

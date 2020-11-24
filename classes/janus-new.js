@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 /*
 	The MIT License (MIT)
 
@@ -23,8 +21,6 @@
 	ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import adapter from 'webrtc-adapter';
 
 // List of sessions
 Janus.sessions = {};
@@ -1223,15 +1219,7 @@ function Janus(gatewayCallbacks) {
 								bsbefore : null,
 								tsnow : null,
 								tsbefore : null,
-								timer : null,
-								lostPackets : null,
-								lostPacketsBefore : null,
-								outTimestampNow: null,
-								outTimestampBefore: null,
-								receivedPackets: null,
-								receivedPacketsBefore: null,
-								lostPacketsRate: null,
-								percentOfLostPackets: null
+								timer : null
 							}
 						},
 						getId : function() { return handleId; },
@@ -1340,8 +1328,8 @@ function Janus(gatewayCallbacks) {
 						webrtcState : callbacks.webrtcState,
 						slowLink : callbacks.slowLink,
 						onmessage : callbacks.onmessage,
-						createOffer : function(callbacks) { prepareWebrtc(handleId, callbacks); },
-						createAnswer : function(callbacks) { prepareWebrtc(handleId, callbacks); },
+						createOffer : function(callbacks) { prepareWebrtc(handleId, true, callbacks); },
+						createAnswer : function(callbacks) { prepareWebrtc(handleId, false, callbacks); },
 						handleRemoteJsep : function(callbacks) { prepareWebrtcPeer(handleId, callbacks); },
 						onlocalstream : callbacks.onlocalstream,
 						onremotestream : callbacks.onremotestream,
@@ -3644,5 +3632,3 @@ function Janus(gatewayCallbacks) {
 		return (trickle === false) ? false : true;
 	}
 }
-
-export default Janus;
