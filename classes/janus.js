@@ -1893,7 +1893,7 @@ function Janus(gatewayCallbacks) {
 				if(!event.streams)
 					return;
 				config.remoteStream = event.streams[0];
-				pluginHandle.onremotestream(config.remoteStream);
+				// pluginHandle.onremotestream(config.remoteStream);
 				if(event.track.onended)
 					return;
 				if(config.receiverTransforms) {
@@ -1927,7 +1927,7 @@ function Janus(gatewayCallbacks) {
 					if(config.remoteStream) {
 						clearTimeout(trackMutedTimeoutId);
 						config.remoteStream.removeTrack(ev.target);
-						pluginHandle.onremotestream(config.remoteStream);
+						// pluginHandle.onremotestream(config.remoteStream);
 					}
 				};
 				event.track.onmute = function(ev) {
@@ -1937,7 +1937,7 @@ function Janus(gatewayCallbacks) {
 							Janus.log("Removing remote track");
 							if (config.remoteStream) {
 								config.remoteStream.removeTrack(ev.target);
-								pluginHandle.onremotestream(config.remoteStream);
+								// pluginHandle.onremotestream(config.remoteStream);
 							}
 							trackMutedTimeoutId = null;
 						// Chrome seems to raise mute events only at multiples of 834ms;
