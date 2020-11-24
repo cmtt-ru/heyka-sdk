@@ -124,7 +124,7 @@ class AudiobridgePlugin extends EventEmitter {
         const event = message.audiobridge;
 
         switch (true) {
-          case event === 'joined':
+          case event === 'joined' && !!message.id:
             this._onJoinedChannel(message);
             break;
           case jsep !== undefined && jsep !== null:
@@ -190,8 +190,6 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {object}
    */
   getBitrate() {
-    console.log(this.__pluginHandle.webrtcStuff);
-
     return this.__pluginHandle.webrtcStuff.bitrate;
   }
 

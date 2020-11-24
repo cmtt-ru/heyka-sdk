@@ -1742,6 +1742,7 @@ function Janus(gatewayCallbacks) {
 			pluginHandle.onlocalstream(config.myStream);
 		// Create offer/answer now
 		if(jsep === null || jsep === undefined) {
+			console.log('CREATE OFFER 2', media);
 			createOffer(handleId, media, callbacks);
 		} else {
 			config.pc.setRemoteDescription(jsep)
@@ -2886,7 +2887,7 @@ function Janus(gatewayCallbacks) {
 										config.bitrate.valueInt = bitRate
 										config.bitrate.lostPacketsRate = Math.round((config.bitrate.lostPackets - config.bitrate.lostPacketsBefore) / timePassed * 1000 * 100) / 100;
 										config.bitrate.percentOfLostPackets = Math.round((config.bitrate.lostPacketsRate / (config.bitrate.receivedPackets - config.bitrate.receivedPacketsBefore))*100*100)/100;
-										Janus.log("Estimated bitrate is " + config.bitrate.value);
+										// Janus.log("Estimated bitrate is " + config.bitrate.value);
 									}
 								} else if (outStats) {
 									config.bitrate.outTimestampBefore = config.bitrate.outTimestampNow;
@@ -2906,7 +2907,7 @@ function Janus(gatewayCallbacks) {
 											bitRate = parseInt(bitRate/1000);
 										config.bitrate.outvalue = bitRate + ' kbits/sec';
 										config.bitrate.outvalueInt = bitRate
-										Janus.log("Estimated outcoming bitrate is " + config.bitrate.outvalue);
+										// Janus.log("Estimated outcoming bitrate is " + config.bitrate.outvalue);
 									}
 
 								}

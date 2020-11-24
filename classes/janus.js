@@ -1340,8 +1340,8 @@ function Janus(gatewayCallbacks) {
 						webrtcState : callbacks.webrtcState,
 						slowLink : callbacks.slowLink,
 						onmessage : callbacks.onmessage,
-						createOffer : function(callbacks) { prepareWebrtc(handleId, callbacks); },
-						createAnswer : function(callbacks) { prepareWebrtc(handleId, callbacks); },
+						createOffer : function(callbacks) { prepareWebrtc(handleId, true, callbacks); },
+						createAnswer : function(callbacks) { prepareWebrtc(handleId, false, callbacks); },
 						handleRemoteJsep : function(callbacks) { prepareWebrtcPeer(handleId, callbacks); },
 						onlocalstream : callbacks.onlocalstream,
 						onremotestream : callbacks.onremotestream,
@@ -3224,6 +3224,7 @@ function Janus(gatewayCallbacks) {
 								if(!res)
 									return;
 								var inStats = false;
+								var outStats = false;
 								// Check if these are statistics on incoming media
 								if((res.mediaType === "video" || res.id.toLowerCase().indexOf("video") > -1) &&
 										res.type === "inbound-rtp" && res.id.indexOf("rtcp") < 0) {
@@ -3233,28 +3234,62 @@ function Janus(gatewayCallbacks) {
 										(res.googCodecName === "VP8" || res.googCodecName === "")) {
 									// Older Chromer versions
 									inStats = true;
+								} else if (res.type === 'ssrc' && res.bytesReceived && res.mediaType === 'audio') {
+									inStats = true;
+								} else if (res.type === 'ssrc' && res.bytesSent && res.mediaType === 'audio') {
+									outStats = true;
 								}
 								// Parse stats now
 								if(inStats) {
+									config.bitrate.receivedPacketsBefore = config.bitrate.receivedPackets;
+									config.bitrate.bsbefore = config.bitrate.bsnow
+									config.bitrate.lostPacketsBefore = config.bitrate.lostPackets
+									config.bitrate.tsbefore = config.bitrate.tsnow
 									config.bitrate.bsnow = res.bytesReceived;
 									config.bitrate.tsnow = res.timestamp;
+									config.bitrate.lostPackets = res.packetsLost;
+									config.bitrate.receivedPackets = res.packetsReceived;
 									if(config.bitrate.bsbefore === null || config.bitrate.tsbefore === null) {
 										// Skip this round
 										config.bitrate.bsbefore = config.bitrate.bsnow;
 										config.bitrate.tsbefore = config.bitrate.tsnow;
+										config.bitrate.lostPacketsBefore = config.bitrate.lostPackets;
+										config.bitrate.receivedPacketsBefore = config.bitrate.receivedPackets;
 									} else {
 										// Calculate bitrate
 										var timePassed = config.bitrate.tsnow - config.bitrate.tsbefore;
-										if(Janus.webRTCAdapter.browserDetails.browser === "safari")
+										if(Janus.webRTCAdapter.browserDetails.browser == "safari")
 											timePassed = timePassed/1000;	// Apparently the timestamp is in microseconds, in Safari
 										var bitRate = Math.round((config.bitrate.bsnow - config.bitrate.bsbefore) * 8 / timePassed);
-										if(Janus.webRTCAdapter.browserDetails.browser === "safari")
+										if(Janus.webRTCAdapter.browserDetails.browser === 'safari')
 											bitRate = parseInt(bitRate/1000);
 										config.bitrate.value = bitRate + ' kbits/sec';
-										//~ Janus.log("Estimated bitrate is " + config.bitrate.value);
-										config.bitrate.bsbefore = config.bitrate.bsnow;
-										config.bitrate.tsbefore = config.bitrate.tsnow;
+										config.bitrate.valueInt = bitRate
+										config.bitrate.lostPacketsRate = Math.round((config.bitrate.lostPackets - config.bitrate.lostPacketsBefore) / timePassed * 1000 * 100) / 100;
+										config.bitrate.percentOfLostPackets = Math.round((config.bitrate.lostPacketsRate / (config.bitrate.receivedPackets - config.bitrate.receivedPacketsBefore))*100*100)/100;
+										// Janus.log("Estimated bitrate is " + config.bitrate.value);
 									}
+								} else if (outStats) {
+									config.bitrate.outTimestampBefore = config.bitrate.outTimestampNow;
+									config.bitrate.bytesSentBefore = config.bitrate.bytesSentNow;
+									config.bitrate.bytesSentNow = res.bytesSent;
+									config.bitrate.outTimestampNow = res.timestamp
+									if (config.bitrate.bytesSentNow === null || config.bitrate.outTimestampNow === null) {
+										config.bitrate.bytesSentBefore = config.bitrate.bytesSentNow;
+										config.bitrate.outTimestampBefore = config.bitrate.outTimestampNow;
+									} else {
+										// Calculate bitrate
+										var timePassed = config.bitrate.outTimestampNow - config.bitrate.outTimestampBefore;
+										if(Janus.webRTCAdapter.browserDetails.browser == "safari")
+											timePassed = timePassed/1000;	// Apparently the timestamp is in microseconds, in Safari
+										var bitRate = Math.round((config.bitrate.bytesSentNow - config.bitrate.bytesSentBefore) * 8 / timePassed);
+										if(Janus.webRTCAdapter.browserDetails.browser === 'safari')
+											bitRate = parseInt(bitRate/1000);
+										config.bitrate.outvalue = bitRate + ' kbits/sec';
+										config.bitrate.outvalueInt = bitRate
+										// Janus.log("Estimated outcoming bitrate is " + config.bitrate.outvalue);
+									}
+
 								}
 							});
 						});
