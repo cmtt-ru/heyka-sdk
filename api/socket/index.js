@@ -10,8 +10,6 @@ import broadcastEvents from '@sdk/classes/broadcastEvents';
 
 const cnsl = new Logger('SOCKETS', '#d67a24');
 
-const DISCONNECT_TIMEOUT = 2000;
-
 /** Handle internet reconnection event */
 connectionCheck.on('internet-reconnected', () => {
   if (!connected()) {
@@ -59,18 +57,6 @@ export async function init() {
 }
 
 /**
- * Save current socket id and time
- *
- * @return {void}
- */
-export async function saveSocketParams() {
-  store.commit('app/SET_SOCKET_ID', {
-    id: client.lastSocketId,
-    connectedAt: Date.now(),
-  });
-}
-
-/**
  * Socket connected status
  *
  * @return {boolean}
@@ -115,16 +101,18 @@ function unbindEvents() {
 /**
  * Authorize in socket
  *
- * @param {string?} prevSocketId Previous socket id
  * @returns {promise}
  */
-async function authorize(prevSocketId) {
+async function authorize() {
   const accessToken = await getAccessToken();
   const onlineStatus = store.getters['me/getOnlineStatus'];
 
   return new Promise((resolve, reject) => {
     client.once(eventNames.authSuccess, data => {
       cnsl.log('socket auth success:', data);
+
+      client.prevSocketId = client.id;
+
       store.dispatch('setSocketConnected', {
         connected: true,
         ...data,
@@ -142,7 +130,8 @@ async function authorize(prevSocketId) {
       workspaceId: store.getters['me/getSelectedWorkspaceId'],
       token: accessToken,
       onlineStatus: onlineStatus,
-      ...(prevSocketId ? { prevSocketId } : prevSocketId),
+      prevSocketId: client.prevSocketId,
+      // ...(prevSocketId ? /**/{ prevSocketId } : prevSocketId),
     };
 
     client.emit(eventNames.auth, authData);
@@ -161,22 +150,11 @@ async function authorize(prevSocketId) {
  * @returns {void}
  */
 function connectHandler() {
-  // rewrite last socket id
-  client.lastSocketId = client.id;
-
   cnsl.info('connected!');
   connectionCheck.handleSocketReconnecting(false);
 
   // try to authorize new connection as the old connection
-  const prevSocketParams = store.state.app.socket;
-
-  const timeFromLastSocketConnected = Date.now() - parseInt(prevSocketParams.connectedAt);
-
-  if (timeFromLastSocketConnected < DISCONNECT_TIMEOUT) {
-    authorize(prevSocketParams.id);
-  } else {
-    authorize();
-  }
+  authorize();
 }
 
 /**
@@ -188,9 +166,6 @@ function bindErrorEvents() {
   client.on(eventNames.disconnect, data => {
     cnsl.log('disconnect', data);
     store.dispatch('setSocketConnected', false);
-
-    // remember latest socket id
-    saveSocketParams();
   });
 
   client.on('connect', connectHandler);

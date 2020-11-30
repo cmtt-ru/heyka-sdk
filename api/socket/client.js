@@ -25,8 +25,6 @@ function connect() {
     }
 
     client.once('connect', data => {
-      client.lastSocketId = client.id;
-
       connectionCheck.handleSocketReconnecting(false);
 
       resolve(data);
