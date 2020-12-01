@@ -44,6 +44,11 @@ class PublishingVideoroomPlugin extends EventEmitter {
    * @returns {void}
    */
   attach() {
+    if (!this.__janus) {
+      console.log('Publishing videoroom plugin --> attach() __janus undefined')
+      return;
+    }
+
     this.__janus.attach({
       plugin: JANUS_PLUGIN,
       opaqueId: this.__userId,
