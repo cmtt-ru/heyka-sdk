@@ -45,16 +45,13 @@ class PublishingVideoroomPlugin extends EventEmitter {
    */
   attach() {
     if (!this.__janus) {
-      console.log('Publishing videoroom plugin --> attach() __janus undefined')
       return;
     }
-    console.log('Try to atta h publishing video pulugih');
     this.__janus.attach({
       plugin: JANUS_PLUGIN,
       opaqueId: this.__userId,
       // Called when plugin attached
       success: pluginHandle => {
-        console.log('publi videromm plugin plugin attached', this.__detached);
         if (this.__detached) {
           return;
         }
@@ -116,7 +113,6 @@ class PublishingVideoroomPlugin extends EventEmitter {
 
       // Handle a message from plugin
       onmessage: (message, jsep) => {
-        console.log('publ mess', message);
         if (this.__detached) {
           return;
         }
@@ -277,7 +273,6 @@ class PublishingVideoroomPlugin extends EventEmitter {
    * @returns {undefined}
    */
   _joinAsSubscriber() {
-    console.log('credentuials videoroom: ', this.__room, this.__token);
     this.__pluginHandle.send({
       message: {
         request: 'join',

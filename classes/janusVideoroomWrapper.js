@@ -89,7 +89,7 @@ class JanusVideoroomWrapper extends EventEmitter {
         reject(new Error('WebRTC is not supported'));
       }
       Janus.init({
-        debug: true,
+        debug: this.__debug,
         dependencies: Janus.useDefaultDependencies(),
         callback: function () {
           resolve();
@@ -105,17 +105,13 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {void}
    */
   async join(userId, options) {
-    console.log('janusVideoroomWrapper.join', options);
-
     /** Connect to Janus */
     if (!this.__janus) {
-      console.log('We are here, connect janus');
       await this._connect(options.janusServerUrl, options.janusWsServerUrl, options.janusAuthToken);
     }
 
     // If channel if changed, leave previous channel first
     if (this.__janusOptions.videoRoomId && this.__janusOptions.videoRoomId !== options.videoRoomId) {
-      console.log('We are here, leave and than reconnect');
       await this.leave();
       await this._connect(options.janusServerUrl, options.janusWsServerUrl, options.janusAuthToken);
     }
@@ -123,14 +119,11 @@ class JanusVideoroomWrapper extends EventEmitter {
     // If trying to connect the same channel do nothing
     // Impossible case. JanusOptions will be destroyed when leave channel
     if (this.__janusOptions.videoRoomId && this.__janusOptions.videoRoomId === options.videoRoomId) {
-      console.log('We are here, impossible situation');
-
       return;
     }
 
     // save janus options
     this.__janusOptions = { ...options };
-    console.log('here is new janus options: ---------', { ...this.__janusOptions });
 
     // connect videoroom plugin
     const videoroomPlugin = new PublishingVideoroomPlugin({
@@ -156,7 +149,6 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {Promise<null>}
    */
   leave() {
-    console.log('janusVideoroomWrapper.leave', !!this.__videoroomPlugin);
     if (!this.__videoroomPlugin) {
       return;
     }
@@ -495,7 +487,6 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {void}
    */
   _onPublisherList(publishers) {
-    console.log('on publisher list: ', publishers);
     if (publishers.length) {
       publishers.forEach(this._onPublisherJoined.bind(this));
     }
@@ -511,7 +502,6 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {void}
    */
   _onPublisherJoined(publisher) {
-    console.log('on publisher joined', publisher);
     const publisherObject = {
       userId: publisher.display,
       janusId: publisher.id,
@@ -612,14 +602,11 @@ class JanusVideoroomWrapper extends EventEmitter {
         server: [janusWsServerUrl, janusServerUrl],
         token: janusAuthToken,
         success: () => {
-          console.log('resolved janus connect for janusVideoroomWrapper');
           resolve();
           isFullfilled = true;
         },
         error: (cause) => {
           let internalError = '';
-
-          console.log('Connect videoroomWrapper error, cause: ', cause);
 
           if (cause.indexOf('Connect to Janus error') + 1 || cause.indexOf('Lost connection to the server') + 1) {
             internalError = ERROR_CODES.SERVER_DOWN;
