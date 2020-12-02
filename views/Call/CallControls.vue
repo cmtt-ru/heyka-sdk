@@ -18,7 +18,6 @@
       />
 
       <div
-        v-if="!row"
         class="call-controls__col"
       >
         <p class="call-controls__user-name">
@@ -287,12 +286,13 @@ export default {
 
     &--row
       flex-direction row
+      justify-content center
 
       .call-controls__row
         margin-bottom 0
 
-      .call-controls__row--controls
-        margin-left auto
+        &--controls
+          margin-left 12px
 
   .fade-enter-active,
   .fade-leave-active
@@ -301,5 +301,18 @@ export default {
   .fade-enter,
   .fade-leave-to
     opacity 0
+
+.call-controls--row .call-controls__col
+  display none
+
+@media screen and (min-width: 499px)
+  .call-controls__row
+    flex-grow 3
+
+    &--controls
+      flex-grow 0
+
+  .call-controls--row .call-controls__col
+    display initial
 
 </style>
