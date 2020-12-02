@@ -18,6 +18,8 @@ export default function logout(redirectToAuth = true) {
 
   broadcastActions.dispatch('unselectChannelWithoutAPICall');
 
+  broadcastActions.dispatch('logout');
+
   sockets.destroy();
 
   if (redirectToAuth) {
