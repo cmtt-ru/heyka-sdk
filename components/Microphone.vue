@@ -209,53 +209,54 @@ export default {
 
 <style lang="stylus" scoped>
 .mic
+  position relative
+  background var(--new-overlay-01)
+  cursor pointer
+  display flex
+  flex-direction row
+  align-items center
+  justify-content center
+  flex-shrink 0
+  -webkit-app-region no-drag
+  overflow hidden
+
+  &:hover
+    background var(--new-overlay-02)
+
+  &:active
+    background var(--new-overlay-03)
+
+  &__volume
+    will-change transform
+    transform translateZ(0)
+    backface-visibility hidden
+    perspective 1000
+    background-color var(--new-signal-02)
+    position absolute
+    opacity 0.5
+    bottom 0
+    left 0
+    right 0
+    height 100%
+    transform-origin bottom left
+    mix-blend-mode color-dodge
+
+  &__icon
     position relative
-    background var(--new-overlay-01)
-    cursor pointer
-    display flex
-    flex-direction row
-    align-items center
-    justify-content center
-    flex-shrink 0
-    -webkit-app-region no-drag
-    overflow hidden
+
+  &--disabled
+    pointer-events none
+    opacity 0.5
+
+  &--header
 
     &:hover
-      background var(--new-overlay-02)
+      background var(--new-button-appbar-hover)
+      mix-blend-mode luminosity
 
     &:active
-      background var(--new-overlay-03)
-
-    &__volume
-        will-change transform
-        transform translateZ(0)
-        backface-visibility hidden
-        perspective 1000
-        background-color var(--new-signal-02)
-        position absolute
-        opacity 0.5
-        bottom 0
-        left 0
-        right 0
-        height 100%
-        transform-origin bottom left
-
-    &__icon
-        position relative
-
-    &--disabled
-      pointer-events none
-      opacity 0.5
-
-    &--header
-
-      &:hover
-        background var(--new-button-appbar-hover)
-        mix-blend-mode luminosity
-
-      &:active
-        background var(--new-button-appbar-active)
-        mix-blend-mode luminosity
+      background var(--new-button-appbar-active)
+      mix-blend-mode luminosity
 
 .volume-wrapper
   position absolute
