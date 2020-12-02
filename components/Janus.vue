@@ -115,12 +115,13 @@ export default {
         this.stopSharingVideo();
       }
     },
+
     /**
      * Handles change screen sharing state
      * @param {boolean} state Is screen sharing enabled
      * @returns {void}
      */
-    screen(state) {
+    async screen(state) {
       if (state) {
         this.startSharingScreen();
       } else {
@@ -148,49 +149,41 @@ export default {
         janusWrapper.setMicrophoneDevice(deviceId);
       }
     },
-
-    // microphonesDeviceList() {
-    //   if (this.selectedMicrophoneDevice === 'default') {
-    //     if (janusWrapper) {
-    //       console.log('microphonesDeviceList', this.selectedMicrophoneDevice);
-    //       janusWrapper.setMicrophoneDevice(this.selectedMicrophoneDevice);
-    //     }
-    //   }
-    // },
-    //
-    // speakersDeviceList() {
-    //   if (this.selectedSpeakerDevice === 'default') {
-    //     console.log('speakersDeviceList', this.selectedSpeakerDevice);
-    //     this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
-    //   }
-    // },
   },
+
   async created() {
     await JanusWrapper.init();
 
     network.on('ip-changed', () => {
-      if (this.selectedChannelId && janusWrapper) {
-        this.unselectChannel();
-        this.selectChannel();
+      this.reSelectChannel();
+    });
+
+    network.on('internet-state', (state) => {
+      if (state) {
+        this.reSelectChannel();
       }
     });
 
     cnsl.log('JanusWrapper was initialized');
   },
+
   beforeDestroy() {
     if (janusWrapper) {
       janusWrapper.disconnect();
     }
   },
+
   destroyed() {
     AudioCheck.destroyMediaStream();
   },
+
   methods: {
     setOperationStart(operation) {
       this.$store.dispatch('janus/setInProgress', true);
       this.currentOperation = operation;
       cnsl.info('setOperationStart', operation);
     },
+
     setOperationFinish(operation) {
       cnsl.info('setOperationFinish', operation);
       if (operation === this.currentOperation) {
@@ -199,9 +192,11 @@ export default {
         this.currentOperation = '';
       }
     },
+
     resetOperations() {
       this.setOperationFinish(this.currentOperation);
     },
+
     /**
      * Join to the Janus channel
      * Subscribe for event from JanusWrapper
@@ -413,14 +408,6 @@ export default {
     },
 
     /**
-     * Handles socket is disconnected
-     * @returns {void}
-     */
-    onSocketDisconnected() {
-      this.unselectChannel();
-    },
-
-    /**
      * Handle audio slow link
      * @param {boolean} uplink - false when all of our packets is not received by Janus, true – some packets lost
      * @returns {void}
@@ -445,6 +432,17 @@ export default {
     onWebrtcCleanUp() {
       this.setOperationFinish('unpublish');
       this.$store.dispatch('janus/setInProgress', false);
+    },
+
+    /**
+     * Unselect and than select channel again
+     * @returns {void}
+     */
+    reSelectChannel() {
+      if (this.selectedChannelId && janusWrapper) {
+        this.unselectChannel();
+        this.selectChannel();
+      }
     },
 
     /**

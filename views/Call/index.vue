@@ -33,6 +33,11 @@ export default {
       }
     },
   },
+  mounted() {
+    window.addEventListener('beforeunload', function (e) {
+      janusVideoroomWrapper._disconnect();
+    });
+  },
   async created() {
     await janusVideoroomWrapper.init();
     if (this.selectedChannelId) {
