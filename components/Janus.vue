@@ -17,9 +17,8 @@ import mediaCapturer from '@classes/mediaCapturer';
 import { mapState } from 'vuex';
 import Logger from '@sdk/classes/logger';
 import network from '@sdk/classes/network';
+import AudioQualityController from '@sdk/classes/AudioQualityController';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
-
-const BITRATE_CHECK_TIMEOUT = 1000;
 
 /**
  * Janus wrapper instance
@@ -27,7 +26,7 @@ const BITRATE_CHECK_TIMEOUT = 1000;
  */
 let janusWrapper = null;
 
-let bitrateInterval = null;
+let audioQC = null;
 
 export default {
   name: 'Janus',
@@ -232,15 +231,17 @@ export default {
             janusWrapper.publishVideoStream('stream', await mediaCapturer.getScreenStream());
           }
         }
+
+        audioQC = new AudioQualityController(janusWrapper.getAudioPeerConnection());
+
+        audioQC.on('prebuffer', value => {
+          if (janusWrapper) {
+            janusWrapper.setAudioPrebuffer(value);
+          }
+        });
       });
 
       JanusEvents.emit('joined');
-
-      bitrateInterval = setInterval(() => {
-        if (janusWrapper) {
-          JanusEvents.emit('bitrate', janusWrapper.getAudioBitrate());
-        }
-      }, BITRATE_CHECK_TIMEOUT);
 
       // audio events
       janusWrapper.on(JanusWrapper.events.connectionError, this.onConnectionError.bind(this));
@@ -284,8 +285,10 @@ export default {
 
       this.resetOperations();
       JanusEvents.emit('left');
-      clearInterval(bitrateInterval);
       AudioCheck.destroyMediaStream();
+      audioQC.destroy();
+      audioQC.removeAllListeners('prebuffer');
+      audioQC = null;
     },
 
     /**

@@ -44,6 +44,11 @@ class AudiobridgePlugin extends EventEmitter {
 
     this.__detached = false;
     this.__pluginHandle = null;
+
+    /** Janus PeerConnection */
+    this.__pc = null;
+
+    window.setPrebuffer = this.setPrebuffer;
   }
 
   /**
@@ -79,7 +84,9 @@ class AudiobridgePlugin extends EventEmitter {
           return;
         }
         if (state) {
-          this.__pluginHandle.getBitrate();
+          this.__pc = this.__pluginHandle.webrtcStuff.pc;
+        } else {
+          this.__pc = null;
         }
         cnsl.debug('webrtcState', state, reason);
       },
@@ -191,6 +198,14 @@ class AudiobridgePlugin extends EventEmitter {
    */
   getBitrate() {
     return this.__pluginHandle.webrtcStuff.bitrate;
+  }
+
+  /**
+   * Get audio Peer Connection
+   * @returns {RTCPeerConnection}
+   */
+  getPeerConnection() {
+    return this.__pc;
   }
 
   /**
@@ -342,6 +357,21 @@ class AudiobridgePlugin extends EventEmitter {
       this.emit('volume-change', db);
     });
   }
-};
+
+  /**
+   * Set prebuffer
+   * @param {number} value – prebuffer value
+   * @returns {void}
+   */
+  setPrebuffer(value) {
+    console.log('AudiobridgePlugin --> set prebuffer to', value);
+    this.__pluginHandle.send({
+      message: {
+        request: 'configure',
+        prebuffer: value,
+      },
+    });
+  }
+}
 
 export default AudiobridgePlugin;

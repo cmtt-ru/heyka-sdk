@@ -316,7 +316,6 @@ class JanusWrapper extends EventEmitter {
 
   /**
    * Get bitrate info
-   *
    * @returns {object}
    */
   getAudioBitrate() {
@@ -325,6 +324,29 @@ class JanusWrapper extends EventEmitter {
     }
 
     return null;
+  }
+
+  /**
+   * Get AudioBridge Peer Connection
+   * @returns {object}
+   */
+  getAudioPeerConnection() {
+    if (this.__audiobridgePlugin) {
+      return this.__audiobridgePlugin.getPeerConnection();
+    }
+
+    return null;
+  }
+
+  /**
+   * Set AudioBridge prebuffer
+   * @param {number} value – prebuffer value
+   * @returns {void}
+   */
+  setAudioPrebuffer(value) {
+    if (this.__audiobridgePlugin) {
+      return this.__audiobridgePlugin.setPrebuffer(value);
+    }
   }
 
   /**
