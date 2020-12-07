@@ -17,6 +17,7 @@ if (typeof window !== 'undefined') {
 // Base urls
 let API_URL;
 let WEB_URL;
+let COOKIE_URL;
 
 if (IS_ELECTRON) {
   API_URL = IS_DEV ? process.env.VUE_APP_API_DEV_URL : process.env.VUE_APP_API_PROD_URL;
@@ -35,6 +36,11 @@ if (IS_ELECTRON) {
   }
 }
 
+if (API_URL) {
+  COOKIE_URL = API_URL.split('.').splice(-2)
+    .join('.');
+}
+
 module.exports = {
   IS_DEV,
   IS_WIN,
@@ -44,5 +50,5 @@ module.exports = {
 
   API_URL,
   WEB_URL,
-  COOKIE_URL: API_URL.split('.').splice(-2).join('.')
+  COOKIE_URL,
 };
