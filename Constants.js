@@ -44,4 +44,5 @@ module.exports = {
 
   API_URL,
   WEB_URL,
+  COOKIE_URL: API_URL.split('.').splice(-2).join('.')
 };
