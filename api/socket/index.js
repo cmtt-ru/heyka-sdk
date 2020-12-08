@@ -284,6 +284,11 @@ function bindChannelEvents() {
   client.on(eventNames.channelUpdated, ({ channel }) => {
     store.commit('channels/UPDATE_CHANNEL', channel);
   });
+
+  /** Conversation broadcast */
+  client.on(eventNames.conversationBroadcast, data => {
+    console.log('----- conversationBroadcast', data);
+  });
 }
 
 /**

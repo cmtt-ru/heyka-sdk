@@ -18,6 +18,7 @@ import { mapState } from 'vuex';
 import Logger from '@sdk/classes/logger';
 import network from '@sdk/classes/network';
 import AudioQualityController from '@sdk/classes/AudioQualityController';
+import { conversationBroadcast } from '@api/socket/utils';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 /**
@@ -239,6 +240,12 @@ export default {
             janusWrapper.setAudioPrebuffer(value);
           }
         });
+
+        audioQC.on('status', status => {
+          conversationBroadcast('audio-quality-indicator', status);
+        });
+
+        conversationBroadcast('aqc', 1);
       });
 
       JanusEvents.emit('joined');
