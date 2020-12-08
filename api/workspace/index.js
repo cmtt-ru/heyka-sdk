@@ -9,6 +9,7 @@ import joinByCode from './joinByCode';
 import leaveWorkspace from './leaveWorkspace';
 import privateTalk from './privateTalk';
 import create from './create';
+import info from './info';
 
 export default {
   checkCode,
@@ -22,4 +23,5 @@ export default {
   leaveWorkspace,
   privateTalk,
   create,
+  info,
 };
