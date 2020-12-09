@@ -10,6 +10,7 @@
       />
     </transition>
     <div
+      v-if="!loaded"
       class="avatar__no-image"
       :class="{'avatar__image--square': square}"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
