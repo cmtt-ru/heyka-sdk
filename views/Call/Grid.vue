@@ -271,8 +271,6 @@ export default {
      */
     async insertVideoStreamForUser(userId, stream) {
       this.$set(this.videoStreams, userId, true);
-      console.log(this.users);
-      //! startScreenTs: "2020-12-10T08:59:02.826Z"
       await new Promise(resolve => this.$nextTick(resolve));
 
       const htmlVideo = this.$refs[`video${userId}`][0];
