@@ -288,6 +288,7 @@ function bindChannelEvents() {
   /** Conversation broadcast */
   client.on(eventNames.conversationBroadcast, data => {
     console.log('----- conversationBroadcast', data);
+    store.dispatch('channels/processConversationData', data);
   });
 }
 
