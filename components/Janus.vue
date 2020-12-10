@@ -242,10 +242,12 @@ export default {
         });
 
         audioQC.on('status', status => {
-          conversationBroadcast('audio-quality-indicator', status);
+          conversationBroadcast('audio-quality-indicator', this.userId, {
+            status,
+          });
         });
 
-        conversationBroadcast('aqc', 1);
+        window.conversationBroadcast = conversationBroadcast;
       });
 
       JanusEvents.emit('joined');
