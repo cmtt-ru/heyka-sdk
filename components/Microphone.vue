@@ -73,7 +73,8 @@ const BUTTON_SIZES = {
   },
 };
 
-const NEW_VOLUME_WEIGHT = 0.1;
+const HISTORY_INTERVAL = 50;
+const HISTORY_LENGTH = 20;
 
 export default {
   props: {
@@ -130,6 +131,8 @@ export default {
   data() {
     return {
       medianVolume: 0,
+      volumeHistory: [],
+      volumeHistoryInterval: null,
     };
   },
 
@@ -200,8 +203,26 @@ export default {
   },
 
   watch: {
-    currentVolume(volume) {
-      this.medianVolume = this.medianVolume * (1 - NEW_VOLUME_WEIGHT) + volume * NEW_VOLUME_WEIGHT;
+    active(val) {
+      if (val) {
+        this.recordVolumeHistory();
+      } else {
+        clearInterval(this.volumeHistoryInterval);
+        this.volumeHistory = [];
+      }
+    },
+  },
+  beforeDestroy() {
+    clearInterval(this.volumeHistoryInterval);
+    this.volumeHistory = [];
+  },
+
+  methods: {
+    recordVolumeHistory() {
+      this.volumeHistoryInterval = setInterval(() => {
+        this.volumeHistory.push(this.currentVolume);
+        this.medianVolume = Math.max(...this.volumeHistory.slice(-HISTORY_LENGTH));
+      }, HISTORY_INTERVAL);
     },
   },
 };
