@@ -75,6 +75,7 @@ const BUTTON_SIZES = {
 
 const HISTORY_INTERVAL = 50;
 const HISTORY_LENGTH = 20;
+const INIT_VOLUME = -100;
 
 export default {
   props: {
@@ -130,8 +131,8 @@ export default {
 
   data() {
     return {
-      medianVolume: 0,
-      volumeHistory: [],
+      medianVolume: INIT_VOLUME,
+      volumeHistory: [ INIT_VOLUME ],
       volumeHistoryInterval: null,
     };
   },
@@ -212,6 +213,12 @@ export default {
       }
     },
   },
+  created() {
+    if (this.active) {
+      this.recordVolumeHistory();
+    }
+  },
+
   beforeDestroy() {
     clearInterval(this.volumeHistoryInterval);
     this.volumeHistory = [];
