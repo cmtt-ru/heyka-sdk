@@ -120,7 +120,7 @@ export default {
      * @param {boolean} state Is screen sharing enabled
      * @returns {void}
      */
-    async screen(state) {
+    screen(state) {
       if (state) {
         this.startSharingScreen();
       } else {

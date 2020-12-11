@@ -322,7 +322,8 @@ function bindUserEvents() {
 
   /** Me updated */
   client.on(eventNames.meUpdated, async data => {
-    store.dispatch('me/update', data.user);
+    store.dispatch('me/updateSocial', data.user);
+    console.log(data.user);
   });
 
   /** User joined workspace */

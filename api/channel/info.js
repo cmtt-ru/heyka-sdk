@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * Select a certain channel
+ * Get certain channel's info
  * @param {string} id - channel's id
  * @returns {object} channelInfo – channel's info
  * @returns {string} channelInfo.id
