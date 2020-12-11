@@ -12,7 +12,6 @@
 import JanusWrapper from '@sdk/classes/JanusWrapper.js';
 import connectionCheck from '@sdk/classes/connectionCheck';
 import AudioCheck from '@classes/audioCheck';
-import JanusEvents from '@sdk/classes/janusEvents';
 import mediaCapturer from '@classes/mediaCapturer';
 import { mapState } from 'vuex';
 import Logger from '@sdk/classes/logger';
@@ -250,8 +249,6 @@ export default {
         window.conversationBroadcast = conversationBroadcast;
       });
 
-      JanusEvents.emit('joined');
-
       // audio events
       janusWrapper.on(JanusWrapper.events.connectionError, this.onConnectionError.bind(this));
       janusWrapper.on(JanusWrapper.events.remoteAudioStream, this.onRemoteAudioStream.bind(this));
@@ -293,7 +290,6 @@ export default {
       }
 
       this.resetOperations();
-      JanusEvents.emit('left');
       AudioCheck.destroyMediaStream();
       audioQC.destroy();
       audioQC.removeAllListeners('prebuffer');

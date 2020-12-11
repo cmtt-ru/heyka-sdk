@@ -17,7 +17,8 @@
       "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
-      "audioLags": "Trouble hearing me"
+      "audioLags": "Trouble hearing",
+      "audioLagsNotification": "Thanks, we'll figure it out"
     },
     "user": {
       "privateTalkButton": "Private talk",
