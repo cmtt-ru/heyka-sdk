@@ -37,4 +37,6 @@ export default Object.freeze({
 
   workspaceAdded: 'workspace-added',
   workspaceUpdated: 'workspace-updated',
+
+  conversationBroadcast: 'conversation-broadcast',
 });

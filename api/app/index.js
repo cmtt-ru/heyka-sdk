@@ -1,13 +1,11 @@
 import checkUpload from './checkUpload';
 import checkDownload from './checkDownload';
-import setStats from './setStats';
-import getStats from './getStats';
+import reportBadConnection from './reportBadConnection';
 import getUser from './getUser';
 
 export default {
   checkUpload,
   checkDownload,
-  setStats,
-  getStats,
+  reportBadConnection,
   getUser,
 };
