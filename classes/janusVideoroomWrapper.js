@@ -139,6 +139,7 @@ class JanusVideoroomWrapper extends EventEmitter {
     videoroomPlugin.on('active-publishers', this._onPublisherList.bind(this));
     videoroomPlugin.on('publisher-joined', this._onPublisherJoined.bind(this));
     videoroomPlugin.on('publisher-left', this._onPublisherLeft.bind(this));
+    videoroomPlugin.on('unauthorized-request', () => this.emit('unauthorized-request'));
 
     this.__videoroomPlugin = videoroomPlugin;
   }
@@ -155,6 +156,7 @@ class JanusVideoroomWrapper extends EventEmitter {
     this.__videoroomPlugin.removeAllListeners('active-publishers');
     this.__videoroomPlugin.removeAllListeners('publisher-joined');
     this.__videoroomPlugin.removeAllListeners('publisher-left');
+    this.__videoroomPlugin.removeAllListeners('unauthorized-request');
 
     this.__publishers.forEach(publisherObject => {
       if (publisherObject.plugin) {
@@ -638,6 +640,7 @@ class JanusVideoroomWrapper extends EventEmitter {
   async _disconnect() {
     if (this.__janus) {
       this.__janus.destroy();
+      console.trace('SET JANUS NULL');
       this.__janus = null;
     }
   }

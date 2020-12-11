@@ -44,6 +44,9 @@ class PublishingVideoroomPlugin extends EventEmitter {
    * @returns {void}
    */
   attach() {
+    if (!this.__janus) {
+      return;
+    }
     this.__janus.attach({
       plugin: JANUS_PLUGIN,
       opaqueId: this.__userId,
@@ -52,6 +55,7 @@ class PublishingVideoroomPlugin extends EventEmitter {
         if (this.__detached) {
           return;
         }
+
         cnsl.debug('plugin attached');
 
         this.__pluginHandle = pluginHandle;
@@ -128,6 +132,10 @@ class PublishingVideoroomPlugin extends EventEmitter {
             cnsl.info(`new publisher: `);
             cnsl.log(message)
             this._onPublished(message);
+            break;
+          case event === 'event' && message.error_code === 433:
+            cnsl.info(`Unautorhized error`, message);
+            this.emit('unauthorized-request');
             break;
           case jsep !== undefined && jsep !== null:
             this.emit('success-publishing');
