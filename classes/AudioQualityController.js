@@ -143,7 +143,6 @@ export default class AudioQualityController extends EventEmitter {
         break;
     }
 
-
     return {
       prebuffer,
       status,
