@@ -297,6 +297,7 @@ export default {
       AudioCheck.destroyMediaStream();
       audioQC.destroy();
       audioQC.removeAllListeners('prebuffer');
+      audioQC.removeAllListeners('status');
       audioQC = null;
     },
 
