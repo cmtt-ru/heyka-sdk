@@ -245,7 +245,6 @@ export default {
             status,
           });
         });
-
       });
 
       // audio events
