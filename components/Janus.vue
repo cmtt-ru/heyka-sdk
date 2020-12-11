@@ -246,7 +246,6 @@ export default {
           });
         });
 
-        window.conversationBroadcast = conversationBroadcast;
       });
 
       // audio events
