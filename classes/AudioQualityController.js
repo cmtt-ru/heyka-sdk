@@ -143,11 +143,6 @@ export default class AudioQualityController extends EventEmitter {
         break;
     }
 
-    if (prebuffer > PREBUFFER_MAX) {
-      prebuffer = PREBUFFER_MAX;
-    } else if (prebuffer < PREBUFFER_MIN) {
-      prebuffer = PREBUFFER_MIN;
-    }
 
     return {
       prebuffer,
