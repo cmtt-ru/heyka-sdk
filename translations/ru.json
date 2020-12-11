@@ -17,7 +17,8 @@
       "revokeInvite": "Отменить",
       "inviteCopied": "Гостевая ссылка скопирована",
       "invitesDeleted": "Все гостевые ссылки удалены",
-      "audioLags": "Меня плохо слышно"
+      "audioLags": "Плохо слышно",
+      "audioLagsNotification": "Спасибо, мы разберемся"
     },
     "user": {
       "privateTalkButton": "Позвонить",

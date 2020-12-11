@@ -111,6 +111,7 @@ export default {
       selectedChannel: 'me/getSelectedChannelId',
       myId: 'me/getMyId',
       userAvatar: 'users/getUserAvatarUrl',
+      getUserWhoSharesMedia: 'getUserWhoSharesMedia',
     }),
     ...mapState({
       janusOptions: 'janus',
@@ -148,7 +149,14 @@ export default {
   watch: {
     isUserSharingMedia(val) {
       if (val === false) {
-        this.showGridHandler();
+        if (this.getUserWhoSharesMedia) {
+          this.$router.replace({
+            name: 'expanded',
+            params: { id: this.getUserWhoSharesMedia },
+          });
+        } else {
+          this.showGridHandler();
+        }
       }
     },
 

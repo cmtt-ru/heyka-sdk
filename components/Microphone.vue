@@ -73,7 +73,9 @@ const BUTTON_SIZES = {
   },
 };
 
-const NEW_VOLUME_WEIGHT = 0.1;
+const HISTORY_INTERVAL = 50;
+const HISTORY_LENGTH = 20;
+const INIT_VOLUME = -100;
 
 export default {
   props: {
@@ -129,7 +131,9 @@ export default {
 
   data() {
     return {
-      medianVolume: 0,
+      medianVolume: INIT_VOLUME,
+      volumeHistory: [ INIT_VOLUME ],
+      volumeHistoryInterval: null,
     };
   },
 
@@ -200,8 +204,32 @@ export default {
   },
 
   watch: {
-    currentVolume(volume) {
-      this.medianVolume = this.medianVolume * (1 - NEW_VOLUME_WEIGHT) + volume * NEW_VOLUME_WEIGHT;
+    active(val) {
+      if (val) {
+        this.recordVolumeHistory();
+      } else {
+        clearInterval(this.volumeHistoryInterval);
+        this.volumeHistory = [];
+      }
+    },
+  },
+  created() {
+    if (this.active) {
+      this.recordVolumeHistory();
+    }
+  },
+
+  beforeDestroy() {
+    clearInterval(this.volumeHistoryInterval);
+    this.volumeHistory = [];
+  },
+
+  methods: {
+    recordVolumeHistory() {
+      this.volumeHistoryInterval = setInterval(() => {
+        this.volumeHistory.push(this.currentVolume);
+        this.medianVolume = Math.max(...this.volumeHistory.slice(-HISTORY_LENGTH));
+      }, HISTORY_INTERVAL);
     },
   },
 };
@@ -209,53 +237,54 @@ export default {
 
 <style lang="stylus" scoped>
 .mic
+  position relative
+  background var(--new-overlay-01)
+  cursor pointer
+  display flex
+  flex-direction row
+  align-items center
+  justify-content center
+  flex-shrink 0
+  -webkit-app-region no-drag
+  overflow hidden
+
+  &:hover
+    background var(--new-overlay-02)
+
+  &:active
+    background var(--new-overlay-03)
+
+  &__volume
+    will-change transform
+    transform translateZ(0)
+    backface-visibility hidden
+    perspective 1000
+    background-color var(--new-signal-02)
+    position absolute
+    opacity 0.5
+    bottom 0
+    left 0
+    right 0
+    height 100%
+    transform-origin bottom left
+    mix-blend-mode color-dodge
+
+  &__icon
     position relative
-    background var(--new-overlay-01)
-    cursor pointer
-    display flex
-    flex-direction row
-    align-items center
-    justify-content center
-    flex-shrink 0
-    -webkit-app-region no-drag
-    overflow hidden
+
+  &--disabled
+    pointer-events none
+    opacity 0.5
+
+  &--header
 
     &:hover
-      background var(--new-overlay-02)
+      background var(--new-button-appbar-hover)
+      mix-blend-mode luminosity
 
     &:active
-      background var(--new-overlay-03)
-
-    &__volume
-        will-change transform
-        transform translateZ(0)
-        backface-visibility hidden
-        perspective 1000
-        background-color var(--new-signal-02)
-        position absolute
-        opacity 0.5
-        bottom 0
-        left 0
-        right 0
-        height 100%
-        transform-origin bottom left
-
-    &__icon
-        position relative
-
-    &--disabled
-      pointer-events none
-      opacity 0.5
-
-    &--header
-
-      &:hover
-        background var(--new-button-appbar-hover)
-        mix-blend-mode luminosity
-
-      &:active
-        background var(--new-button-appbar-active)
-        mix-blend-mode luminosity
+      background var(--new-button-appbar-active)
+      mix-blend-mode luminosity
 
 .volume-wrapper
   position absolute
