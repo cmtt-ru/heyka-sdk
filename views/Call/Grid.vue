@@ -57,6 +57,17 @@
             icon="more"
           />
 
+          <div
+            v-tooltip="'Unstable connection'"
+            class="cell__aqi"
+            :data-status="audioQualityStatus(user.id)"
+          >
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+
           <avatar
             v-show="!user.camera && !user.screen"
             class="cell__avatar"
@@ -143,6 +154,7 @@ export default {
       channelId: 'me/getSelectedChannelId',
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
+      audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
     }),
 
     /**
@@ -471,6 +483,64 @@ export default {
       opacity 0
       transition opacity 0.15s ease
       position relative
+
+    &__aqi
+      display flex
+      position absolute
+      top 4px
+      left 4px
+      transition opacity 0.15s ease
+      background-color: var(--button-bg-5);
+      width 28px
+      padding 9px 0
+      min-height 28px
+      border-radius 6px
+      align-items flex-end
+      justify-content center
+      box-sizing border-box
+
+      span
+        display block
+        width 2px
+        margin-right 1px
+        border-radius 1px
+
+        &:nth-child(1)
+          height 4px
+
+        &:nth-child(2)
+          height 6px
+
+        &:nth-child(3)
+          height 8px
+
+        &:nth-child(4)
+          height 10px
+          margin-right 0
+
+      &[data-status="0"]
+        display none
+
+      &[data-status="1"] span
+        background #ffd319
+
+        &:nth-child(4)
+          opacity 0.25
+
+      &[data-status="2"] span
+        background #fd871f
+
+        &:nth-child(4)
+        &:nth-child(3)
+          opacity 0.25
+
+      &[data-status="3"] span
+        background #fa3610
+
+        &:nth-child(4)
+        &:nth-child(3)
+        &:nth-child(2)
+          opacity 0.25
 
     &__expand
       bottom 4px

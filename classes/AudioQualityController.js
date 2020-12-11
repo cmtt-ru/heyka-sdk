@@ -70,12 +70,14 @@ export default class AudioQualityController extends EventEmitter {
   process() {
     const preBufferObject = this.calculatePreBuffer(this.rttArray);
 
-    console.log('AQC --> prebuffer', preBufferObject.prebuffer);
-
     if (preBufferObject.prebuffer !== this.lastPrebuffer.prebuffer) {
-      console.log('AQC --> prebuffer changed');
-      this.emit('prebuffer', this.lastPrebuffer.prebuffer);
-      this.emit('status', this.lastPrebuffer.status);
+      console.log('AQC --> prebuffer changed', preBufferObject.prebuffer);
+      this.emit('prebuffer', preBufferObject.prebuffer);
+
+      if (preBufferObject.status !== this.lastPrebuffer.status) {
+        console.log('AQC --> status changed', preBufferObject.status);
+        this.emit('status', preBufferObject.status);
+      }
 
       this.lastPrebuffer = preBufferObject;
     }
@@ -100,7 +102,7 @@ export default class AudioQualityController extends EventEmitter {
       this.rttArray.push(Math.max(...rtts));
       this.rttArray = this.rttArray.slice(-RTT_MAX_LENGTH);
 
-      console.log('AQC --> rtt', this.rttArray);
+      // console.log('AQC --> rtt', this.rttArray);
     }
   }
 
