@@ -20,6 +20,7 @@ if (IS_ELECTRON) {
 
   if (forceDevServer) {
     IS_DEV = true;
+    window.IS_DEV = IS_DEV;
   }
 }
 
