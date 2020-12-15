@@ -100,7 +100,7 @@ export default {
       },
       set(value) {
         this.selectDevice('speaker', value);
-        AudioCheck.startMediaStream();
+        // AudioCheck.startMediaStream();
       },
     },
 
@@ -113,7 +113,7 @@ export default {
       },
       set(value) {
         this.selectDevice('microphone', value);
-        AudioCheck.startMediaStream();
+        // AudioCheck.startMediaStream();
       },
     },
 
