@@ -120,6 +120,27 @@
       :buttons="['camera', 'screen', 'speakers', 'microphone', 'leave']"
       size="large"
     />
+    ?
+    <svg
+      height="0"
+      width="0"
+    >
+      <defs>
+        <clipPath
+          id="svgPath"
+          clipPathUnits="objectBoundingBox"
+        >
+          <path
+            fill="#FFFFFF"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0 0.0266666C0 0.011939 0.00895431 0 0.02 0H0.98C0.991046 0 1 0.0119391 1 0.0266667V0.973333C1 0.988061 0.991046 1 0.98 1H0.02C0.00895429 1 0 0.988061 0 0.973333V0.0266666Z
+
+            M-20,-20 L0,27 A3,3 0 0,0 3,30 L7,30 A3,3 0 0,0 10,27 L10,0 Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
   </div>
 </template>
 
@@ -459,29 +480,30 @@ export default {
   .cell
     box-sizing border-box
     position relative
+    padding 4px
 
     &__raised-hand
       position absolute
-      top 0
-      bottom 0
-      left 0
-      right 0
-      width 100%
-      height 100%
-      --borderWidth: 5px
+      top 4px
+      bottom 4px
+      left 4px
+      right 4px
+      --borderWidth: 10px
       border-radius var(--borderWidth)
       animation showRaisedHand 5s linear forwards
       animation-iteration-count 1
+      z-index 10
+      clip-path url(#svgPath)
 
       @keyframes showRaisedHand {
         0% {
-          opacity: 1;
+          visibility: visible;
         }
         95% {
-          opacity: 1;
+          visibility: visible;
         }
         100% {
-          opacity: 0;
+          visibility: hidden;
         }
       }
 
@@ -493,11 +515,12 @@ export default {
         height calc(100% + var(--borderWidth) * 2)
         width calc(100% + var(--borderWidth) * 2)
         background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
-        border-radius 4px
-        z-index 0
-        animation animatedGradient 1s ease alternate
+        border-radius calc(var(--borderWidth) * 2)
+        z-index 1
+        animation animatedGradient 2s ease alternate
         animation-iteration-count 5
         background-size 300% 300%
+        filter blur(50px)
 
       @keyframes animatedGradient {
         0% {
@@ -512,9 +535,9 @@ export default {
       }
 
     &__inner
-      border-radius 4px
+      border-radius 12px
       height 100%
-      padding 8px
+      padding 4px
       box-sizing border-box
       display flex
       flex-direction column
