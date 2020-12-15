@@ -13,13 +13,22 @@
         </div>
         <div>{{ $tc("call.grid.users", usersCount) }}</div>
       </div>
-      <ui-button
-        v-popover.click="{name: 'Devices'}"
-        class="top-content__devices"
-        :type="7"
-        size="medium"
-        icon="settings"
-      />
+      <div>
+        <ui-button
+          class="top-content__devices"
+          :type="7"
+          size="medium"
+          icon="hand"
+          @click="raiseHandHandler"
+        />
+        <ui-button
+          v-popover.click="{name: 'Devices'}"
+          class="top-content__devices"
+          :type="7"
+          size="medium"
+          icon="settings"
+        />
+      </div>
     </div>
 
     <div
@@ -33,6 +42,11 @@
         class="cell"
         :style="cellDimensions(index)"
       >
+        <div
+          v-show="handUpStatus(user.id)>mountedTimestamp-5000"
+          :key="handUpStatus(user.id)"
+          class="cell__raised-hand"
+        />
         <div
           class="cell__inner"
           @dblclick="expandedClickHandler(user.id)"
@@ -116,6 +130,7 @@ import Avatar from '@components/Avatar';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+import broadcastActions from '@sdk/classes/broadcastActions';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
@@ -143,6 +158,7 @@ export default {
       avatarWidth: null,
       padding: {},
       videoStreams: {},
+      mountedTimestamp: Date.now(),
     };
   },
 
@@ -155,6 +171,7 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
+      handUpStatus: 'channels/getHandUpStatusByUserId',
     }),
 
     /**
@@ -391,6 +408,10 @@ export default {
       });
     },
 
+    raiseHandHandler() {
+      broadcastActions.dispatch('app/raiseHandInChannel', this.myId);
+    },
+
     userAvatar: getUserAvatarUrl,
   },
 };
@@ -412,10 +433,10 @@ export default {
     display flex
     flex-direction row
     justify-content space-between
-    align-items flex-start
+    align-items center
 
     &__devices
-      margin-top 6px
+      margin-left 8px
 
   .left-info
     display grid
@@ -427,7 +448,6 @@ export default {
 
   .cell-grid
     height calc(100vh - 232px)
-    //border 2px solid white
     display flex
     flex-direction row
     flex-wrap wrap
@@ -437,13 +457,64 @@ export default {
     box-sizing border-box
 
   .cell
-    padding 4px
     box-sizing border-box
+    position relative
+
+    &__raised-hand
+      position absolute
+      top 0
+      bottom 0
+      left 0
+      right 0
+      width 100%
+      height 100%
+      --borderWidth: 5px
+      border-radius var(--borderWidth)
+      animation showRaisedHand 5s linear forwards
+      animation-iteration-count 1
+
+      @keyframes showRaisedHand {
+        0% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      &:after
+        content ''
+        position absolute
+        top calc(-1 * var(--borderWidth))
+        left calc(-1 * var(--borderWidth))
+        height calc(100% + var(--borderWidth) * 2)
+        width calc(100% + var(--borderWidth) * 2)
+        background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
+        border-radius 4px
+        z-index 0
+        animation animatedGradient 1s ease alternate
+        animation-iteration-count 5
+        background-size 300% 300%
+
+      @keyframes animatedGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
 
     &__inner
       border-radius 4px
       height 100%
-      padding 4px
+      padding 8px
       box-sizing border-box
       display flex
       flex-direction column
@@ -451,6 +522,7 @@ export default {
       align-items center
       position relative
       overflow hidden
+      background #141414 //! make var!
 
       video
         width 100%
