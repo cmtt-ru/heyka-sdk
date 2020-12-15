@@ -26,7 +26,8 @@
       "inviteBySlackButton": "Send invite via Slack",
       "localTime": "Local time",
       "email": "Email",
-      "edit": "Edit profile"
+      "edit": "Edit profile",
+      "inviteSent": "Invite sent"
     },
     "userSettings": {
       "edit": "Edit profile",

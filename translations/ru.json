@@ -26,7 +26,8 @@
       "inviteBySlackButton": "Пригласить через Slack",
       "localTime": "Локальное время",
       "email": "Email",
-      "edit": "Редактировать профиль"
+      "edit": "Редактировать профиль",
+      "inviteSent": "Приглашение отправлено"
     },
     "userSettings": {
       "edit": "Редактировать профиль",
