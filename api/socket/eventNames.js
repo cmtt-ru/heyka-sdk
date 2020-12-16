@@ -26,6 +26,7 @@ export default Object.freeze({
 
   changedDevice: 'user-changed-device',
   meUpdated: 'me-updated',
+  myOnlineStatusUpdated: 'my-online-status-updated',
   mediaStateUpdated: 'media-state-updated',
   onlineStatusChanged: 'online-status-updated',
   socketApiError: 'socket-api-error',
