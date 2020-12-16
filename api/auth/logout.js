@@ -3,6 +3,7 @@ import router from '@/router';
 import * as sockets from '@api/socket';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import broadcastActions from '@sdk/classes/broadcastActions';
+import { client } from '@api/socket/client';
 
 /** List for event and logout user */
 broadcastEvents.on('logout', logout);
@@ -20,6 +21,9 @@ export default function logout(redirectToAuth = true) {
 
   broadcastActions.dispatch('logout');
 
+  if (client) {
+    client.emit('logout');
+  }
   sockets.destroy();
 
   if (redirectToAuth) {
