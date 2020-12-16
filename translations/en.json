@@ -85,6 +85,10 @@
       "styleguide": "Styleguide"
     },
     "general": {
+      "generalCategory": "General",
+      "appearanceCategory": "Appearance",
+      "autorunCategory": "Autorun",
+      "advancedCategory": "Advanced options",
       "languageLabel": "Language",
       "behaviourLabel": "Run app from",
       "behaviours": {
@@ -92,7 +96,6 @@
         "tray": "Tray"
       },
       "behaviourWillChange": "Restart app to apply changes",
-      "autorunLabel": "Autorun",
       "autorunSwitch": "Open on startup",
       "appearanceLabel": "Appearance",
       "theme": {
@@ -100,7 +103,6 @@
         "dark": "Dark"
       },
       "automaticallySwitch": "Automatically",
-      "advanced": "advanced options",
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
       "closeOverlay": "Show «Close» button in call overlay",

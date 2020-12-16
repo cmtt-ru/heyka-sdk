@@ -85,6 +85,10 @@
       "styleguide": "Стайлгайд"
     },
     "general": {
+      "generalCategory": "General",
+      "appearanceCategory": "Appearance",
+      "autorunCategory": "Autorun",
+      "advancedCategory": "Advanced options",
       "languageLabel": "Язык",
       "behaviourLabel": "Запускать в",
       "behaviours": {
@@ -92,7 +96,6 @@
         "tray": "Трее"
       },
       "behaviourWillChange": "Перезагрузите приложение, чтобы применить изменения",
-      "autorunLabel": "Автозапуск",
       "autorunSwitch": "Запускать с загрузкой системы",
       "appearanceLabel": "Внешний вид",
       "theme": {
@@ -100,7 +103,6 @@
         "dark": "Темная тема"
       },
       "automaticallySwitch": "Автоматически",
-      "advanced": "дополнительные настройки",
       "resize": "Возможность растягивать окно",
       "nomic": "Выкл. микрофона после звонка",
       "closeOverlay": "Показать кнопку «Закрыть» на плашке звонка",
