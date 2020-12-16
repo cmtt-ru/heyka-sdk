@@ -26,13 +26,13 @@ export default {
 
 <style lang="stylus" scoped>
   .progress-bar
-    background var(--input)
+    background var(--new-UI-06)
     height 4px
     border-radius 6px
+    margin 4px 0 10px
     overflow hidden
-    box-shadow inset 0 0 0 1px var(--stroke-3)
 
     &__value
-      background var(--color-1)
+      background var(--new-signal-02)
       height 100%
 </style>

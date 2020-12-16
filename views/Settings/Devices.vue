@@ -1,40 +1,38 @@
 <template>
   <div class="settings-page">
     <div class="settings__label">
-      {{ texts.micLabel }}
+      {{ texts.audioCategory }}
     </div>
     <ui-select
       v-model="selectedMicrophone"
       :data="devices.microphones"
+      :label="texts.micLabel"
     />
     <progress-bar
       class="l-mt-8"
       :value="microphoneVolume"
     />
 
-    <div class="settings__label">
-      {{ texts.speakersLabel }}
-    </div>
-    <div class="setting-with-icon">
-      <ui-select
-        v-model="selectedSpeaker"
-        :data="devices.speakers"
-      />
-      <ui-button
-        :type="7"
-        size="medium"
-        height="32"
-        icon="sound"
-        @click.native="playTestSound"
-      />
-    </div>
+    <ui-select
+      v-model="selectedSpeaker"
+      :data="devices.speakers"
+      :label="texts.speakersLabel"
+    />
+    <ui-button
+      :type="1"
+      class="test-sound-button"
+      @click.native="playTestSound"
+    >
+      {{ texts.testSound }}
+    </ui-button>
 
     <div class="settings__label">
-      {{ texts.cameraLabel }}
+      {{ texts.videoCategory }}
     </div>
     <ui-select
       v-model="selectedCamera"
       :data="devices.cameras"
+      :label="texts.cameraLabel"
     />
   </div>
 </template>
@@ -172,26 +170,19 @@ export default {
 
 <style scoped lang="stylus">
 
-.setting-with-icon
-  display flex
-  flex-direction row
-  justify-content stretch
-  align-items center
-
-  & .dropdown
-    flex-grow 1
-
-  & .ui-button
-    flex-shrink 0
-    margin-left 8px
-    border 1px solid var(--stroke-3)
-
 .settings-page
-  padding 0 12px 12px
+  padding 0 16px 12px
 
 .settings__label
-  font-size 12px
-  padding 12px 0 2px
+  line-height 24px
+  font-weight bold
+  padding 8px 0
+
+  &:not(:first-child)
+    margin-top 24px
+
+.test-sound-button
+  margin 10px 0
 
 .dropdown
   margin 6px 0

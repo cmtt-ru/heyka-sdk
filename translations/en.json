@@ -109,6 +109,9 @@
       "restartNow": "Restart now"
     },
     "devices": {
+      "audioCategory": "Audio",
+      "videoCategory": "Video",
+      "testSound": "Test sound",
       "speakersLabel": "Speakers",
       "micLabel": "Microphone",
       "cameraLabel": "Camera",

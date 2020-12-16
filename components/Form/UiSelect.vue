@@ -279,6 +279,7 @@ export default {
 
   &__label
     color var(--new-UI-02)
+    flex-shrink 0
 
   &__header
     cursor pointer
@@ -292,19 +293,22 @@ export default {
     align-items center
     overflow hidden
     color var(--new-UI-04)
+    max-width 170px
 
     &:hover
       background-color var(--new-UI-06)
 
     &__icon
       color var(--icon-1)
-      margin-left 8px
+      margin-left 6px
+      flex-shrink 0
 
   &__list
     position absolute
     background-color var(--new-UI-09)
     top 100%
     right 0
+    max-width 260px
     z-index 99
     border-radius 8px
     box-shadow var(--new-shadow-03)

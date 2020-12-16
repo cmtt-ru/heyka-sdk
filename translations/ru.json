@@ -85,10 +85,10 @@
       "styleguide": "Стайлгайд"
     },
     "general": {
-      "generalCategory": "General",
-      "appearanceCategory": "Appearance",
-      "autorunCategory": "Autorun",
-      "advancedCategory": "Advanced options",
+      "generalCategory": "Основные",
+      "appearanceCategory": "Внешний вид",
+      "autorunCategory": "Автозапуск",
+      "advancedCategory": "Дополнительные настройки",
       "languageLabel": "Язык",
       "behaviourLabel": "Запускать в",
       "behaviours": {
@@ -97,10 +97,10 @@
       },
       "behaviourWillChange": "Перезагрузите приложение, чтобы применить изменения",
       "autorunSwitch": "Запускать с загрузкой системы",
-      "appearanceLabel": "Внешний вид",
+      "appearanceLabel": "Тема",
       "theme": {
-        "light": "Светлая тема",
-        "dark": "Темная тема"
+        "light": "Светлая",
+        "dark": "Тёмная"
       },
       "automaticallySwitch": "Автоматически",
       "resize": "Возможность растягивать окно",
@@ -109,7 +109,10 @@
       "restartNow": "Перезагрузить"
     },
     "devices": {
-      "speakersLabel": "Вывод аудио",
+      "audioCategory": "Аудио",
+      "videoCategory": "Видео",
+      "testSound": "Проверить звук",
+      "speakersLabel": "Динамики",
       "micLabel": "Микрофон",
       "cameraLabel": "Камера",
       "defaultDevice": "По умолчанию"
