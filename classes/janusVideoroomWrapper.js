@@ -489,8 +489,10 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {void}
    */
   _onSingleSubscriberSwitchingError() {
+    const singleFeed = this.__singleFeed;
+
     this.removeSingleSubscription();
-    this.createSingleSubscription(this.__singleFeed);
+    this.createSingleSubscription(singleFeed);
   }
 
   /**
