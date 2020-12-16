@@ -133,7 +133,7 @@ class PublishingVideoroomPlugin extends EventEmitter {
             cnsl.log(message)
             this._onPublished(message);
             break;
-          case event === 'event' && !message.id && message.publishers.length > 0:
+          case event === 'event' && !message.id && message.publishers?.length > 0:
             cnsl.info(`new publisher: `);
             cnsl.log(message.publishers[0])
             this._onPublished(message.publishers[0]);
