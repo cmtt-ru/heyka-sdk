@@ -120,7 +120,7 @@
       :buttons="['camera', 'screen', 'speakers', 'microphone', 'leave']"
       size="large"
     />
-    ?
+
     <svg
       height="0"
       width="0"
@@ -488,22 +488,30 @@ export default {
       bottom 4px
       left 4px
       right 4px
-      --borderWidth: 10px
+      pointer-events none
       border-radius var(--borderWidth)
       animation showRaisedHand 5s linear forwards
       animation-iteration-count 1
-      z-index 10
+      z-index 20
       clip-path url(#svgPath)
+      --borderWidth: 10px
 
       @keyframes showRaisedHand {
         0% {
           visibility: visible;
+          opacity: 0;
+        }
+        5% {
+          visibility: visible;
+          opacity: 1;
         }
         95% {
           visibility: visible;
+          opacity: 1;
         }
         100% {
           visibility: hidden;
+          opacity: 0;
         }
       }
 
