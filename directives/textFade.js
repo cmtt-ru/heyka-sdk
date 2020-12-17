@@ -8,7 +8,7 @@ const STYLE_DEFAULT = {
 };
 
 const STYLE_FADE = {
-  webkitMaskImage: 'linear-gradient(-90deg, transparent, transparent 10px, currentColor 30px)',
+  webkitMaskImage: 'linear-gradient(-90deg, transparent, transparent 0px, currentColor 20px)',
 };
 
 const STYLE_NOFADE = {

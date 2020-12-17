@@ -110,7 +110,7 @@ export default {
       right 16px
       width 14px
       height 14px
-      background-color var(--app-bg)
+      background-color var(--new-UI-09)
       border-radius 12px
       z-index 2
       transition all 0.28s cubic-bezier(0.4, 0, 0.2, 1)

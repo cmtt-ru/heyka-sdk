@@ -171,7 +171,7 @@ export default {
 <style scoped lang="stylus">
 
 .settings-page
-  padding 0 16px 12px
+  padding 4px 16px 12px
 
 .settings__label
   line-height 24px

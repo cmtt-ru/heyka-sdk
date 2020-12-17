@@ -82,14 +82,15 @@
       "network": "Network",
       "about": "About",
       "support": "Support",
-      "styleguide": "Styleguide"
+      "styleguide": "Styleguide",
+      "close": "Close"
     },
     "general": {
       "generalCategory": "General",
       "appearanceCategory": "Appearance",
       "autorunCategory": "Autorun",
       "advancedCategory": "Advanced options",
-      "languageLabel": "Language",
+      "languageLabel": "Language 🌍",
       "behaviourLabel": "Run app from",
       "behaviours": {
         "window": "Windowed",
@@ -118,9 +119,10 @@
       "defaultDevice": "Default"
     },
     "network": {
+      "transparencyCategory": "Transparency",
       "transparency": "We are transparent and respect your privacy. This tab shows all requests that are made to our servers.",
-      "googleLabel": "Enable Google Analytics to make Heyka better",
-      "googleSwitch": "Allow"
+      "googleCategory": "Enable Google Analytics",
+      "googleLabel": "Allow"
     },
     "about": {
       "version": "version",

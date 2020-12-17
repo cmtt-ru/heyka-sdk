@@ -286,7 +286,7 @@ export default {
     height 32px
     box-sizing border-box
     border-radius 6px
-    padding 7px 12px
+    padding 7px 0
     display flex
     flex-direction row
     justify-content space-between
@@ -296,7 +296,7 @@ export default {
     max-width 170px
 
     &:hover
-      background-color var(--new-UI-06)
+      opacity 0.8 //! временно?
 
     &__icon
       color var(--icon-1)
