@@ -14,9 +14,4 @@ export function conversationBroadcast(action, userId, data) {
     userId,
     data,
   });
-  broadcastActions.dispatch('channels/processConversationData', {
-    action,
-    userId,
-    data,
-  });
 }
