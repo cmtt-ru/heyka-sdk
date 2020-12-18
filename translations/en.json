@@ -90,7 +90,7 @@
       "appearanceCategory": "Appearance",
       "autorunCategory": "Autorun",
       "advancedCategory": "Advanced options",
-      "languageLabel": "Language 🌍",
+      "languageLabel": "Language",
       "behaviourLabel": "Run app from",
       "behaviours": {
         "window": "Windowed",
