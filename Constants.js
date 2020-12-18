@@ -1,4 +1,4 @@
-const IS_DEV = process.env.NODE_ENV === 'development';
+let IS_DEV = process.env.NODE_ENV === 'development';
 const IS_WIN = process.platform === 'win32';
 const IS_MAC = process.platform === 'darwin';
 const IS_LINUX = process.platform === 'linux';
@@ -16,6 +16,16 @@ if (typeof window !== 'undefined') {
   IS_ELECTRON = Boolean(window && window.process && window.process.type);
   window.IS_ELECTRON = IS_ELECTRON;
   window.IS_IOS = IS_IOS;
+}
+
+if (IS_ELECTRON) {
+  const { heykaStore } = require('../renderer/store/localStore');
+  const forceDevServer = heykaStore.get('devServer') || false;
+
+  if (forceDevServer) {
+    IS_DEV = true;
+    window.IS_DEV = IS_DEV;
+  }
 }
 
 // Base urls

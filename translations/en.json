@@ -109,7 +109,9 @@
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
       "closeOverlay": "Show «Close» button in call overlay",
-      "restartNow": "Restart now"
+      "restartNow": "Restart now",
+      "serverLabel": "Server",
+      "serverSwitch": "Connect to dev server"
     },
     "devices": {
       "audioCategory": "Audio",
@@ -158,7 +160,8 @@
     "reset": "Reset",
     "cancel": "Cancel",
     "newMember": "Not a member?",
-    "signup": "Sign up now"
+    "signup": "Sign up now",
+    "devServer": "🌈 You're connecting to dev server"
   },
   "register": {
     "welcome": "Please register",
