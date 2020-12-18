@@ -1,5 +1,4 @@
 import { client } from '@api/socket/client';
-import broadcastActions from '@sdk/classes/broadcastActions';
 
 /**
  * Broadcast data to all users in selected channel
