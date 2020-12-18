@@ -111,27 +111,6 @@
       :buttons="['camera', 'screen', 'speakers', 'microphone', 'leave']"
       size="large"
     />
-
-    <svg
-      height="0"
-      width="0"
-    >
-      <defs>
-        <clipPath
-          id="svgPath"
-          clipPathUnits="objectBoundingBox"
-        >
-          <path
-            fill="#FFFFFF"
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M0 0.0266666C0 0.011939 0.00895431 0 0.02 0H0.98C0.991046 0 1 0.0119391 1 0.0266667V0.973333C1 0.988061 0.991046 1 0.98 1H0.02C0.00895429 1 0 0.988061 0 0.973333V0.0266666Z
-
-            M-20,-20 L0,27 A3,3 0 0,0 3,30 L7,30 A3,3 0 0,0 10,27 L10,0 Z"
-          />
-        </clipPath>
-      </defs>
-    </svg>
   </div>
 </template>
 
