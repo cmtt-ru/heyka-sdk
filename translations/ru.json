@@ -13,12 +13,13 @@
     "channel": {
       "join": "Войти",
       "disconnect": "Отключиться",
-      "invite": "Скоп. гостевую ссылку",
+      "invite": "Гостевая ссылка",
       "revokeInvite": "Отменить",
       "inviteCopied": "Гостевая ссылка скопирована",
       "invitesDeleted": "Все гостевые ссылки удалены",
       "audioLags": "Плохо слышно",
-      "audioLagsNotification": "Спасибо, мы разберемся"
+      "audioLagsNotification": "Спасибо, мы разберемся",
+      "support": "Сообщить о баге"
     },
     "user": {
       "privateTalkButton": "Позвонить",

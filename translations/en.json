@@ -18,7 +18,8 @@
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
       "audioLags": "Trouble hearing",
-      "audioLagsNotification": "Thanks, we'll figure it out"
+      "audioLagsNotification": "Thanks, we'll figure it out",
+      "support": "Report a bug"
     },
     "user": {
       "privateTalkButton": "Private talk",
