@@ -31,12 +31,12 @@
         v-for="(user, index) in users"
         :key="user.id"
         class="cell"
+        :class="{'cell--elevated': raisedHands[user.id]}"
         :style="cellDimensions(index)"
       >
         <div
           v-show="handUpStatus(user.id)>mountedTimestamp-5000"
           :key="handUpStatus(user.id)"
-          :data-status="handUpStatus(user.id)"
           class="cell__raised-hand"
         />
         <div
@@ -148,6 +148,8 @@ import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
 const cnsl = new Logger('Grid.vue', '#138D75');
 
+const TOO_LATE = 5000;
+
 /**
  * Aspect ratio 124 / 168;
  * @type {number}
@@ -171,6 +173,7 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
+      raisedHands: {},
     };
   },
 
@@ -184,6 +187,7 @@ export default {
       users: 'usersInMyChannel',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
       handUpStatus: 'channels/getHandUpStatusByUserId',
+      conversationEvents: 'channels/getConversationEvents',
     }),
 
     /**
@@ -231,6 +235,19 @@ export default {
           this.$delete(this.videoStreams, key);
         });
       }
+    },
+    conversationEvents: {
+      deep: true,
+      handler(events) {
+        const event = events[events.length - 1];
+
+        if (event.action === 'hand-up' && event.data.timestamp + TOO_LATE > Date.now()) {
+          this.$set(this.raisedHands, event.userId, true);
+          setTimeout(() => {
+            this.$delete(this.raisedHands, event.userId);
+          }, TOO_LATE);
+        }
+      },
     },
   },
 
@@ -469,6 +486,9 @@ export default {
     position relative
     padding 4px
 
+    &--elevated
+      z-index 5
+
     &__raised-hand
       position absolute
       top 4px
@@ -479,8 +499,8 @@ export default {
       border-radius var(--borderWidth)
       animation showRaisedHand 5s linear forwards
       animation-iteration-count 1
-      z-index 20
-      clip-path url(#svgPath)
+      //z-index 20
+      //clip-path url(#svgPath)
       --borderWidth: 10px
 
       @keyframes showRaisedHand {
@@ -515,6 +535,7 @@ export default {
         animation animatedGradient 2s ease alternate
         animation-iteration-count 5
         background-size 300% 300%
+        filter blur(25px)
 
       @keyframes animatedGradient {
         0% {
@@ -552,7 +573,7 @@ export default {
       left 0
       width 100%
       height 100%
-      border-radius 4px
+      border-radius 12px
 
     &__talking
       position absolute
@@ -561,7 +582,7 @@ export default {
       width 100%
       height 100%
       border 2px solid var(--color-1)
-      border-radius 4px
+      border-radius 12px
       box-sizing border-box
       pointer-events none
 
