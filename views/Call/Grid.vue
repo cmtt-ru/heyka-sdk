@@ -35,8 +35,7 @@
         :style="cellDimensions(index)"
       >
         <div
-          v-show="handUpStatus(user.id)>mountedTimestamp-5000"
-          :key="handUpStatus(user.id)"
+          v-if="raisedHands[user.id]"
           class="cell__raised-hand"
         />
         <div
