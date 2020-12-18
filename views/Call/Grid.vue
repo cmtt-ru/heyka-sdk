@@ -36,6 +36,7 @@
         <div
           v-show="handUpStatus(user.id)>mountedTimestamp-5000"
           :key="handUpStatus(user.id)"
+          :data-status="handUpStatus(user.id)"
           class="cell__raised-hand"
         />
         <div
@@ -514,7 +515,6 @@ export default {
         animation animatedGradient 2s ease alternate
         animation-iteration-count 5
         background-size 300% 300%
-        filter blur(50px)
 
       @keyframes animatedGradient {
         0% {
