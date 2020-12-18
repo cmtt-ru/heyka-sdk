@@ -34,6 +34,7 @@
         :style="cellDimensions(index)"
       >
         <div
+          v-show="handUpStatus(user.id)>mountedTimestamp-5000"
           :key="handUpStatus(user.id)"
           class="cell__raised-hand"
         />
@@ -168,6 +169,7 @@ export default {
       avatarWidth: null,
       padding: {},
       videoStreams: {},
+      mountedTimestamp: Date.now(),
     };
   },
 
