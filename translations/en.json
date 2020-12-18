@@ -185,7 +185,8 @@
     },
     "griduser": {
       "fullscreen": "Fullscreen",
-      "mute": "Mute for all"
+      "mute": "Mute for all",
+      "raiseHand": "Raise hand"
     },
     "userProfile": {
       "profile": "Profile",
