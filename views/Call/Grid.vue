@@ -13,22 +13,13 @@
         </div>
         <div>{{ $tc("call.grid.users", usersCount) }}</div>
       </div>
-      <div>
-        <ui-button
-          class="top-content__devices"
-          :type="7"
-          size="medium"
-          icon="hand"
-          @click="raiseHandHandler"
-        />
-        <ui-button
-          v-popover.click="{name: 'Devices'}"
-          class="top-content__devices"
-          :type="7"
-          size="medium"
-          icon="settings"
-        />
-      </div>
+      <ui-button
+        v-popover.click="{name: 'Devices'}"
+        class="top-content__devices"
+        :type="7"
+        size="medium"
+        icon="settings"
+      />
     </div>
 
     <div
@@ -151,7 +142,6 @@ import Avatar from '@components/Avatar';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
-import broadcastActions from '@sdk/classes/broadcastActions';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
@@ -427,10 +417,6 @@ export default {
         name: 'expanded',
         params: { id },
       });
-    },
-
-    raiseHandHandler() {
-      broadcastActions.dispatch('app/raiseHandInChannel', this.myId);
     },
 
     userAvatar: getUserAvatarUrl,

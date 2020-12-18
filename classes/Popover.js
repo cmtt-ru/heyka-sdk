@@ -142,10 +142,18 @@ export default class Popover {
    * @returns {object}
    */
   async loadComponent(name) {
-    const component = await import(/* webpackMode: "eager" */ `@views/ContextMenus/${name}.vue`);
+    try {
+      const component = await import(/* webpackMode: "eager" */ `@views/ContextMenus/${name}.vue`);
 
-    if (component.default) {
-      return component.default;
+      if (component.default) {
+        return component.default;
+      }
+    } catch (err) {
+      const component = await import(/* webpackMode: "eager" */ `@sdk/views/ContextMenus/${name}.vue`);
+
+      if (component.default) {
+        return component.default;
+      }
     }
   }
 

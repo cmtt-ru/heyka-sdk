@@ -9,11 +9,19 @@
         {{ texts.mute }}
       </ui-button>
       <ui-button
-        v-if="isStreaming && notMe"
+        v-if="isStreaming && !isMe"
         :type="11"
         @click="expandedClickHandler"
       >
         {{ texts.fullscreen }}
+      </ui-button>
+      <ui-button
+        v-if="isMe"
+        :type="11"
+        data-popover-close
+        @click="raiseHandHandler"
+      >
+        {{ texts.raiseHand }}
       </ui-button>
     </div>
   </popover>
@@ -61,8 +69,8 @@ export default {
       return this.$t('popover.griduser');
     },
 
-    notMe() {
-      return this.userId !== this.myId;
+    isMe() {
+      return this.userId === this.myId;
     },
   },
 
@@ -89,6 +97,10 @@ export default {
         name: 'expanded',
         params: { id: this.userId },
       });
+    },
+
+    raiseHandHandler() {
+      broadcastActions.dispatch('app/raiseHandInChannel', this.myId);
     },
   },
 };
