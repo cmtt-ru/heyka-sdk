@@ -83,9 +83,14 @@
       "network": "Сеть",
       "about": "О приложении",
       "support": "Поддержка",
-      "styleguide": "Стайлгайд"
+      "styleguide": "Стайлгайд",
+      "close": "Закрыть"
     },
     "general": {
+      "generalCategory": "Основные",
+      "appearanceCategory": "Внешний вид",
+      "autorunCategory": "Автозапуск",
+      "advancedCategory": "Дополнительные настройки",
       "languageLabel": "Язык",
       "behaviourLabel": "Запускать в",
       "behaviours": {
@@ -93,30 +98,32 @@
         "tray": "Трее"
       },
       "behaviourWillChange": "Перезагрузите приложение, чтобы применить изменения",
-      "autorunLabel": "Автозапуск",
       "autorunSwitch": "Запускать с загрузкой системы",
-      "appearanceLabel": "Внешний вид",
+      "appearanceLabel": "Тема",
       "theme": {
-        "light": "Светлая тема",
-        "dark": "Темная тема"
+        "light": "Светлая",
+        "dark": "Тёмная"
       },
       "automaticallySwitch": "Автоматически",
-      "advanced": "дополнительные настройки",
       "resize": "Возможность растягивать окно",
       "nomic": "Выкл. микрофона после звонка",
       "closeOverlay": "Показать кнопку «Закрыть» на плашке звонка",
       "restartNow": "Перезагрузить"
     },
     "devices": {
-      "speakersLabel": "Вывод аудио",
+      "audioCategory": "Аудио",
+      "videoCategory": "Видео",
+      "testSound": "Проверить звук",
+      "speakersLabel": "Динамики",
       "micLabel": "Микрофон",
       "cameraLabel": "Камера",
       "defaultDevice": "По умолчанию"
     },
     "network": {
-      "transparency": "Мы прозрачны и уважаем вашу конфиденциальность. На этой вкладке отображаются все запросы, сделанные на наши серверы приложением.",
-      "googleLabel": "Рарзрешите нам собирать данные через Google Analytics, чтобы сделать Heyka лучше?",
-      "googleSwitch": "Разрешить"
+      "transparencyCategory": "Прозрачность",
+      "transparency": "Мы прозрачны и уважаем вашу конфиденциальность. На этой вкладке отображаются все запросы, сделанные на серверы приложением.",
+      "googleCategory": "Включить Google Analytics",
+      "googleLabel": "Разрешить"
     },
     "about": {
       "version": "версия",

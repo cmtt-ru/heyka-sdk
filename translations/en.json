@@ -83,9 +83,14 @@
       "network": "Network",
       "about": "About",
       "support": "Support",
-      "styleguide": "Styleguide"
+      "styleguide": "Styleguide",
+      "close": "Close"
     },
     "general": {
+      "generalCategory": "General",
+      "appearanceCategory": "Appearance",
+      "autorunCategory": "Autorun",
+      "advancedCategory": "Advanced options",
       "languageLabel": "Language",
       "behaviourLabel": "Run app from",
       "behaviours": {
@@ -93,7 +98,6 @@
         "tray": "Tray"
       },
       "behaviourWillChange": "Restart app to apply changes",
-      "autorunLabel": "Autorun",
       "autorunSwitch": "Open on startup",
       "appearanceLabel": "Appearance",
       "theme": {
@@ -101,22 +105,25 @@
         "dark": "Dark"
       },
       "automaticallySwitch": "Automatically",
-      "advanced": "advanced options",
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
       "closeOverlay": "Show «Close» button in call overlay",
       "restartNow": "Restart now"
     },
     "devices": {
+      "audioCategory": "Audio",
+      "videoCategory": "Video",
+      "testSound": "Test sound",
       "speakersLabel": "Speakers",
       "micLabel": "Microphone",
       "cameraLabel": "Camera",
       "defaultDevice": "Default"
     },
     "network": {
+      "transparencyCategory": "Transparency",
       "transparency": "We are transparent and respect your privacy. This tab shows all requests that are made to our servers.",
-      "googleLabel": "Enable Google Analytics to make Heyka better",
-      "googleSwitch": "Allow"
+      "googleCategory": "Enable Google Analytics",
+      "googleLabel": "Allow"
     },
     "about": {
       "version": "version",

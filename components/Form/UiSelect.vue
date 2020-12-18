@@ -1,49 +1,58 @@
 <template>
-  <div
-    v-click-outside="hide"
-    class="dropdown"
-    :class="{'dropdown--disabled': disabled}"
-  >
+  <div class="dropdown-wrapper">
     <div
-      class="dropdown__header"
-      :class="{'ui-error': errorText}"
-      @click="headerClickHandler()"
+      v-textfade
+      class="dropdown__label"
     >
-      <div v-textfade>
-        {{ selectedText }}
-      </div>
-      <svg-icon
-        class="dropdown__header__icon"
-        name="arrow-down"
-      />
+      {{ label }}
     </div>
-
     <div
-      v-if="errorText"
-      class="error-text"
-    >
-      {{ errorText }}
-    </div>
-
-    <div
-      class="dropdown__list"
-      :class="{'dropdown__list--visible': visible}"
+      v-click-outside="hide"
+      class="dropdown"
+      :class="{'dropdown--disabled': disabled}"
     >
       <div
-        v-for="item in data"
-        :key="item.value"
-        class="dropdown__item"
-        @click="variantClickHandler(item)"
+        class="dropdown__header"
+        :class="{'ui-error': errorText}"
+        @click="headerClickHandler()"
       >
         <div v-textfade>
-          {{ item.name }}
+          {{ selectedText }}
         </div>
         <svg-icon
-          v-if="item == selectedItem"
-          class="dropdown__item__icon"
-          name="check"
-          size="medium"
+          class="dropdown__header__icon"
+          name="arrow-down"
         />
+      </div>
+
+      <div
+        v-if="errorText"
+        class="error-text"
+      >
+        {{ errorText }}
+      </div>
+
+      <div
+        class="dropdown__list"
+        :class="{'dropdown__list--visible': visible}"
+      >
+        <div
+          v-for="item in data"
+          :key="item.value"
+          class="dropdown__item"
+          :class="{'dropdown__item--selected': item == selectedItem}"
+          @click="variantClickHandler(item)"
+        >
+          <div v-textfade>
+            {{ item.name }}
+          </div>
+          <!-- <svg-icon
+            v-if="item == selectedItem"
+            class="dropdown__item__icon"
+            name="check"
+            size="medium"
+          /> -->
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +76,14 @@ export default {
      * Select's initial state (selected item)
      */
     value: {
+      type: String,
+      default: null,
+    },
+
+    /**
+     * Text before switch
+     */
+    label: {
       type: String,
       default: null,
     },
@@ -247,6 +264,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.dropdown-wrapper
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items center
+
 .dropdown
   position relative
 
@@ -254,39 +277,41 @@ export default {
     opacity 0.5
     pointer-events none
 
+  &__label
+    color var(--new-UI-02)
+    flex-shrink 0
+
   &__header
-    background-color var(--input)
     cursor pointer
     height 32px
     box-sizing border-box
-    border-radius 4px
-    padding 7px 12px
-    border 1px solid var(--stroke-3)
+    border-radius 6px
+    padding 7px 0
     display flex
     flex-direction row
     justify-content space-between
     align-items center
     overflow hidden
+    color var(--new-UI-04)
+    max-width 170px
 
     &:hover
-      background-color var(--button-bg-4)
+      opacity 0.8 //! временно?
 
     &__icon
       color var(--icon-1)
-      margin-left 8px
-
-  black = var(--icon-1)
+      margin-left 6px
+      flex-shrink 0
 
   &__list
     position absolute
-    background-color var(--app-bg)
+    background-color var(--new-UI-09)
     top 100%
-    left 0
     right 0
+    max-width 260px
     z-index 99
-    border-radius 4px
-    border 1px solid var(--shadow-20)
-    box-shadow 0px 3px 8px var(--shadow-15), 0px 0px 8px var(--shadow-15)
+    border-radius 8px
+    box-shadow var(--new-shadow-03)
     overflow hidden
     display none
     margin 6px 0
@@ -298,8 +323,8 @@ export default {
       display block
 
   &__item
-    padding 8px 8px
-    border-radius 4px
+    padding 8px 16px 8px 8px
+    border-radius 6px
     box-sizing border-box
     height 32px
     cursor pointer
@@ -307,12 +332,16 @@ export default {
     flex-direction row
     justify-content space-between
     align-items center
+    color var(--new-UI-04)
 
     &:hover
-      background-color var(--item-bg-hover)
+      background-color var(--new-UI-06)
 
     &__icon
       color var(--color-1)
+
+    &--selected
+      color var(--new-UI-02)
 
 .text-ellipsis
   white-space nowrap

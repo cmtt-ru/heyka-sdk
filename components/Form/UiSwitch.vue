@@ -93,37 +93,35 @@ export default {
   &__toggle
     box-sizing border-box
     position relative
-    width 24px
-    height 10px
-    background-color var(--input)
-    border-radius 10px
+    width 32px
+    height 18px
+    background-color var(--new-UI-05)
+    border-radius 9px
     z-index 1
     flex-shrink 0
-    box-shadow inset 0 0 0 0.5px var(--line-stroke)
     transition all 0.28s cubic-bezier(0.4, 0, 0.2, 1)
-    transition-property background-color, box-shadow
+    transition-property background-color
 
     &:after
       content ''
       box-sizing border-box
       position absolute
-      top -1px
-      right 12px
-      width 12px
-      height 12px
-      background-color var(--app-bg)
+      top 2px
+      right 16px
+      width 14px
+      height 14px
+      background-color var(--new-UI-09)
       border-radius 12px
-      box-shadow 0 0 0 0.5px var(--line-stroke), 0 1px 2px rgba(0, 0, 0, 0.15)
       z-index 2
       transition all 0.28s cubic-bezier(0.4, 0, 0.2, 1)
-      transition-property right, background-color
+      transition-property right
 
     &--checked
       background-color var(--color-2)
       box-shadow inset 0 0 0 0.5px #1264CD
 
       &:after
-        right 0
+        right 2px
 
   &__text
     margin-right 8px
