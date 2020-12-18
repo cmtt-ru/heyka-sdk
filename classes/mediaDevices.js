@@ -1,4 +1,7 @@
 import { EventEmitter } from 'events';
+import MediaCapturer from '@sdk/classes/MediaCapturer';
+
+const mediaCapturer = new MediaCapturer();
 
 /**
  * Change event debounce timeout
@@ -29,6 +32,12 @@ class MediaDevices extends EventEmitter {
     };
 
     this.linuxDeviceChangeInterval = null;
+
+    this.init();
+  }
+
+  async init() {
+    await mediaCapturer.requestMediaPermissions();
 
     navigator.mediaDevices.addEventListener('devicechange', this.deviceChangeHandler.bind(this));
 
