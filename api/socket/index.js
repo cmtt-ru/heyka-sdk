@@ -117,6 +117,9 @@ async function authorize() {
         connected: true,
         ...data,
       });
+
+      store.commit('me/SET_ONLINE_STATUS', data.onlineStatus);
+
       resolve(data);
     });
 
@@ -324,6 +327,11 @@ function bindUserEvents() {
   client.on(eventNames.meUpdated, async data => {
     store.dispatch('me/updateSocial', data.user);
     console.log(data.user);
+  });
+
+  /** My online status updated */
+  client.on(eventNames.myOnlineStatusUpdated, async data => {
+    store.commit('me/SET_ONLINE_STATUS', data.onlineStatus);
   });
 
   /** User joined workspace */

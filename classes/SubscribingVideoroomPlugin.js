@@ -3,6 +3,7 @@ import mediaCapturer from '@classes/mediaCapturer';
 import Logger from '@sdk/classes/logger';
 const cnsl = new Logger('Subscribing Videoroom Plugin', '#F1C40F');
 const JANUS_PLUGIN = 'janus.plugin.videoroom';
+const SWITCHING_SUBSCRIPTION_ERROR_CODE = 437;
 
 /**
  * Handle communication with videoroom plugin for subscribing
@@ -124,6 +125,8 @@ class VideoroomPlugin extends EventEmitter {
             this.emit('paused');
           } else if (message.started === 'ok') {
             this.emit('started');
+          } else if (message.error_code === SWITCHING_SUBSCRIPTION_ERROR_CODE) {
+            this.emit('switching-error');
           }
         }
 

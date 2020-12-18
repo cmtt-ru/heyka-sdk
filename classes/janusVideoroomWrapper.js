@@ -355,6 +355,9 @@ class JanusVideoroomWrapper extends EventEmitter {
     plugin.on('switched', () => this.emit('switched'));
     plugin.on('started', () => this.emit('started'));
     plugin.on('paused', () => this.emit('paused'));
+    plugin.on('switching-error', () => {
+      this._onSingleSubscriberSwitchingError();
+    });
 
     plugin.on('webrtc-cleanup', () => {
       this.__singleFeed = null;
@@ -393,6 +396,7 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @returns {void}
    */
   removeSingleSubscription() {
+    this.__singleSubscriber.removeAllListeners('switching-error');
     this.__singleSubscriber.removeAllListeners('remote-video-stream');
     this.__singleSubscriber.removeAllListeners('switched');
     this.__singleSubscriber.removeAllListeners('paused');
@@ -478,6 +482,17 @@ class JanusVideoroomWrapper extends EventEmitter {
 
     this.__textroomPlugin.detach();
     this.__textroomPlugin = null;
+  }
+
+  /**
+   * Handles case when an error occurs while switching single subscriber
+   * @returns {void}
+   */
+  _onSingleSubscriberSwitchingError() {
+    const singleFeed = this.__singleFeed;
+
+    this.removeSingleSubscription();
+    this.createSingleSubscription(singleFeed);
   }
 
   /**

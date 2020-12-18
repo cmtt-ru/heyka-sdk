@@ -133,6 +133,11 @@ class PublishingVideoroomPlugin extends EventEmitter {
             cnsl.log(message)
             this._onPublished(message);
             break;
+          case event === 'event' && !message.id && message.publishers?.length > 0:
+            cnsl.info(`new publisher: `);
+            cnsl.log(message.publishers[0])
+            this._onPublished(message.publishers[0]);
+            break;
           case event === 'event' && message.error_code === 433:
             cnsl.info(`Unautorhized error`, message);
             this.emit('unauthorized-request');
