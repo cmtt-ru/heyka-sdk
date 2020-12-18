@@ -37,7 +37,9 @@ class MediaDevices extends EventEmitter {
   }
 
   async init() {
-    await mediaCapturer.requestMediaPermissions();
+    if (!IS_ELECTRON) {
+      await mediaCapturer.requestMediaPermissions();
+    }
 
     navigator.mediaDevices.addEventListener('devicechange', this.deviceChangeHandler.bind(this));
 
