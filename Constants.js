@@ -2,6 +2,9 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 const IS_WIN = process.platform === 'win32';
 const IS_MAC = process.platform === 'darwin';
 const IS_LINUX = process.platform === 'linux';
+const IS_IOS = typeof navigator !== 'undefined' &&
+  (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 let IS_ELECTRON = false;
 
 // global variables
@@ -12,6 +15,7 @@ if (typeof window !== 'undefined') {
   window.IS_LINUX = IS_LINUX;
   IS_ELECTRON = Boolean(window && window.process && window.process.type);
   window.IS_ELECTRON = IS_ELECTRON;
+  window.IS_IOS = IS_IOS;
 }
 
 // Base urls
@@ -47,6 +51,7 @@ module.exports = {
   IS_MAC,
   IS_LINUX,
   IS_ELECTRON,
+  IS_IOS,
 
   API_URL,
   WEB_URL,
