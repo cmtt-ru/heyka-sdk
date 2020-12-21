@@ -171,11 +171,8 @@ export default {
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
       handUpStatus: 'channels/getHandUpStatusByUserId',
       conversationEvents: 'channels/getConversationEvents',
+      isSharingFullScreen: 'janus/isSharingFullScreen',
     }),
-
-    amIStreaming() {
-      return this.$store.state.me.mediaState.screen;
-    },
 
     /**
      * Get needed texts from I18n-locale file
@@ -186,7 +183,7 @@ export default {
     },
 
     buttonsSetup() {
-      if (this.amIStreaming) {
+      if (this.isSharingFullScreen) {
         return BUTTON_SETUPS.streaming;
       }
 
