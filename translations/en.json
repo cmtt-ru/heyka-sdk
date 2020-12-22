@@ -140,7 +140,8 @@
   "call": {
     "grid": {
       "users": "1 user | {n} users",
-      "you": "(you)"
+      "you": "(you)",
+      "reconnecting": "Reconnecting"
     },
     "sharing": {
       "title": "Sharing preview",
