@@ -299,5 +299,8 @@
     "maxlength": "max length is:",
     "passNotMatch": "passwords do not match",
     "noResults": "No results for"
+  },
+  "appStatus": {
+    "tooltip": "Trying to connect to server"
   }
 }
