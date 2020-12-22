@@ -10,7 +10,6 @@
 
 <script>
 import JanusWrapper from '@sdk/classes/JanusWrapper.js';
-import connectionCheck from '@sdk/classes/connectionCheck';
 import AudioCheck from '@classes/audioCheck';
 import mediaCapturer from '@classes/mediaCapturer';
 import { mapState } from 'vuex';
@@ -421,7 +420,7 @@ export default {
      * @returns {void}
      */
     onAudioSlowLink(uplink) {
-      connectionCheck.handleSlowInternet(true);
+
     },
 
     /**
@@ -430,7 +429,7 @@ export default {
      * @returns {void}
      */
     onVideoSlowLink(uplink) {
-      connectionCheck.handleSlowInternet(true);
+
     },
 
     /**

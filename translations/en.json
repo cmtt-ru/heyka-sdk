@@ -279,12 +279,6 @@
     "later": "Later",
     "noUpdate": "No updates available"
   },
-  "connectionCheck": {
-    "onlineStatus": "It seems you are disconnected from the Internet",
-    "slowInternet": "It seems you have a slow Internet connection",
-    "socketReconnecting": "Trying to reconnect to socket server",
-    "serverAvailability": "It seems that server is down :("
-  },
   "tooltips": {
     "search": "Search",
     "newChannel": "New Channel",

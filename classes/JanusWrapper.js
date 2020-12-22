@@ -6,6 +6,7 @@ import SubscribingVideoroomPlugin from './SubscribingVideoroomPlugin';
 import mediaCapturer from '@classes/mediaCapturer';
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter';
+import connectionCheck from '@sdk/classes/connectionCheck';
 import Logger from '@sdk/classes/logger';
 const cnsl = new Logger('Janus wrapper', '#5DADE2');
 
@@ -366,9 +367,12 @@ class JanusWrapper extends EventEmitter {
         success: () => {
           resolve();
           isFullfilled = true;
+          connectionCheck.handleJanusState(true);
         },
         error: (cause) => {
           let internalError = '';
+
+          connectionCheck.handleJanusState(false);
 
           if (cause.indexOf('Connect to Janus error') + 1 || cause.indexOf('Lost connection to the server') + 1) {
             internalError = ERROR_CODES.SERVER_DOWN;
@@ -388,6 +392,7 @@ class JanusWrapper extends EventEmitter {
           isFullfilled = true;
         },
         destroyed: () => {
+          connectionCheck.handleJanusState(false);
           this.emit('destroyed');
         },
       });

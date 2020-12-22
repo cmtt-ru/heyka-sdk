@@ -62,7 +62,7 @@ function middleware(func, functionName) {
           data: Array.prototype.slice.call(arguments),
         });
 
-        connectionCheck.handleServerAvailability(true);
+        connectionCheck.handleApiState(true);
       }
 
       await checkAndRefreshTokens();
