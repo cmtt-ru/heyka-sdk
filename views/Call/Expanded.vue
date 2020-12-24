@@ -393,6 +393,11 @@ export default {
     border-radius 4px
     font-weight 500
     align-items center
+    opacity 1
+    transition opacity 0.2s ease
+
+    &:hover
+      opacity 0
 
     &__avatar
       margin-right 8px
