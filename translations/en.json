@@ -259,18 +259,18 @@
     }
   },
   "push": {
-    "invitesto": "Invite to",
+    "invitesto": "Invites to",
     "join": "Join",
-    "busy": "Busy",
-    "isbusy": "Is busy",
+    "busy": "I’ll contact you later",
+    "isbusy": "Can’t talk right now",
     "mutedTalking": {
-      "text": "No one hears you",
-      "button1": "Turn mic on",
-      "button2": "Cancel"
+      "text": "No one can hear you",
+      "info": "Turn on your mic?",
+      "button1": "Turn it on"
     },
     "mutedForAll": {
-      "text": "You have been muted by",
-      "close": "Close"
+      "text": "Turned off your mic",
+      "turnOn": "Turn it on"
     }
   },
   "autoUpdate": {
