@@ -52,7 +52,6 @@ class ConnectionCheck extends EventEmitter {
    * @returns {void}
    */
   async handleSocketState(state) {
-    // Save status in store
     store.commit('app/SET_CONNECTION_STATUS', {
       socket: state,
     });
