@@ -4,7 +4,7 @@ export const errorMessages = {
   accessTokenExpired: 'Access token is expired',
   missingAuthentication: 'Missing authentication',
   badRequest: 'Invalid request params input',
-  serverIsDown: 'Server is down',
+  apiIsDown: 'Api is down',
   invalidRequestPayloadInput: 'Invalid request payload input',
   unknownConnection: 'Unknow socket connection',
   connectionNotInChannel: 'Socket connection not in a channel',

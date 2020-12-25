@@ -87,7 +87,7 @@ defineErrorHandler(errorMessages.accessDenied, error => {
 /**
  * Server is down
  */
-defineErrorHandler(errorMessages.serverIsDown, error => {
+defineErrorHandler(errorMessages.apiIsDown, error => {
   connectionCheck.handleApiState(false);
 
   throw error;
