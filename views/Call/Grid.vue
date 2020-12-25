@@ -183,7 +183,7 @@ export default {
     },
 
     buttonsSetup() {
-      if (this.isSharingFullScreen) {
+      if (this.isSharingFullScreen && IS_ELECTRON) {
         return BUTTON_SETUPS.streaming;
       }
 
