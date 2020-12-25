@@ -140,7 +140,9 @@
   "call": {
     "grid": {
       "users": "1 user | {n} users",
-      "you": "(you)"
+      "you": "(you)",
+      "reconnecting": "Reconnecting",
+      "aqi": "Unstable connection"
     },
     "sharing": {
       "title": "Sharing preview",
@@ -279,12 +281,6 @@
     "later": "Later",
     "noUpdate": "No updates available"
   },
-  "connectionCheck": {
-    "onlineStatus": "It seems you are disconnected from the Internet",
-    "slowInternet": "It seems you have a slow Internet connection",
-    "socketReconnecting": "Trying to reconnect to socket server",
-    "serverAvailability": "It seems that server is down :("
-  },
   "tooltips": {
     "search": "Search",
     "newChannel": "New Channel",
@@ -305,5 +301,8 @@
     "maxlength": "max length is:",
     "passNotMatch": "passwords do not match",
     "noResults": "No results for"
+  },
+  "appStatus": {
+    "tooltip": "Trying to connect to server"
   }
 }

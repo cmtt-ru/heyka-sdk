@@ -154,7 +154,6 @@ async function authorize() {
  */
 function connectHandler() {
   cnsl.info('connected!');
-  connectionCheck.handleSocketReconnecting(false);
 
   // try to authorize new connection as the old connection
   authorize();
@@ -173,9 +172,9 @@ function bindErrorEvents() {
 
   client.on('connect', connectHandler);
 
-  client.on(eventNames.reconnecting, () => {
-    connectionCheck.handleSocketReconnecting(true);
-  });
+  // client.on(eventNames.reconnecting, () => {
+  //   connectionCheck.handleSocketState(false);
+  // });
 
   client.on(eventNames.error, data => {
     cnsl.error('error', data);

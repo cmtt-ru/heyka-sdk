@@ -31,7 +31,7 @@
         v-for="(user, index) in users"
         :key="user.id"
         class="cell"
-        :class="{'cell--elevated': raisedHands[user.id]}"
+        :class="{'cell--elevated': raisedHands[user.id], 'cell--reconnecting': reconnectingStatus(user.id)}"
         :style="cellDimensions(index)"
       >
         <div
@@ -63,13 +63,20 @@
           />
 
           <div
-            v-tooltip="'Unstable connection'"
+            v-tooltip="texts.aqi"
             class="cell__aqi"
             :data-status="audioQualityStatus(user.id)"
           >
             <span />
             <span />
             <span />
+            <span />
+          </div>
+
+          <div
+            v-tooltip="texts.reconnecting"
+            class="cell__reconnecting"
+          >
             <span />
           </div>
 
@@ -164,8 +171,7 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
-      handUpStatus: 'channels/getHandUpStatusByUserId',
-      conversationEvents: 'channels/getConversationEvents',
+      reconnectingStatus: 'channels/getReconnectingStatusByUserId',
     }),
 
     /**
@@ -467,6 +473,14 @@ export default {
     &--elevated
       z-index 5
 
+    &--reconnecting
+      .cell__avatar,
+      .cell__feed
+        filter grayscale(1) brightness(0.75);
+
+      .cell__reconnecting
+        display block
+
     &__raised-hand
       position absolute
       top 4px
@@ -629,6 +643,44 @@ export default {
         &:nth-child(3)
         &:nth-child(2)
           opacity 0.25
+
+    &__reconnecting
+      display none
+      position absolute
+      top 0
+      left 0
+      bottom 0
+      right 0
+      margin auto
+      width 44px
+      height 44px
+      background #ffffff
+      border-radius 100%
+      box-shadow var(--new-shadow-03)
+      z-index 3
+
+      span
+        position absolute
+        left 0
+        top 0
+        right 0
+        bottom 0
+        margin auto
+        width 50%
+        height 50%
+        border-radius 100px
+        animation rotate 1s linear infinite
+        border 2px solid var(--new-UI-01)
+        border-right-color transparent
+
+        @keyframes rotate {
+          0% {
+            transform rotate(0deg)
+          }
+          100% {
+            transform rotate(360deg)
+          }
+        }
 
     &__expand
       bottom 4px
