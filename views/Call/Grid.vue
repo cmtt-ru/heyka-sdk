@@ -115,7 +115,7 @@
 
     <call-buttons
       class="bottom-control"
-      :buttons="['camera', 'screen', 'speakers', 'microphone', 'leave']"
+      :buttons="buttonsSetup"
       size="large"
     />
   </div>
@@ -134,6 +134,11 @@ import { getUserAvatarUrl } from '@libs/image';
 const cnsl = new Logger('Grid.vue', '#138D75');
 
 const TOO_LATE = 5000;
+
+const BUTTON_SETUPS = {
+  default: ['camera', 'screen', 'speakers', 'microphone', 'leave'],
+  streaming: ['camera', 'screen', 'drawing', 'speakers', 'microphone', 'leave'],
+};
 
 /**
  * Aspect ratio 124 / 168;
@@ -171,6 +176,9 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
+      handUpStatus: 'channels/getHandUpStatusByUserId',
+      conversationEvents: 'channels/getConversationEvents',
+      isSharingFullScreen: 'janus/isSharingFullScreen',
       reconnectingStatus: 'channels/getReconnectingStatusByUserId',
     }),
 
@@ -180,6 +188,14 @@ export default {
      */
     texts() {
       return this.$t('call.grid');
+    },
+
+    buttonsSetup() {
+      if (this.isSharingFullScreen && IS_ELECTRON) {
+        return BUTTON_SETUPS.streaming;
+      }
+
+      return BUTTON_SETUPS.default;
     },
 
     /**

@@ -151,7 +151,8 @@
       "drawing": "Drawing",
       "start": "Start sharing",
       "stop": "Stop sharing",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "ongoingSharing": "Broadcasting now"
     }
   },
   "login": {
