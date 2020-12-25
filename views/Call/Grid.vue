@@ -59,6 +59,7 @@
             class="badge badge--hidden cell__more"
             :type="7"
             size="medium"
+            :height="40"
             icon="more"
           />
 
@@ -76,9 +77,9 @@
           <avatar
             v-show="!user.camera && !user.screen"
             class="cell__avatar"
-            :image="userAvatar(user, 100)"
+            :image="userAvatar(user, 192)"
             :user-id="user.id"
-            :size="100"
+            :size="192"
             square
           />
 
@@ -539,7 +540,7 @@ export default {
       align-items center
       position relative
       overflow hidden
-      background #141414 //! make var!
+      background var(--new-bg-05)
 
       video
         width 100%
@@ -566,8 +567,8 @@ export default {
       pointer-events none
 
     &__more
-      top 4px
-      right 4px
+      top 6px
+      right 6px
       flex-shrink 0
       opacity 0
       transition opacity 0.15s ease
@@ -658,7 +659,6 @@ export default {
     &__username
       bottom 4px
       margin 0 auto
-      background-color var(--app-bg)
       padding 8px
       border-radius 4px
       flex-shrink 0
