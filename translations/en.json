@@ -141,7 +141,8 @@
     "grid": {
       "users": "1 user | {n} users",
       "you": "(you)",
-      "reconnecting": "Reconnecting"
+      "reconnecting": "Reconnecting",
+      "aqi": "Unstable connection"
     },
     "sharing": {
       "title": "Sharing preview",

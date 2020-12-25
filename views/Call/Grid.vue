@@ -63,7 +63,7 @@
           />
 
           <div
-            v-tooltip="texts.reconnecting"
+            v-tooltip="texts.aqi"
             class="cell__aqi"
             :data-status="audioQualityStatus(user.id)"
           >
@@ -74,7 +74,7 @@
           </div>
 
           <div
-            v-tooltip="'Reconnecting'"
+            v-tooltip="texts.reconnecting"
             class="cell__reconnecting"
           >
             <span />
