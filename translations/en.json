@@ -305,5 +305,29 @@
     "maxlength": "max length is:",
     "passNotMatch": "passwords do not match",
     "noResults": "No results for"
+  },
+  "newAuth": {
+    "header": {
+      "back": "Back"
+    },
+    "main": {
+      "title": "Login to Heyka"
+    },
+    "email": {
+      "title": "Login to Heyka",
+      "reset": "Reset password",
+      "newMember": "Not a member?",
+      "signup": "Sign up",
+      "login": "Login",
+      "devServer": "🌈 You're connecting to dev server"
+    },
+    "reset": {
+      "title": "Reset password",
+      "reset": "Reset",
+      "cancel": "Cancel"
+    },
+    "footer": {
+      "privacy": "You consent to the processing of personal data"
+    }
   }
 }
