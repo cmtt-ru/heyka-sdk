@@ -4,19 +4,28 @@
   >
     <div class="top-content">
       <div class="left-info">
-        <div class="channel-name">
-          <svg-icon
-            name="channel"
-            size="small"
-          />
-          <span>{{ selectedChannelName }}</span>
+        <svg-icon
+          name="channel"
+          :width="40"
+          :height="40"
+          class="channel-icon"
+        />
+        <div
+          v-textfade
+          class="channel-name"
+        >
+          {{ selectedChannelName }}
         </div>
-        <div>{{ $tc("call.grid.users", usersCount) }}</div>
+        <div class="channel-usercount">
+          {{ $tc("call.grid.users", usersCount) }}
+        </div>
       </div>
       <ui-button
         v-popover.click="{name: 'Devices'}"
         class="top-content__devices"
         :type="7"
+        popover
+        :height="52"
         size="medium"
         icon="settings"
       />
@@ -189,7 +198,7 @@ export default {
         cnsl.log('wait for publisher is appear');
         await this.waitForPublisherWillAppear(publisher.userId);
       }
-      this.insertVideoStreamForUser(publisher.userId, publisher.stream);
+      this.$set(this.videoStreams, publisher.userId, publisher.stream);
     });
   },
 
@@ -222,7 +231,7 @@ export default {
         .filter(publisher => publisher.stream)
         .forEach(publisher => {
           cnsl.log('insert video for user ', publisher.userId, publisher.stream);
-          this.insertVideoStreamForUser(publisher.userId, publisher.stream);
+          this.$set(this.videoStreams, publisher.userId, publisher.stream);
         });
 
       // start publishers without streams
@@ -232,28 +241,6 @@ export default {
           cnsl.log('subscribe for video from user', publisher.userId);
           janusVideoroomWrapper.subscribeFor(publisher.janusId);
         });
-    },
-    /**
-     * Insert stream in HTML5 video tag
-     * @param {string} userId User id
-     * @param {MediaStream} stream User video stream
-     * @returns {void}
-     */
-    async insertVideoStreamForUser(userId, stream) {
-      this.$set(this.videoStreams, userId, true);
-      await new Promise(resolve => this.$nextTick(resolve));
-
-      const htmlVideo = this.$refs[`video${userId}`][0];
-
-      if (!htmlVideo) {
-        cnsl.error(`Not found HTML video tag for user ${userId}`);
-
-        return;
-      }
-      htmlVideo.srcObject = stream;
-      htmlVideo.onloadedmetadata = () => {
-        htmlVideo.play();
-      };
     },
 
     async waitForPublisherWillAppear(userId) {
@@ -361,27 +348,44 @@ export default {
     height 100vh
 
   .top-content
-    height 116px
+    height 108px
     box-sizing border-box
-    padding 24px 30px 24px 40px
-    font-weight 500
-    font-size 36px
-    line-height 42px
+    padding 0 40px
     display flex
     flex-direction row
     justify-content space-between
     align-items center
+    white-space nowrap
 
     &__devices
       margin-left 8px
+      flex-shrink 0
 
   .left-info
-    display grid
+    display flex
+    flex-direction row
+    align-items center
+    font-weight 500
+    font-size 24px
+    line-height 24px
+    color rgba(255, 255, 255, 0.5)
+
+  .channel-icon
+    color: var(--new-signal-02)
+    flex-shrink 0
 
   .channel-name
     font-size 14px
     line-height 18px
-    color var(--text-1)
+    color var(--new-UI-09)
+    margin 0 16px 0 4px
+    font-weight bold
+    font-size 32px
+    line-height 36px
+
+  .channel-usercount
+    padding 4px 16px 0 0
+    flex-shrink 0
 
   .cell-grid
     height calc(100vh - 232px)

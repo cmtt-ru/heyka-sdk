@@ -15,9 +15,13 @@
     >
       <video
         v-show="videoStream"
-        :ref="`video${user.id}`"
+        ref="video"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
+      />
+      <div
+        v-show="videoStream"
+        class="cell__feed__gradient"
       />
       <div
         v-show="user.speaking && user.microphone"
@@ -30,8 +34,10 @@
         class="badge badge--hidden cell__more"
         :type="7"
         size="medium"
-        :height="40"
+        :height="currentSizes.button"
+        :icon-size="currentSizes.icon"
         icon="more"
+        popover
       />
 
       <div
@@ -48,15 +54,13 @@
       <avatar
         v-show="!user.camera && !user.screen"
         class="cell__avatar"
-        :image="userAvatar(user, 192)"
+        :image="userAvatar(user, currentSizes.avatar)"
         :user-id="user.id"
-        :size="192"
-        square
+        :size="currentSizes.avatar"
       />
 
       <div
         class="badge cell__username"
-        :class="{'cell__username--hidden': user.camera}"
       >
         <div v-textfade>
           {{ user.name }}
@@ -91,6 +95,34 @@ import { mapGetters } from 'vuex';
  */
 const ASPECT_RATIO = 0.7380952381;
 
+const SIZES = [
+  {
+    minSize: 400,
+    avatar: 192,
+    button: 40,
+    icon: 18,
+  },
+  {
+    minSize: 200,
+    avatar: 80,
+    button: 24,
+    icon: 11,
+  },
+  {
+    minSize: 140,
+    avatar: 60,
+    button: 24,
+    icon: 11,
+  },
+  {
+    minSize: 0,
+    avatar: 32,
+    button: 24,
+    icon: 11,
+  },
+
+];
+
 export default {
   components: {
     UiButton,
@@ -117,8 +149,8 @@ export default {
      * User's video stream
      */
     videoStream: {
-      type: Boolean,
-      default: false,
+      type: MediaStream,
+      default: undefined,
     },
   },
   data() {
@@ -162,6 +194,16 @@ export default {
       };
     },
 
+    currentSizes() {
+      for (const size of SIZES) {
+        if (this.width > size.minSize) {
+          return size;
+        }
+      }
+
+      return SIZES[0];
+    },
+
     /**
      * If this person has camera/screensharing on. Should we show "fullscreen" button for this person?
      * @returns {boolean}
@@ -175,19 +217,17 @@ export default {
     },
   },
   watch: {
-
+    videoStream(val) {
+      if (val) {
+        this.insertVideoStreamForUser(val);
+      }
+    },
   },
 
   mounted() {
-
-  },
-
-  beforeDestroy() {
-
-  },
-
-  destroyed() {
-
+    this.$refs['video'].onloadedmetadata = () => {
+      this.$refs['video'][0].play();
+    };
   },
 
   methods: {
@@ -204,6 +244,21 @@ export default {
         name: 'expanded',
         params: { id: this.user.id },
       });
+    },
+
+    /**
+     * Insert stream in HTML5 video tag
+     *
+     * @param {MediaStream} stream User video stream
+     * @returns {void}
+     */
+    insertVideoStreamForUser(stream) {
+      const htmlVideo = this.$refs['video'];
+
+      htmlVideo.srcObject = stream;
+      htmlVideo.onloadedmetadata = () => {
+        htmlVideo.play();
+      };
     },
 
     userAvatar: getUserAvatarUrl,
@@ -229,7 +284,7 @@ export default {
       animation-iteration-count 1
       z-index 20
       clip-path url(#svgPath)
-      --borderWidth: 10px
+      --borderWidth: 12px
 
       @keyframes showRaisedHand {
         0% {
@@ -258,7 +313,7 @@ export default {
         height calc(100% + var(--borderWidth) * 2)
         width calc(100% + var(--borderWidth) * 2)
         background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
-        border-radius calc(var(--borderWidth) * 2)
+        border-radius var(--borderWidth)
         z-index 1
         animation animatedGradient 2s ease alternate
         animation-iteration-count 5
@@ -290,18 +345,24 @@ export default {
       overflow hidden
       background var(--new-bg-05)
 
-      video
-        width 100%
-        height 100%
-        object-fit cover
-
     &__feed
       position absolute
       top 0
       left 0
       width 100%
       height 100%
-      border-radius 4px
+      object-fit cover
+      border-radius 12px
+
+      &__gradient
+        content ''
+        position absolute
+        pointer-events none
+        top 0
+        bottom 0
+        left 0
+        right 0
+        background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.85) 100%);
 
     &__talking
       position absolute
@@ -310,7 +371,7 @@ export default {
       width 100%
       height 100%
       border 2px solid var(--color-1)
-      border-radius 4px
+      border-radius 12px
       box-sizing border-box
       pointer-events none
 
@@ -400,16 +461,14 @@ export default {
       opacity 1
 
     &__avatar
-      border-radius 4px
-      overflow hidden
       margin auto
+      padding-bottom 30px
 
     &__username
       bottom 4px
       margin 0 auto
       padding 8px
       border-radius 4px
-      flex-shrink 0
       max-width calc(100% - 8px)
       box-sizing border-box
       width auto
@@ -424,7 +483,9 @@ export default {
       &__you
         color var(--text-1)
         margin-left 8px
+        flex-shrink 0
 
       &__mic-off
         margin-left 8px
+        flex-shrink 0
 </style>
