@@ -326,6 +326,13 @@
       "reset": "Reset",
       "cancel": "Cancel"
     },
+    "signup": {
+      "title": "Sign up",
+      "name": "Name & surname",
+      "email": "Email",
+      "password": "Password",
+      "register": "Sign up"
+    },
     "footer": {
       "privacy": "You consent to the processing of personal data"
     }
