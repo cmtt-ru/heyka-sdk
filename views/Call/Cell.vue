@@ -282,8 +282,6 @@ export default {
       border-radius var(--borderWidth)
       animation showRaisedHand 5s linear forwards
       animation-iteration-count 1
-      z-index 20
-      clip-path url(#svgPath)
       --borderWidth: 12px
 
       @keyframes showRaisedHand {
@@ -313,12 +311,12 @@ export default {
         height calc(100% + var(--borderWidth) * 2)
         width calc(100% + var(--borderWidth) * 2)
         background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
-        border-radius var(--borderWidth)
+        border-radius calc(var(--borderWidth) * 2)
         z-index 1
         animation animatedGradient 2s ease alternate
         animation-iteration-count 5
         background-size 300% 300%
-        filter blur(50px)
+        filter blur(25px)
 
       @keyframes animatedGradient {
         0% {
