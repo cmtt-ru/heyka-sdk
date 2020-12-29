@@ -42,6 +42,7 @@
         :width="Math.floor(fullGridWidth * currentGrid[index])"
         :video-stream="videoStreams[user.id]"
         :user="user"
+        :class="{'cell--elevated': raisedHands[user.id], 'cell--reconnecting': reconnectingStatus(user.id)}"
       />
     </div>
 
@@ -78,7 +79,7 @@ const BUTTON_SETUPS = {
  */
 const ASPECT_RATIO = 0.7380952381;
 
-const PADDING = 20;
+const PADDING = 36;
 
 export default {
   components: {
@@ -173,7 +174,7 @@ export default {
       handler(events) {
         const event = events[events.length - 1];
 
-        if (event.action === 'hand-up' && event.data.timestamp + TOO_LATE > Date.now()) {
+        if (event && event.action === 'hand-up' && event.data.timestamp + TOO_LATE > Date.now()) {
           this.$set(this.raisedHands, event.userId, true);
           setTimeout(() => {
             this.$delete(this.raisedHands, event.userId);
@@ -291,7 +292,7 @@ export default {
       if (!bounds || !this.grids) {
         return;
       }
-      const boundHeight = bounds.offsetHeight - PADDING * 2;
+      const boundHeight = bounds.offsetHeight;
       const boundWidth = bounds.offsetWidth - PADDING * 2;
       const closest = this.findClosest(boundHeight / boundWidth, this.grids);
 
@@ -407,6 +408,16 @@ export default {
     justify-content center
     align-content center
     box-sizing border-box
+
+  .cell
+
+    &--elevated
+      z-index 5
+
+    &--reconnecting
+      .cell__avatar,
+      .cell__feed
+        filter grayscale(1) brightness(0.75);
 
   .bottom-control
     margin 28px auto 0

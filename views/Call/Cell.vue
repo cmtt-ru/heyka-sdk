@@ -63,13 +63,10 @@
         class="badge cell__username"
       >
         <div v-textfade>
-          {{ user.name }}
-        </div>
-        <div
-          v-if="user.id === myId"
-          class="cell__username__you"
-        >
-          {{ texts.you }}
+          {{ user.name }} <span
+            v-if="user.id === myId"
+            class="cell__username__you"
+          >{{ texts.you }}</span>
         </div>
         <svg-icon
           v-if="!user.microphone"
@@ -109,8 +106,20 @@ const SIZES = [
     icon: 11,
   },
   {
-    minSize: 140,
+    minSize: 160,
     avatar: 60,
+    button: 24,
+    icon: 11,
+  },
+  {
+    minSize: 140,
+    avatar: 48,
+    button: 24,
+    icon: 11,
+  },
+  {
+    minSize: 120,
+    avatar: 32,
     button: 24,
     icon: 11,
   },
@@ -368,7 +377,7 @@ export default {
       left 0
       width 100%
       height 100%
-      border 2px solid var(--color-1)
+      border 2px solid var(--new-signal-02)
       border-radius 12px
       box-sizing border-box
       pointer-events none
@@ -460,12 +469,12 @@ export default {
 
     &__avatar
       margin auto
-      padding-bottom 30px
+      transform translateY(-11px)
 
     &__username
       bottom 4px
       margin 0 auto
-      padding 8px
+      padding 6px 4px
       border-radius 4px
       max-width calc(100% - 8px)
       box-sizing border-box
@@ -479,9 +488,8 @@ export default {
       z-index 3
 
       &__you
-        color var(--text-1)
-        margin-left 8px
-        flex-shrink 0
+        opacity 0.5
+        margin-left 4px
 
       &__mic-off
         margin-left 8px
