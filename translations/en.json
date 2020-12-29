@@ -140,7 +140,9 @@
   "call": {
     "grid": {
       "users": "1 user | {n} users",
-      "you": "(you)"
+      "you": "(you)",
+      "reconnecting": "Reconnecting",
+      "aqi": "Unstable connection"
     },
     "sharing": {
       "title": "Sharing preview",
@@ -149,7 +151,8 @@
       "drawing": "Drawing",
       "start": "Start sharing",
       "stop": "Stop sharing",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "ongoingSharing": "Broadcasting now"
     }
   },
   "login": {
@@ -259,18 +262,18 @@
     }
   },
   "push": {
-    "invitesto": "Invite to",
+    "invitesto": "Invites to",
     "join": "Join",
-    "busy": "Busy",
-    "isbusy": "Is busy",
+    "busy": "I’ll contact you later",
+    "isbusy": "Can’t talk right now",
     "mutedTalking": {
-      "text": "No one hears you",
-      "button1": "Turn mic on",
-      "button2": "Cancel"
+      "text": "No one can hear you",
+      "info": "Turn on your mic?",
+      "button1": "Turn it on"
     },
     "mutedForAll": {
-      "text": "You have been muted by",
-      "close": "Close"
+      "text": "Turned off your mic",
+      "turnOn": "Turn it on"
     }
   },
   "autoUpdate": {
@@ -278,12 +281,6 @@
     "install": "Install",
     "later": "Later",
     "noUpdate": "No updates available"
-  },
-  "connectionCheck": {
-    "onlineStatus": "It seems you are disconnected from the Internet",
-    "slowInternet": "It seems you have a slow Internet connection",
-    "socketReconnecting": "Trying to reconnect to socket server",
-    "serverAvailability": "It seems that server is down :("
   },
   "tooltips": {
     "search": "Search",
@@ -305,5 +302,8 @@
     "maxlength": "max length is:",
     "passNotMatch": "passwords do not match",
     "noResults": "No results for"
+  },
+  "appStatus": {
+    "tooltip": "Trying to connect to server"
   }
 }

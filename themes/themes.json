@@ -3,6 +3,7 @@
         "name": "Light",
         "colors": {
             "root": {
+                "--app-bg": "#FFFFFF",
                 "--text-tech-0": "#DE4B39",
                 "--text-tech-1": "#27AE60",
                 "--text-tech-2": "#1575F1",
@@ -112,6 +113,7 @@
         "name": "Dark",
         "colors": {
             "root": {
+                "--app-bg": "#333333",
                 "--text-tech-0": "#DE4B39",
                 "--text-tech-1": "#27AE60",
                 "--text-tech-2": "#2886ff",

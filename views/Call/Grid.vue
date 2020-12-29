@@ -47,30 +47,9 @@
 
     <call-buttons
       class="bottom-control"
-      :buttons="['camera', 'screen', 'speakers', 'microphone', 'leave']"
+      :buttons="buttonsSetup"
       size="large"
     />
-
-    <svg
-      height="0"
-      width="0"
-    >
-      <defs>
-        <clipPath
-          id="svgPath"
-          clipPathUnits="objectBoundingBox"
-        >
-          <path
-            fill="#FFFFFF"
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M0 0.0266666C0 0.011939 0.00895431 0 0.02 0H0.98C0.991046 0 1 0.0119391 1 0.0266667V0.973333C1 0.988061 0.991046 1 0.98 1H0.02C0.00895429 1 0 0.988061 0 0.973333V0.0266666Z
-
-            M-20,-20 L0,27 A3,3 0 0,0 3,30 L7,30 A3,3 0 0,0 10,27 L10,0 Z"
-          />
-        </clipPath>
-      </defs>
-    </svg>
   </div>
 </template>
 
@@ -85,6 +64,13 @@ import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
 const cnsl = new Logger('Grid.vue', '#138D75');
+
+const TOO_LATE = 5000;
+
+const BUTTON_SETUPS = {
+  default: ['camera', 'screen', 'speakers', 'microphone', 'leave'],
+  streaming: ['camera', 'screen', 'drawing', 'speakers', 'microphone', 'leave'],
+};
 
 /**
  * Aspect ratio 124 / 168;
@@ -109,6 +95,7 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
+      raisedHands: {},
     };
   },
 
@@ -122,6 +109,9 @@ export default {
       users: 'usersInMyChannel',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
       handUpStatus: 'channels/getHandUpStatusByUserId',
+      conversationEvents: 'channels/getConversationEvents',
+      isSharingFullScreen: 'janus/isSharingFullScreen',
+      reconnectingStatus: 'channels/getReconnectingStatusByUserId',
     }),
 
     /**
@@ -130,6 +120,14 @@ export default {
      */
     texts() {
       return this.$t('call.grid');
+    },
+
+    buttonsSetup() {
+      if (this.isSharingFullScreen && IS_ELECTRON) {
+        return BUTTON_SETUPS.streaming;
+      }
+
+      return BUTTON_SETUPS.default;
     },
 
     /**
@@ -169,6 +167,19 @@ export default {
           this.$delete(this.videoStreams, key);
         });
       }
+    },
+    conversationEvents: {
+      deep: true,
+      handler(events) {
+        const event = events[events.length - 1];
+
+        if (event.action === 'hand-up' && event.data.timestamp + TOO_LATE > Date.now()) {
+          this.$set(this.raisedHands, event.userId, true);
+          setTimeout(() => {
+            this.$delete(this.raisedHands, event.userId);
+          }, TOO_LATE);
+        }
+      },
     },
   },
 
