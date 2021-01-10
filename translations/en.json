@@ -305,5 +305,10 @@
   },
   "appStatus": {
     "tooltip": "Trying to connect to server"
+  },
+  "noWorkspace": {
+    "title": "You don’t have access to any workspace",
+    "description": "Create a new team or ask your co-workers to invite you (your email is {0})",
+    "create": "Create workspace"
   }
 }
