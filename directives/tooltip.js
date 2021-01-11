@@ -11,6 +11,23 @@ export default {
       modes: {
         hover: true,
       },
+      options: {
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              // eslint-disable-next-line no-magic-numbers
+              offset: [0, 8],
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              padding: 8,
+            },
+          },
+        ],
+      },
     });
 
     /** Save popover instance in vnode context */

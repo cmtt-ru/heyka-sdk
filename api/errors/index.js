@@ -27,6 +27,6 @@ export async function handleError(error) {
 
     await callErrorHandler(errorMessage, error);
   } else {
-    await callErrorHandler('server is down', error);
+    await callErrorHandler('Api is down', error);
   }
 }

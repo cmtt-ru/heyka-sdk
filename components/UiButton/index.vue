@@ -49,6 +49,7 @@ import ConditionalWrapper from '@components/ConditionalWrapper';
  * @type {{small: number, large: number, medium: number}}
  */
 const ICON_SIZES = {
+  tiny: 14,
   small: 16,
   medium: 18,
   large: 24,

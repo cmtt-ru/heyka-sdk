@@ -126,7 +126,7 @@ export default {
         flex-shrink 0
 
     &__name
-        padding-left 4px
+        padding-left 8px
         flex-grow 1
         line-height 16px
 

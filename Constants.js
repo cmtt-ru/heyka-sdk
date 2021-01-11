@@ -22,10 +22,11 @@ if (IS_ELECTRON) {
   let heykaStore;
 
   try {
-    heykaStore = require('../renderer/store/localStore').default;
+    heykaStore = require('../renderer/store/localStore').heykaStore;
   } catch (e) {
     console.error(e);
   }
+
   const forceDevServer = heykaStore.get('devServer') || false;
 
   if (forceDevServer) {
