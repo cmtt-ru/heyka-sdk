@@ -2,11 +2,12 @@
 <template>
   <div
     class="cell"
+    :class="{'cell--elevated': raisedHand}"
     :style="cellDimensions"
   >
     <div
-      v-show="handUpStatus(user.id)>mountedTimestamp-5000"
-      :key="handUpStatus(user.id)"
+      v-show="handUpTimestamp"
+      :key="handUpTimestamp"
       class="cell__raised-hand"
     />
     <div
@@ -83,7 +84,6 @@
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
 import { getUserAvatarUrl } from '@libs/image';
-// import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
 
 /**
@@ -91,6 +91,9 @@ import { mapGetters } from 'vuex';
  * @type {number}
  */
 const ASPECT_RATIO = 0.7380952381;
+
+/* Timeout for hand up */
+const TOO_LATE = 5000;
 
 const SIZES = [
   {
@@ -165,6 +168,7 @@ export default {
   data() {
     return {
       mountedTimestamp: Date.now(),
+      raisedHand: false,
     };
   },
   computed: {
@@ -173,8 +177,12 @@ export default {
       mediaState: 'me/getMediaState',
       myId: 'me/getMyId',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
-      handUpStatus: 'channels/getHandUpStatusByUserId',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
+
+    handUpTimestamp() {
+      return this.getHandUpStatusByUserId(this.user.id);
+    },
 
     /**
      * Get needed texts from I18n-locale file
@@ -231,6 +239,15 @@ export default {
         this.insertVideoStreamForUser(val);
       }
     },
+
+    handUpTimestamp(val) {
+      if (val) {
+        this.raisedHand = true;
+        setTimeout(() => {
+          this.raisedHand = false;
+        }, TOO_LATE);
+      }
+    },
   },
 
   mounted() {
@@ -281,6 +298,9 @@ export default {
     position relative
     padding 4px
 
+    &--elevated
+      z-index 5
+
     &__raised-hand
       position absolute
       top 4px
@@ -323,7 +343,7 @@ export default {
         border-radius calc(var(--borderWidth) * 2)
         z-index 1
         animation animatedGradient 2s ease alternate
-        animation-iteration-count 5
+        animation-iteration-count 3
         background-size 300% 300%
         filter blur(25px)
 

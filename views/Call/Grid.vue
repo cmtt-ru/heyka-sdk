@@ -42,7 +42,7 @@
         :width="Math.floor(fullGridWidth * currentGrid[index])"
         :video-stream="videoStreams[user.id]"
         :user="user"
-        :class="{'cell--elevated': raisedHands[user.id], 'cell--reconnecting': reconnectingStatus(user.id)}"
+        :class="{'cell--reconnecting': reconnectingStatus(user.id)}"
       />
     </div>
 
@@ -65,8 +65,6 @@ import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
 const cnsl = new Logger('Grid.vue', '#138D75');
-
-const TOO_LATE = 5000;
 
 const BUTTON_SETUPS = {
   default: ['camera', 'screen', 'speakers', 'microphone', 'leave'],
@@ -96,7 +94,6 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
-      raisedHands: {},
     };
   },
 
@@ -168,19 +165,6 @@ export default {
           this.$delete(this.videoStreams, key);
         });
       }
-    },
-    conversationEvents: {
-      deep: true,
-      handler(events) {
-        const event = events[events.length - 1];
-
-        if (event && event.action === 'hand-up' && event.data.timestamp + TOO_LATE > Date.now()) {
-          this.$set(this.raisedHands, event.userId, true);
-          setTimeout(() => {
-            this.$delete(this.raisedHands, event.userId);
-          }, TOO_LATE);
-        }
-      },
     },
   },
 
@@ -410,9 +394,6 @@ export default {
     box-sizing border-box
 
   .cell
-
-    &--elevated
-      z-index 5
 
     &--reconnecting
       .cell__avatar,
