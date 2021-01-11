@@ -167,7 +167,6 @@ export default {
   },
   data() {
     return {
-      mountedTimestamp: Date.now(),
       raisedHand: false,
     };
   },
