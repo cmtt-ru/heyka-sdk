@@ -19,7 +19,14 @@ if (typeof window !== 'undefined') {
 }
 
 if (IS_ELECTRON) {
-  const { heykaStore } = require('../renderer/store/localStore');
+  let heykaStore;
+
+  try {
+    heykaStore = require('../renderer/store/localStore').heykaStore;
+  } catch (e) {
+    console.error(e);
+  }
+
   const forceDevServer = heykaStore.get('devServer') || false;
 
   if (forceDevServer) {
