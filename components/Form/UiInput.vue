@@ -206,10 +206,10 @@ export default {
 
     eyeIcon() {
       if (this.passVisible) {
-        return 'eye';
+        return 'eye-closed';
       }
 
-      return 'eye-closed';
+      return 'eye';
     },
 
     localType() {
@@ -383,6 +383,7 @@ export default {
   font-size 14px
   line-height 18px
   color var(--new-UI-02)
+  outline none !important
 
   &::placeholder
     color var(--new-UI-04)
@@ -403,7 +404,7 @@ export default {
     margin auto 0
     right 8px
     cursor pointer
-    color var(--new-UI-01)
+    //color var(--new-UI-01)
 
   &--with-icon
     padding-left 34px
@@ -416,10 +417,10 @@ export default {
 
 .error-text
   color var(--new-signal-03)
-  font-size 10px
-  line-height 12px
+  font-size 12px
+  line-height 18px
   min-height 16px
-  padding-top 6px
+  padding-top 8px
   display flex
   flex-direction column
   justify-content center
