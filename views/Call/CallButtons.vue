@@ -203,7 +203,7 @@ export default {
 
     buttonHeight() {
       // eslint-disable-next-line no-magic-numbers
-      return this.size === 'medium' ? 44 : 64;
+      return this.size === 'medium' ? 44 : 60;
     },
   },
 
@@ -312,6 +312,6 @@ export default {
 
     &[size="large"]
       & ^[-1]__button
-        margin-right 16px
+        margin-right 12px
 
 </style>

@@ -59,6 +59,7 @@
                 "--new-bg-02": "rgba(249, 249, 249, 0.55)",
                 "--new-bg-03": "#EBEFF4",
                 "--new-bg-04": "#FFFFFF",
+                "--new-bg-05": "#141414",
                 "--new-stroke-01": "rgba(0, 0, 0, 0.1)",
                 "--new-system-01": "#FFC12F",
                 "--new-system-01-1": "#FFE097",
@@ -70,7 +71,7 @@
                 "--new-overlay-02": "#404040",
                 "--new-overlay-03": "#262626",
                 "--new-shadow-02": "0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)",
-                "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)"
+                "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)"    
             },
             "navbar": {
                 "--app-bg": "#EFEFF1",
@@ -167,6 +168,7 @@
                 "--new-bg-02": "rgba(0, 0, 0, 0.65)",
                 "--new-bg-03": "#3D4046",
                 "--new-bg-04": "#1F2227",
+                "--new-bg-05": "#141414",
                 "--new-stroke-01": "rgba(255, 255, 255, 0.1)",
                 "--new-system-01": "#FFC12F",
                 "--new-system-01-1": "#FFE097",

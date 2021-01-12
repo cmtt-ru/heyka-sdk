@@ -67,9 +67,9 @@ const BUTTON_SIZES = {
     'border-radius': '11px',
   },
   large: {
-    width: '64px',
-    height: '64px',
-    'border-radius': '8px',
+    width: '60px',
+    height: '60px',
+    'border-radius': '15px',
   },
 };
 
