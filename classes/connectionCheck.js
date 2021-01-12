@@ -82,6 +82,31 @@ class ConnectionCheck extends EventEmitter {
   }
 
   /**
+   * Set's visible state of the app-status
+   *
+   * @param {boolean} state – down or not
+   * @returns {void}
+   */
+  async appStatusVisibleState(state) {
+    store.commit('app/SET_CONNECTION_STATUS', {
+      visible: state,
+    });
+  }
+
+  /**
+   * Reset connection status to default values
+   *
+   * @returns {void}
+   */
+  async resetConnectionStatus() {
+    store.commit('app/SET_CONNECTION_STATUS', {
+      visible: true,
+      api: false,
+      socket: false,
+    });
+  }
+
+  /**
    * Wait until online
    * @returns {Promise<boolean>}
    */
