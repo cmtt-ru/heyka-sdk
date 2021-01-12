@@ -177,6 +177,17 @@
     "header": "Account registered!",
     "disclaimer": "Please check your inbox for email verification"
   },
+  "slackInvite":{
+    "webWait": "Loading...",
+    "webSuccess": "Success! Open Heyka for further instructions",
+    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
+    "webError": "Sorry babushka, no Slack for you today",
+    "noWorkspaces": "Your workspace is not connected with Slack.",
+    "connect": "Connect with Slack",
+    "canInviteBeginning": "You can invite members from",
+    "canInviteEnd": ". Select teammates.",
+    "inviteUsers": "Send invite | Send {n} invites"
+  },
   "verify": {
     "header": "Email verified!",
     "openApp": "or open the app",

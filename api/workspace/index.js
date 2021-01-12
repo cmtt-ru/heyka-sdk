@@ -6,6 +6,7 @@ import inviteByCode from './inviteByCode';
 import inviteByMail from './inviteByMail';
 import inviteBySlack from './inviteBySlack';
 import connectWithSlack from './connectWithSlack';
+import resumeConnectWithSlack from './resumeConnectWithSlack';
 import joinByCode from './joinByCode';
 import leaveWorkspace from './leaveWorkspace';
 import privateTalk from './privateTalk';
@@ -21,6 +22,7 @@ export default {
   inviteByMail,
   inviteBySlack,
   connectWithSlack,
+  resumeConnectWithSlack,
   joinByCode,
   leaveWorkspace,
   privateTalk,
