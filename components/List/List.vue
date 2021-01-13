@@ -80,7 +80,7 @@ export default {
      * @returns {array} keys of selected items
      */
     selectedChildren() {
-      const selectedArray = this.$children.filter(el => el.selected).map(el => el.filterKey); // TODO: mb some kind of "multiPickData, not filterKey"
+      const selectedArray = this.$children.filter(el => el.selected).map(el => el.selectableContent || el.filterKey);
 
       this.$emit('multipick', selectedArray);
     },
