@@ -185,7 +185,7 @@
     "noWorkspaces": "Your workspace is not connected with Slack.",
     "connect": "Connect with Slack",
     "canInviteBeginning": "You can invite members from",
-    "canInviteEnd": ". Select teammates.",
+    "canInviteEnd": "Select teammates.",
     "inviteUsers": "Send invite | Send {n} invites"
   },
   "verify": {
