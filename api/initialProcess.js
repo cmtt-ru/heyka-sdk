@@ -1,11 +1,14 @@
+import { EventEmitter } from 'events';
+
 /**
  * Class for storing throttle times for some API methods
  */
-class InitialProcess {
+class InitialProcess extends EventEmitter {
   /**
    * TrottleAPI constructor
   */
   constructor() {
+    super();
     this.state = false;
   }
 
@@ -26,6 +29,7 @@ class InitialProcess {
    */
   setState(state) {
     this.state = state;
+    this.emit('state-changed', state);
   }
 }
 
