@@ -35,7 +35,8 @@
       "upload": "Upload",
       "login": "Login settings",
       "saved": "saved!",
-      "bigImage": "We can't upload files larger than"
+      "bigImage": "We can't upload files larger than",
+      "socialLinked": "Now you can login with {0}"
     },
     "empty": "So far you've been disconnected\nfrom all channels",
     "new": "What's new?",
