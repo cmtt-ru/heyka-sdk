@@ -27,6 +27,6 @@ export default function logout(redirectToAuth = true) {
   sockets.destroy();
 
   if (redirectToAuth) {
-    router.replace({ name: 'new-auth' }).catch(() => {});
+    router.replace({ name: 'auth' }).catch(() => {});
   }
 }

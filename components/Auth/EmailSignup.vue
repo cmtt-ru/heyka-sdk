@@ -76,7 +76,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('newAuth.signup');
+      return this.$t('auth.signup');
     },
   },
 
@@ -92,7 +92,7 @@ export default {
 
         console.log(res);
 
-        this.$router.push({ name: 'new-auth-signup-success' });
+        this.$router.push({ name: 'auth-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {

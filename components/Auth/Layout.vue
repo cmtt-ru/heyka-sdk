@@ -54,7 +54,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('newAuth');
+      return this.$t('auth');
     },
   },
 
@@ -73,7 +73,7 @@ export default {
       if (window.history.length > 2) {
         this.$router.go(-1);
       } else {
-        this.$router.push({ name: 'new-auth' });
+        this.$router.push({ name: 'auth' });
       }
     },
   },

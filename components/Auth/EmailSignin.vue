@@ -31,7 +31,7 @@
       />
 
       <router-link
-        :to="{name:'new-auth-email-reset', params: {login: login.email}}"
+        :to="{name:'auth-email-reset', params: {login: login.email}}"
       >
         <ui-button
           :type="9"
@@ -98,7 +98,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('newAuth.email');
+      return this.$t('auth.email');
     },
 
     /**
@@ -156,7 +156,7 @@ export default {
       if (IS_ELECTRON) {
         window.open(`${WEB_URL}/auth/email/signup`);
       } else {
-        this.$router.push({ name: 'new-auth-email-signup' });
+        this.$router.push({ name: 'auth-email-signup' });
       }
     },
   },

@@ -36,7 +36,7 @@
         Facebook
       </ui-button>
 
-      <router-link :to="{name: 'new-auth-email-signin'}">
+      <router-link :to="{name: 'auth-email-signin'}">
         <ui-button
           :type="17"
           wide
@@ -67,7 +67,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('newAuth.main');
+      return this.$t('auth.main');
     },
   },
 

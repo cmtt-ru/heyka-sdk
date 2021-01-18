@@ -60,7 +60,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('newAuth.reset');
+      return this.$t('auth.reset');
     },
 
     /**

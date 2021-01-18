@@ -268,7 +268,7 @@
     "passNotMatch": "пароли не совпадают",
     "noResults": "Нет результатов для"
   },
-  "newAuth": {
+  "auth": {
     "header": {
       "back": "Назад"
     },

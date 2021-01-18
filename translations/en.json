@@ -268,7 +268,7 @@
     "passNotMatch": "passwords do not match",
     "noResults": "No results for"
   },
-  "newAuth": {
+  "auth": {
     "header": {
       "back": "Back"
     },
