@@ -81,6 +81,8 @@ export default {
 </script>
 
 <style lang="stylus">
+  @import '~@styles/global.styl';
+
   .auth
     display flex
     height 100%
@@ -101,6 +103,7 @@ export default {
       width 220px
 
       img
+        display block
         width 100%
 
       @media $mobile
