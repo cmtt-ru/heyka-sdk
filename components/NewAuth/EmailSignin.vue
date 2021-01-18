@@ -154,7 +154,7 @@ export default {
      */
     async signupHandler() {
       if (IS_ELECTRON) {
-        window.open(`${WEB_URL}/auth/register`);
+        window.open(`${WEB_URL}/auth/email/signup`);
       } else {
         this.$router.push({ name: 'new-auth-email-signup' });
       }
