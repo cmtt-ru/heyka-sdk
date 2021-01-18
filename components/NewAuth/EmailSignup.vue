@@ -92,7 +92,7 @@ export default {
 
         console.log(res);
 
-        this.$router.push({ name: 'regSuccess' });
+        this.$router.push({ name: 'new-auth-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {
