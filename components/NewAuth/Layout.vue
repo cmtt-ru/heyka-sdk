@@ -97,6 +97,7 @@ export default {
       width 520px
 
     @media $mobile
+      height 520px
       width 100%
 
     &__cover
