@@ -292,6 +292,9 @@ export default {
       audioQC.removeAllListeners('prebuffer');
       audioQC.removeAllListeners('status');
       audioQC = null;
+
+      mediaCapturer.destroyStream(this.$refs.audio.srcObject);
+      this.$refs.audio.srcObject = null;
     },
 
     /**
@@ -344,9 +347,14 @@ export default {
      */
     onRemoteAudioStream(stream) {
       cnsl.log('Attach audio stream to the audio element');
+
+      this.$refs.audio.oncanplay = () => {
+        this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
+      };
+
       JanusWrapper.attachMediaStream(this.$refs.audio, stream);
+
       this.$refs.audio.muted = !this.speakers;
-      this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
     },
 
     /**
