@@ -159,9 +159,9 @@ export default {
       line-height 1.6
       margin-bottom 16px
 
-  .ui-button--9
-    font-weight normal
-    font-size 12px
+    .ui-button--9
+      font-weight normal
+      font-size 12px
 
   /* Page transitions */
   $animation-duration = 350ms
