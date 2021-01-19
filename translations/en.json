@@ -258,14 +258,14 @@
     "grid": "Сall window"
   },
   "inputErrors": {
-    "default": "not a valid input",
-    "defaultBackend": "server didn't accept this text",
-    "required": "this field is required",
-    "email": "not a valid email",
-    "numbers": "only numbers allowed",
-    "minlength": "min length is:",
-    "maxlength": "max length is:",
-    "passNotMatch": "passwords do not match",
+    "default": "Not a valid input",
+    "defaultBackend": "Server didn't accept this text",
+    "required": "This field is required",
+    "email": "Not a valid email",
+    "numbers": "Only numbers {0} allowed",
+    "minlength": "At least 1 symbol is required | At least {n} symbols are required",
+    "maxlength": "Only 1 symbol is allowed | Only {n} symbols are allowed",
+    "passNotMatch": "Passwords do not match",
     "noResults": "No results for"
   },
   "auth": {

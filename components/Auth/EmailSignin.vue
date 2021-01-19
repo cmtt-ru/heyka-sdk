@@ -27,6 +27,8 @@
         required
         type="password"
         placeholder="******"
+        :minlength="8"
+        :maxlength="120"
         enter-submit
       />
 
