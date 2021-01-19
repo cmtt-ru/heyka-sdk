@@ -6,7 +6,7 @@
     :style="cellDimensions"
   >
     <div
-      v-show="handUpTimestamp"
+      v-show="handUpTimestamp > initTime"
       :key="handUpTimestamp"
       class="cell__raised-hand"
     />
@@ -168,6 +168,7 @@ export default {
   data() {
     return {
       raisedHand: false,
+      initTime: Date.now(),
     };
   },
   computed: {
