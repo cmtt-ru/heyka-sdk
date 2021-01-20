@@ -33,10 +33,17 @@ export default class AudioCheck extends EventEmitter {
     this.__needMediaStream = false;
     this.__skipMutedTalk = false;
 
+    this.mediaState = {};
+
     store.watch(() => store.getters['app/getSelectedDevices'], n => {
       if (this.__needMediaStream) {
         this.startMediaStream();
       }
+    });
+
+    store.watch(() => store.getters['me/getMediaState'], state => {
+      this.mediaState = state;
+      console.log(this.mediaState);
     });
 
     broadcastEvents.on('audio-check-skip-muted-talk', () => {
@@ -291,6 +298,7 @@ export default class AudioCheck extends EventEmitter {
         if (this.subscribeMutedTalk.talkingLevel > minLevel) {
           this.showTakingMutedNotification();
           this.destroyMediaStream();
+          this.subscribeMutedTalk.talkingLevel = -100;
         }
       });
     } else {
@@ -303,6 +311,9 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async showTakingMutedNotification() {
+    if (this.mediaState.microphone) {
+      return;
+    }
     const push = {
       inviteId: Date.now().toString(),
       local: true,
