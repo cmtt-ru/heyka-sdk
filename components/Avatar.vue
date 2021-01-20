@@ -20,7 +20,7 @@
       v-if="image"
       loading="lazy"
       class="avatar__image"
-      :class="{'avatar__image--square': square}"
+      :class="{'avatar__image--square': square, 'avatar__image--dot': statusStyle}"
       :style="{'border-radius': borderRadius + 'px'}"
       alt=""
       :width="size"
@@ -209,6 +209,9 @@ export default {
       border-radius 50%
       object-fit cover
 
+      &--dot
+        mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px);
+
       &--square
         border-radius 0 !important
 
@@ -223,8 +226,8 @@ export default {
       max-width 8px
       max-height 8px
       border-radius 50%
-      background-color var(--new-bg-04)
-      border 2px solid var(--new-bg-04)
+      background-color transparent
+      border 2px solid transparent
       z-index 3
 
       &__dot
@@ -235,7 +238,7 @@ export default {
         width 100%
         height 100%
         border-radius 50%
-        border: 2px solid
+        border 2px solid
 
     &__onair
       position absolute
