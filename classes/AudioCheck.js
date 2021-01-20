@@ -288,22 +288,18 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async subscribeMutedTalk() {
-    if (this.__skipMutedTalk === false) {
-      await this.startMediaStream();
-      this.subscribeMutedTalk.talkingLevel = -100;
-      const minLevel = -42; // speak louder and you'll get notification
+    await this.startMediaStream();
+    this.subscribeMutedTalk.talkingLevel = -100;
+    const minLevel = -40; // speak louder and you'll get notification
 
-      this.__harkInstance.on('volume_change', (db) => {
-        this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
-        if (this.subscribeMutedTalk.talkingLevel > minLevel) {
-          this.showTakingMutedNotification();
-          this.destroyMediaStream();
-          this.subscribeMutedTalk.talkingLevel = -100;
-        }
-      });
-    } else {
-      this.__skipMutedTalk = false;
-    }
+    this.__harkInstance.on('volume_change', (db) => {
+      this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
+      if (this.subscribeMutedTalk.talkingLevel > minLevel) {
+        this.showTakingMutedNotification();
+        this.destroyMediaStream();
+        this.subscribeMutedTalk.talkingLevel = -100;
+      }
+    });
   }
 
   /**
@@ -311,7 +307,7 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async showTakingMutedNotification() {
-    if (this.mediaState.microphone) {
+    if (this.mediaState.microphone || this.__skipMutedTalk) {
       return;
     }
     const push = {
