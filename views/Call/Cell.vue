@@ -15,13 +15,16 @@
       @dblclick="expandedClickHandler"
     >
       <video
-        v-show="videoStream"
+        v-show="isMediaPlaying"
         ref="video"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
+        @playing="setMediaPlaying(true)"
+        @suspend="setMediaPlaying(false)"
+        @error="videErrorHandler"
       />
       <div
-        v-show="videoStream"
+        v-show="isMediaPlaying"
         class="cell__feed__gradient"
       />
       <div
@@ -53,7 +56,7 @@
       </div>
 
       <avatar
-        v-show="!user.camera && !user.screen"
+        v-show="!isMediaPlaying"
         class="cell__avatar"
         :image="userAvatar(user, currentSizes.avatar)"
         :user-id="user.id"
@@ -168,6 +171,7 @@ export default {
   data() {
     return {
       raisedHand: false,
+      isMediaPlaying: false,
     };
   },
   computed: {
@@ -287,6 +291,29 @@ export default {
     },
 
     userAvatar: getUserAvatarUrl,
+
+    /**
+     * Set media playing state
+     * @param {boolean} state – state
+     * @returns {void}
+     */
+    setMediaPlaying(state) {
+      if (state) {
+        console.log(`Video event for '${this.user.id}'--> playing`);
+      } else {
+        console.log(`Video event for '${this.user.id}'--> suspend`);
+      }
+
+      this.isMediaPlaying = state;
+    },
+
+    /**
+     * Video error handler
+     * @returns {void}
+     */
+    videErrorHandler() {
+      console.log(`Video event for '${this.user.id}'--> error`, this.$refs.video.error);
+    },
   },
 };
 </script>
