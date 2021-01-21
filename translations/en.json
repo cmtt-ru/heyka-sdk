@@ -25,6 +25,7 @@
       "privateTalkButton": "Private talk",
       "inviteButtonStart": "Invite to",
       "inviteBySlackButton": "Send invite via Slack",
+      "inviteByTeamsButton": "Send invite via MS Teams",
       "localTime": "Local time",
       "email": "Email",
       "edit": "Edit profile",

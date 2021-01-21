@@ -22,9 +22,10 @@
       "support": "Сообщить о баге"
     },
     "user": {
-      "privateTalkButton": "Позвонить",
+      "privateTalkButton": "Вызвать",
       "inviteButtonStart": "Пригласить в",
       "inviteBySlackButton": "Пригласить через Slack",
+      "inviteByTeamsButton": "Пригласить через MS Teams",
       "localTime": "Локальное время",
       "email": "Email",
       "edit": "Редактировать профиль",
