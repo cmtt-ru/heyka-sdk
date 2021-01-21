@@ -12,7 +12,7 @@
     <div
       v-if="!loaded"
       class="avatar__no-image"
-      :class="{'avatar__image--square': square}"
+      :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
     />
 
@@ -20,7 +20,7 @@
       v-if="image"
       loading="lazy"
       class="avatar__image"
-      :class="{'avatar__image--square': square, 'avatar__image--dot': statusStyle}"
+      :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
       alt=""
       :width="size"
@@ -73,6 +73,14 @@ const STATUS_COLORS = {
     'background-color': 'transparent',
     'border-color': 'var(--color-4)',
   },
+};
+
+/**
+ * sizes of holes in avatar (for status)
+ */
+const STATUS_SIZES = {
+  32: 'avatar__image--dot',
+  20: 'avatar__image--dot-20',
 };
 
 export default {
@@ -169,6 +177,15 @@ export default {
       return STATUS_COLORS[this.status] || null;
     },
 
+    imageClasses() {
+      const classes = {};
+
+      classes['avatar__image--square'] = this.square;
+      classes[STATUS_SIZES[this.size] || null] = !!this.statusStyle;
+
+      return classes;
+    },
+
     imageColor() {
       if (this.userId === null) {
         return COLORS[10];
@@ -210,7 +227,10 @@ export default {
       object-fit cover
 
       &--dot
-        mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px);
+        mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px)
+
+      &--dot-20
+        mask-image radial-gradient(circle at calc(100% - 3px) calc(100% - 3px), transparent 5px, white 5.5px)
 
       &--square
         border-radius 0 !important
