@@ -21,6 +21,7 @@
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
         @playing="setMediaPlaying(true)"
         @suspend="setMediaPlaying(false)"
+        @timeupdate="timeUpdateHandler"
         @error="videErrorHandler"
       />
       <div
@@ -257,6 +258,16 @@ export default {
     this.$refs['video'].onloadedmetadata = () => {
       this.$refs['video'][0].play();
     };
+
+    // function addListenerMulti(el, s, fn) {
+    //   s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+    // }
+    //
+    // var video = this.$refs.video;
+    //
+    // addListenerMulti(video, 'abort canplay canplaythrough durationchange emptied encrypted ended error interruptbegin interruptend loadeddata loadedmetadata loadstart pause play playing ratechange seeked seeking stalled suspend volumechange waiting', (e) => {
+    //   console.log(`Video event for '${this.user.id}' --> ${e.type}`);
+    // });
   },
 
   methods: {
@@ -308,11 +319,22 @@ export default {
     },
 
     /**
-     * Video error handler
+     * Video error event handler
      * @returns {void}
      */
     videErrorHandler() {
       console.log(`Video event for '${this.user.id}'--> error`, this.$refs.video.error);
+    },
+
+    /**
+     * Video time update event handler
+     * @returns {void}
+     */
+    timeUpdateHandler() {
+      if (!this.isMediaPlaying && this.$refs.video) {
+        console.log(`Video event for '${this.user.id}'--> timeUpdate`, this.$refs.video.currentTime);
+        this.setMediaPlaying(this.$refs.video.currentTime !== 0);
+      }
     },
   },
 };
