@@ -270,7 +270,8 @@
   },
   "auth": {
     "header": {
-      "back": "Back"
+      "back": "Back",
+      "workspace": "You're invited to workspace"
     },
     "main": {
       "title": "Login to Heyka"

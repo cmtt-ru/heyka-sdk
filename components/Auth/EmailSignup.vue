@@ -85,8 +85,10 @@ export default {
       try {
         const res = await this.$API.auth.signup({ user: this.newUser });
 
-        if (authFileStore.get('inviteCode')) {
-          this.$API.workspace.joinByCode(authFileStore.get('inviteCode'));
+        const inviteCode = authFileStore.get('inviteCode');
+
+        if (inviteCode) {
+          this.$API.workspace.joinByCode(inviteCode);
           authFileStore.set('inviteCode', null);
         }
 

@@ -125,8 +125,10 @@ export default {
         } else {
           heykaStore.set('loginEmail', this.login.email);
 
-          if (authFileStore.get('inviteCode')) {
-            this.$API.workspace.joinByCode(authFileStore.get('inviteCode'));
+          const inviteCode = authFileStore.get('inviteCode');
+
+          if (inviteCode) {
+            this.$API.workspace.joinByCode(inviteCode);
             authFileStore.set('inviteCode', null);
           }
 

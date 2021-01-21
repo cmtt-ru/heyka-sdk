@@ -7,6 +7,14 @@
     <div class="auth__body">
       <div class="auth__body__wrapper">
         <div class="auth__header">
+          <p
+            v-if="inviteCode"
+            class="l-mt-12"
+            style="position: absolute"
+          >
+            {{ texts.header.workspace }}
+          </p>
+
           <ui-button
             v-if="$route.meta.depth > 1"
             :type="9"
@@ -36,6 +44,7 @@
 
 <script>
 import UiButton from '@components/UiButton';
+import { authFileStore } from '@/store/localStore';
 
 export default {
   components: {
@@ -45,6 +54,7 @@ export default {
   data() {
     return {
       transitionName: '',
+      inviteCode: null,
     };
   },
 
@@ -62,6 +72,22 @@ export default {
     $route(to, from) {
       this.transitionName = to.meta.depth > from.meta.depth ? 'next' : 'prev';
     },
+  },
+
+  mounted() {
+    if (!IS_ELECTRON) {
+      const inviteCode = this.$route.query.invite;
+
+      if (inviteCode) {
+        this.inviteCode = inviteCode;
+
+        authFileStore.set('inviteCode', inviteCode);
+
+        window.onbeforeunload = () => {
+          authFileStore.set('inviteCode', null);
+        };
+      }
+    }
   },
 
   methods: {
