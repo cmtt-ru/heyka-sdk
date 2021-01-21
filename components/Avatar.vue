@@ -15,19 +15,26 @@
       :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
     />
-
-    <img
+    <div
       v-if="image"
-      loading="lazy"
       class="avatar__image"
       :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
-      alt=""
-      :width="size"
-      :height="size"
-      :src="image"
-      @load="loadHandler"
     >
+      <div
+        class="avatar__image__border"
+        :style="{'border-radius': borderRadius + 'px'}"
+      />
+      <img
+        loading="lazy"
+        class=""
+        alt=""
+        :width="size"
+        :height="size"
+        :src="image"
+        @load="loadHandler"
+      >
+    </div>
 
     <div
       v-if="statusStyle"
@@ -81,6 +88,7 @@ const STATUS_COLORS = {
 const STATUS_SIZES = {
   32: 'avatar__image--dot',
   20: 'avatar__image--dot-20',
+  default: 'avatar__image--dot',
 };
 
 export default {
@@ -181,7 +189,7 @@ export default {
       const classes = {};
 
       classes['avatar__image--square'] = this.square;
-      classes[STATUS_SIZES[this.size] || null] = !!this.statusStyle;
+      classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
       return classes;
     },
@@ -224,7 +232,17 @@ export default {
       width 100%
       height 100%
       border-radius 50%
-      object-fit cover
+      overflow hidden
+
+      &__border
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        display block
+        background-color transparent
+        box-shadow inset 0 0 0 2px rgba(0,0,0,0.1)
 
       &--dot
         mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px)
@@ -234,6 +252,9 @@ export default {
 
       &--square
         border-radius 0 !important
+
+      & img
+        object-fit cover
 
     &__status
       position absolute
