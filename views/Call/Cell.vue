@@ -15,8 +15,8 @@
       @dblclick="expandedClickHandler"
     >
       <video
+        v-show="mediaCanShow"
         ref="video"
-        :style="{'opacity: 0.5': !isMediaPlaying}"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
         @playing="setMediaPlaying(true)"
@@ -25,7 +25,7 @@
         @error="videErrorHandler"
       />
       <div
-        v-show="isMediaPlaying"
+        v-show="mediaCanShow"
         class="cell__feed__gradient"
       />
       <div
@@ -57,7 +57,7 @@
       </div>
 
       <avatar
-        v-show="!isMediaPlaying"
+        v-show="!mediaCanShow"
         class="cell__avatar"
         :image="userAvatar(user, currentSizes.avatar)"
         :user-id="user.id"
@@ -173,6 +173,8 @@ export default {
     return {
       raisedHand: false,
       isMediaPlaying: false,
+      isStreamActive: false,
+      isNeedToWaitVideo: true,
     };
   },
   computed: {
@@ -184,6 +186,10 @@ export default {
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
+    /**
+     * Hand up timestamp
+     * @returns {number}
+     */
     handUpTimestamp() {
       return this.getHandUpStatusByUserId(this.user.id);
     },
@@ -230,8 +236,47 @@ export default {
      * @returns {boolean}
      */
     hasVideo() {
+      // todo: may be `this.user.camera || this.user.screen` instead?
       if (this.getUsersWhoShareMedia.includes(this.user.id)) {
         return true;
+      }
+
+      return false;
+    },
+
+    /**
+     * Is user sharing media
+     * @returns {boolean}
+     */
+    isUserSharingMedia() {
+      return this.user.camera || this.user.screen;
+    },
+
+    /**
+     * Whether to show video
+     * @returns {boolean}
+     */
+    mediaCanShow() {
+      console.log('Media can show -->', this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
+
+      if (this.isUserSharingMedia) {
+        const state = this.isStreamActive && this.isMediaPlaying;
+
+        if (this.isNeedToWaitVideo) {
+          if (state) {
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.isNeedToWaitVideo = false;
+
+            return true;
+          }
+
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.isNeedToWaitVideo = true;
       }
 
       return false;
@@ -254,26 +299,9 @@ export default {
     },
   },
 
-  mounted() {
-    this.$refs['video'].onloadedmetadata = () => {
-      this.$refs['video'][0].play();
-    };
-
-    // function addListenerMulti(el, s, fn) {
-    //   s.split(' ').forEach(e => el.addEventListener(e, fn, false));
-    // }
-    //
-    // var video = this.$refs.video;
-    //
-    // addListenerMulti(video, 'abort canplay canplaythrough durationchange emptied encrypted ended error interruptbegin interruptend loadeddata loadedmetadata loadstart pause play playing ratechange seeked seeking stalled suspend volumechange waiting', (e) => {
-    //   console.log(`Video event for '${this.user.id}' --> ${e.type}`);
-    // });
-  },
-
   methods: {
     /**
-     * fullscreen click handler
-     * @param {string} id user's id
+     * Fullscreen click handler
      * @returns {void}
      */
     expandedClickHandler() {
@@ -293,20 +321,25 @@ export default {
      * @returns {void}
      */
     insertVideoStreamForUser(stream) {
-      const htmlVideo = this.$refs['video'];
+      const video = this.$refs['video'];
 
-      htmlVideo.srcObject = stream;
-      htmlVideo.onloadedmetadata = () => {
-        htmlVideo.play();
+      video.srcObject = stream;
+
+      video.onloadedmetadata = () => {
+        video.play();
       };
 
       stream.onactive = () => {
+        this.isStreamActive = true;
         console.log(`Media stream for '${this.user.id}' --> active`);
       };
 
       stream.oninactive = () => {
+        this.isStreamActive = false;
         console.log(`Media stream for '${this.user.id}' --> inactive`);
       };
+
+      this.isStreamActive = stream.active;
     },
 
     userAvatar: getUserAvatarUrl,
