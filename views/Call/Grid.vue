@@ -232,7 +232,7 @@ export default {
 
       // start publishers without streams
       activePublishers
-        .filter(publisher => !publisher.stream)
+        .filter(publisher => !publisher.stream && !publisher.attaching)
         .forEach(publisher => {
           cnsl.log('subscribe for video from user', publisher.userId);
           janusVideoroomWrapper.subscribeFor(publisher.janusId);

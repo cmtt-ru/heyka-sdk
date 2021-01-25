@@ -124,15 +124,15 @@ class PublishingVideoroomPlugin extends EventEmitter {
             cnsl.log(message.publishers)
             this._onJoinedChannel(message);
             break;
-          case !!message.unpublished:
-            cnsl.info(`Unpublished: ${message.unpublished}`);
+          case event === 'event' && !!message.unpublished && !!message.room:
+            cnsl.info(`Unpublished: ${message.unpublished}`, message);
             this._onUnpublished(message);
             break;
-          case event === 'event' && !!message.id:
-            cnsl.info(`new publisher: `);
-            cnsl.log(message)
-            this._onPublished(message);
-            break;
+          // case event === 'event' && !!message.id:
+          //   cnsl.info(`new publisher: `);
+          //   cnsl.log(message)
+          //   this._onPublished(message);
+          //   break;
           case event === 'event' && !message.id && message.publishers?.length > 0:
             cnsl.info(`new publisher: `);
             cnsl.log(message.publishers[0])
