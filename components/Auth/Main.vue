@@ -9,6 +9,7 @@
         class="l-mb-12"
         icon="slack"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('slack')"
       >
         Slack
@@ -20,6 +21,7 @@
         class="l-mb-12"
         icon="google"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('google')"
       >
         Google
@@ -31,6 +33,7 @@
         class="l-mb-12"
         icon="facebook"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('facebook')"
       >
         Facebook
@@ -59,6 +62,12 @@ import { WEB_URL } from '@sdk/Constants';
 export default {
   components: {
     UiButton,
+  },
+
+  data: function () {
+    return {
+      isSocialAuthDisabled: !IS_DEV,
+    };
   },
 
   computed: {
