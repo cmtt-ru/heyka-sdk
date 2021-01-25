@@ -36,6 +36,11 @@ class MediaDevices extends EventEmitter {
     this.init();
   }
 
+  /**
+   * Init
+   *
+   * @return {void}
+   */
   async init() {
     if (!IS_ELECTRON) {
       await mediaCapturer.requestMediaPermissions();
