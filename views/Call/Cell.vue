@@ -257,7 +257,7 @@ export default {
      * @returns {boolean}
      */
     mediaCanShow() {
-      console.log('Media can show -->', this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
+      console.log(`Media can show for '${this.user.id}' -->`, this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
 
       if (this.isUserSharingMedia) {
         const state = this.isStreamActive && this.isMediaPlaying;
