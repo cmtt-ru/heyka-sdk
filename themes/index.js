@@ -79,6 +79,10 @@ class Themes {
       name: this.storeVue.currentTheme,
       auto: this.storeVue.auto,
     });
+
+    // set localStorage for wireframe in index.html
+    localStorage.themeName = this.storeVue.currentTheme;
+
     vuex.commit('app/SET_THEME', {
       name: this.storeVue.currentTheme,
       auto: this.storeVue.auto,
