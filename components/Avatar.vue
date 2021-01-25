@@ -254,6 +254,7 @@ export default {
         border-radius 0 !important
 
       & img
+        position absolute
         object-fit cover
 
     &__status

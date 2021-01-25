@@ -43,6 +43,9 @@ export default class AudioCheck extends EventEmitter {
 
     store.watch(() => store.getters['me/getMediaState'], state => {
       this.mediaState = state;
+      if (this.subscribeMutedTalk.__harkInstance && this.mediaState.microphone) {
+        this.unsubscribeMutedTalk();
+      }
     });
 
     broadcastEvents.on('audio-check-skip-muted-talk', () => {
@@ -112,6 +115,10 @@ export default class AudioCheck extends EventEmitter {
   destroyMediaStream() {
     if (this.__harkInstance) {
       this.__harkInstance.stop();
+    }
+
+    if (this.subscribeMutedTalk.__harkInstance) {
+      this.unsubscribeMutedTalk();
     }
 
     if (this.__mediaStream) {
@@ -287,18 +294,36 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async subscribeMutedTalk() {
-    await this.startMediaStream();
+    this.subscribeMutedTalk.__mediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        deviceId: this._selectedMicrophone(),
+      },
+    });
+    this.subscribeMutedTalk.__harkInstance = hark(this.subscribeMutedTalk.__mediaStream, {
+      interval: 100,
+    });
+
     this.subscribeMutedTalk.talkingLevel = -100;
     const minLevel = -40; // speak louder and you'll get notification
 
-    this.__harkInstance.on('volume_change', (db) => {
+    this.subscribeMutedTalk.__harkInstance.on('volume_change', (db) => {
       this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
+
       if (this.subscribeMutedTalk.talkingLevel > minLevel) {
         this.showTakingMutedNotification();
-        this.destroyMediaStream();
-        this.subscribeMutedTalk.talkingLevel = -100;
+        this.unsubscribeMutedTalk();
       }
     });
+  }
+
+  /**
+   * Unsubscribe from 'louder than minLevel' event
+   * @returns {void}
+   */
+  async unsubscribeMutedTalk() {
+    console.log('unsubscribeMutedTalk');
+    this.subscribeMutedTalk.__harkInstance.stop();
+    delete this.subscribeMutedTalk.__harkInstance;
   }
 
   /**
