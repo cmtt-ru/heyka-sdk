@@ -15,8 +15,8 @@
       @dblclick="expandedClickHandler"
     >
       <video
-        v-show="isMediaPlaying"
         ref="video"
+        :style="{'opacity: 0.5': !isMediaPlaying}"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
         @playing="setMediaPlaying(true)"
@@ -298,6 +298,14 @@ export default {
       htmlVideo.srcObject = stream;
       htmlVideo.onloadedmetadata = () => {
         htmlVideo.play();
+      };
+
+      stream.onactive = () => {
+        console.log(`Media stream for '${this.user.id}' --> active`);
+      };
+
+      stream.oninactive = () => {
+        console.log(`Media stream for '${this.user.id}' --> inactive`);
       };
     },
 
