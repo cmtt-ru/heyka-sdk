@@ -43,7 +43,6 @@ export default class AudioCheck extends EventEmitter {
 
     store.watch(() => store.getters['me/getMediaState'], state => {
       this.mediaState = state;
-      console.log(this.mediaState);
     });
 
     broadcastEvents.on('audio-check-skip-muted-talk', () => {
