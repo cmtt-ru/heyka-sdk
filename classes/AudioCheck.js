@@ -321,9 +321,14 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async unsubscribeMutedTalk() {
-    console.log('unsubscribeMutedTalk');
-    this.subscribeMutedTalk.__harkInstance.stop();
-    delete this.subscribeMutedTalk.__harkInstance;
+    if (this.subscribeMutedTalk.__harkInstance) {
+      this.subscribeMutedTalk.__harkInstance.stop();
+      delete this.subscribeMutedTalk.__harkInstance;
+    }
+
+    if (this.subscribeMutedTalk.__mediaStream) {
+      this.subscribeMutedTalk.__mediaStream.getTracks().forEach(track => track.stop());
+    }
   }
 
   /**
