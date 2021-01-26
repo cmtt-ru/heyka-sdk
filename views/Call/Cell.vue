@@ -15,13 +15,13 @@
       @dblclick="expandedClickHandler"
     >
       <video
-        v-show="videoStream"
+        v-show="mediaCanShow"
         ref="video"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
       />
       <div
-        v-show="videoStream"
+        v-show="mediaCanShow"
         class="cell__feed__gradient"
       />
       <div
@@ -53,7 +53,7 @@
       </div>
 
       <avatar
-        v-show="!user.camera && !user.screen"
+        v-show="!mediaCanShow"
         class="cell__avatar"
         :image="userAvatar(user, currentSizes.avatar)"
         :user-id="user.id"
@@ -168,6 +168,9 @@ export default {
   data() {
     return {
       raisedHand: false,
+      isMediaPlaying: false,
+      isStreamActive: false,
+      isNeedToWaitVideo: true,
       initTime: Date.now(),
     };
   },
@@ -180,6 +183,10 @@ export default {
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
+    /**
+     * Hand up timestamp
+     * @returns {number}
+     */
     handUpTimestamp() {
       return this.getHandUpStatusByUserId(this.user.id);
     },
@@ -226,8 +233,47 @@ export default {
      * @returns {boolean}
      */
     hasVideo() {
+      // todo: may be `this.user.camera || this.user.screen` instead?
       if (this.getUsersWhoShareMedia.includes(this.user.id)) {
         return true;
+      }
+
+      return false;
+    },
+
+    /**
+     * Is user sharing media
+     * @returns {boolean}
+     */
+    isUserSharingMedia() {
+      return this.user.camera || this.user.screen;
+    },
+
+    /**
+     * Whether to show video
+     * @returns {boolean}
+     */
+    mediaCanShow() {
+      console.log(`Media can show for '${this.user.id}' -->`, this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
+
+      if (this.isUserSharingMedia) {
+        const state = this.isStreamActive && this.isMediaPlaying;
+
+        if (this.isNeedToWaitVideo) {
+          if (state) {
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.isNeedToWaitVideo = false;
+
+            return true;
+          }
+
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.isNeedToWaitVideo = true;
       }
 
       return false;
@@ -250,16 +296,21 @@ export default {
     },
   },
 
-  mounted() {
-    this.$refs['video'].onloadedmetadata = () => {
-      this.$refs['video'][0].play();
-    };
+  beforeDestroy() {
+    const video = this.$refs['video'];
+
+    if (video) {
+      video.onloadedmetadata = null;
+      video.onplaying = null;
+      video.onsuspend = null;
+      video.ontimeupdate = null;
+      video.onerror = null;
+    }
   },
 
   methods: {
     /**
-     * fullscreen click handler
-     * @param {string} id user's id
+     * Fullscreen click handler
      * @returns {void}
      */
     expandedClickHandler() {
@@ -279,15 +330,78 @@ export default {
      * @returns {void}
      */
     insertVideoStreamForUser(stream) {
-      const htmlVideo = this.$refs['video'];
+      const video = this.$refs['video'];
 
-      htmlVideo.srcObject = stream;
-      htmlVideo.onloadedmetadata = () => {
-        htmlVideo.play();
+      video.srcObject = stream;
+
+      video.onloadedmetadata = () => {
+        video.play();
       };
+
+      video.onplaying = () => {
+        this.setMediaPlaying(true);
+      };
+
+      video.onsuspend = () => {
+        this.setMediaPlaying(false);
+      };
+
+      video.ontimeupdate = () => {
+        this.timeUpdateHandler();
+      };
+
+      video.onerror = () => {
+        this.videErrorHandler();
+      };
+
+      stream.onactive = () => {
+        this.isStreamActive = true;
+        console.log(`Media stream for '${this.user.id}' --> active`);
+      };
+
+      stream.oninactive = () => {
+        this.isStreamActive = false;
+        console.log(`Media stream for '${this.user.id}' --> inactive`);
+      };
+
+      this.isStreamActive = stream.active;
     },
 
     userAvatar: getUserAvatarUrl,
+
+    /**
+     * Set media playing state
+     * @param {boolean} state – state
+     * @returns {void}
+     */
+    setMediaPlaying(state) {
+      if (state) {
+        console.log(`Video event for '${this.user.id}'--> playing`);
+      } else {
+        console.log(`Video event for '${this.user.id}'--> suspend`);
+      }
+
+      this.isMediaPlaying = state;
+    },
+
+    /**
+     * Video error event handler
+     * @returns {void}
+     */
+    videErrorHandler() {
+      console.log(`Video event for '${this.user.id}'--> error`, this.$refs.video.error);
+    },
+
+    /**
+     * Video time update event handler
+     * @returns {void}
+     */
+    timeUpdateHandler() {
+      if (!this.isMediaPlaying && this.$refs.video) {
+        console.log(`Video event for '${this.user.id}'--> timeUpdate`, this.$refs.video.currentTime);
+        this.setMediaPlaying(this.$refs.video.currentTime !== 0);
+      }
+    },
   },
 };
 </script>
