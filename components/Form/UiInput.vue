@@ -280,9 +280,9 @@ export default {
         return res;
       }
       if (this.minlength && this.minlength > text.length) {
-        errors.push(`${this.texts['minlength']} ${this.minlength}`);
+        errors.push(`${this.$tc('inputErrors.minlength', this.minlength)}`);
       } else if (this.maxlength && this.maxlength < text.length) {
-        errors.push(`${this.texts['maxlength']} ${this.maxlength}`);
+        errors.push(`${this.$tc('inputErrors.maxlength', this.maxlength)}`);
       }
       if (this.numbers && NUMBER_REGEXP.test(text) === false) {
         errors.push(this.texts['numbers']);
@@ -426,5 +426,4 @@ export default {
   justify-content center
   align-items flex-start
   white-space pre-line
-
 </style>
