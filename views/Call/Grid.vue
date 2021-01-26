@@ -223,8 +223,6 @@ export default {
       // insert existing videos
       const activePublishers = janusVideoroomWrapper.getActivePublishers();
 
-      console.log('--------activePublishers', activePublishers);
-
       activePublishers
         .filter(publisher => publisher.stream)
         .forEach(publisher => {
