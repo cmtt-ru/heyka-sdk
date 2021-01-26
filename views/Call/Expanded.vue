@@ -250,7 +250,7 @@ export default {
      */
     showGridHandler() {
       broadcastEvents.dispatch('exit-fullscreen');
-      this.$router.replace({ name: 'grid' });
+      this.$router.push({ name: 'grid' });
     },
 
     handleVideoStream() {

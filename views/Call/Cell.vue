@@ -19,10 +19,6 @@
         ref="video"
         class="cell__feed"
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
-        @playing="setMediaPlaying(true)"
-        @suspend="setMediaPlaying(false)"
-        @timeupdate="timeUpdateHandler"
-        @error="videErrorHandler"
       />
       <div
         v-show="mediaCanShow"
@@ -299,6 +295,18 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    const video = this.$refs['video'];
+
+    if (video) {
+      video.onloadedmetadata = null;
+      video.onplaying = null;
+      video.onsuspend = null;
+      video.ontimeupdate = null;
+      video.onerror = null;
+    }
+  },
+
   methods: {
     /**
      * Fullscreen click handler
@@ -327,6 +335,22 @@ export default {
 
       video.onloadedmetadata = () => {
         video.play();
+      };
+
+      video.onplaying = () => {
+        this.setMediaPlaying(true);
+      };
+
+      video.onsuspend = () => {
+        this.setMediaPlaying(false);
+      };
+
+      video.ontimeupdate = () => {
+        this.timeUpdateHandler();
+      };
+
+      video.onerror = () => {
+        this.videErrorHandler();
       };
 
       stream.onactive = () => {
