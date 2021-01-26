@@ -6,7 +6,7 @@
     :style="cellDimensions"
   >
     <div
-      v-show="handUpTimestamp"
+      v-show="handUpTimestamp > initTime"
       :key="handUpTimestamp"
       class="cell__raised-hand"
     />
@@ -171,6 +171,7 @@ export default {
       isMediaPlaying: false,
       isStreamActive: false,
       isNeedToWaitVideo: true,
+      initTime: Date.now(),
     };
   },
   computed: {

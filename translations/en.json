@@ -1,5 +1,19 @@
 {
   "test": "test5",
+  "techTexts": {
+    "close": "Close",
+    "ok": "OK",
+    "accept": "Accept",
+    "cancel": "Cancel",
+    "search": "Search",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "done": "Done"
+  },
   "workspace": {
     "navbar": {
       "channelsHeader": "Channels",
@@ -25,17 +39,25 @@
       "privateTalkButton": "Private talk",
       "inviteButtonStart": "Invite to",
       "inviteBySlackButton": "Send invite via Slack",
+      "inviteByTeamsButton": "Send invite via MS Teams",
       "localTime": "Local time",
       "email": "Email",
       "edit": "Edit profile",
       "inviteSent": "Invite sent"
     },
     "userSettings": {
-      "edit": "Edit profile",
-      "upload": "Upload",
-      "login": "Login settings",
+      "pageName": "User settings",
+      "mainSettings": "Main",
+      "loginSettings": "Login settings",
+      "deletePhoto": "Delete photo",
+      "fullNameLabel": "Full name",
+      "emailLabel": "Email",
+      "editEmail": "Edit email",
+      "passLabel": "Password",
+      "resetPass": "Reset password",
       "saved": "saved!",
-      "bigImage": "We can't upload files larger than"
+      "bigImage": "We can't upload files larger than",
+      "socialLinked": "Now you can login with {0}"
     },
     "empty": "So far you've been disconnected\nfrom all channels",
     "new": "What's new?",
@@ -155,42 +177,6 @@
       "ongoingSharing": "Broadcasting now"
     }
   },
-  "login": {
-    "welcome": "Welcome to Heyka",
-    "or": "or",
-    "login": "Login",
-    "forgot": "Forgot your password?",
-    "reset": "Reset",
-    "cancel": "Cancel",
-    "newMember": "Not a member?",
-    "signup": "Sign up now",
-    "devServer": "🌈 You're connecting to dev server"
-  },
-  "register": {
-    "welcome": "Please register",
-    "name": "Username",
-    "register": "Register",
-    "oldMember": "Have an account?",
-    "login": "Log in"
-  },
-  "regSuccess":{
-    "header": "Account registered!",
-    "disclaimer": "Please check your inbox for email verification"
-  },
-  "verify": {
-    "header": "Email verified!",
-    "openApp": "or open the app",
-    "download": "Download Heyka",
-    "createWorkspace": "Create workspace"
-  },
-  "reset": {
-    "header": "Password reset",
-    "disclaimer": "Please enter your new password below to access your account",
-    "button": "Reset",
-    "saved": "New password saved!",
-    "openApp": "Open Heyka",
-    "download": "You can download Heyka here"
-  },
   "popover": {
     "workspace": {
       "invite": "Invite members",
@@ -293,19 +279,20 @@
     "grid": "Сall window"
   },
   "inputErrors": {
-    "default": "not a valid input",
-    "defaultBackend": "server didn't accept this text",
-    "required": "this field is required",
-    "email": "not a valid email",
-    "numbers": "only numbers allowed",
-    "minlength": "min length is:",
-    "maxlength": "max length is:",
-    "passNotMatch": "passwords do not match",
+    "default": "Not a valid input",
+    "defaultBackend": "Server didn't accept this text",
+    "required": "This field is required",
+    "email": "Not a valid email",
+    "numbers": "Only numbers {0} allowed",
+    "minlength": "At least 1 symbol is required | At least {n} symbols are required",
+    "maxlength": "Only 1 symbol is allowed | Only {n} symbols are allowed",
+    "passNotMatch": "Passwords do not match",
     "noResults": "No results for"
   },
-  "newAuth": {
+  "auth": {
     "header": {
-      "back": "Back"
+      "back": "Back",
+      "workspace": "You're invited to workspace"
     },
     "main": {
       "title": "Login to Heyka"
@@ -330,8 +317,26 @@
       "password": "Password",
       "register": "Sign up"
     },
+    "signupSuccess":{
+      "header": "Account registered!",
+      "disclaimer": "Please check your inbox for email verification"
+    },
     "footer": {
       "privacy": "You consent to the processing of personal data"
+    },
+    "verify": {
+      "header": "Email verified!",
+      "openApp": "or open the app",
+      "download": "Download Heyka",
+      "createWorkspace": "Create workspace"
+    },
+    "newPassword": {
+      "header": "Password reset",
+      "disclaimer": "Please enter your new password below to access your account",
+      "button": "Reset",
+      "saved": "New password saved!",
+      "openApp": "Open Heyka",
+      "download": "You can download Heyka here"
     }
   },
   "appStatus": {

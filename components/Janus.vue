@@ -216,6 +216,7 @@ export default {
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
+          console.log('AudioCheck.subscribeMutedTalk');
           AudioCheck.subscribeMutedTalk();
         }
 
@@ -270,7 +271,10 @@ export default {
      */
     unselectChannel() {
       if (janusWrapper) {
-        // unsubscribe for audio events
+        // unsubscribe from generic events
+        janusWrapper.removeAllListeners(JanusWrapper.events.channelJoined);
+
+        // unsubscribe from audio events
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.remoteAudioStream);
@@ -279,7 +283,7 @@ export default {
         janusWrapper.removeAllListeners(JanusWrapper.events.volumeChange);
         janusWrapper.removeAllListeners(JanusWrapper.events.audioSlowLink);
 
-        // unsubscribe for video events
+        // unsubscribe from video events
         janusWrapper.removeAllListeners(JanusWrapper.events.videoSlowLink);
         janusWrapper.removeAllListeners(JanusWrapper.events.webrtcCleanUp);
         janusWrapper.disconnect();
@@ -292,6 +296,9 @@ export default {
       audioQC.removeAllListeners('prebuffer');
       audioQC.removeAllListeners('status');
       audioQC = null;
+
+      mediaCapturer.destroyStream(this.$refs.audio.srcObject);
+      this.$refs.audio.srcObject = null;
     },
 
     /**
@@ -344,9 +351,14 @@ export default {
      */
     onRemoteAudioStream(stream) {
       cnsl.log('Attach audio stream to the audio element');
+
+      this.$refs.audio.oncanplay = () => {
+        this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
+      };
+
       JanusWrapper.attachMediaStream(this.$refs.audio, stream);
+
       this.$refs.audio.muted = !this.speakers;
-      this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
     },
 
     /**
