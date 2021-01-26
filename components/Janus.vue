@@ -216,6 +216,7 @@ export default {
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
+          console.log('AudioCheck.subscribeMutedTalk');
           AudioCheck.subscribeMutedTalk();
         }
 
@@ -270,7 +271,10 @@ export default {
      */
     unselectChannel() {
       if (janusWrapper) {
-        // unsubscribe for audio events
+        // unsubscribe from generic events
+        janusWrapper.removeAllListeners(JanusWrapper.events.channelJoined);
+
+        // unsubscribe from audio events
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.remoteAudioStream);
@@ -279,7 +283,7 @@ export default {
         janusWrapper.removeAllListeners(JanusWrapper.events.volumeChange);
         janusWrapper.removeAllListeners(JanusWrapper.events.audioSlowLink);
 
-        // unsubscribe for video events
+        // unsubscribe from video events
         janusWrapper.removeAllListeners(JanusWrapper.events.videoSlowLink);
         janusWrapper.removeAllListeners(JanusWrapper.events.webrtcCleanUp);
         janusWrapper.disconnect();

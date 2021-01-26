@@ -1,5 +1,19 @@
 {
   "test": "test5",
+  "techTexts": {
+    "close": "Close",
+    "ok": "OK",
+    "accept": "Accept",
+    "cancel": "Cancel",
+    "search": "Search",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "done": "Done"
+  },
   "workspace": {
     "navbar": {
       "channelsHeader": "Channels",
@@ -25,15 +39,22 @@
       "privateTalkButton": "Private talk",
       "inviteButtonStart": "Invite to",
       "inviteBySlackButton": "Send invite via Slack",
+      "inviteByTeamsButton": "Send invite via MS Teams",
       "localTime": "Local time",
       "email": "Email",
       "edit": "Edit profile",
       "inviteSent": "Invite sent"
     },
     "userSettings": {
-      "edit": "Edit profile",
-      "upload": "Upload",
-      "login": "Login settings",
+      "pageName": "User settings",
+      "mainSettings": "Main",
+      "loginSettings": "Login settings",
+      "deletePhoto": "Delete photo",
+      "fullNameLabel": "Full name",
+      "emailLabel": "Email",
+      "editEmail": "Edit email",
+      "passLabel": "Password",
+      "resetPass": "Reset password",
       "saved": "saved!",
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"

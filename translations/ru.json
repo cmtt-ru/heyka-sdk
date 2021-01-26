@@ -1,5 +1,19 @@
 {
   "test": "тест3",
+  "techTexts": {
+    "close": "Закрыть",
+    "ok": "ОК",
+    "accept": "Принять",
+    "cancel": "Отмена",
+    "search": "Поиск",
+    "create": "Создать",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "yes": "Да",
+    "no": "Нет",
+    "back": "Назад",
+    "done": "Готово"
+  },
   "workspace": {
     "navbar": {
       "channelsHeader": "Каналы",
@@ -22,18 +36,25 @@
       "support": "Сообщить о баге"
     },
     "user": {
-      "privateTalkButton": "Позвонить",
+      "privateTalkButton": "Вызвать",
       "inviteButtonStart": "Пригласить в",
       "inviteBySlackButton": "Пригласить через Slack",
+      "inviteByTeamsButton": "Пригласить через MS Teams",
       "localTime": "Локальное время",
       "email": "Email",
-      "edit": "Редактировать профиль",
+      "edit": "Редактировать",
       "inviteSent": "Приглашение отправлено"
     },
     "userSettings": {
-      "edit": "Редактировать профиль",
-      "upload": "Загрузить",
-      "login": "Настройки логина",
+      "pageName": "Редактирование профиля",
+      "mainSettings": "Основное",
+      "loginSettings": "Способы входа",
+      "deletePhoto": "Удалить фото",
+      "fullNameLabel": "Полное имя",
+      "emailLabel": "Почта",
+      "editEmail": "Изменить почту",
+      "passLabel": "Пароль",
+      "resetPass": "Сбросить пароль",
       "saved": "сохранено!",
       "bigImage": "Мы не можем загрузить файлы крупнее, чем",
       "socialLinked": "Теперь вы можете входить с помощью {0}"
@@ -187,7 +208,7 @@
       "invite": "Скопировать приглашение"
     },
     "userMore": {
-      "edit": "Редактировать профиль"
+      "edit": "Редактировать"
     }
   },
   "notifications":{

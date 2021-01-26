@@ -14,10 +14,10 @@
       <label class="label">
         <svg-icon
           class="label__icon"
-          name="attach"
-          size="medium"
+          name="image"
+          :height="24"
+          :width="24"
         />
-        {{ $t('workspace.userSettings.upload') }}
         <input
           type="file"
           accept=".png, .jpg, .jpeg"
@@ -171,18 +171,14 @@ export default {
         justify-content center
         align-items center
         cursor pointer
-        background-color rgba(0, 0, 0, 0.5)
+        background-color rgba(0, 0, 0, 0.4)
         color white
         font-size 12px
-        opacity 0
         border-radius 50%
-        transition 0.2s opacity ease
+        transition 0.2s background-color ease
 
         &:hover
-          opacity 1
-
-        &__icon
-          margin-top -4px
+          background-color rgba(0, 0, 0, 0.6)
 
   .temp-image
     position absolute

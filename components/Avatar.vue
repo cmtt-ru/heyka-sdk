@@ -12,22 +12,29 @@
     <div
       v-if="!loaded"
       class="avatar__no-image"
-      :class="{'avatar__image--square': square}"
+      :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
     />
-
-    <img
+    <div
       v-if="image"
-      loading="lazy"
       class="avatar__image"
-      :class="{'avatar__image--square': square}"
+      :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
-      alt=""
-      :width="size"
-      :height="size"
-      :src="image"
-      @load="loadHandler"
     >
+      <div
+        class="avatar__image__border"
+        :style="{'border-radius': borderRadius + 'px'}"
+      />
+      <img
+        loading="lazy"
+        class=""
+        alt=""
+        :width="size"
+        :height="size"
+        :src="image"
+        @load="loadHandler"
+      >
+    </div>
 
     <div
       v-if="statusStyle"
@@ -73,6 +80,15 @@ const STATUS_COLORS = {
     'background-color': 'transparent',
     'border-color': 'var(--color-4)',
   },
+};
+
+/**
+ * sizes of holes in avatar (for status)
+ */
+const STATUS_SIZES = {
+  32: 'avatar__image--dot',
+  20: 'avatar__image--dot-20',
+  default: 'avatar__image--dot',
 };
 
 export default {
@@ -169,6 +185,15 @@ export default {
       return STATUS_COLORS[this.status] || null;
     },
 
+    imageClasses() {
+      const classes = {};
+
+      classes['avatar__image--square'] = this.square;
+      classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
+
+      return classes;
+    },
+
     imageColor() {
       if (this.userId === null) {
         return COLORS[10];
@@ -207,10 +232,30 @@ export default {
       width 100%
       height 100%
       border-radius 50%
-      object-fit cover
+      overflow hidden
+
+      &__border
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        display block
+        background-color transparent
+        box-shadow inset 0 0 0 2px rgba(0,0,0,0.1)
+
+      &--dot
+        mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px)
+
+      &--dot-20
+        mask-image radial-gradient(circle at calc(100% - 3px) calc(100% - 3px), transparent 5px, white 5.5px)
 
       &--square
         border-radius 0 !important
+
+      & img
+        position absolute
+        object-fit cover
 
     &__status
       position absolute
@@ -223,8 +268,8 @@ export default {
       max-width 8px
       max-height 8px
       border-radius 50%
-      background-color var(--new-bg-04)
-      border 2px solid var(--new-bg-04)
+      background-color transparent
+      border 2px solid transparent
       z-index 3
 
       &__dot
@@ -235,7 +280,7 @@ export default {
         width 100%
         height 100%
         border-radius 50%
-        border: 2px solid
+        border 2px solid
 
     &__onair
       position absolute
