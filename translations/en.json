@@ -163,8 +163,7 @@
     "grid": {
       "users": "1 user | {n} users",
       "you": "(you)",
-      "reconnecting": "Reconnecting",
-      "aqi": "Unstable connection"
+      "reconnecting": "Reconnecting"
     },
     "sharing": {
       "title": "Sharing preview",
@@ -346,5 +345,8 @@
     "title": "You don’t have access to any workspace",
     "description": "Create a new team or ask your co-workers to invite you (your email is {0})",
     "create": "Create workspace"
+  },
+  "aqi": {
+    "tooltip": "Unstable connection"
   }
 }
