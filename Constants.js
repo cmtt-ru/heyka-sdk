@@ -1,5 +1,4 @@
 import UAParser from 'ua-parser-js';
-// import { heykaStore } from '../renderer/store/localStore';
 
 const parsedUserAgent = new UAParser().getResult();
 
