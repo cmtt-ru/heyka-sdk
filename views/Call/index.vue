@@ -11,7 +11,6 @@
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import { mapGetters, mapState } from 'vuex';
 import Mousetrap from 'mousetrap';
-import { ipcRenderer } from 'electron';
 
 export default {
   computed: {
@@ -44,9 +43,11 @@ export default {
       janusVideoroomWrapper.join(this.myId, this.janusOptions);
     }
 
-    Mousetrap.bind('esc', () => {
-      ipcRenderer.send('exit-fullscreen');
-    });
+    if (IS_ELECTRON) {
+      Mousetrap.bind('esc', () => {
+        window.ipcRenderer.send('exit-fullscreen');
+      });
+    }
   },
 };
 </script>

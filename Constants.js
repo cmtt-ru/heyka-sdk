@@ -1,22 +1,27 @@
+import UAParser from 'ua-parser-js';
+// import { heykaStore } from '../renderer/store/localStore';
+
+const parsedUserAgent = new UAParser().getResult();
+
 let IS_DEV = process.env.NODE_ENV === 'development';
-const IS_WIN = process.platform === 'win32';
-const IS_MAC = process.platform === 'darwin';
-const IS_LINUX = process.platform === 'linux';
+const IS_WIN = parsedUserAgent.os.name === 'Windows';
+const IS_MAC = parsedUserAgent.os.name === 'Macintosh';
+// const IS_LINUX = parsedUserAgent.os.name === 'X11';
+const IS_LINUX = !(IS_WIN || IS_MAC);
+
 const IS_IOS = typeof navigator !== 'undefined' &&
   (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 let IS_ELECTRON = false;
 
 // global variables
-if (typeof window !== 'undefined') {
-  window.IS_DEV = IS_DEV;
-  window.IS_WIN = IS_WIN;
-  window.IS_MAC = IS_MAC;
-  window.IS_LINUX = IS_LINUX;
-  IS_ELECTRON = Boolean(window && window.process && window.process.type);
-  window.IS_ELECTRON = IS_ELECTRON;
-  window.IS_IOS = IS_IOS;
-}
+window.IS_DEV = IS_DEV;
+window.IS_WIN = IS_WIN;
+window.IS_MAC = IS_MAC;
+window.IS_LINUX = IS_LINUX;
+IS_ELECTRON = parsedUserAgent.ua.indexOf('Electron') !== -1;
+window.IS_ELECTRON = IS_ELECTRON;
+window.IS_IOS = IS_IOS;
 
 if (IS_ELECTRON) {
   let heykaStore;
@@ -62,7 +67,7 @@ if (API_URL) {
     .join('.');
 }
 
-module.exports = {
+export {
   IS_DEV,
   IS_WIN,
   IS_MAC,
@@ -72,5 +77,5 @@ module.exports = {
 
   API_URL,
   WEB_URL,
-  COOKIE_URL,
+  COOKIE_URL
 };
