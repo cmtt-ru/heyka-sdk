@@ -235,8 +235,6 @@ export default {
         volumeHistoryInterval = setInterval(() => {
           volumeHistory[volumeHistoryIndex] = this.currentVolume;
 
-          console.log(volumeHistory);
-
           volumeHistoryIndex++;
 
           if (volumeHistoryIndex >= HISTORY_LENGTH) {

@@ -125,7 +125,7 @@ export default {
      * @returns {array} array of users
      */
     users() {
-      const users = this.$store.getters.getUsersByChannel(this.channel.id);
+      const users = this.$store.getters.getUsersByChannel(this.channel.id).map(u => u.user);
 
       if (this.topChannel) {
         return [this.me, ...users.filter((user) => user.id !== this.myId)];
