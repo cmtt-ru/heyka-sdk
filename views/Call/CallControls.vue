@@ -13,6 +13,7 @@
         :user-id="speakingUser.id"
         :image="userAvatar(speakingUser.id, 44)"
         :size="44"
+        :class="{'call-controls__avatar--speaking': speakingUser.speaking}"
         :border-radius="11"
       />
 
@@ -118,6 +119,8 @@ export default {
      */
     speakingUser() {
       if (this.getSpeakingUser) {
+        console.log(this.getSpeakingUser);
+
         return this.getSpeakingUser;
       }
 
@@ -220,10 +223,9 @@ export default {
       display block
       box-sizing border-box
       flex-shrink 0
-      overflow hidden
       position relative
 
-      &:after
+      &--speaking:after
         content ''
         position absolute
         top 0
@@ -231,7 +233,7 @@ export default {
         left 0
         right 0
         border-radius 11px
-        border 2px solid rgba(255,255,255,0.1)
+        border 4px solid #51C362
         z-index 2
 
     &__user-name
