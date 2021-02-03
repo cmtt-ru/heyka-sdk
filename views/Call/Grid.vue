@@ -38,10 +38,11 @@
     >
       <cell
         v-for="(user, index) in users"
-        :key="user.id"
+        :key="user.user.id"
         :width="Math.floor(fullGridWidth * currentGrid[index])"
-        :video-stream="videoStreams[user.id]"
-        :user="user"
+        :video-stream="videoStreams[user.user.id]"
+        :user="user.user"
+        :media-state="user.mediaState"
       />
     </div>
 
