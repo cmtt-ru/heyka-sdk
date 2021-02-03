@@ -2,7 +2,7 @@
 <template>
   <div
     class="cell"
-    :class="{'cell--elevated': raisedHand}"
+    :class="{'cell--elevated': raisedHand, 'cell--reconnecting': reconnectingStatus(user.id)}"
     :style="cellDimensions"
   >
     <div
@@ -42,13 +42,15 @@
       />
 
       <div
-        v-tooltip="'Unstable connection'"
         class="cell__aqi"
-        :data-status="audioQualityStatus(user.id)"
       >
-        <span />
-        <span />
-        <span />
+        <connection-indicator :status="audioQualityStatus(user.id)" />
+      </div>
+
+      <div
+        v-tooltip="texts.reconnecting"
+        class="cell__reconnecting"
+      >
         <span />
       </div>
 
@@ -83,6 +85,7 @@
 <script>
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
+import ConnectionIndicator from '@components/ConnectionIndicator';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
 
@@ -139,6 +142,7 @@ export default {
   components: {
     UiButton,
     Avatar,
+    ConnectionIndicator,
   },
   props: {
     /**
@@ -180,6 +184,7 @@ export default {
       mediaState: 'me/getMediaState',
       myId: 'me/getMyId',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
+      reconnectingStatus: 'channels/getReconnectingStatusByUserId',
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
@@ -409,224 +414,226 @@ export default {
 
 <style lang="stylus" scoped>
 .cell
-    box-sizing border-box
-    position relative
+  box-sizing border-box
+  position relative
+  padding 4px
+
+  &--elevated
+    z-index 5
+
+  &--reconnecting
+    .cell__avatar,
+    .cell__feed
+      filter grayscale(1) brightness(0.75);
+
+    .cell__reconnecting
+      display block
+
+  &__raised-hand
+    position absolute
+    top 4px
+    bottom 4px
+    left 4px
+    right 4px
+    pointer-events none
+    border-radius var(--borderWidth)
+    animation showRaisedHand 5s linear forwards
+    animation-iteration-count 1
+    --borderWidth: 12px
+
+    @keyframes showRaisedHand {
+      0% {
+        visibility: visible;
+        opacity: 0;
+      }
+      5% {
+        visibility: visible;
+        opacity: 1;
+      }
+      95% {
+        visibility: visible;
+        opacity: 1;
+      }
+      100% {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &:after
+      content ''
+      position absolute
+      top calc(-1 * var(--borderWidth))
+      left calc(-1 * var(--borderWidth))
+      height calc(100% + var(--borderWidth) * 2)
+      width calc(100% + var(--borderWidth) * 2)
+      background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
+      border-radius calc(var(--borderWidth) * 2)
+      z-index 1
+      animation animatedGradient 2s ease alternate
+      animation-iteration-count 3
+      background-size 300% 300%
+      filter blur(25px)
+
+    @keyframes animatedGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+  &__inner
+    border-radius 12px
+    height 100%
     padding 4px
+    box-sizing border-box
+    display flex
+    flex-direction column
+    justify-content space-between
+    align-items center
+    position relative
+    overflow hidden
+    background var(--new-bg-05)
 
-    &--elevated
-      z-index 5
+  &__feed
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    object-fit cover
+    border-radius 12px
 
-    &__raised-hand
+    &__gradient
+      content ''
       position absolute
-      top 4px
-      bottom 4px
-      left 4px
-      right 4px
       pointer-events none
-      border-radius var(--borderWidth)
-      animation showRaisedHand 5s linear forwards
-      animation-iteration-count 1
-      --borderWidth: 12px
-
-      @keyframes showRaisedHand {
-        0% {
-          visibility: visible;
-          opacity: 0;
-        }
-        5% {
-          visibility: visible;
-          opacity: 1;
-        }
-        95% {
-          visibility: visible;
-          opacity: 1;
-        }
-        100% {
-          visibility: hidden;
-          opacity: 0;
-        }
-      }
-
-      &:after
-        content ''
-        position absolute
-        top calc(-1 * var(--borderWidth))
-        left calc(-1 * var(--borderWidth))
-        height calc(100% + var(--borderWidth) * 2)
-        width calc(100% + var(--borderWidth) * 2)
-        background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
-        border-radius calc(var(--borderWidth) * 2)
-        z-index 1
-        animation animatedGradient 2s ease alternate
-        animation-iteration-count 3
-        background-size 300% 300%
-        filter blur(25px)
-
-      @keyframes animatedGradient {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-    &__inner
-      border-radius 12px
-      height 100%
-      padding 4px
-      box-sizing border-box
-      display flex
-      flex-direction column
-      justify-content space-between
-      align-items center
-      position relative
-      overflow hidden
-      background var(--new-bg-05)
-
-    &__feed
-      position absolute
       top 0
+      bottom 0
       left 0
-      width 100%
-      height 100%
-      object-fit cover
-      border-radius 12px
+      right 0
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.85) 100%);
 
-      &__gradient
-        content ''
-        position absolute
-        pointer-events none
-        top 0
-        bottom 0
-        left 0
-        right 0
-        background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.85) 100%);
+  &__talking
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    border 2px solid var(--new-signal-02)
+    border-radius 12px
+    box-sizing border-box
+    pointer-events none
 
-    &__talking
+  &__more
+    top 6px
+    right 6px
+    flex-shrink 0
+    opacity 0
+    transition opacity 0.15s ease
+    position relative
+
+  &__aqi
+    display flex
+    position absolute
+    top 4px
+    left 4px
+    transition opacity 0.15s ease
+    background-color var(--button-bg-5)
+    width 28px
+    padding 9px 0
+    min-height 28px
+    border-radius 6px
+    justify-content center
+    box-sizing border-box
+
+  &__reconnecting
+    display none
+    position absolute
+    top -22px
+    left 0
+    bottom 0
+    right 0
+    margin auto
+    width 44px
+    height 44px
+    background #ffffff
+    border-radius 100%
+    box-shadow var(--new-shadow-03)
+    z-index 3
+
+    span
       position absolute
+      left 0
       top 0
-      left 0
-      width 100%
-      height 100%
-      border 2px solid var(--new-signal-02)
-      border-radius 12px
-      box-sizing border-box
-      pointer-events none
-
-    &__more
-      top 6px
-      right 6px
-      flex-shrink 0
-      opacity 0
-      transition opacity 0.15s ease
-      position relative
-
-    &__aqi
-      display flex
-      position absolute
-      top 4px
-      left 4px
-      transition opacity 0.15s ease
-      background-color: var(--button-bg-5);
-      width 28px
-      padding 9px 0
-      min-height 28px
-      border-radius 6px
-      align-items flex-end
-      justify-content center
-      box-sizing border-box
-
-      span
-        display block
-        width 2px
-        margin-right 1px
-        border-radius 1px
-
-        &:nth-child(1)
-          height 4px
-
-        &:nth-child(2)
-          height 6px
-
-        &:nth-child(3)
-          height 8px
-
-        &:nth-child(4)
-          height 10px
-          margin-right 0
-
-      &[data-status="0"]
-        display none
-
-      &[data-status="1"] span
-        background #ffd319
-
-        &:nth-child(4)
-          opacity 0.25
-
-      &[data-status="2"] span
-        background #fd871f
-
-        &:nth-child(4)
-        &:nth-child(3)
-          opacity 0.25
-
-      &[data-status="3"] span
-        background #fa3610
-
-        &:nth-child(4)
-        &:nth-child(3)
-        &:nth-child(2)
-          opacity 0.25
-
-    &__expand
-      bottom 4px
-      right 4px
-
-    .badge
-      position absolute
-
-    .badge--hidden
-    .cell__username--hidden
-      opacity 0
-      transition opacity 0.15s ease
-
-    .cell__inner:hover .badge--hidden
-    .cell__inner:hover .cell__username--hidden
-      opacity 1
-
-    .badge--hidden.context-menu--opened
-      opacity 1
-
-    &__avatar
+      right 0
+      bottom 0
       margin auto
-      transform translateY(-11px)
+      width 50%
+      height 50%
+      border-radius 100px
+      animation rotate 1s linear infinite
+      border 2px solid var(--new-UI-01)
+      border-right-color transparent
 
-    &__username
-      bottom 4px
-      margin 0 auto
-      padding 6px 4px
-      border-radius 4px
-      max-width calc(100% - 8px)
-      box-sizing border-box
-      width auto
-      overflow hidden
-      display flex
-      flex-direction row
-      align-items center
-      text-align center
-      position relative
-      z-index 3
+      @keyframes rotate {
+        0% {
+          transform rotate(0deg)
+        }
+        100% {
+          transform rotate(360deg)
+        }
+      }
 
-      &__you
-        opacity 0.5
-        margin-left 4px
+  &__expand
+    bottom 4px
+    right 4px
 
-      &__mic-off
-        margin-left 8px
-        flex-shrink 0
+  .badge
+    position absolute
+
+  .badge--hidden
+  .cell__username--hidden
+    opacity 0
+    transition opacity 0.15s ease
+
+  .cell__inner:hover .badge--hidden
+  .cell__inner:hover .cell__username--hidden
+    opacity 1
+
+  .badge--hidden.context-menu--opened
+    opacity 1
+
+  &__avatar
+    margin auto
+    transform translateY(-11px)
+
+  &__username
+    bottom 4px
+    margin 0 auto
+    padding 6px 4px
+    border-radius 4px
+    max-width calc(100% - 8px)
+    box-sizing border-box
+    width auto
+    overflow hidden
+    display flex
+    flex-direction row
+    align-items center
+    text-align center
+    position relative
+    z-index 3
+
+    &__you
+      opacity 0.5
+      margin-left 4px
+
+    &__mic-off
+      margin-left 8px
+      flex-shrink 0
 </style>
