@@ -20,12 +20,12 @@ export default class AudioCheck extends EventEmitter {
   /**
  * Init checker
  *
- * @param {function} sendSync - ipcRenderer.sendSync
+ * @param {function} invoke - ipcRenderer.invoke
  * @param {function} shutdown - electron-shutdown-command
  */
-  constructor(sendSync = () => null, shutdown = () => null) {
+  constructor(invoke = () => null, shutdown = () => null) {
     super();
-    this.sendSync = sendSync;
+    this.invoke = invoke;
     this.shutdown = shutdown;
 
     this.__mediaStream = null;
@@ -259,7 +259,7 @@ export default class AudioCheck extends EventEmitter {
       return false;
     }
 
-    const micState = this.sendSync('remote-systemPreferences-microphone');
+    const micState = await this.invoke('remote-systemPreferences-microphone');
 
     if (micState === 'restricted' || micState === 'denied') {
       const notification = {
