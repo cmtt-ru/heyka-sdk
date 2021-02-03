@@ -81,6 +81,12 @@ export default {
     };
   },
 
+  watch: {
+    image(val) {
+      this.localImage = val;
+    },
+  },
+
   mounted() {
     this.localImage = this.image;
   },

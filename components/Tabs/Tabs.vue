@@ -81,7 +81,7 @@ export default {
       display inline-block
       margin-bottom 12px
       background var(--new-UI-06)
-      border-radius 100px
+      border-radius 6px
       padding 4px
 
     &__content
