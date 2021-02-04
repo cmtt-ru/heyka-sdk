@@ -31,7 +31,7 @@ if (IS_ELECTRON) {
     console.error(e);
   }
 
-  const forceDevServer = heykaStore.get('devServer') || false;
+  const forceDevServer = heykaStore.getSync('devServer', false);
 
   if (forceDevServer) {
     IS_DEV = true;

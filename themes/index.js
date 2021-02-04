@@ -23,7 +23,7 @@ class Themes {
     this.storeVue.themeArray = themes;
 
     /* Get current theme and auto mode from local store */
-    const theme = heykaStore.get('theme', {
+    const theme = heykaStore.getSync('theme', {
       name: 'light',
       auto: true,
     });
