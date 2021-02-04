@@ -4,7 +4,7 @@ const parsedUserAgent = new UAParser().getResult();
 
 let IS_DEV = process.env.NODE_ENV === 'development';
 const IS_WIN = parsedUserAgent.os.name === 'Windows';
-const IS_MAC = parsedUserAgent.os.name === 'Macintosh';
+const IS_MAC = parsedUserAgent.os.name === 'Macintosh' || parsedUserAgent.os.name === 'Mac OS';
 // const IS_LINUX = parsedUserAgent.os.name === 'X11';
 const IS_LINUX = !(IS_WIN || IS_MAC);
 
