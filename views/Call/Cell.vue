@@ -41,11 +41,10 @@
         popover
       />
 
-      <div
+      <connection-indicator
         class="cell__aqi"
-      >
-        <connection-indicator :status="audioQualityStatus(user.id)" />
-      </div>
+        :status="audioQualityStatus(user.id)"
+      />
 
       <div
         v-tooltip="texts.reconnecting"
