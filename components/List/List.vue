@@ -75,6 +75,22 @@ export default {
       }, timeout);
     },
 
+    selectAll() {
+      for (const el of this.$children) {
+        el.selected = true;
+      }
+      this.selectedChildren();
+    },
+
+    deselectAll() {
+      for (const el of this.$children) {
+        if (el.selected) {
+          el.selected = false;
+        }
+      }
+      this.selectedChildren();
+    },
+
     /**
      * Gather all list-items that have prop "selected"
      * @returns {array} keys of selected items

@@ -186,7 +186,9 @@
     "connect": "Connect with Slack",
     "canInviteBeginning": "You can invite members from ",
     "canInviteEnd": ". Select teammates.",
-    "inviteUsers": "Send invite | Send {n} invites",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "inviteUsers": "Send invite | Send invite | Send {n} invites",
     "successInviteStart": "You've succesfully sent ",
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
