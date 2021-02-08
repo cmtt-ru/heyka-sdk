@@ -10,7 +10,7 @@
       />
     </transition>
     <div
-      v-if="!loaded || !image"
+      v-if="!noColor && (!loaded || !image)"
       class="avatar__no-image"
       :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
@@ -157,6 +157,14 @@ export default {
     userId: {
       type: [ String ],
       default: null,
+    },
+
+    /**
+     * true if no need for secondary colored background when no img
+     */
+    noColor: {
+      type: [ Boolean ],
+      default: false,
     },
   },
   data() {
