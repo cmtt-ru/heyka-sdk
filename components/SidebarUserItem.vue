@@ -19,27 +19,16 @@
     >
       {{ user.name }}
     </div>
-
-    <ui-button
-      :type="7"
-      class="user__more"
-      size="small"
-      height="20"
-      icon="more"
-      @click="moreHandler"
-    />
   </router-link>
 </template>
 
 <script>
 import Avatar from '@components/Avatar';
-import UiButton from '@components/UiButton';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     Avatar,
-    UiButton,
   },
   props: {
     /**
