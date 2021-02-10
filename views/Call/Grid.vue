@@ -43,7 +43,6 @@
         :video-stream="videoStreams[user.user.id]"
         :user="user.user"
         :media-state="user.mediaState"
-        :class="{'cell--reconnecting': reconnectingStatus(user.user.id)}"
       />
     </div>
 

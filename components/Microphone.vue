@@ -230,7 +230,7 @@ export default {
   methods: {
     recordVolumeHistory(state) {
       if (state) {
-        volumeHistory = new Array(HISTORY_LENGTH);
+        volumeHistory = new Array(HISTORY_LENGTH).fill(INIT_VOLUME);
 
         volumeHistoryInterval = setInterval(() => {
           volumeHistory[volumeHistoryIndex] = this.currentVolume;
@@ -271,10 +271,7 @@ export default {
     background var(--new-overlay-03)
 
   &__volume
-    will-change transform
     transform translateZ(0)
-    backface-visibility hidden
-    perspective 1000
     background-color var(--new-signal-02)
     position absolute
     opacity 0.5

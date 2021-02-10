@@ -21,7 +21,7 @@
         class="call-controls__col"
       >
         <p class="call-controls__user-name">
-          {{ speakingUserName }}
+          {{ speakingUser.name }}
         </p>
 
         <div class="call-controls__channel">
@@ -106,20 +106,15 @@ export default {
     }),
 
     /**
-     * Speaking user name
-     * @return {string}
-     */
-    speakingUserName() {
-      return this.speakingUser?.name || this.user?.name || '';
-    },
-
-    /**
-     * Speaking user avatar
+     * Speaking user
      * @return {string}
      */
     speakingUser() {
       if (this.getSpeakingUser) {
-        return this.getSpeakingUser;
+        return {
+          ...this.getSpeakingUser,
+          ...this.userById(this.getSpeakingUser.userId),
+        };
       }
 
       if (this.user) {
