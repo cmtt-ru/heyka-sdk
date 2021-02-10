@@ -119,8 +119,6 @@ export default {
      */
     speakingUser() {
       if (this.getSpeakingUser) {
-        console.log(this.getSpeakingUser);
-
         return this.getSpeakingUser;
       }
 
