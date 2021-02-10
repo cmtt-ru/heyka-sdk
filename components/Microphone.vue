@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import broadcastEvents from '@sdk/classes/broadcastEvents';
 
 /**
  * Mic icons
@@ -72,10 +73,16 @@ const BUTTON_SIZES = {
     'border-radius': '15px',
   },
 };
+const INIT_VOLUME = -100;
 
+/**
+ * Variables for volume history
+ */
 const HISTORY_INTERVAL = 50;
 const HISTORY_LENGTH = 20;
-const INIT_VOLUME = -100;
+let volumeHistory = null;
+let volumeHistoryIndex = 0;
+let volumeHistoryInterval = null;
 
 export default {
   props: {
@@ -133,7 +140,7 @@ export default {
     return {
       medianVolume: INIT_VOLUME,
       volumeHistory: [ INIT_VOLUME ],
-      volumeHistoryInterval: null,
+      currentVolume: 0,
     };
   },
 
@@ -144,10 +151,6 @@ export default {
      */
     iconProp() {
       return STATES[this.active];
-    },
-
-    currentVolume() {
-      return this.$store.getters['app/getMicrophoneVolume'];
     },
 
     /**
@@ -205,31 +208,44 @@ export default {
 
   watch: {
     active(val) {
-      if (val) {
-        this.recordVolumeHistory();
-      } else {
-        clearInterval(this.volumeHistoryInterval);
-        this.volumeHistory = [];
-      }
+      this.recordVolumeHistory(val);
     },
   },
+
   created() {
+    broadcastEvents.on('microphone-volume', volume => {
+      this.currentVolume = volume;
+    });
+
     if (this.active) {
-      this.recordVolumeHistory();
+      this.recordVolumeHistory(true);
     }
   },
 
   beforeDestroy() {
-    clearInterval(this.volumeHistoryInterval);
-    this.volumeHistory = [];
+    this.recordVolumeHistory(false);
+    broadcastEvents.removeAllListeners('microphone-volume');
   },
 
   methods: {
-    recordVolumeHistory() {
-      this.volumeHistoryInterval = setInterval(() => {
-        this.volumeHistory.push(this.currentVolume);
-        this.medianVolume = Math.max(...this.volumeHistory.slice(-HISTORY_LENGTH));
-      }, HISTORY_INTERVAL);
+    recordVolumeHistory(state) {
+      if (state) {
+        volumeHistory = new Array(HISTORY_LENGTH);
+
+        volumeHistoryInterval = setInterval(() => {
+          volumeHistory[volumeHistoryIndex] = this.currentVolume;
+
+          volumeHistoryIndex++;
+
+          if (volumeHistoryIndex >= HISTORY_LENGTH) {
+            volumeHistoryIndex = 0;
+          }
+
+          this.medianVolume = Math.max(...volumeHistory);
+        }, HISTORY_INTERVAL);
+      } else {
+        clearInterval(volumeHistoryInterval);
+      }
     },
   },
 };
@@ -268,6 +284,7 @@ export default {
     height 100%
     transform-origin bottom left
     mix-blend-mode color-dodge
+    //transition transform 0.1s linear
 
   &__icon
     position relative

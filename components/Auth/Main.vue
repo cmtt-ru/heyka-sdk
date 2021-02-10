@@ -87,7 +87,13 @@ export default {
      * @returns {void}
      */
     socialHandler(socialName) {
-      const link = `${WEB_URL}/auth/social/${socialName}/login`;
+      let actionName = 'login';
+
+      if (!IS_ELECTRON) {
+        actionName = 'web-login';
+      }
+
+      const link = `${WEB_URL}/auth/social/${socialName}/${actionName}`;
 
       window.open(link);
     },

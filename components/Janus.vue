@@ -17,6 +17,7 @@ import Logger from '@sdk/classes/logger';
 import network from '@sdk/classes/network';
 import AudioQualityController from '@sdk/classes/AudioQualityController';
 import { conversationBroadcast } from '@api/socket/utils';
+import broadcastEvents from '@sdk/classes/broadcastEvents';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 /**
@@ -291,14 +292,20 @@ export default {
       }
 
       this.resetOperations();
-      AudioCheck.destroyMediaStream();
-      audioQC.destroy();
-      audioQC.removeAllListeners('prebuffer');
-      audioQC.removeAllListeners('status');
-      audioQC = null;
 
-      mediaCapturer.destroyStream(this.$refs.audio.srcObject);
-      this.$refs.audio.srcObject = null;
+      AudioCheck.destroyMediaStream();
+
+      if (audioQC) {
+        audioQC.destroy();
+        audioQC.removeAllListeners('prebuffer');
+        audioQC.removeAllListeners('status');
+        audioQC = null;
+      }
+
+      if (this.$refs.audio && this.$refs.audio.srcObject) {
+        mediaCapturer.destroyStream(this.$refs.audio.srcObject);
+        this.$refs.audio.srcObject = null;
+      }
     },
 
     /**
@@ -419,11 +426,25 @@ export default {
 
     /**
      * Handles change microphone volume
-     * @param {number} db Microphone volume in decibels
+     * @param {number} volume – Microphone volume in decibels
      * @returns {void}
      */
-    onVolumeChange(db) {
-      this.$store.dispatch('app/setMicrophoneVolume', db);
+    onVolumeChange(volume) {
+      if (this.microphone) {
+        const quietestVolume = -100;
+        const loudestVolume = 0;
+
+        if (volume < quietestVolume) {
+          volume = quietestVolume;
+        }
+        if (volume > loudestVolume) {
+          volume = loudestVolume;
+        }
+
+        broadcastEvents.dispatch('microphone-volume', Math.round(volume));
+
+        // this.$store.dispatch('app/setMicrophoneVolume', volume);
+      }
     },
 
     /**
