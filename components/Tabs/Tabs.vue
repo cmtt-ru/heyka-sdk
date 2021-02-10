@@ -2,8 +2,7 @@
   <div class="ui-tabs">
     <div
       ref="tabs"
-      class="ui-tabs__nav scroll scroll--vh"
-      @mousedown="mouseDownHandler"
+      class="ui-tabs__nav"
     >
       <div class="ui-tabs__nav__inner">
         <ui-button
@@ -29,18 +28,9 @@
 <script>
 import UiButton from '@components/UiButton';
 
-let pos = {
-  x: 0,
-  left: 0,
-};
-
 export default {
   components: {
     UiButton,
-  },
-
-  props: {
-
   },
 
   data() {
@@ -69,11 +59,6 @@ export default {
     this.selectTab(this.selectedTabName);
   },
 
-  beforeDestroy() {
-    document.removeEventListener('mousemove', this.mouseMoveHandler);
-    document.removeEventListener('mouseup', this.mouseUpHandler);
-  },
-
   methods: {
     /**
      * Select tab by tab name
@@ -88,30 +73,6 @@ export default {
       });
     },
 
-    mouseDownHandler(event) {
-      this.$refs.tabs.style.cursor = 'grabbing';
-      this.$refs.tabs.style.userSelect = 'none';
-      pos = {
-        left: this.$refs.tabs.scrollLeft,
-        x: event.clientX,
-      };
-      document.addEventListener('mousemove', this.mouseMoveHandler);
-      document.addEventListener('mouseup', this.mouseUpHandler);
-    },
-
-    mouseMoveHandler(event) {
-      const dx = event.clientX - pos.x;
-
-      this.$refs.tabs.scrollLeft = pos.left - dx;
-    },
-
-    mouseUpHandler(event) {
-      this.$refs.tabs.style.removeProperty('cursor');
-      this.$refs.tabs.style.removeProperty('user-select');
-
-      document.removeEventListener('mousemove', this.mouseMoveHandler);
-      document.removeEventListener('mouseup', this.mouseUpHandler);
-    },
   },
 };
 </script>
@@ -119,9 +80,7 @@ export default {
 <style scoped lang="stylus">
   .ui-tabs
     &__nav
-      margin-bottom 5px
-      padding-bottom 7px
-      scroll-behavior auto
+      margin-bottom 12px
 
       &__inner
         display flex
