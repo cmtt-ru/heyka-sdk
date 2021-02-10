@@ -110,7 +110,6 @@ export default {
       handUpStatus: 'channels/getHandUpStatusByUserId',
       conversationEvents: 'channels/getConversationEvents',
       isSharingFullScreen: 'janus/isSharingFullScreen',
-      reconnectingStatus: 'channels/getReconnectingStatusByUserId',
     }),
 
     /**
@@ -372,8 +371,6 @@ export default {
     flex-shrink 0
 
   .channel-name
-    font-size 14px
-    line-height 18px
     color var(--new-UI-09)
     margin 0 16px 0 4px
     font-weight bold
@@ -393,13 +390,6 @@ export default {
     justify-content center
     align-content center
     box-sizing border-box
-
-  .cell
-
-    &--reconnecting
-      .cell__avatar,
-      .cell__feed
-        filter grayscale(1) brightness(0.75);
 
   .bottom-control
     margin 28px auto 0

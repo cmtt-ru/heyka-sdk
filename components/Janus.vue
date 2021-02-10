@@ -292,14 +292,20 @@ export default {
       }
 
       this.resetOperations();
-      AudioCheck.destroyMediaStream();
-      audioQC.destroy();
-      audioQC.removeAllListeners('prebuffer');
-      audioQC.removeAllListeners('status');
-      audioQC = null;
 
-      mediaCapturer.destroyStream(this.$refs.audio.srcObject);
-      this.$refs.audio.srcObject = null;
+      AudioCheck.destroyMediaStream();
+
+      if (audioQC) {
+        audioQC.destroy();
+        audioQC.removeAllListeners('prebuffer');
+        audioQC.removeAllListeners('status');
+        audioQC = null;
+      }
+
+      if (this.$refs.audio && this.$refs.audio.srcObject) {
+        mediaCapturer.destroyStream(this.$refs.audio.srcObject);
+        this.$refs.audio.srcObject = null;
+      }
     },
 
     /**

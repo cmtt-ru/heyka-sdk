@@ -37,15 +37,20 @@
       class="user__sharing"
       :type="7"
       size="small"
-      icon="cast"
+      icon="screencast"
       @click="expandHandler"
     />
+
+    <div class="user__aqi">
+      <connection-indicator :status="audioQualityStatus(user.id)" />
+    </div>
   </div>
 </template>
 
 <script>
 import Avatar from '@components/Avatar';
 import UiButton from '@components/UiButton';
+import ConnectionIndicator from '@components/ConnectionIndicator';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
@@ -59,6 +64,7 @@ export default {
   components: {
     Avatar,
     UiButton,
+    ConnectionIndicator,
   },
   props: {
     /**
@@ -93,6 +99,7 @@ export default {
   computed: {
     ...mapGetters({
       userAvatar: 'users/getUserAvatarUrl',
+      audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
     }),
 
     /**
@@ -150,6 +157,8 @@ export default {
 
     &__statuses
         flex-shrink 0
+        margin-right auto
+        padding-right 4px
 
         &__icon
             margin-left 6px
@@ -157,8 +166,11 @@ export default {
 
     &__sharing
         flex-shrink 0
-        margin-left auto
-        margin-right 4px
         order 2
         color var(--color-2)
+
+    &__aqi
+      display block
+      width 28px
+      height 12px
 </style>
