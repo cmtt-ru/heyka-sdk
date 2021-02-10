@@ -250,7 +250,9 @@
     "invitesto": "Invites to",
     "join": "Join",
     "busy": "I’ll contact you later",
-    "isbusy": "Can’t talk right now",
+    "noResponse": "Didn't accept your invitation",
+    "declined": "Can’t talk right now",
+    "isbusy": "will contact you later",
     "mutedTalking": {
       "text": "No one can hear you",
       "info": "Turn on your mic?",
