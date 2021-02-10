@@ -212,7 +212,7 @@ export default {
         debug: process.env.VUE_APP_JANUS_DEBUG === 'true',
       });
 
-      janusWrapper.on(JanusWrapper.events.channelJoined, async () => {
+      janusWrapper.once(JanusWrapper.events.channelJoined, async () => {
         this.setOperationFinish('join');
         if (this.microphone) {
           AudioCheck.checkAudio();
@@ -225,7 +225,7 @@ export default {
           janusWrapper.publishVideoStream('camera', this.selectedCameraDevice);
         }
 
-        if (this.screen) {
+        if (this.screen && !janusWrapper.isLocalVideoStream()) {
           if (IS_ELECTRON) {
             janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id);
           } else {

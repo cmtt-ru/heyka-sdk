@@ -90,22 +90,26 @@ export default class AudioCheck extends EventEmitter {
       return;
     }
 
-    this.__mediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        deviceId: this._selectedMicrophone(),
-      },
-    });
+    try {
+      this.__mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: this._selectedMicrophone(),
+        },
+      });
 
-    audioTest.setSinkId(this._selectedDevices().speaker);
+      audioTest.setSinkId(this._selectedDevices().speaker);
 
-    this.__harkInstance = hark(this.__mediaStream, {
-      interval: 100,
-    });
+      this.__harkInstance = hark(this.__mediaStream, {
+        interval: 100,
+      });
 
-    this.__harkInstance.on('volume_change', (db) => {
-      this.microphoneVolume = db;
-      this.emit('volume_change', db);
-    });
+      this.__harkInstance.on('volume_change', (db) => {
+        this.microphoneVolume = db;
+        this.emit('volume_change', db);
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   /**
