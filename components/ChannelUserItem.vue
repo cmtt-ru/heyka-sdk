@@ -1,7 +1,7 @@
 <template>
   <div
-    :key="user.microphone + channelId"
-    v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: user.microphone, channelId}}"
+    :key="mediaState.microphone + channelId"
+    v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: mediaState.microphone, channelId}}"
     class="user"
   >
     <avatar
@@ -9,8 +9,8 @@
       :image="userAvatar(user.id, 24)"
       :size="24"
       :user-id="user.id"
-      :mic="user.microphone"
-      :onair="user.speaking"
+      :mic="mediaState.microphone"
+      :onair="mediaState.speaking"
     />
 
     <div
@@ -32,7 +32,7 @@
     </div>
 
     <ui-button
-      v-if="user.screen"
+      v-if="mediaState.screen"
       v-stop-propagation
       class="user__sharing"
       :type="7"
@@ -68,13 +68,19 @@ export default {
   },
   props: {
     /**
-     * Object with full user info (id, name, avatar, statuses)
+     * User info (id, name, avatar, statuses)
      */
     user: {
       type: Object,
-      default: function () {
-        return {};
-      },
+      default: () => {},
+    },
+
+    /**
+     * User media state
+     */
+    mediaState: {
+      type: Object,
+      default: () => {},
     },
 
     /**
@@ -103,11 +109,11 @@ export default {
     iconArray() {
       const icons = [];
 
-      if (this.user.microphone === false) {
+      if (this.mediaState.microphone === false) {
         icons.push(ICON_MAP['mic']);
       }
 
-      if (this.user.speakers === false) {
+      if (this.mediaState.speakers === false) {
         icons.push(ICON_MAP['headphones']);
       }
 

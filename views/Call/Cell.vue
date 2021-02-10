@@ -25,7 +25,7 @@
         class="cell__feed__gradient"
       />
       <div
-        v-show="user.speaking && user.microphone"
+        v-show="mediaState.speaking && mediaState.microphone"
         class="cell__talking"
       />
 
@@ -71,7 +71,7 @@
           >{{ texts.you }}</span>
         </div>
         <svg-icon
-          v-if="!user.microphone"
+          v-if="!mediaState.microphone"
           class="cell__username__mic-off"
           name="mic-off"
           size="small"
@@ -161,6 +161,14 @@ export default {
     },
 
     /**
+     * Cell's user media state
+     */
+    mediaState: {
+      type: Object,
+      default: () => {},
+    },
+
+    /**
      * User's video stream
      */
     videoStream: {
@@ -180,7 +188,6 @@ export default {
   computed: {
     ...mapGetters({
       getUsersWhoShareMedia: 'getUsersWhoShareMedia',
-      mediaState: 'me/getMediaState',
       myId: 'me/getMyId',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
       reconnectingStatus: 'channels/getReconnectingStatusByUserId',
@@ -250,7 +257,7 @@ export default {
      * @returns {boolean}
      */
     isUserSharingMedia() {
-      return this.user.camera || this.user.screen;
+      return this.mediaState.camera || this.mediaState.screen;
     },
 
     /**
@@ -258,8 +265,7 @@ export default {
      * @returns {boolean}
      */
     mediaCanShow() {
-      console.log('Media can show for');
-      // console.log(`Media can show for '${this.user.id}' -->`, this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
+      console.log(`Media can show for '${this.user.id}' -->`, this.isUserSharingMedia, this.isMediaPlaying, this.isStreamActive);
 
       if (this.isUserSharingMedia) {
         const state = this.isStreamActive && this.isMediaPlaying;
