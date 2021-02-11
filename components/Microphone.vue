@@ -212,7 +212,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     broadcastEvents.on('microphone-volume', volume => {
       this.currentVolume = volume;
     });
