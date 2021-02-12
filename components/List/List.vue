@@ -5,7 +5,7 @@
   >
     <slot />
     <div
-      v-show="itemsAmount===0"
+      v-show="itemsAmount===0 && filterBy!==''"
       v-textfade
       class="no-results"
     >
@@ -15,17 +15,33 @@
 </template>
 
 <script>
+import { simpleMatchesFilter, matchesFilter, detectLang } from '@libs/texts';
+
 // eslint-disable-next-line no-magic-numbers
-const CHECK_TIMEOUTS = [10, 10, 30, 50, 900];
+// const CHECK_TIMEOUTS = [10, 10, 30, 50, 900];
 
 export default {
   props: {
+    /**
+     * Array with items in list
+     */
+    items: {
+      type: Array,
+      default: () => [],
+    },
     /**
      * Show only list-items that match this string by their filterKey
      */
     filterBy: {
       type: String,
       default: '',
+    },
+    /**
+     * Show only list-items that match this string by their filterKey
+     */
+    filterKey: {
+      type: String,
+      default: null,
     },
     /**
      * Text to display if no results were found
@@ -41,48 +57,105 @@ export default {
       type: Boolean,
       default: false,
     },
+
   },
   data() {
     return {
       itemsAmount: null,
       countResultsTimeout: null,
+      selectedItems: {},
     };
+  },
+
+  computed: {
+    /**
+     * Compute search substring's language
+     * @returns {object}
+     */
+    filterLang() {
+      return detectLang(this.filterBy);
+    },
   },
 
   watch: {
     filterBy() {
       clearTimeout(this.countResultsTimeout);
-      this.countResults([ ...CHECK_TIMEOUTS ]);
+      this.sortBySimilarity();
+    },
+
+    items() {
+      this.sortBySimilarity();
     },
   },
 
   mounted() {
-    this.$on('selected', this.selectedChildren);
+    this.sortBySimilarity();
+    this.$on('selected', (id, data) => {
+      this.selectedChild(id, data);
+    });
   },
 
   methods: {
 
-    countResults(timeouts) {
-      if (timeouts.length === 0) {
-        return;
+    async sortBySimilarity() {
+      if (this.items.length === 0 || this.filterBy === '') {
+        this.$emit('input', this.items);
       }
 
-      const timeout = timeouts.shift();
+      this.match(this.fastMatchFilter);
 
-      this.countResultsTimeout = setTimeout(() => {
-        this.itemsAmount = this.$children.filter(el => el.matches).length;
-        this.countResults(timeouts);
-      }, timeout);
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      this.match(this.longMatchFilter);
     },
 
-    /**
-     * Gather all list-items that have prop "selected"
-     * @returns {array} keys of selected items
-     */
-    selectedChildren() {
-      const selectedArray = this.$children.filter(el => el.selected).map(el => el.filterKey); // TODO: mb some kind of "multiPickData, not filterKey"
+    match(matchFunc) {
+      const sortedFilteredResults = this.items
+        .map(el => matchFunc(el))
+        .sort((a, b) => a.similarity - b.similarity);
 
-      this.$emit('multipick', selectedArray);
+      this.itemsAmount = sortedFilteredResults.filter(el => el.similarity !== Infinity).length;
+
+      this.$emit('input', sortedFilteredResults);
+    },
+
+    fastMatchFilter(element) {
+      const text = element[this.filterKey];
+      const levenshteinDistance = simpleMatchesFilter(text, this.filterBy);
+
+      return {
+        ...element,
+        similarity: levenshteinDistance,
+      };
+    },
+
+    longMatchFilter(element) {
+      const simpleRes = this.fastMatchFilter(element);
+
+      if (simpleRes.similarity !== Infinity) {
+        return simpleRes;
+      }
+
+      const text = element[this.filterKey];
+      const lang = detectLang(element[this.filterKey]); //! no need to detect it every time
+
+      const levenshteinDistance = matchesFilter(text, this.filterBy, lang, this.filterLang);
+
+      return {
+        ...element,
+        similarity: levenshteinDistance,
+      };
+    },
+
+    selectedChild(id, data) {
+      if (this.selectedItems[id]) {
+        delete this.selectedItems[id];
+      } else {
+        this.selectedItems[id] = data;
+      }
+
+      console.log(Object.values(this.selectedItems));
+      this.$emit('multipick', Object.values(this.selectedItems));
     },
   },
 
