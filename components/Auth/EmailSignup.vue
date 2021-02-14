@@ -101,7 +101,7 @@ export default {
 
         console.log(res);
 
-        this.$router.push({ name: 'auth-signup-success' });
+        this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {
