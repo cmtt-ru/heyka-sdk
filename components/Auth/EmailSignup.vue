@@ -51,6 +51,7 @@ import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
 import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
+import { setTokens } from '@api/tokens';
 
 export default {
   components: {
@@ -65,9 +66,13 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: determineLocale(),
+        lang: '',
       },
     };
+  },
+
+  async created () {
+    this.newUser.lang = await determineLocale();
   },
 
   computed: {
@@ -84,6 +89,8 @@ export default {
     async registerHandler() {
       try {
         const res = await this.$API.auth.signup({ user: this.newUser });
+
+      setTokens(res.data.credentials);
 
         const inviteCode = authFileStore.get('inviteCode');
 
