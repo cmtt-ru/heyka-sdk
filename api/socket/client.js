@@ -4,7 +4,7 @@ import { API_URL } from '@sdk/Constants';
 
 const socketUrl = API_URL;
 
-const client = io(socketUrl+'?EIO=3', { autoConnect: false });
+const client = io(socketUrl, { autoConnect: false });
 
 /**
  * Connect to socket
