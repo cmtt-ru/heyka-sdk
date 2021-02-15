@@ -350,5 +350,12 @@
   },
   "aqi": {
     "tooltip": "Unstable connection"
+  },
+  "slackCallback": {
+    "successTitle": "Всё получилось",
+    "failTitle": "Что-то пошло не так",
+    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka",
+    "rejectSubtitle": "Вы отменили подключение Slack",
+    "errorSubtitle": "Произошла внутреняя ошибка"
   }
 }
