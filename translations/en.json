@@ -176,6 +176,58 @@
       "ongoingSharing": "Broadcasting now"
     }
   },
+  "login": {
+    "welcome": "Welcome to Heyka",
+    "or": "or",
+    "login": "Login",
+    "forgot": "Forgot your password?",
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "newMember": "Not a member?",
+    "signup": "Sign up now",
+    "devServer": "🌈 You're connecting to dev server"
+  },
+  "register": {
+    "welcome": "Please register",
+    "name": "Username",
+    "register": "Register",
+    "oldMember": "Have an account?",
+    "login": "Log in"
+  },
+  "regSuccess":{
+    "header": "Account registered!",
+    "disclaimer": "Please check your inbox for email verification"
+  },
+  "slackInvite":{
+    "webWait": "Loading...",
+    "webSuccess": "Success! Open Heyka for further instructions",
+    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
+    "webError": "Sorry babushka, no Slack for you today",
+    "noWorkspaces": "Your workspace is not connected with Slack.",
+    "connect": "Connect with Slack",
+    "canInviteBeginning": "You can invite members from ",
+    "canInviteEnd": ". Select teammates.",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "inviteUsers": "Send invite | Send invite | Send {n} invites",
+    "successInviteStart": "You've succesfully sent ",
+    "successInviteMiddle": "an invite | {n} invites",
+    "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
+  },
+  "verify": {
+    "header": "Email verified!",
+    "openApp": "or open the app",
+    "download": "Download Heyka",
+    "createWorkspace": "Create workspace"
+  },
+  "reset": {
+    "header": "Password reset",
+    "disclaimer": "Please enter your new password below to access your account",
+    "button": "Reset",
+    "saved": "New password saved!",
+    "openApp": "Open Heyka",
+    "download": "You can download Heyka here"
+  },
   "popover": {
     "workspace": {
       "invite": "Invite members",
