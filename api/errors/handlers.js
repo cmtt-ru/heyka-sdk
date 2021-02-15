@@ -10,7 +10,9 @@ export const errorHandlers = {};
  * Bad token
  */
 defineErrorHandler(errorMessages.badToken, error => {
-  logout();
+  if (IS_ELECTRON) {
+    logout();
+  }
 
   throw error;
 });
@@ -19,7 +21,9 @@ defineErrorHandler(errorMessages.badToken, error => {
  * Credentials are invalid
  */
 defineErrorHandler(errorMessages.credentialsAreInvalid, error => {
-  logout();
+  if (IS_ELECTRON) {
+    logout();
+  }
 
   throw error;
 });
@@ -28,7 +32,9 @@ defineErrorHandler(errorMessages.credentialsAreInvalid, error => {
  * Refresh token expired
  */
 defineErrorHandler(errorMessages.refreshTokenExpired, error => {
-  logout();
+  if (IS_ELECTRON) {
+    logout();
+  }
 
   throw error;
 });
@@ -37,7 +43,9 @@ defineErrorHandler(errorMessages.refreshTokenExpired, error => {
  * Missing authentication
  */
 defineErrorHandler(errorMessages.missingAuthentication, error => {
-  logout();
+  if (IS_ELECTRON) {
+    logout();
+  }
 
   throw error;
 });
