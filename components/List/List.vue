@@ -61,6 +61,7 @@ export default {
   },
   data() {
     return {
+      namesLang: [],
       itemsAmount: null,
       countResultsTimeout: null,
       selectedItems: {},
@@ -83,7 +84,12 @@ export default {
       this.sortBySimilarity();
     },
 
-    items() {
+    items(val) {
+      for (const item of val) {
+        if (!this.namesLang[item[this.filterKey]]) {
+          this.namesLang[item[this.filterKey]] = detectLang(item[this.filterKey]);
+        }
+      }
       this.sortBySimilarity();
     },
   },
@@ -137,7 +143,7 @@ export default {
       }
 
       const text = element[this.filterKey];
-      const lang = detectLang(element[this.filterKey]); //! no need to detect it every time
+      const lang = this.namesLang[element[this.filterKey]] || detectLang(element[this.filterKey]);
 
       const levenshteinDistance = matchesFilter(text, this.filterBy, lang, this.filterLang);
 
@@ -154,7 +160,6 @@ export default {
         this.selectedItems[id] = data;
       }
 
-      console.log(Object.values(this.selectedItems));
       this.$emit('multipick', Object.values(this.selectedItems));
     },
   },
