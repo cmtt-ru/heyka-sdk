@@ -71,10 +71,6 @@ export default {
     };
   },
 
-  async created () {
-    this.newUser.lang = await determineLocale();
-  },
-
   computed: {
     /**
      * Get needed texts from I18n-locale file
@@ -85,12 +81,16 @@ export default {
     },
   },
 
+  async created() {
+    this.newUser.lang = await determineLocale();
+  },
+
   methods: {
     async registerHandler() {
       try {
         const res = await this.$API.auth.signup({ user: this.newUser });
 
-      setTokens(res.data.credentials);
+        setTokens(res.data.credentials);
 
         const inviteCode = authFileStore.get('inviteCode');
 
