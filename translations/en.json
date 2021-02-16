@@ -354,8 +354,18 @@
   "slackCallback": {
     "successTitle": "Всё получилось",
     "failTitle": "Что-то пошло не так",
-    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka",
+    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka. Эту страницу можно закрыть",
     "rejectSubtitle": "Вы отменили подключение Slack",
-    "errorSubtitle": "Произошла внутреняя ошибка"
+    "errorSubtitle": "Произошла внутреняя ошибка",
+    "button": "Открыть приложение"
+  },
+  "socialLink": {
+    "successTitle": "Всё хорошо",
+    "failTitle": "Что-то пошло не так",
+    "signupSubtitle": "Аккаунт создан успешно",
+    "loginSubtitle": "Вы авторизовались в {0}. Эту страницу можно закрыть",
+    "linkSubtitle": "Профиль в {0} успешно подключён. Эту страницу можно закрыть",
+    "errorSubtitle": "Произошла внутреняя ошибка",
+    "button": "Открыть приложение"
   }
 }
