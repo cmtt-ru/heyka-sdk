@@ -73,6 +73,12 @@
       "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
     },
+    "channelInvite": {
+      "header": "Invite to channel",
+      "userTab": "User list",
+      "guestTab": "Guest link",
+      "inviteUsers": "Send invite | Send invite | Send {n} invites"
+    },
     "invite":{
       "header": "Add to workspace",
       "link": "Link",
