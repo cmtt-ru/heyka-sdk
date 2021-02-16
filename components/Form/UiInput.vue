@@ -404,7 +404,7 @@ export default {
     margin auto 0
     right 8px
     cursor pointer
-    //color var(--new-UI-01)
+    color var(--new-UI-04)
 
   &--with-icon
     padding-left 34px
