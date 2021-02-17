@@ -10,6 +10,7 @@ const stickyObservers = {};
  * @returns {void}
  */
 function elementCheck(el) {
+  console.log('observing');
   if (el.intersectionRatio === 1) {
     el.target.classList.add(STICKED_CLASS);
   } else {
@@ -33,6 +34,7 @@ export default {
     }, {
       root: el.parentElement,
       threshold: 1,
+      rootMargin: '-0.05px 0px',
     });
     stickyObservers[id].observe(el);
     el.setAttribute('sticky-instance-uid', id);
