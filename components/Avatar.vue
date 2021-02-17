@@ -271,7 +271,6 @@ export default {
       border-radius 50%
       background-color transparent
       border 2px solid transparent
-      z-index 3
 
       &__dot
         position absolute

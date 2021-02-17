@@ -18,6 +18,7 @@
         class="input"
         :class="{'input--with-icon': icon, 'input--with-eye': isPass}"
         :placeholder="placeholder"
+        :readonly="readonly"
         @input="debounceCheck"
         @keyup.enter="submitHandler"
       >
@@ -83,9 +84,17 @@ export default {
     },
 
     /**
-     * Make whole switch inactive
+     * Make input inactive
      */
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * Make input readonly
+     */
+    readonly: {
       type: Boolean,
       default: false,
     },
