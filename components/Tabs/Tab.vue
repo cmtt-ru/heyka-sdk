@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="isSelected"
+    v-if="isSelected"
   >
     <slot />
   </div>

@@ -4,7 +4,10 @@ import getWorkspaceByID from './getWorkspaceByID';
 import getWorkspaces from './getWorkspaces';
 import inviteByCode from './inviteByCode';
 import inviteByMail from './inviteByMail';
-import inviteBySlack from './inviteBySlack';
+import inviteSlackUser from './inviteSlackUser';
+import getSlackUsers from './getSlackUsers';
+import connectWithSlack from './connectWithSlack';
+import resumeConnectWithSlack from './resumeConnectWithSlack';
 import joinByCode from './joinByCode';
 import leaveWorkspace from './leaveWorkspace';
 import privateTalk from './privateTalk';
@@ -18,7 +21,10 @@ export default {
   getWorkspaces,
   inviteByCode,
   inviteByMail,
-  inviteBySlack,
+  inviteSlackUser,
+  getSlackUsers,
+  connectWithSlack,
+  resumeConnectWithSlack,
   joinByCode,
   leaveWorkspace,
   privateTalk,
