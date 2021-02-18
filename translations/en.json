@@ -84,7 +84,7 @@
       "inviteUsers": "Send invite | Send invite | Send {n} invites",
       "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
       "generateUrl": "Generate URL",
-      "linkDisableTimeout": "This link will be disabled in 8 hours.",
+      "linkDisableTimeout": "This link will be disabled in {n}",
       "copyLink": "Copy link",
       "deactivateLink": "Deactivate"
     },
