@@ -6,6 +6,9 @@
  * @returns {string}
  */
 export function msToTime(duration) {
+  if (duration <= 0) {
+    return '00:00:00';
+  }
   let seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
       hours = Math.floor((duration / (1000 * 60 * 60)) % 24);

@@ -10,7 +10,6 @@ const stickyObservers = {};
  * @returns {void}
  */
 function elementCheck(el) {
-  console.log('observing');
   if (el.intersectionRatio === 1) {
     el.target.classList.add(STICKED_CLASS);
   } else {
