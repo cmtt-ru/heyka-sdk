@@ -87,7 +87,6 @@ export default {
 
   watch: {
     image(val) {
-      console.log(val);
       this.localImage = val;
     },
   },
