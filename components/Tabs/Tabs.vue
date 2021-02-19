@@ -69,6 +69,8 @@ export default {
       this.$children.forEach(tab => {
         tab.isSelected = tab.name === name;
       });
+
+      this.$emit('input', name);
     },
 
   },

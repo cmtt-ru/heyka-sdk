@@ -18,8 +18,11 @@ function elementCheck(el) {
 }
 
 export default {
-  inserted: (el) => {
+  inserted: (el, binding) => {
     const id = uuid4();
+
+    const bottom = !!binding.modifiers.bottom;
+    const margin = binding.expression || 0;
 
     stickyObservers[id] = new IntersectionObserver(entries => {
       for (const entry of entries) {
@@ -28,13 +31,18 @@ export default {
     }, {
       root: el.parentElement,
       threshold: 1,
+      rootMargin: '-0.05px 0px',
     });
     stickyObservers[id].observe(el);
     el.setAttribute('sticky-instance-uid', id);
     el.style.position = 'sticky';
-    el.style.top = '0';
-    el.style.zIndex = '1';
-    el.style.transform = 'translateY(-0.1px)';
+    if (bottom) {
+      el.style.bottom = `${margin}px`;
+      el.style.transform = 'translateY(0.1px)';
+    } else {
+      el.style.top = `${margin}px`;
+      el.style.transform = 'translateY(-0.1px)';
+    }
   },
 
   unbind: (el) => {

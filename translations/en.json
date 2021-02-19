@@ -12,7 +12,10 @@
     "yes": "Yes",
     "no": "No",
     "back": "Back",
-    "done": "Done"
+    "done": "Done",
+    "online": "Online",
+    "offline": "Offline",
+    "idle": "Idle"
   },
   "workspace": {
     "navbar": {
@@ -27,7 +30,7 @@
     "channel": {
       "join": "Join",
       "disconnect": "Disconnect",
-      "invite": "Copy invite link",
+      "invite": "Invite to channel",
       "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
@@ -73,6 +76,19 @@
       "buttonSave": "Save changes",
       "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
+    },
+    "channelInvite": {
+      "header": "Invite to channel",
+      "userTab": "User list",
+      "guestTab": "Guest link",
+      "userInSameChannel": "Already in your channel",
+      "inviteUsers": "Send invite | Send invite | Send {n} invites",
+      "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
+      "generateUrl": "Generate URL",
+      "linkDisableTimeout": "This link will be disabled in {n}",
+      "linkDeactivatedNotif": "Invite link deactivated!",
+      "copyLink": "Copy link",
+      "deactivateLink": "Deactivate"
     },
     "invite":{
       "header": "Add to workspace",
