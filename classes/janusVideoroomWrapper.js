@@ -239,6 +239,8 @@ class JanusVideoroomWrapper extends EventEmitter {
 
     plugin.attach();
 
+    publisherObject.attaching = true;
+
     plugin.on('remote-video-stream', stream => {
       publisherObject.paused = false;
       this._onRemoteStream(janusId, stream);
@@ -294,6 +296,7 @@ class JanusVideoroomWrapper extends EventEmitter {
    * @property {MediaStream} stream active stream
    * @property {string} userId heyka user id
    * @property {number} janusId janus user id (feed)
+   * @property {boolean} attaching attaching status
    *
    * @returns {Array<ActivePublishers>} Array of active streams
    */
@@ -303,6 +306,7 @@ class JanusVideoroomWrapper extends EventEmitter {
         stream: publisher.stream,
         userId: publisher.userId,
         janusId: publisher.janusId,
+        attaching: publisher.attaching,
       }));
   }
 

@@ -139,12 +139,12 @@ export function isTokenExpired() {
  * @returns {void}
  */
 export async function prepareTokens() {
-  if (authFileStore.has('accessToken')) {
+  if (await authFileStore.has('accessToken')) {
     tokens = {
-      accessToken: authFileStore.get('accessToken'),
-      accessTokenExpiredAt: authFileStore.get('accessTokenExpiredAt'),
-      refreshToken: authFileStore.get('refreshToken'),
-      refreshTokenExpiredAt: authFileStore.get('refreshTokenExpiredAt'),
+      accessToken: await authFileStore.get('accessToken'),
+      accessTokenExpiredAt: await authFileStore.get('accessTokenExpiredAt'),
+      refreshToken: await authFileStore.get('refreshToken'),
+      refreshTokenExpiredAt: await authFileStore.get('refreshTokenExpiredAt'),
     };
 
     await checkAndRefreshTokens();

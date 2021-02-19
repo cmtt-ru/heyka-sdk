@@ -218,6 +218,10 @@ export default {
 
       newState[property] = !this.mediaState[property];
 
+      if (newState.microphone === false) {
+        newState.speaking = false;
+      }
+
       broadcastActions.dispatch('me/setMediaState', newState);
     },
 

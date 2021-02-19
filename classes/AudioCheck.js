@@ -20,12 +20,12 @@ export default class AudioCheck extends EventEmitter {
   /**
  * Init checker
  *
- * @param {function} sendSync - ipcRenderer.sendSync
+ * @param {function} invoke - ipcRenderer.invoke
  * @param {function} shutdown - electron-shutdown-command
  */
-  constructor(sendSync = () => null, shutdown = () => null) {
+  constructor(invoke = () => null, shutdown = () => null) {
     super();
-    this.sendSync = sendSync;
+    this.invoke = invoke;
     this.shutdown = shutdown;
 
     this.__mediaStream = null;
@@ -33,9 +33,18 @@ export default class AudioCheck extends EventEmitter {
     this.__needMediaStream = false;
     this.__skipMutedTalk = false;
 
+    this.mediaState = {};
+
     store.watch(() => store.getters['app/getSelectedDevices'], n => {
       if (this.__needMediaStream) {
         this.startMediaStream();
+      }
+    });
+
+    store.watch(() => store.getters['me/getMediaState'], state => {
+      this.mediaState = state;
+      if (this.subscribeMutedTalk.__harkInstance && this.mediaState.microphone) {
+        this.unsubscribeMutedTalk();
       }
     });
 
@@ -81,22 +90,26 @@ export default class AudioCheck extends EventEmitter {
       return;
     }
 
-    this.__mediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        deviceId: this._selectedMicrophone(),
-      },
-    });
+    try {
+      this.__mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: this._selectedMicrophone(),
+        },
+      });
 
-    audioTest.setSinkId(this._selectedDevices().speaker);
+      audioTest.setSinkId(this._selectedDevices().speaker);
 
-    this.__harkInstance = hark(this.__mediaStream, {
-      interval: 100,
-    });
+      this.__harkInstance = hark(this.__mediaStream, {
+        interval: 100,
+      });
 
-    this.__harkInstance.on('volume_change', (db) => {
-      this.microphoneVolume = db;
-      this.emit('volume_change', db);
-    });
+      this.__harkInstance.on('volume_change', (db) => {
+        this.microphoneVolume = db;
+        this.emit('volume_change', db);
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   /**
@@ -106,6 +119,10 @@ export default class AudioCheck extends EventEmitter {
   destroyMediaStream() {
     if (this.__harkInstance) {
       this.__harkInstance.stop();
+    }
+
+    if (this.subscribeMutedTalk.__harkInstance) {
+      this.unsubscribeMutedTalk();
     }
 
     if (this.__mediaStream) {
@@ -246,7 +263,7 @@ export default class AudioCheck extends EventEmitter {
       return false;
     }
 
-    const micState = this.sendSync('remote-systemPreferences-microphone');
+    const micState = await this.invoke('remote-systemPreferences-microphone');
 
     if (micState === 'restricted' || micState === 'denied') {
       const notification = {
@@ -281,20 +298,40 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async subscribeMutedTalk() {
-    if (this.__skipMutedTalk === false) {
-      await this.startMediaStream();
-      this.subscribeMutedTalk.talkingLevel = -100;
-      const minLevel = -42; // speak louder and you'll get notification
+    this.subscribeMutedTalk.__mediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        deviceId: this._selectedMicrophone(),
+      },
+    });
+    this.subscribeMutedTalk.__harkInstance = hark(this.subscribeMutedTalk.__mediaStream, {
+      interval: 100,
+    });
 
-      this.__harkInstance.on('volume_change', (db) => {
-        this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
-        if (this.subscribeMutedTalk.talkingLevel > minLevel) {
-          this.showTakingMutedNotification();
-          this.destroyMediaStream();
-        }
-      });
-    } else {
-      this.__skipMutedTalk = false;
+    this.subscribeMutedTalk.talkingLevel = -100;
+    const minLevel = -40; // speak louder and you'll get notification
+
+    this.subscribeMutedTalk.__harkInstance.on('volume_change', (db) => {
+      this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
+
+      if (this.subscribeMutedTalk.talkingLevel > minLevel) {
+        this.showTakingMutedNotification();
+        this.unsubscribeMutedTalk();
+      }
+    });
+  }
+
+  /**
+   * Unsubscribe from 'louder than minLevel' event
+   * @returns {void}
+   */
+  async unsubscribeMutedTalk() {
+    if (this.subscribeMutedTalk.__harkInstance) {
+      this.subscribeMutedTalk.__harkInstance.stop();
+      delete this.subscribeMutedTalk.__harkInstance;
+    }
+
+    if (this.subscribeMutedTalk.__mediaStream) {
+      this.subscribeMutedTalk.__mediaStream.getTracks().forEach(track => track.stop());
     }
   }
 
@@ -303,6 +340,9 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async showTakingMutedNotification() {
+    if (this.mediaState.microphone || this.__skipMutedTalk) {
+      return;
+    }
     const push = {
       inviteId: Date.now().toString(),
       local: true,
