@@ -89,6 +89,9 @@ class JanusWrapper extends EventEmitter {
     this.__videoroomPlugin = null;
     this.__videoroomReady = false;
 
+    // local stream flag
+    this.__localVideoStream = false;
+
     // plugins for specific video publishers
     this.__videoroomPlugins = {};
   }
@@ -187,8 +190,16 @@ class JanusWrapper extends EventEmitter {
       }
     });
     videoroomPlugin.on('success-publishing', () => this.emit(JANUS_WRAPPER_EVENTS.successVideoPublishing));
+    videoroomPlugin.on('local-video-stream', () => {
+      console.log();
+      this.__localVideoStream = true;
+    });
     videoroomPlugin.on('video-slow-link', () => this.emit(JANUS_WRAPPER_EVENTS.videoSlowLink));
-    videoroomPlugin.on('webrtc-cleanup', () => this.emit(JANUS_WRAPPER_EVENTS.webrtcCleanUp));
+    videoroomPlugin.on('webrtc-cleanup', () => {
+      this.emit(JANUS_WRAPPER_EVENTS.webrtcCleanUp);
+      this.__localVideoStream = false;
+    }
+    );
 
     this.__videoroomPlugin = videoroomPlugin;
   }
@@ -224,6 +235,15 @@ class JanusWrapper extends EventEmitter {
 
       this.__videoroomPlugin.replaceStream(stream);
     }
+  }
+
+  /**
+   * Return true if we already have videostream
+   *
+   * @returns {boolean}
+   */
+  isLocalVideoStream() {
+    return this.__localVideoStream;
   }
 
   /**

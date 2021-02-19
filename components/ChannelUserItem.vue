@@ -1,7 +1,7 @@
 <template>
   <div
-    :key="user.microphone + channelId"
-    v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: user.microphone, channelId}}"
+    :key="mediaState.microphone + channelId"
+    v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: mediaState.microphone, channelId}}"
     class="user"
   >
     <avatar
@@ -9,8 +9,8 @@
       :image="userAvatar(user.id, 24)"
       :size="24"
       :user-id="user.id"
-      :mic="user.microphone"
-      :onair="user.speaking"
+      :mic="mediaState.microphone"
+      :onair="mediaState.speaking"
     />
 
     <div
@@ -32,20 +32,25 @@
     </div>
 
     <ui-button
-      v-if="user.screen"
+      v-if="mediaState.screen"
       v-stop-propagation
       class="user__sharing"
       :type="7"
       size="small"
-      icon="cast"
+      icon="screencast"
       @click="expandHandler"
     />
+
+    <div class="user__aqi">
+      <connection-indicator :status="audioQualityStatus(user.id)" />
+    </div>
   </div>
 </template>
 
 <script>
 import Avatar from '@components/Avatar';
 import UiButton from '@components/UiButton';
+import ConnectionIndicator from '@components/ConnectionIndicator';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
@@ -59,16 +64,23 @@ export default {
   components: {
     Avatar,
     UiButton,
+    ConnectionIndicator,
   },
   props: {
     /**
-     * Object with full user info (id, name, avatar, statuses)
+     * User info (id, name, avatar, statuses)
      */
     user: {
       type: Object,
-      default: function () {
-        return {};
-      },
+      default: () => {},
+    },
+
+    /**
+     * User media state
+     */
+    mediaState: {
+      type: Object,
+      default: () => {},
     },
 
     /**
@@ -87,6 +99,7 @@ export default {
   computed: {
     ...mapGetters({
       userAvatar: 'users/getUserAvatarUrl',
+      audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
     }),
 
     /**
@@ -96,11 +109,11 @@ export default {
     iconArray() {
       const icons = [];
 
-      if (this.user.microphone === false) {
+      if (this.mediaState.microphone === false) {
         icons.push(ICON_MAP['mic']);
       }
 
-      if (this.user.speakers === false) {
+      if (this.mediaState.speakers === false) {
         icons.push(ICON_MAP['headphones']);
       }
 
@@ -144,6 +157,8 @@ export default {
 
     &__statuses
         flex-shrink 0
+        margin-right auto
+        padding-right 4px
 
         &__icon
             margin-left 6px
@@ -151,8 +166,11 @@ export default {
 
     &__sharing
         flex-shrink 0
-        margin-left auto
-        margin-right 4px
         order 2
         color var(--color-2)
+
+    &__aqi
+      display block
+      width 28px
+      height 12px
 </style>

@@ -7,6 +7,7 @@
       <div
         v-if="onair && mic"
         class="avatar__onair"
+        :style="{'border-radius': borderRadius + 'px'}"
       />
     </transition>
     <div
@@ -297,21 +298,8 @@ export default {
       left -4px
       top -4px
       border-radius 50%
-      border 2px solid transparent
-      background-image linear-gradient(transparent, transparent), linear-gradient(180deg, #48DA85 0%, #14A49B 100%)
-      background-origin border-box
-      background-clip content-box, border-box
-
-      &::after
-        content ''
-        position absolute
-        bottom 0
-        right 0
-        left 0
-        top 0
-        border-radius 50%
-        background-color transparent
-        border 2px solid var(--new-bg-04)
+      background linear-gradient(#48DA85, #14A49B)
+      mask-image radial-gradient(circle at 50% 50%, transparent calc(50% + 2.5px), var(--new-signal-02) calc(50% + 3px))
 
   .fade-enter-active,
   .fade-leave-active

@@ -51,6 +51,7 @@ import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
 import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
+import { setTokens } from '@api/tokens';
 
 export default {
   components: {
@@ -65,7 +66,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: determineLocale(),
+        lang: '',
       },
     };
   },
@@ -80,19 +81,27 @@ export default {
     },
   },
 
+  async created() {
+    this.newUser.lang = await determineLocale();
+  },
+
   methods: {
     async registerHandler() {
       try {
         const res = await this.$API.auth.signup({ user: this.newUser });
 
-        if (authFileStore.get('inviteCode')) {
-          this.$API.workspace.joinByCode(authFileStore.get('inviteCode'));
+        setTokens(res.data.credentials);
+
+        const inviteCode = authFileStore.get('inviteCode');
+
+        if (inviteCode) {
+          this.$API.workspace.joinByCode(inviteCode);
           authFileStore.set('inviteCode', null);
         }
 
         console.log(res);
 
-        this.$router.push({ name: 'auth-signup-success' });
+        this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {

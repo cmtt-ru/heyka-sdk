@@ -9,6 +9,7 @@
         class="l-mb-12"
         icon="slack"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('slack')"
       >
         Slack
@@ -20,6 +21,7 @@
         class="l-mb-12"
         icon="google"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('google')"
       >
         Google
@@ -31,6 +33,7 @@
         class="l-mb-12"
         icon="facebook"
         size="large"
+        :disabled="isSocialAuthDisabled"
         @click="socialHandler('facebook')"
       >
         Facebook
@@ -61,6 +64,12 @@ export default {
     UiButton,
   },
 
+  data: function () {
+    return {
+      isSocialAuthDisabled: !IS_DEV,
+    };
+  },
+
   computed: {
     /**
      * Get needed texts from I18n-locale file
@@ -78,7 +87,13 @@ export default {
      * @returns {void}
      */
     socialHandler(socialName) {
-      const link = `${WEB_URL}/auth/social/${socialName}/login`;
+      let actionName = 'login';
+
+      if (!IS_ELECTRON) {
+        actionName = 'web-login';
+      }
+
+      const link = `${WEB_URL}/auth/social/${socialName}/${actionName}`;
 
       window.open(link);
     },

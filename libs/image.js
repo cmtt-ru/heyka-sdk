@@ -6,6 +6,9 @@ export const RETINA_MULTIPLICATOR = 2;
 
 const AVATAR_SIZE_32 = 32;
 const AVATAR_SIZE_64 = 64;
+const AVATAR_SIZE_128 = 128;
+const AVATAR_SIZE_256 = 256;
+const AVATAR_SIZE_512 = 512;
 
 /**
  * Checks if user has retina display
@@ -63,12 +66,19 @@ export function getUserAvatarUrl(obj, size = AVATAR_SIZE_32) {
       size *= RETINA_MULTIPLICATOR;
     }
 
-    if (size < AVATAR_SIZE_32) {
-      return obj.avatarSet.image32x32;
-    } else if (size < AVATAR_SIZE_64) {
-      return obj.avatarSet.image64x64;
-    } else {
-      return obj.avatarSet.image128x128;
+    switch (true) {
+      case size < AVATAR_SIZE_32 || !obj.avatarSet.image64x64:
+        return obj.avatarSet.image32x32;
+      case size < AVATAR_SIZE_64 || !obj.avatarSet.image128x128:
+        return obj.avatarSet.image64x64;
+      case size < AVATAR_SIZE_128 || !obj.avatarSet.image256x256:
+        return obj.avatarSet.image128x128;
+      case size < AVATAR_SIZE_256 || !obj.avatarSet.image512x512:
+        return obj.avatarSet.image256x256;
+      case size < AVATAR_SIZE_512:
+        return obj.avatarSet.image512x512;
+      default:
+        return obj.avatarSet.image512x512;
     }
   }
 

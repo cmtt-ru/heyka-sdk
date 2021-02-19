@@ -13,6 +13,7 @@
         :user-id="speakingUser.id"
         :image="userAvatar(speakingUser.id, 44)"
         :size="44"
+        :class="{'call-controls__avatar--speaking': speakingUser.speaking}"
         :border-radius="11"
       />
 
@@ -20,7 +21,7 @@
         class="call-controls__col"
       >
         <p class="call-controls__user-name">
-          {{ speakingUserName }}
+          {{ speakingUser.name }}
         </p>
 
         <div class="call-controls__channel">
@@ -105,20 +106,15 @@ export default {
     }),
 
     /**
-     * Speaking user name
-     * @return {string}
-     */
-    speakingUserName() {
-      return this.speakingUser?.name || this.user?.name || '';
-    },
-
-    /**
-     * Speaking user avatar
+     * Speaking user
      * @return {string}
      */
     speakingUser() {
       if (this.getSpeakingUser) {
-        return this.getSpeakingUser;
+        return {
+          ...this.getSpeakingUser,
+          ...this.userById(this.getSpeakingUser.userId),
+        };
       }
 
       if (this.user) {
@@ -220,10 +216,9 @@ export default {
       display block
       box-sizing border-box
       flex-shrink 0
-      overflow hidden
       position relative
 
-      &:after
+      &--speaking:after
         content ''
         position absolute
         top 0
@@ -231,7 +226,7 @@ export default {
         left 0
         right 0
         border-radius 11px
-        border 2px solid rgba(255,255,255,0.1)
+        border 4px solid #51C362
         z-index 2
 
     &__user-name

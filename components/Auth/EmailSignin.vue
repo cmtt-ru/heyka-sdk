@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       login: {
-        email: heykaStore.get('loginEmail', ''),
+        email: '',
         password: IS_DEV ? 'heyka-password' : '',
       },
       loginInProgress: false,
@@ -112,6 +112,12 @@ export default {
     },
   },
 
+  async created() {
+    const email = await heykaStore.get('loginEmail', '');
+
+    this.$set(this.login, 'email', email);
+  },
+
   methods: {
     async loginHandler() {
       this.loginInProgress = true;
@@ -125,8 +131,10 @@ export default {
         } else {
           heykaStore.set('loginEmail', this.login.email);
 
-          if (authFileStore.get('inviteCode')) {
-            this.$API.workspace.joinByCode(authFileStore.get('inviteCode'));
+          const inviteCode = await authFileStore.get('inviteCode');
+
+          if (inviteCode) {
+            this.$API.workspace.joinByCode(inviteCode);
             authFileStore.set('inviteCode', null);
           }
 

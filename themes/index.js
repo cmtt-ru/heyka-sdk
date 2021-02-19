@@ -23,7 +23,7 @@ class Themes {
     this.storeVue.themeArray = themes;
 
     /* Get current theme and auto mode from local store */
-    const theme = heykaStore.get('theme', {
+    const theme = heykaStore.getSync('theme', {
       name: 'light',
       auto: true,
     });
@@ -79,6 +79,10 @@ class Themes {
       name: this.storeVue.currentTheme,
       auto: this.storeVue.auto,
     });
+
+    // set localStorage for wireframe in index.html
+    localStorage.themeName = this.storeVue.currentTheme;
+
     vuex.commit('app/SET_THEME', {
       name: this.storeVue.currentTheme,
       auto: this.storeVue.auto,

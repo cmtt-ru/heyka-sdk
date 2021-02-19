@@ -163,8 +163,7 @@
     "grid": {
       "users": "1 user | {n} users",
       "you": "(you)",
-      "reconnecting": "Reconnecting",
-      "aqi": "Unstable connection"
+      "reconnecting": "Reconnecting"
     },
     "sharing": {
       "title": "Sharing preview",
@@ -251,7 +250,9 @@
     "invitesto": "Invites to",
     "join": "Join",
     "busy": "I’ll contact you later",
-    "isbusy": "Can’t talk right now",
+    "noResponse": "Didn't accept your invitation",
+    "declined": "Can’t talk right now",
+    "isbusy": "will contact you later",
     "mutedTalking": {
       "text": "No one can hear you",
       "info": "Turn on your mic?",
@@ -291,7 +292,8 @@
   },
   "auth": {
     "header": {
-      "back": "Back"
+      "back": "Back",
+      "workspace": "You're invited to workspace"
     },
     "main": {
       "title": "Login to Heyka"
@@ -345,5 +347,8 @@
     "title": "You don’t have access to any workspace",
     "description": "Create a new team or ask your co-workers to invite you (your email is {0})",
     "create": "Create workspace"
+  },
+  "aqi": {
+    "tooltip": "Unstable connection"
   }
 }

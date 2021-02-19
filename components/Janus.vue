@@ -17,6 +17,7 @@ import Logger from '@sdk/classes/logger';
 import network from '@sdk/classes/network';
 import AudioQualityController from '@sdk/classes/AudioQualityController';
 import { conversationBroadcast } from '@api/socket/utils';
+import broadcastEvents from '@sdk/classes/broadcastEvents';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 /**
@@ -211,11 +212,12 @@ export default {
         debug: process.env.VUE_APP_JANUS_DEBUG === 'true',
       });
 
-      janusWrapper.on(JanusWrapper.events.channelJoined, async () => {
+      janusWrapper.once(JanusWrapper.events.channelJoined, async () => {
         this.setOperationFinish('join');
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
+          console.log('AudioCheck.subscribeMutedTalk');
           AudioCheck.subscribeMutedTalk();
         }
 
@@ -223,7 +225,7 @@ export default {
           janusWrapper.publishVideoStream('camera', this.selectedCameraDevice);
         }
 
-        if (this.screen) {
+        if (this.screen && !janusWrapper.isLocalVideoStream()) {
           if (IS_ELECTRON) {
             janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id);
           } else {
@@ -270,7 +272,10 @@ export default {
      */
     unselectChannel() {
       if (janusWrapper) {
-        // unsubscribe for audio events
+        // unsubscribe from generic events
+        janusWrapper.removeAllListeners(JanusWrapper.events.channelJoined);
+
+        // unsubscribe from audio events
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.connectionError);
         janusWrapper.removeAllListeners(JanusWrapper.events.remoteAudioStream);
@@ -279,7 +284,7 @@ export default {
         janusWrapper.removeAllListeners(JanusWrapper.events.volumeChange);
         janusWrapper.removeAllListeners(JanusWrapper.events.audioSlowLink);
 
-        // unsubscribe for video events
+        // unsubscribe from video events
         janusWrapper.removeAllListeners(JanusWrapper.events.videoSlowLink);
         janusWrapper.removeAllListeners(JanusWrapper.events.webrtcCleanUp);
         janusWrapper.disconnect();
@@ -287,11 +292,20 @@ export default {
       }
 
       this.resetOperations();
+
       AudioCheck.destroyMediaStream();
-      audioQC.destroy();
-      audioQC.removeAllListeners('prebuffer');
-      audioQC.removeAllListeners('status');
-      audioQC = null;
+
+      if (audioQC) {
+        audioQC.destroy();
+        audioQC.removeAllListeners('prebuffer');
+        audioQC.removeAllListeners('status');
+        audioQC = null;
+      }
+
+      if (this.$refs.audio && this.$refs.audio.srcObject) {
+        mediaCapturer.destroyStream(this.$refs.audio.srcObject);
+        this.$refs.audio.srcObject = null;
+      }
     },
 
     /**
@@ -344,9 +358,14 @@ export default {
      */
     onRemoteAudioStream(stream) {
       cnsl.log('Attach audio stream to the audio element');
+
+      this.$refs.audio.oncanplay = () => {
+        this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
+      };
+
       JanusWrapper.attachMediaStream(this.$refs.audio, stream);
+
       this.$refs.audio.muted = !this.speakers;
-      this.$refs.audio.setSinkId(this.selectedSpeakerDevice);
     },
 
     /**
@@ -407,11 +426,25 @@ export default {
 
     /**
      * Handles change microphone volume
-     * @param {number} db Microphone volume in decibels
+     * @param {number} volume – Microphone volume in decibels
      * @returns {void}
      */
-    onVolumeChange(db) {
-      this.$store.dispatch('app/setMicrophoneVolume', db);
+    onVolumeChange(volume) {
+      if (this.microphone) {
+        const quietestVolume = -100;
+        const loudestVolume = 0;
+
+        if (volume < quietestVolume) {
+          volume = quietestVolume;
+        }
+        if (volume > loudestVolume) {
+          volume = loudestVolume;
+        }
+
+        broadcastEvents.dispatch('microphone-volume', Math.round(volume));
+
+        // this.$store.dispatch('app/setMicrophoneVolume', volume);
+      }
     },
 
     /**
