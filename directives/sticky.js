@@ -21,7 +21,6 @@ export default {
   inserted: (el, binding) => {
     const id = uuid4();
 
-
     const bottom = !!binding.modifiers.bottom;
     const margin = binding.expression || 0;
 
