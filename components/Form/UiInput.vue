@@ -20,6 +20,7 @@
         :placeholder="placeholder"
         :readonly="readonly"
         @input="debounceCheck"
+        @click="trySelectingAll"
         @keyup.enter="submitHandler"
       >
       <svg-icon
@@ -262,6 +263,12 @@ export default {
     debounceCheck: debounce(CHECK_DELAY, false, function (el) {
       this.checkErrors(el.target.value);
     }),
+
+    trySelectingAll(event) {
+      if (this.readonly) {
+        event.target.select();
+      }
+    },
 
     /**
      * Check input for validation errors
