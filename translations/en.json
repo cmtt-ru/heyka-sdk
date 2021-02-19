@@ -176,21 +176,6 @@
       "ongoingSharing": "Broadcasting now"
     }
   },
-  "slackInvite":{
-    "webWait": "Loading...",
-    "webSuccess": "Success! Open Heyka for further instructions",
-    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
-    "webError": "Sorry babushka, no Slack for you today",
-    "noWorkspaces": "Your workspace is not connected with Slack.",
-    "connect": "Connect with Slack",
-    "canInvite": "You can invite members from {0}. Select teammates.",
-    "selectAll": "Select all",
-    "deselectAll": "Deselect all",
-    "inviteUsers": "Send invite | Send invite | Send {n} invites",
-    "successInviteStart": "You've succesfully sent ",
-    "successInviteMiddle": "an invite | {n} invites",
-    "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
-  },
   "popover": {
     "workspace": {
       "invite": "Invite members",
@@ -334,8 +319,11 @@
       "register": "Sign up"
     },
     "signupSuccess":{
-      "header": "Account registered!",
-      "disclaimer": "Please check your inbox for email verification"
+      "title": "Email подтвержден!",
+      "subtitle": "Аккаунт создан успешно",
+      "openApp": "Открыть приложение",
+      "downloadApp": "Скачать Heyka",
+      "createWorkspace": "Создать воркспейс"
     },
     "footer": {
       "privacy": "You consent to the processing of personal data"
@@ -347,12 +335,20 @@
       "createWorkspace": "Create workspace"
     },
     "newPassword": {
-      "header": "Password reset",
-      "disclaimer": "Please enter your new password below to access your account",
-      "button": "Reset",
-      "saved": "New password saved!",
-      "openApp": "Open Heyka",
-      "download": "You can download Heyka here"
+      "title": "Восстановление пароля",
+      "subtitle": "Придумайте новый пароль, чтобы восстановить доступ к аккаунту",
+      "successSubtitle": "Новый пароль сохранен. Эту страницу можно закрыть",
+      "save": "Сохранить",
+      "openApp": "Открыть приложение"
+    },
+    "socialCallback": {
+      "successTitle": "Всё хорошо",
+      "failTitle": "Что-то пошло не так",
+      "signupSubtitle": "Аккаунт создан успешно",
+      "loginSubtitle": "Вы авторизовались в {0}. Эту страницу можно закрыть",
+      "linkSubtitle": "Профиль в {0} успешно подключён. Эту страницу можно закрыть",
+      "errorSubtitle": "Произошла внутреняя ошибка",
+      "button": "Открыть приложение"
     }
   },
   "appStatus": {
@@ -365,5 +361,26 @@
   },
   "aqi": {
     "tooltip": "Unstable connection"
+  },
+  "slackCallback": {
+    "successTitle": "Всё получилось",
+    "failTitle": "Что-то пошло не так",
+    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka. Эту страницу можно закрыть",
+    "rejectSubtitle": "Вы отменили подключение Slack",
+    "errorSubtitle": "Произошла внутреняя ошибка",
+    "button": "Открыть приложение"
+  },
+  "slackInvite":{
+    "webWait": "Loading...",
+    "noWorkspaces": "Your workspace is not connected with Slack.",
+    "connect": "Connect with Slack",
+    "canInviteBeginning": "You can invite members from ",
+    "canInviteEnd": ". Select teammates.",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "inviteUsers": "Send invite | Send invite | Send {n} invites",
+    "successInviteStart": "You've succesfully sent ",
+    "successInviteMiddle": "an invite | {n} invites",
+    "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
   }
 }
