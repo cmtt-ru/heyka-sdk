@@ -1,7 +1,7 @@
 <template>
   <div class="pseudo-popup">
     <div
-      v-sticky
+      v-sticky="{ offset: 0, rootSelector: '.layout' }"
       class="pseudo-popup__header"
       :class="{'shadow-disable': !headerHasShadow}"
     >
@@ -27,7 +27,7 @@
 
     <div
       v-if="$slots.footer"
-      v-sticky.bottom
+      v-sticky.bottom="{ offset: 0, rootSelector: '.layout' }"
       class="pseudo-popup__footer"
       :class="{'shadow-disable': !footerHasShadow}"
     >
