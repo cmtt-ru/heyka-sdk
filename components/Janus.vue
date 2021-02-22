@@ -153,9 +153,9 @@ export default {
   async created() {
     await JanusWrapper.init();
 
-    network.on('ip-changed', () => {
-      this.reSelectChannel();
-    });
+    // network.on('ip-changed', () => {
+    //   this.reSelectChannel();
+    // });
 
     network.on('internet-state', (state) => {
       if (state) {
@@ -491,6 +491,30 @@ export default {
      */
     log() {
       cnsl.log('JANUS.VUE: ', ...arguments);
+    },
+
+    /**
+     * Low-pass filter for audio
+     * @returns {void}
+     */
+    applyLowPassFilter() {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const audioSource = audioCtx.createMediaStreamSource(document.querySelector('audio').srcObject);
+      const audioFilter = audioCtx.createBiquadFilter();
+
+      audioSource.connect(audioFilter);
+      audioFilter.connect(audioCtx.destination);
+
+      audioFilter.type = 'lowpass';
+      audioFilter.frequency.value = 20000;
+      audioFilter.Q.value = 1;
+
+      document.querySelector('audio').volume = 0;
+
+      window.set = (hz, q) => {
+        audioFilter.frequency.value = hz;
+        audioFilter.Q.value = q;
+      };
     },
   },
 };
