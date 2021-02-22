@@ -65,7 +65,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: determineLocale(),
+        lang: 'en',
       },
     };
   },
@@ -78,6 +78,10 @@ export default {
     texts() {
       return this.$t('auth.signup');
     },
+  },
+
+  async mounted() {
+    this.newUser.lang = await determineLocale();
   },
 
   methods: {
@@ -94,7 +98,7 @@ export default {
 
         console.log(res);
 
-        this.$router.push({ name: 'auth-signup-success' });
+        this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {

@@ -319,20 +319,20 @@
       "register": "Зарегистрироваться"
     },
     "signupSuccess":{
-      "title": "Email подтвержден!",
-      "subtitle": "Аккаунт создан успешно",
-      "openApp": "Открыть приложение",
-      "downloadApp": "Скачать Heyka",
-      "createWorkspace": "Создать воркспейс"
+      "title": "Аккаунт зарегистрирован!",
+      "subtitle": "Пожалуйста, проверьте входящие для подтверждения почты"
     },
     "footer": {
       "privacy": "Вы соглашаетесь с пользовательским соглашением"
     },
     "verify": {
-      "header": "Пароль подтверждён!",
-      "openApp": "или сразу открыть приложение",
-      "download": "Скачать Heyka",
-      "createWorkspace": "Cоздать воркспейс"
+      "successTitle": "Email подтвержден!",
+      "failTitle": "Что-то пошло не так",
+      "successSubtitle": "Аккаунт создан успешно",
+      "failSubtitle": "Обратитесь в техническую поддержку",
+      "openApp": "Открыть приложение",
+      "downloadApp": "Скачать Heyka",
+      "createWorkspace": "Создать воркспейс"
     },
     "newPassword": {
       "title": "Восстановление пароля",
