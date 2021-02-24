@@ -68,12 +68,10 @@
       "createTitle": "Создание канала",
       "editTitle": "Редактирование канала",
       "name": "Название",
-      "description": "Описание",
       "private": "Приватный канал",
-      "chat": "Текстовый чат",
+      "privateLabel": "Только те, кого вы добавите, будут иметь доступ",
       "buttonCreate": "Создать канал",
       "buttonSave": "Сохранить",
-      "buttonCancel": "Отменить",
       "buttonDelete": "Удалить канал"
     },
     "channelInvite": {

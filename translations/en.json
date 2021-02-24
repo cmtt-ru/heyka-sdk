@@ -69,12 +69,10 @@
       "createTitle": "New channel",
       "editTitle": "Edit channel",
       "name": "Name",
-      "description": "Description",
-      "private": "Private channel",
-      "chat": "Text chat",
+      "private": "Make private",
+      "privateLabel": "Only those you add will have access",
       "buttonCreate": "Create channel",
       "buttonSave": "Save changes",
-      "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
     },
     "channelInvite": {
