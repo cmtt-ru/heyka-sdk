@@ -111,6 +111,10 @@
       "copied": "Copied!",
       "emptyFields": "Some fields are empty",
       "largeName": "Name is too large"
+    },
+    "channelMembers": {
+      "header": "Members",
+      "admin": "Admin"
     }
   },
   "settings": {
@@ -220,7 +224,8 @@
       "hide": "Hide",
       "edit": "Edit",
       "delete": "Delete",
-      "invite": "Copy invite link"
+      "invite": "Copy invite link",
+      "members": "Members"
     },
     "userMore": {
       "edit": "Edit profile"
