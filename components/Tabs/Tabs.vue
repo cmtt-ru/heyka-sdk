@@ -87,7 +87,6 @@ export default {
       background var(--new-UI-06)
       border-radius 6px
       padding 4px
-      width 100%
       max-width 268px
 
       & .ui-button
