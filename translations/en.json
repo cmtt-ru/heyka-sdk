@@ -69,12 +69,10 @@
       "createTitle": "New channel",
       "editTitle": "Edit channel",
       "name": "Name",
-      "description": "Description",
-      "private": "Private channel",
-      "chat": "Text chat",
+      "private": "Make private",
+      "privateLabel": "Only those you add will have access",
       "buttonCreate": "Create channel",
       "buttonSave": "Save changes",
-      "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
     },
     "channelInvite": {
@@ -114,6 +112,10 @@
       "copied": "Copied!",
       "emptyFields": "Some fields are empty",
       "largeName": "Name is too large"
+    },
+    "channelMembers": {
+      "header": "Members",
+      "admin": "Admin"
     }
   },
   "settings": {
@@ -223,7 +225,9 @@
       "hide": "Hide",
       "edit": "Edit",
       "delete": "Delete",
-      "invite": "Copy invite link"
+      "invite": "Copy invite link",
+      "members": "Members",
+      "leave": "Leave channel"
     },
     "userMore": {
       "edit": "Edit profile"
