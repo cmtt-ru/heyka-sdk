@@ -107,7 +107,8 @@
       "title": "Name your workspace",
       "namePlaceHolder": "Name",
       "createButton": "Create",
-      "finish": "was created, now you can open it and invite new members",
+      "finishTitle": "was created",
+      "finishSubtitle": "Now you can open it and invite new members",
       "openApp": "Open app",
       "copy": "Copy invite link",
       "copied": "Copied!",
@@ -337,20 +338,20 @@
       "register": "Sign up"
     },
     "signupSuccess":{
-      "title": "Email подтвержден!",
-      "subtitle": "Аккаунт создан успешно",
-      "openApp": "Открыть приложение",
-      "downloadApp": "Скачать Heyka",
-      "createWorkspace": "Создать воркспейс"
+      "title": "Аккаунт зарегистрирован!",
+      "subtitle": "Пожалуйста, проверьте входящие для подтверждения почты"
     },
     "footer": {
       "privacy": "You consent to the processing of personal data"
     },
     "verify": {
-      "header": "Email verified!",
-      "openApp": "or open the app",
-      "download": "Download Heyka",
-      "createWorkspace": "Create workspace"
+      "successTitle": "Email подтвержден!",
+      "failTitle": "Что-то пошло не так",
+      "successSubtitle": "Аккаунт создан успешно",
+      "failSubtitle": "Обратитесь в техническую поддержку",
+      "openApp": "Открыть приложение",
+      "downloadApp": "Скачать Heyka",
+      "createWorkspace": "Создать воркспейс"
     },
     "newPassword": {
       "title": "Восстановление пароля",

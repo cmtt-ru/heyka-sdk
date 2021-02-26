@@ -66,7 +66,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: '',
+        lang: 'en',
       },
     };
   },
@@ -81,7 +81,7 @@ export default {
     },
   },
 
-  async created() {
+  async mounted() {
     this.newUser.lang = await determineLocale();
   },
 
