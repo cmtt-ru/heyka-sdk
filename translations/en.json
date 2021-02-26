@@ -225,7 +225,8 @@
       "edit": "Edit",
       "delete": "Delete",
       "invite": "Copy invite link",
-      "members": "Members"
+      "members": "Members",
+      "leave": "Leave channel"
     },
     "userMore": {
       "edit": "Edit profile"
