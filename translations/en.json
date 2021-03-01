@@ -223,12 +223,11 @@
       "mute": "Mute for all"
     },
     "channel": {
-      "hide": "Hide",
       "edit": "Edit",
       "delete": "Delete",
-      "invite": "Copy invite link",
       "members": "Members",
-      "leave": "Leave channel"
+      "leave": "Leave channel",
+      "invite": "Invite to channel"
     },
     "userMore": {
       "edit": "Edit profile"
