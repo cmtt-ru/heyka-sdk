@@ -3,7 +3,6 @@
     <h1>{{ texts.title }}</h1>
 
     <ui-form
-      class="reset-form"
       @submit="loginHandler()"
     >
       <div
