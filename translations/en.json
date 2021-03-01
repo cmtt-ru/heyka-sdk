@@ -86,7 +86,8 @@
       "linkDisableTimeout": "This link will be disabled in {n}",
       "linkDeactivatedNotif": "Invite link deactivated!",
       "copyLink": "Copy link",
-      "deactivateLink": "Deactivate"
+      "deactivateLink": "Deactivate",
+      "invitationsSent": "Invitations sent"
     },
     "invite":{
       "header": "Add to workspace",

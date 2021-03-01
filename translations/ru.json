@@ -85,7 +85,8 @@
       "linkDisableTimeout": "Ссылка станет нерабочей через {n}",
       "linkDeactivatedNotif": "Ссылка деактивирована!",
       "copyLink": "Скопировать ссылку",
-      "deactivateLink": "Деактивировать"
+      "deactivateLink": "Деактивировать",
+      "invitationsSent": "Приглашения отправлены"
     },
     "invite":{
       "header": "Пригласить в воркспейс",
