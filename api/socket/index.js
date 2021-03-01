@@ -279,6 +279,12 @@ function bindChannelEvents() {
 
   /** Channel deleted */
   client.on(eventNames.channelDeleted, ({ channelId }) => {
+    const selectedChannelId = store.getters['me/getSelectedChannelId'];
+
+    if (selectedChannelId === channelId) {
+      store.dispatch('unselectChannelWithoutAPICall');
+    }
+
     store.commit('channels/REMOVE_CHANNEL', channelId);
   });
 
