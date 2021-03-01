@@ -9,13 +9,13 @@
         <slot name="header" />
       </span>
 
-      <ui-button
+      <div
         class="pseudo-popup__header__close"
-        :type="7"
-        size="small"
-        icon="close"
         @click="closeHandler"
-      />
+      >
+        <span v-if="cancelText">{{ $t('techTexts.cancel') }}</span>
+        <span v-else>{{ $t('techTexts.close') }}</span>
+      </div>
     </div>
 
     <div
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import UiButton from '@components/UiButton';
 import { throttle } from 'throttle-debounce';
 
 /**
@@ -71,9 +70,6 @@ import { throttle } from 'throttle-debounce';
 const THROTTLE_TIMEOUT = 200;
 
 export default {
-  components: {
-    UiButton,
-  },
 
   props: {
     /**
@@ -90,6 +86,14 @@ export default {
     footerHasShadow: {
       type: Boolean,
       default: true,
+    },
+
+    /**
+     * true if button in header must be "Cancel" instead of "Close"
+     */
+    cancelText: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -162,11 +166,13 @@ export default {
       font-size 14px
       font-weight 500
       background var(--new-bg-04)
-      padding 6px 15px 0 16px
+      padding 3px 16px
       transition box-shadow 0.15s ease
 
       &__close
+        color var(--new-UI-01)
         margin-left auto
+        cursor pointer
 
       &--custom
         flex 0 0 auto
