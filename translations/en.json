@@ -31,7 +31,6 @@
       "join": "Join",
       "disconnect": "Disconnect",
       "invite": "Invite to channel",
-      "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
       "audioLags": "Trouble hearing",

@@ -65,7 +65,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: 'en',
+        lang: '',
       },
     };
   },
