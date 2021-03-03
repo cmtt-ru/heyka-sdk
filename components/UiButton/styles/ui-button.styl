@@ -72,6 +72,17 @@
     border-radius 6px
 
   /**
+   * XLarge size button
+   */
+  buttonXLargeSize()
+    height 48px
+    line-height 48px
+    font-size 18px
+    font-weight 500
+    padding 0 38px
+    border-radius 6px
+
+  /**
    * Button with solid background
    */
   buttonSolid($bg-color, $text-color)
@@ -210,6 +221,9 @@
   &--large
     buttonLargeSize()
 
+  &--xlarge
+    buttonXLargeSize()
+
   /**
    * Button type classes
    */
@@ -273,6 +287,9 @@
       align-items center
       justify-content center
       margin-right 8px
+
+    &^[0]--large
+      font-size 16px
 
   &--10
     color var(--text-1)

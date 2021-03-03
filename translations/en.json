@@ -31,7 +31,6 @@
       "join": "Join",
       "disconnect": "Disconnect",
       "invite": "Invite to channel",
-      "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
       "audioLags": "Trouble hearing",
@@ -395,9 +394,6 @@
   },
   "slackInvite":{
     "webWait": "Loading...",
-    "webSuccess": "Success! Open Heyka for further instructions",
-    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
-    "webError": "Sorry babushka, no Slack for you today",
     "noWorkspaces": "Your workspace is not connected with Slack.",
     "connect": "Connect with Slack",
     "canInvite": "You can invite members from {0}. Select teammates.",

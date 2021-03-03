@@ -4,17 +4,15 @@
       ref="tabs"
       class="ui-tabs__nav"
     >
-      <div class="ui-tabs__nav__inner">
-        <ui-button
-          v-for="tab in tabs"
-          :key="tab.name"
-          :type="15"
-          :active="tab.name === selectedTabName"
-          @click="selectTab(tab.name)"
-        >
-          {{ tab.name }}
-        </ui-button>
-      </div>
+      <ui-button
+        v-for="tab in tabs"
+        :key="tab.name"
+        :type="15"
+        :active="tab.name === selectedTabName"
+        @click="selectTab(tab.name)"
+      >
+        {{ tab.name }}
+      </ui-button>
     </div>
 
     <div class="ui-delimiter" />
@@ -89,7 +87,6 @@ export default {
       background var(--new-UI-06)
       border-radius 6px
       padding 4px
-      width 100%
       max-width 268px
 
       & .ui-button

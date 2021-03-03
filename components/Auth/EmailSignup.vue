@@ -81,7 +81,7 @@ export default {
     },
   },
 
-  async created() {
+  async mounted() {
     this.newUser.lang = await determineLocale();
   },
 

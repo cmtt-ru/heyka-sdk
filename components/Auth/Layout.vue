@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '~@styles/global.styl';
+  //@import '~@styles/global.styl';
 
   .auth
     display flex
