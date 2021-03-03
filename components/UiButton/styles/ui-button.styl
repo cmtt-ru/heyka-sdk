@@ -7,6 +7,37 @@
   box-sizing border-box
   -webkit-app-region no-drag
 
+  &:active
+    buttonActiveState()
+
+  &--header
+    color var(--new-UI-03)
+
+    &:hover
+      background var(--new-UI-07)
+
+    &:active
+      background var(--new-UI-08)
+
+  &--popover
+    background var(--new-overlay-01)
+
+    &:hover
+      background var(--new-overlay-02)
+
+    &:active
+      background var(--new-overlay-03)
+
+  &--active
+    background var(--new-UI-01)
+    color var(--new-UI-09)
+
+    &:hover
+      background var(--new-UI-01-1)
+
+    &:active
+      background var(--new-UI-01-2)
+
   /**
    * Small size button
    */
@@ -321,16 +352,18 @@
     padding 0
 
   &--15
-    buttonSmallSize()
-    font-size 13px
+    font-size 14px
+    line-height 16px
+    height 24px
     padding 4px 12px
     color var(--new-UI-03)
-    border-radius 100px
+    border-radius 4px
 
     &^[0]--active
-      background var(--new-UI-01)
-      color var(--new-UI-09)
+      background var(--new-UI-09)
+      color var(--new-UI-02)
       pointer-events none
+      box-shadow var(--new-shadow-01)
 
     &:hover:not(.ui-button--active)
       color var(--new-UI-02-1)
@@ -365,34 +398,3 @@
 
   &--disabled
     buttonDisabledState()
-
-  &:active
-    buttonActiveState()
-
-  &--header
-    color var(--new-UI-03)
-
-    &:hover
-      background var(--new-UI-07)
-
-    &:active
-      background var(--new-UI-08)
-
-  &--popover
-    background var(--new-overlay-01)
-
-    &:hover
-      background var(--new-overlay-02)
-
-    &:active
-      background var(--new-overlay-03)
-
-  &--active
-    background var(--new-UI-01)
-    color var(--new-UI-09)
-
-    &:hover
-      background var(--new-UI-01-1)
-
-    &:active
-      background var(--new-UI-01-2)

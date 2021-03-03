@@ -49,6 +49,7 @@
       "pageName": "User settings",
       "mainSettings": "Main",
       "loginSettings": "Login settings",
+      "uploadPhoto": "Upload photo",
       "deletePhoto": "Delete photo",
       "fullNameLabel": "Full name",
       "emailLabel": "Email",

@@ -80,18 +80,18 @@ export default {
 <style scoped lang="stylus">
   .ui-tabs
     &__nav
+      display flex
+      flex-direction row
+      justify-content space-between
       margin-bottom 12px
-
-      &__inner
-        display flex
-        flex-direction row
-        background var(--new-UI-06)
-        border-radius 100px
-        padding 4px
-        width max-content
+      background var(--new-UI-06)
+      border-radius 6px
+      padding 4px
+      width 100%
+      max-width 268px
 
       & .ui-button
-        flex-shrink 0
+        flex-grow 2
 
     &__content
       padding 0

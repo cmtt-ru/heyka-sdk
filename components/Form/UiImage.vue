@@ -6,12 +6,15 @@
       class="user__avatar"
       :image="localImage"
       :size="size"
-      square
+      no-color
       @load="tempSrc=null"
     />
 
     <div class="input-group">
-      <label class="label">
+      <label
+        class="label"
+        :class="{'label--no-image': !(localImage || tempSrc)}"
+      >
         <svg-icon
           class="label__icon"
           name="image"
@@ -19,6 +22,7 @@
           :width="24"
         />
         <input
+          ref="inputImage"
           type="file"
           accept=".png, .jpg, .jpeg"
           @input="storeImageFile"
@@ -79,6 +83,12 @@ export default {
       tempSrc: null,
       localImage: null,
     };
+  },
+
+  watch: {
+    image(val) {
+      this.localImage = val;
+    },
   },
 
   mounted() {
@@ -144,6 +154,14 @@ export default {
 
       await this.$store.dispatch('app/addNotification', notification);
     },
+
+    clickInput() {
+      this.$refs.inputImage.click();
+    },
+
+    clearInput() {
+      this.localImage = null;
+    },
   },
 
 };
@@ -176,6 +194,12 @@ export default {
         font-size 12px
         border-radius 50%
         transition 0.2s background-color ease
+
+        &--no-image
+          background-color var(--new-UI-06)
+          color var(--new-UI-05)
+          border 1px solid var(--new-UI-05)
+          box-sizing border-box
 
         &:hover
           background-color rgba(0, 0, 0, 0.6)
