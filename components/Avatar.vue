@@ -271,9 +271,6 @@ export default {
       &--square
         border-radius 0 !important
 
-      &--guest
-        background-image radial-gradient(circle at 50% 50%,var(--new-signal-02) 2px,var(--new-signal-02-1) 2.5px) !important
-
       & img
         position absolute
         object-fit cover

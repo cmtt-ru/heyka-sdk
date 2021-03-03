@@ -168,10 +168,10 @@ export default {
           background-color var(--new-signal-02-1)
           color var(--new-signal-02)
           position absolute
-          top 0
-          left 0
-          width 100%
-          height 100%
+          top -0.5px // or else avatar bleeds at edges
+          left -0.5px
+          width calc(100% + 1px)
+          height calc(100% + 1px)
           border-radius 50%
           display flex
           align-items center
