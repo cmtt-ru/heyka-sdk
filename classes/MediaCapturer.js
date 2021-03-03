@@ -76,6 +76,15 @@ export default class MediaCapturer extends EventEmitter {
         audio: false,
         video: true,
       });
+
+      let videoTrack = captureStream.getVideoTracks()[0];
+
+      videoTrack.onended = () => {
+        this.emit('stop-sharing-screen');
+
+        videoTrack.onended = null;
+        videoTrack = null;
+      };
     } catch (err) {
       console.error('Error: ' + err);
     }
