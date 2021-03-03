@@ -64,6 +64,8 @@ import broadcastEvents from '@sdk/classes/broadcastEvents';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import Logger from '@sdk/classes/logger';
 import { getUserAvatarUrl } from '@libs/image';
+import mediaCapturer from '@classes/mediaCapturer';
+import broadcastActions from '@sdk/classes/broadcastActions';
 const cnsl = new Logger('Grid.vue', '#138D75');
 
 const BUTTON_SETUPS = {
@@ -195,12 +197,25 @@ export default {
       }
       this.$set(this.videoStreams, publisher.userId, publisher.stream);
     });
+
+    if (!IS_ELECTRON) {
+      mediaCapturer.on('stop-sharing-screen', () => {
+        broadcastActions.dispatch('me/setMediaState', {
+          ...this.mediaState,
+          screen: false,
+        });
+      });
+    }
   },
 
   beforeDestroy() {
     janusVideoroomWrapper.removeAllListeners('publisher-joined');
     janusVideoroomWrapper.removeAllListeners('publisher-left');
     janusVideoroomWrapper.removeAllListeners('new-stream');
+
+    if (!IS_ELECTRON) {
+      mediaCapturer.removeAllListeners('stop-sharing-screen');
+    }
   },
 
   destroyed() {
