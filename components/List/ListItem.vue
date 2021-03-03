@@ -37,6 +37,13 @@ export default {
       type: String,
       default: '',
     },
+    /**
+     * Info to store if list is selectable and item was selected
+     */
+    selectableContent: {
+      type: Object,
+      default: () => null,
+    },
   },
   data: function () {
     return {
