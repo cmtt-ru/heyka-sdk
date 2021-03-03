@@ -12,7 +12,10 @@
     "yes": "Yes",
     "no": "No",
     "back": "Back",
-    "done": "Done"
+    "done": "Done",
+    "online": "Online",
+    "offline": "Offline",
+    "idle": "Idle"
   },
   "workspace": {
     "navbar": {
@@ -27,7 +30,7 @@
     "channel": {
       "join": "Join",
       "disconnect": "Disconnect",
-      "invite": "Copy invite link",
+      "invite": "Invite to channel",
       "revokeInvite": "Revoke all links",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
@@ -56,7 +59,7 @@
       "editEmail": "Edit email",
       "passLabel": "Password",
       "resetPass": "Reset password",
-      "saved": "saved!",
+      "saved": "Changes saved",
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"
     },
@@ -66,13 +69,25 @@
       "createTitle": "New channel",
       "editTitle": "Edit channel",
       "name": "Name",
-      "description": "Description",
-      "private": "Private channel",
-      "chat": "Text chat",
+      "private": "Make private",
+      "privateLabel": "Only those you add will have access",
       "buttonCreate": "Create channel",
       "buttonSave": "Save changes",
-      "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
+    },
+    "channelInvite": {
+      "header": "Invite to channel",
+      "userTab": "User list",
+      "guestTab": "Guest link",
+      "userInSameChannel": "Already in your channel",
+      "inviteUsers": "Send invite | Send invite | Send {n} invites",
+      "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
+      "generateUrl": "Generate URL",
+      "linkDisableTimeout": "This link will be disabled in {n}",
+      "linkDeactivatedNotif": "Invite link deactivated!",
+      "copyLink": "Copy link",
+      "deactivateLink": "Deactivate",
+      "invitationsSent": "Invitations sent"
     },
     "invite":{
       "header": "Add to workspace",
@@ -91,12 +106,17 @@
       "title": "Name your workspace",
       "namePlaceHolder": "Name",
       "createButton": "Create",
-      "finish": "was created, now you can open it and invite new members",
+      "finishTitle": "was created",
+      "finishSubtitle": "Now you can open it and invite new members",
       "openApp": "Open app",
       "copy": "Copy invite link",
       "copied": "Copied!",
       "emptyFields": "Some fields are empty",
       "largeName": "Name is too large"
+    },
+    "channelMembers": {
+      "header": "Members",
+      "admin": "Admin"
     }
   },
   "settings": {
@@ -178,21 +198,6 @@
       "ongoingSharing": "Broadcasting now"
     }
   },
-  "slackInvite":{
-    "webWait": "Loading...",
-    "webSuccess": "Success! Open Heyka for further instructions",
-    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
-    "webError": "Sorry babushka, no Slack for you today",
-    "noWorkspaces": "Your workspace is not connected with Slack.",
-    "connect": "Connect with Slack",
-    "canInvite": "You can invite members from {0}. Select teammates.",
-    "selectAll": "Select all",
-    "deselectAll": "Deselect all",
-    "inviteUsers": "Send invite | Send invite | Send {n} invites",
-    "successInviteStart": "You've succesfully sent ",
-    "successInviteMiddle": "an invite | {n} invites",
-    "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
-  },
   "popover": {
     "workspace": {
       "invite": "Invite members",
@@ -218,10 +223,11 @@
       "mute": "Mute for all"
     },
     "channel": {
-      "hide": "Hide",
       "edit": "Edit",
       "delete": "Delete",
-      "invite": "Copy invite link"
+      "members": "Members",
+      "leave": "Leave channel",
+      "invite": "Invite to channel"
     },
     "userMore": {
       "edit": "Edit profile"
@@ -336,25 +342,36 @@
       "register": "Sign up"
     },
     "signupSuccess":{
-      "header": "Account registered!",
-      "disclaimer": "Please check your inbox for email verification"
+      "title": "Аккаунт зарегистрирован!",
+      "subtitle": "Пожалуйста, проверьте входящие для подтверждения почты"
     },
     "footer": {
       "privacy": "You consent to the processing of personal data"
     },
     "verify": {
-      "header": "Email verified!",
-      "openApp": "or open the app",
-      "download": "Download Heyka",
-      "createWorkspace": "Create workspace"
+      "successTitle": "Email подтвержден!",
+      "failTitle": "Что-то пошло не так",
+      "successSubtitle": "Аккаунт создан успешно",
+      "failSubtitle": "Обратитесь в техническую поддержку",
+      "openApp": "Открыть приложение",
+      "downloadApp": "Скачать Heyka",
+      "createWorkspace": "Создать воркспейс"
     },
     "newPassword": {
-      "header": "Password reset",
-      "disclaimer": "Please enter your new password below to access your account",
-      "button": "Reset",
-      "saved": "New password saved!",
-      "openApp": "Open Heyka",
-      "download": "You can download Heyka here"
+      "title": "Восстановление пароля",
+      "subtitle": "Придумайте новый пароль, чтобы восстановить доступ к аккаунту",
+      "successSubtitle": "Новый пароль сохранен. Эту страницу можно закрыть",
+      "save": "Сохранить",
+      "openApp": "Открыть приложение"
+    },
+    "socialCallback": {
+      "successTitle": "Всё хорошо",
+      "failTitle": "Что-то пошло не так",
+      "signupSubtitle": "Аккаунт создан успешно",
+      "loginSubtitle": "Вы авторизовались в {0}. Эту страницу можно закрыть",
+      "linkSubtitle": "Профиль в {0} успешно подключён. Эту страницу можно закрыть",
+      "errorSubtitle": "Произошла внутреняя ошибка",
+      "button": "Открыть приложение"
     }
   },
   "appStatus": {
@@ -367,5 +384,28 @@
   },
   "aqi": {
     "tooltip": "Unstable connection"
+  },
+  "slackCallback": {
+    "successTitle": "Всё получилось",
+    "failTitle": "Что-то пошло не так",
+    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka. Эту страницу можно закрыть",
+    "rejectSubtitle": "Вы отменили подключение Slack",
+    "errorSubtitle": "Произошла внутреняя ошибка",
+    "button": "Открыть приложение"
+  },
+  "slackInvite":{
+    "webWait": "Loading...",
+    "webSuccess": "Success! Open Heyka for further instructions",
+    "webCancelled": "Seems like you've decided not to connect to Slack. Ok.",
+    "webError": "Sorry babushka, no Slack for you today",
+    "noWorkspaces": "Your workspace is not connected with Slack.",
+    "connect": "Connect with Slack",
+    "canInvite": "You can invite members from {0}. Select teammates.",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "inviteUsers": "Send invite | Send invite | Send {n} invites",
+    "successInviteStart": "You've succesfully sent ",
+    "successInviteMiddle": "an invite | {n} invites",
+    "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
   }
 }
