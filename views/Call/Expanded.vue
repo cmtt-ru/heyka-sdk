@@ -112,6 +112,7 @@ export default {
       myId: 'me/getMyId',
       userAvatar: 'users/getUserAvatarUrl',
       getUserWhoSharesMedia: 'getUserWhoSharesMedia',
+      getUserWhoSharesScreen: 'getUserWhoSharesScreen',
     }),
     ...mapState({
       janusOptions: 'janus',
@@ -149,10 +150,10 @@ export default {
   watch: {
     isUserSharingMedia(val) {
       if (val === false) {
-        if (this.getUserWhoSharesMedia) {
+        if (this.getUserWhoSharesScreen) {
           this.$router.replace({
             name: 'expanded',
-            params: { id: this.getUserWhoSharesMedia },
+            params: { id: this.getUserWhoSharesScreen },
           });
         } else {
           this.showGridHandler();
