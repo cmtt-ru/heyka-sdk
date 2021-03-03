@@ -4,17 +4,15 @@
       ref="tabs"
       class="ui-tabs__nav"
     >
-      <div class="ui-tabs__nav__inner">
-        <ui-button
-          v-for="tab in tabs"
-          :key="tab.name"
-          :type="15"
-          :active="tab.name === selectedTabName"
-          @click="selectTab(tab.name)"
-        >
-          {{ tab.name }}
-        </ui-button>
-      </div>
+      <ui-button
+        v-for="tab in tabs"
+        :key="tab.name"
+        :type="15"
+        :active="tab.name === selectedTabName"
+        @click="selectTab(tab.name)"
+      >
+        {{ tab.name }}
+      </ui-button>
     </div>
 
     <div class="ui-delimiter" />
@@ -71,6 +69,8 @@ export default {
       this.$children.forEach(tab => {
         tab.isSelected = tab.name === name;
       });
+
+      this.$emit('input', name);
     },
 
   },
@@ -80,18 +80,17 @@ export default {
 <style scoped lang="stylus">
   .ui-tabs
     &__nav
+      display flex
+      flex-direction row
+      justify-content space-between
       margin-bottom 12px
-
-      &__inner
-        display flex
-        flex-direction row
-        background var(--new-UI-06)
-        border-radius 100px
-        padding 4px
-        width max-content
+      background var(--new-UI-06)
+      border-radius 6px
+      padding 4px
+      max-width 268px
 
       & .ui-button
-        flex-shrink 0
+        flex-grow 2
 
     &__content
       padding 0

@@ -36,6 +36,12 @@ let tokenUpdatePromise = null;
 let tokenUpdatePromiseResolve = null;
 
 /**
+ * true if tokens were retrieved from local storage
+ * @type {boolean}
+ */
+let areTokensPrepared = false;
+
+/**
  * Set access token in axios headers
  *
  * @param {string} token – access token
@@ -147,6 +153,8 @@ export async function prepareTokens() {
       refreshTokenExpiredAt: await authFileStore.get('refreshTokenExpiredAt'),
     };
 
+    areTokensPrepared = true;
+
     await checkAndRefreshTokens();
 
     setAxiosTokenHeader(tokens.accessToken);
@@ -159,9 +167,14 @@ export async function prepareTokens() {
  * @returns {void}
  */
 export async function checkAndRefreshTokens() {
+  if (!areTokensPrepared) {
+    await prepareTokens();
+  }
+
   if (!tokens.accessToken) {
     return;
   }
+
   if (isTokenExpired()) {
     await updateTokens();
   }

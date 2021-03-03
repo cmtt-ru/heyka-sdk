@@ -12,7 +12,10 @@
     "yes": "Yes",
     "no": "No",
     "back": "Back",
-    "done": "Done"
+    "done": "Done",
+    "online": "Online",
+    "offline": "Offline",
+    "idle": "Idle"
   },
   "workspace": {
     "navbar": {
@@ -27,8 +30,7 @@
     "channel": {
       "join": "Join",
       "disconnect": "Disconnect",
-      "invite": "Copy invite link",
-      "revokeInvite": "Revoke all links",
+      "invite": "Invite to channel",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
       "audioLags": "Trouble hearing",
@@ -49,13 +51,14 @@
       "pageName": "User settings",
       "mainSettings": "Main",
       "loginSettings": "Login settings",
+      "uploadPhoto": "Upload photo",
       "deletePhoto": "Delete photo",
       "fullNameLabel": "Full name",
       "emailLabel": "Email",
       "editEmail": "Edit email",
       "passLabel": "Password",
       "resetPass": "Reset password",
-      "saved": "saved!",
+      "saved": "Changes saved",
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"
     },
@@ -65,13 +68,25 @@
       "createTitle": "New channel",
       "editTitle": "Edit channel",
       "name": "Name",
-      "description": "Description",
-      "private": "Private channel",
-      "chat": "Text chat",
+      "private": "Make private",
+      "privateLabel": "Only those you add will have access",
       "buttonCreate": "Create channel",
       "buttonSave": "Save changes",
-      "buttonCancel": "Cancel",
       "buttonDelete": "Delete channel"
+    },
+    "channelInvite": {
+      "header": "Invite to channel",
+      "userTab": "User list",
+      "guestTab": "Guest link",
+      "userInSameChannel": "Already in your channel",
+      "inviteUsers": "Send invite | Send invite | Send {n} invites",
+      "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
+      "generateUrl": "Generate URL",
+      "linkDisableTimeout": "This link will be disabled in {n}",
+      "linkDeactivatedNotif": "Invite link deactivated!",
+      "copyLink": "Copy link",
+      "deactivateLink": "Deactivate",
+      "invitationsSent": "Invitations sent"
     },
     "invite":{
       "header": "Add to workspace",
@@ -97,6 +112,10 @@
       "copied": "Copied!",
       "emptyFields": "Some fields are empty",
       "largeName": "Name is too large"
+    },
+    "channelMembers": {
+      "header": "Members",
+      "admin": "Admin"
     }
   },
   "settings": {
@@ -131,6 +150,7 @@
       "automaticallySwitch": "Automatically",
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
+      "muteHotkey": "Ctrl+Shift+M mutes the mic",
       "closeOverlay": "Show «Close» button in call overlay",
       "restartNow": "Restart now",
       "serverLabel": "Server",
@@ -202,10 +222,11 @@
       "mute": "Mute for all"
     },
     "channel": {
-      "hide": "Hide",
       "edit": "Edit",
       "delete": "Delete",
-      "invite": "Copy invite link"
+      "members": "Members",
+      "leave": "Leave channel",
+      "invite": "Invite to channel"
     },
     "userMore": {
       "edit": "Edit profile"
@@ -375,8 +396,7 @@
     "webWait": "Loading...",
     "noWorkspaces": "Your workspace is not connected with Slack.",
     "connect": "Connect with Slack",
-    "canInviteBeginning": "You can invite members from ",
-    "canInviteEnd": ". Select teammates.",
+    "canInvite": "You can invite members from {0}. Select teammates.",
     "selectAll": "Select all",
     "deselectAll": "Deselect all",
     "inviteUsers": "Send invite | Send invite | Send {n} invites",

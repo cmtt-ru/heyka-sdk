@@ -13,13 +13,15 @@
 
 <script>
 import Board from '@components/Drawing/Board';
+
 export default {
   components: {
     Board,
   },
+
   props: {
     /**
-     * income data
+     * Income data
      */
     data: {
       type: Object,
@@ -28,27 +30,40 @@ export default {
       },
     },
   },
+
   data() {
     return {
       boards: {},
       boardDimensions: {},
     };
   },
+
   watch: {
     data(val) {
       this.$set(this.boards, val.userId, val);
     },
   },
-  /**
-   * Save screen dimensions
-   *
-   * @returns {object}
-   */
+
   mounted() {
-    this.boardDimensions = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+    this.resizeHandler();
+
+    window.addEventListener('resize', this.resizeHandler);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
+  },
+
+  methods: {
+    resizeHandler() {
+      /**
+       * Save screen dimensions
+       */
+      this.boardDimensions = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    },
   },
 };
 </script>
