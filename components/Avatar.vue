@@ -121,6 +121,14 @@ export default {
     },
 
     /**
+     * true if user is guest (make avatar greenish)
+     */
+    guest: {
+      type: [ Boolean ],
+      default: false,
+    },
+
+    /**
      * Avatar border radius
      */
     borderRadius: {
@@ -198,6 +206,7 @@ export default {
       const classes = {};
 
       classes['avatar__image--square'] = this.square;
+      classes['avatar__image--guest'] = this.guest;
       classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
       return classes;
@@ -261,6 +270,9 @@ export default {
 
       &--square
         border-radius 0 !important
+
+      &--guest
+        background-image radial-gradient(circle at 50% 50%,var(--new-signal-02) 2px,var(--new-signal-02-1) 2.5px) !important
 
       & img
         position absolute

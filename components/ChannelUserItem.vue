@@ -9,6 +9,7 @@
         class="user__avatar"
         :image="userAvatar(user.id, 24)"
         :size="24"
+        :guest="user.role === 'guest'"
         :user-id="user.id"
         :mic="mediaState.microphone"
         :onair="mediaState.speaking"
@@ -167,10 +168,10 @@ export default {
           background-color var(--new-signal-02-1)
           color var(--new-signal-02)
           position absolute
-          top -0.5px // or else avatar bleeds at edges
-          left -0.5px
-          width calc(100% + 1px)
-          height calc(100% + 1px)
+          top 0
+          left 0
+          width 100%
+          height 100%
           border-radius 50%
           display flex
           align-items center

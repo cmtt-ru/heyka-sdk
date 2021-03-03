@@ -39,6 +39,7 @@
           <avatar
             v-for="person in users"
             :key="person.id"
+            :guest="person.role === 'guest'"
             :user-id="person.id"
             :image="userAvatar(person.id, 12)"
             :size="12"
@@ -66,7 +67,7 @@ const ICON_MAP = {
   public: 'channel',
   publicOnline: 'channelOnAir',
   private: 'lock',
-  temp: 'time',
+  temp: 'clock',
   default: 'channel',
 };
 const MAX_USERS = 8;
