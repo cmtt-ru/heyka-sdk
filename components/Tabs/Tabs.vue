@@ -1,15 +1,20 @@
 <template>
   <div class="ui-tabs">
-    <div class="ui-tabs__nav">
-      <ui-button
-        v-for="tab in tabs"
-        :key="tab.name"
-        :type="15"
-        :active="tab.name === selectedTabName"
-        @click="selectTab(tab.name)"
-      >
-        {{ tab.name }}
-      </ui-button>
+    <div
+      ref="tabs"
+      class="ui-tabs__nav"
+    >
+      <div class="ui-tabs__nav__inner">
+        <ui-button
+          v-for="tab in tabs"
+          :key="tab.name"
+          :type="15"
+          :active="tab.name === selectedTabName"
+          @click="selectTab(tab.name)"
+        >
+          {{ tab.name }}
+        </ui-button>
+      </div>
     </div>
 
     <div class="ui-delimiter" />
@@ -26,10 +31,6 @@ import UiButton from '@components/UiButton';
 export default {
   components: {
     UiButton,
-  },
-
-  props: {
-
   },
 
   data() {
@@ -71,6 +72,7 @@ export default {
         tab.isSelected = tab.name === name;
       });
     },
+
   },
 };
 </script>

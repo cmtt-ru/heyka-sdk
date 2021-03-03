@@ -38,8 +38,8 @@ function loadLocaleMessages() {
  * Select locale. Get locale from electron store, if none we use system language, if none/not_supported we use 'en'
  * @returns {string} locale's short string (eg. 'en')
  */
-export async function determineLocale() {
-  if (await heykaStore.has('language')) {
+export function determineLocale() {
+  if (heykaStore.getSync('language') !== undefined) {
     return heykaStore.getSync('language');
   } else if (supportedLocales.includes(SYSTEM_LOCALE)) {
     heykaStore.set('language', SYSTEM_LOCALE);
