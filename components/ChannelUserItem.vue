@@ -4,14 +4,26 @@
     v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: mediaState.microphone, channelId}}"
     class="user"
   >
-    <avatar
-      class="user__avatar"
-      :image="userAvatar(user.id, 24)"
-      :size="24"
-      :user-id="user.id"
-      :mic="mediaState.microphone"
-      :onair="mediaState.speaking"
-    />
+    <div class="user__avatar-wrapper">
+      <avatar
+        class="user__avatar"
+        :image="userAvatar(user.id, 24)"
+        :size="24"
+        :guest="user.role === 'guest'"
+        :user-id="user.id"
+        :mic="mediaState.microphone"
+        :onair="mediaState.speaking"
+      />
+      <div
+        v-if="user.role==='guest'"
+        class="user__avatar--guest"
+      >
+        <svg-icon
+          name="clock"
+          size="medium"
+        />
+      </div>
+    </div>
 
     <div
       :key="user.name"
@@ -146,8 +158,24 @@ export default {
     &.context-menu--opened
         background-color var(--item-bg-hover)
 
+    &__avatar-wrapper
+      position relative
+
     &__avatar
         flex-shrink 0
+
+        &--guest
+          background-color var(--new-signal-02-1)
+          color var(--new-signal-02)
+          position absolute
+          top -0.5px // or else avatar bleeds at edges
+          left -0.5px
+          width calc(100% + 1px)
+          height calc(100% + 1px)
+          border-radius 50%
+          display flex
+          align-items center
+          justify-content center
 
     &__name
         padding-left 8px

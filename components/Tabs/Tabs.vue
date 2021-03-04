@@ -1,6 +1,9 @@
 <template>
   <div class="ui-tabs">
-    <div class="ui-tabs__nav">
+    <div
+      ref="tabs"
+      class="ui-tabs__nav"
+    >
       <ui-button
         v-for="tab in tabs"
         :key="tab.name"
@@ -26,10 +29,6 @@ import UiButton from '@components/UiButton';
 export default {
   components: {
     UiButton,
-  },
-
-  props: {
-
   },
 
   data() {
@@ -70,7 +69,10 @@ export default {
       this.$children.forEach(tab => {
         tab.isSelected = tab.name === name;
       });
+
+      this.$emit('input', name);
     },
+
   },
 };
 </script>
@@ -78,11 +80,17 @@ export default {
 <style scoped lang="stylus">
   .ui-tabs
     &__nav
-      display inline-block
+      display flex
+      flex-direction row
+      justify-content space-between
       margin-bottom 12px
       background var(--new-UI-06)
-      border-radius 100px
+      border-radius 6px
       padding 4px
+      max-width 268px
+
+      & .ui-button
+        flex-grow 2
 
     &__content
       padding 0

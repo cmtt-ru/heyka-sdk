@@ -18,7 +18,9 @@
         class="input"
         :class="{'input--with-icon': icon, 'input--with-eye': isPass}"
         :placeholder="placeholder"
+        :readonly="readonly"
         @input="debounceCheck"
+        @click="trySelectingAll"
         @keyup.enter="submitHandler"
       >
       <svg-icon
@@ -83,9 +85,17 @@ export default {
     },
 
     /**
-     * Make whole switch inactive
+     * Make input inactive
      */
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * Make input readonly
+     */
+    readonly: {
       type: Boolean,
       default: false,
     },
@@ -254,6 +264,12 @@ export default {
       this.checkErrors(el.target.value);
     }),
 
+    trySelectingAll(event) {
+      if (this.readonly) {
+        event.target.select();
+      }
+    },
+
     /**
      * Check input for validation errors
      * Also, edit error text accordingly
@@ -404,7 +420,7 @@ export default {
     margin auto 0
     right 8px
     cursor pointer
-    //color var(--new-UI-01)
+    color var(--new-UI-04)
 
   &--with-icon
     padding-left 34px

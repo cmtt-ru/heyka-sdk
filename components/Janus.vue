@@ -153,9 +153,9 @@ export default {
   async created() {
     await JanusWrapper.init();
 
-    network.on('ip-changed', () => {
-      this.reSelectChannel();
-    });
+    // network.on('ip-changed', () => {
+    //   this.reSelectChannel();
+    // });
 
     network.on('internet-state', (state) => {
       if (state) {

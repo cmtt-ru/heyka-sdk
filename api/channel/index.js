@@ -8,7 +8,11 @@ import edit from './edit';
 import remove from './remove';
 import join from './join';
 import invite from './invite';
+import getInvite from './getInvite';
+import deleteInvite from './deleteInvite';
 import deleteAllInvites from './deleteAllInvites';
+import getMembers from './getMembers';
+import deleteMembers from './deleteMembers';
 
 export default {
   getActiveUsers,
@@ -21,5 +25,9 @@ export default {
   remove,
   join,
   invite,
+  getInvite,
+  deleteInvite,
   deleteAllInvites,
+  getMembers,
+  deleteMembers,
 };

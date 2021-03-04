@@ -3,7 +3,6 @@
     <h1>{{ texts.title }}</h1>
 
     <ui-form
-      class="reset-form"
       @submit="registerHandler()"
     >
       <ui-input
@@ -51,6 +50,7 @@ import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
 import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
+import { setTokens } from '@api/tokens';
 
 export default {
   components: {
@@ -65,7 +65,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        lang: determineLocale(),
+        lang: '',
       },
     };
   },
@@ -80,10 +80,16 @@ export default {
     },
   },
 
+  async mounted() {
+    this.newUser.lang = await determineLocale();
+  },
+
   methods: {
     async registerHandler() {
       try {
         const res = await this.$API.auth.signup({ user: this.newUser });
+
+        setTokens(res.data.credentials);
 
         const inviteCode = authFileStore.get('inviteCode');
 
@@ -94,7 +100,7 @@ export default {
 
         console.log(res);
 
-        this.$router.push({ name: 'auth-signup-success' });
+        this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {

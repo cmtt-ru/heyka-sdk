@@ -41,6 +41,17 @@
     border-radius 6px
 
   /**
+   * XLarge size button
+   */
+  buttonXLargeSize()
+    height 48px
+    line-height 48px
+    font-size 18px
+    font-weight 500
+    padding 0 38px
+    border-radius 6px
+
+  /**
    * Button with solid background
    */
   buttonSolid($bg-color, $text-color)
@@ -179,6 +190,9 @@
   &--large
     buttonLargeSize()
 
+  &--xlarge
+    buttonXLargeSize()
+
   /**
    * Button type classes
    */
@@ -242,6 +256,9 @@
       align-items center
       justify-content center
       margin-right 8px
+
+    &^[0]--large
+      font-size 16px
 
   &--10
     color var(--text-1)
@@ -321,19 +338,21 @@
     padding 0
 
   &--15
-    buttonSmallSize()
-    font-size 13px
+    font-size 14px
+    line-height 16px
+    height 24px
     padding 4px 12px
     color var(--new-UI-03)
-    border-radius 100px
+    border-radius 4px
 
     &^[0]--active
-      background var(--new-UI-01)
-      color var(--new-UI-09)
+      background var(--new-UI-09) !important
+      color var(--new-UI-02) !important
       pointer-events none
+      box-shadow var(--new-shadow-01)
 
     &:hover:not(.ui-button--active)
-      color var(--new-UI-02-1)
+      color var(--new-UI-02-1) !important
 
   &--16
     buttonSquareIcon(var(--button-bg-5))

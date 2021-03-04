@@ -28,6 +28,13 @@ export default {
       type: Number,
       default: 0,
     },
+    /**
+     * Info to store if list is selectable and item was selected
+     */
+    selectableContent: {
+      type: Object,
+      default: () => null,
+    },
   },
 
   data: function () {

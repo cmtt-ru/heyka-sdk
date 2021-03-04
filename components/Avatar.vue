@@ -11,7 +11,7 @@
       />
     </transition>
     <div
-      v-if="!loaded"
+      v-if="!noColor && (!loaded || !image)"
       class="avatar__no-image"
       :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
@@ -121,6 +121,14 @@ export default {
     },
 
     /**
+     * true if user is guest (make avatar greenish)
+     */
+    guest: {
+      type: [ Boolean ],
+      default: false,
+    },
+
+    /**
      * Avatar border radius
      */
     borderRadius: {
@@ -159,6 +167,14 @@ export default {
       type: [ String ],
       default: null,
     },
+
+    /**
+     * true if no need for secondary colored background when no img
+     */
+    noColor: {
+      type: [ Boolean ],
+      default: false,
+    },
   },
   data() {
     return {
@@ -190,6 +206,7 @@ export default {
       const classes = {};
 
       classes['avatar__image--square'] = this.square;
+      classes['avatar__image--guest'] = this.guest;
       classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
       return classes;
@@ -271,7 +288,6 @@ export default {
       border-radius 50%
       background-color transparent
       border 2px solid transparent
-      z-index 3
 
       &__dot
         position absolute
