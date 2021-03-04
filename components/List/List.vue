@@ -17,8 +17,13 @@
 <script>
 import { simpleMatchesFilter, matchesFilter, detectLang } from '@libs/texts';
 
-// eslint-disable-next-line no-magic-numbers
-// const CHECK_TIMEOUTS = [10, 10, 30, 50, 900];
+/**
+  * if list is longer than LONG_LIST,
+  * or search string is longer than LONG_SEARCH_STRING,
+  * fast search is conducted before long one
+  */
+const LONG_LIST = 200;
+const LONG_SEARCH_STRING = 20;
 
 export default {
   props: {
@@ -90,14 +95,15 @@ export default {
           this.namesLang[item[this.filterKey]] = detectLang(item[this.filterKey]);
         }
       }
+
       this.sortBySimilarity();
     },
   },
 
   mounted() {
     this.sortBySimilarity();
-    this.$on('selected', (id, data) => {
-      this.selectedChild(id, data);
+    this.$on('selected', (selected, id, data, silent = false) => {
+      this.selectedChild(selected, id, data, silent);
     });
   },
 
@@ -106,12 +112,15 @@ export default {
     async sortBySimilarity() {
       if (this.items.length === 0 || this.filterBy === '') {
         this.$emit('input', this.items);
+
+        return;
       }
 
-      this.match(this.fastMatchFilter);
+      if (this.items.length > LONG_LIST || this.filterBy.length > LONG_SEARCH_STRING) {
+        this.match(this.fastMatchFilter);
 
-      await new Promise(resolve => setTimeout(resolve, 0));
-
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
       this.match(this.longMatchFilter);
     },
 
@@ -153,13 +162,29 @@ export default {
       };
     },
 
-    selectedChild(id, data) {
-      if (this.selectedItems[id]) {
+    selectedChild(selected, id, data, silent = false) {
+      if (!selected) {
         delete this.selectedItems[id];
       } else {
         this.selectedItems[id] = data;
       }
 
+      if (!silent) {
+        this.$emit('multipick', Object.values(this.selectedItems));
+      }
+    },
+
+    selectAll() {
+      for (const el of this.$children) {
+        el.setSelected(true);
+      }
+      this.$emit('multipick', Object.values(this.selectedItems));
+    },
+    deselectAll() {
+      for (const el of this.$children) {
+        el.setSelected(false);
+      }
+      this.selectedItems = {};
       this.$emit('multipick', Object.values(this.selectedItems));
     },
   },

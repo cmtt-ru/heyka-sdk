@@ -57,7 +57,18 @@ export default {
         return;
       }
       this.selected = !this.selected;
-      this.$parent.$emit('selected', this.id, this.selectData);
+      this.$parent.$emit('selected', this.selected, this.id, this.selectData);
+    },
+
+    /**
+     * Change 'selected' state from parent (for "[de]select all" functionality)
+     *
+     * @param {boolean} value select/deselect
+     * @returns {string}
+     */
+    setSelected(value) {
+      this.selected = value;
+      this.$parent.$emit('selected', value, this.id, this.selectData, true);
     },
   },
 
