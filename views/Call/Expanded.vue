@@ -80,7 +80,6 @@ import { mapGetters, mapState } from 'vuex';
 import Tablet from '@components/Drawing/Tablet';
 import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
-import captureFrame from 'capture-frame';
 
 /* variable for watching page size */
 let __resizeObserver = {};
@@ -287,7 +286,6 @@ export default {
 
       if (video.srcObject) {
         video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
-        console.log('sdfsdf');
       }
 
       video.srcObject = stream;
@@ -346,16 +344,6 @@ export default {
         }
       }
     },
-
-    /**
-     * Get frame from video
-     * @returns {string}
-     */
-    getFrameFromVideo() {
-      const frameBuffer = captureFrame(this.$refs.video, 'jpeg');
-
-      return 'data:image/jpeg;base64,' + frameBuffer.toString('base64');
-    },
   },
 };
 </script>
@@ -386,9 +374,6 @@ export default {
     width 100%
     height 100%
     background-color var(--app-bg)
-    background-size contain
-    background-position center
-    background-repeat no-repeat
 
   .video-preview
     background-color var(--app-bg)
