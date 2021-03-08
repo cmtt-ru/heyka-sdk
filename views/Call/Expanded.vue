@@ -287,6 +287,7 @@ export default {
 
       if (video.srcObject) {
         video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+        console.log('sdfsdf');
       }
 
       video.srcObject = stream;
