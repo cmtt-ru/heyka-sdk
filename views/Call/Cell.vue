@@ -87,6 +87,7 @@ import Avatar from '@components/Avatar';
 import ConnectionIndicator from '@components/ConnectionIndicator';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
+import captureFrame from 'capture-frame';
 
 /**
  * Aspect ratio 124 / 168;
@@ -290,6 +291,7 @@ export default {
       return false;
     },
   },
+
   watch: {
     videoStream(val) {
       if (val) {
@@ -342,6 +344,10 @@ export default {
      */
     insertVideoStreamForUser(stream) {
       const video = this.$refs['video'];
+
+      if (video.srcObject) {
+        video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+      }
 
       video.srcObject = stream;
 
@@ -412,6 +418,16 @@ export default {
         console.log(`Video event for '${this.user.id}'--> timeUpdate`, this.$refs.video.currentTime);
         this.setMediaPlaying(this.$refs.video.currentTime !== 0);
       }
+    },
+
+    /**
+     * Get frame from video
+     * @returns {string}
+     */
+    getFrameFromVideo() {
+      const frameBuffer = captureFrame(this.$refs.video, 'jpeg');
+
+      return 'data:image/jpeg;base64,' + frameBuffer.toString('base64');
     },
   },
 };
@@ -513,6 +529,9 @@ export default {
     height 100%
     object-fit cover
     border-radius 12px
+    background-size cover
+    background-position center
+    background-repeat no-repeat
 
     &__gradient
       content ''
