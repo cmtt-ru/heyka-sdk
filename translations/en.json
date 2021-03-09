@@ -403,5 +403,10 @@
     "successInviteStart": "You've succesfully sent ",
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
+  },
+  "landing": {
+    "downloads": "Downloads",
+    "signIn": "Sign in",
+    "submit": "Submit"
   }
 }
