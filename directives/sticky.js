@@ -12,7 +12,6 @@ const stickyObservers = {};
  * @returns {void}
  */
 function elementCheck(el, targetElement) {
-  console.log(el.intersectionRatio, el);
   if (el.intersectionRatio === 1) {
     targetElement.classList.remove(STICKED_CLASS);
   } else {
@@ -42,6 +41,7 @@ function addPixel(sibling, bottom) {
   if (bottom) {
     newDiv.style.top = sibling.offsetTop + sibling.offsetHeight - 1 + 'px';
   } else {
+    console.log(sibling, sibling.offsetTop);
     newDiv.style.top = sibling.offsetTop + 'px';
   }
 
