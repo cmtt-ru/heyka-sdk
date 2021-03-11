@@ -25,18 +25,92 @@ const labels = {
 const DURATION_ROUND = 3;
 
 /**
+ * Class for collect some statistics
+ */
+class StatsStore {
+  /**
+   * Constructor
+   */
+  constructor() {
+    this.stats = {};
+  }
+
+  /**
+   * Add entry to stats
+   * @param {string} entryName – entry name
+   * @param {number} duration – duration
+   * @returns {void}
+   */
+  addEntry(entryName, duration) {
+    if (!this.stats[entryName]) {
+      this.stats[entryName] = {
+        duration: 0,
+        count: 0,
+      };
+    }
+
+    if (this.stats[entryName].count === 0) {
+      this.stats[entryName].duration = duration;
+    } else {
+      this.stats[entryName].duration =
+        (this.stats[entryName].count * this.stats[entryName].duration + duration) /
+        (this.stats[entryName].count + 1);
+    }
+
+    this.stats[entryName].count++;
+  }
+
+  /**
+   * Show report
+   * @returns {void}
+   */
+  showReport() {
+    const entries = Object.entries(this.stats);
+
+    entries.sort((a, b) => {
+      return b[1].duration - a[1].duration;
+    });
+
+    entries.forEach(e => {
+      e[1].duration = parseFloat(e[1].duration.toFixed(DURATION_ROUND));
+    });
+
+    const sortedStats = Object.fromEntries(entries);
+
+    console.table(sortedStats);
+  }
+
+  /**
+   * Clear stats
+   * @returns {void}
+   */
+  clear() {
+    this.stats = {};
+  }
+}
+
+const stats = new StatsStore();
+
+window.vuexMeasurerStats = stats;
+/**
  * Pretty log
  * @param {string} type – type of vuex function
  * @param {string} moduleName – module name
  * @param {string} name – function name
- * @param {string} duration – duration in ms
+ * @param {number} duration – duration in ms
  * @returns {void}
  */
 function log(type, moduleName, name, duration) {
-  console.log(`%c ${labels[type]} %c ${name ? moduleName + '/' : ''}${name}  %c${duration}ms `,
+  const vuexName = `${moduleName ? moduleName + '/' : ''}${name}`;
+
+  stats.addEntry(`${labels[type]} ${vuexName}`, duration);
+
+  console.log(
+    `%c ${labels[type]} %c ${vuexName}  %c${duration}ms `,
     'background: #eee; font-weight: bold; color: ' + colors[type],
     'background: #eee; color: #333',
-    'background: #eee; font-weight: bold');
+    'background: #eee; font-weight: bold'
+  );
 }
 
 /**
@@ -54,7 +128,7 @@ function measureFunction(type, functionName, fn, moduleName) {
     return async function () {
       const startTime = performance.now();
       const result = await fn.apply(null, arguments);
-      const duration = (performance.now() - startTime).toFixed(DURATION_ROUND);
+      const duration = parseFloat((performance.now() - startTime).toFixed(DURATION_ROUND));
 
       log(type, moduleName, functionName, duration);
 
@@ -64,7 +138,7 @@ function measureFunction(type, functionName, fn, moduleName) {
     return function () {
       const startTime = performance.now();
       const result = fn.apply(null, arguments);
-      const duration = (performance.now() - startTime).toFixed(DURATION_ROUND);
+      const duration = parseFloat((performance.now() - startTime).toFixed(DURATION_ROUND));
 
       log(type, moduleName, functionName, duration);
 
