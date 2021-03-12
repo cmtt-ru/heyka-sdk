@@ -263,7 +263,19 @@ export default {
         this.setOperationFinish('publish');
       });
 
-      await janusWrapper.join();
+      try {
+        await janusWrapper.join();
+      } catch (e) {
+        await this.$store.dispatch('unselectChannel', this.selectedChannelId);
+
+        const notification = {
+          data: {
+            text: this.$t('janus.connectionError'),
+          },
+        };
+
+        await this.$store.dispatch('app/addNotification', notification);
+      }
     },
 
     /**
