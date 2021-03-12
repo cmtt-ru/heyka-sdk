@@ -6,6 +6,7 @@ const colors = {
   action: '#1BA1E2',
   mutation: '#F0A30A',
   getter: '#60A917',
+  computed: '#F472D0',
 };
 
 /**
@@ -16,6 +17,7 @@ const labels = {
   action: 'action  ',
   mutation: 'mutation',
   getter: 'getter  ',
+  computed: 'computed',
 };
 
 /**
@@ -121,13 +123,13 @@ function log(type, moduleName, name, duration) {
  * @param {string} moduleName – vuex module name
  * @returns {(function(): *)|(function(): *)}
  */
-function measureFunction(type, functionName, fn, moduleName) {
+function measureFunction(type, functionName, fn, moduleName, context = null) {
   const isAsyncFunction = fn.constructor.name === 'AsyncFunction';
 
   if (isAsyncFunction) {
     return async function () {
       const startTime = performance.now();
-      const result = await fn.apply(null, arguments);
+      const result = await fn.apply(context, arguments);
       const duration = parseFloat((performance.now() - startTime).toFixed(DURATION_ROUND));
 
       log(type, moduleName, functionName, duration);
@@ -137,7 +139,7 @@ function measureFunction(type, functionName, fn, moduleName) {
   } else {
     return function () {
       const startTime = performance.now();
-      const result = fn.apply(null, arguments);
+      const result = fn.apply(context, arguments);
       const duration = parseFloat((performance.now() - startTime).toFixed(DURATION_ROUND));
 
       log(type, moduleName, functionName, duration);
@@ -169,8 +171,8 @@ export function measureModules(modules) {
  * @param {string} type – vuex function type
  * @returns {void}
  */
-export function measureFunctions(fns, moduleName, type) {
+export function measureFunctions(fns, moduleName, type, context) {
   Object.keys(fns).forEach(fnName => {
-    fns[fnName] = measureFunction(type, fnName, fns[fnName], moduleName);
+    fns[fnName] = measureFunction(type, fnName, fns[fnName], moduleName, context);
   });
 }
