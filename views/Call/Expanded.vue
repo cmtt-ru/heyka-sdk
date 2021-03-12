@@ -80,6 +80,7 @@ import { mapGetters, mapState } from 'vuex';
 import Tablet from '@components/Drawing/Tablet';
 import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
+import captureFrame from 'capture-frame';
 
 /* variable for watching page size */
 let __resizeObserver = {};
@@ -284,6 +285,10 @@ export default {
       janusVideoroomWrapper.connectTextroom(this.myId, 'sender', this.janusOptions);
       const video = this.$refs.video;
 
+      if (video.srcObject) {
+        video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+      }
+
       video.srcObject = stream;
 
       video.onloadedmetadata = () => {
@@ -340,89 +345,102 @@ export default {
         }
       }
     },
+
+    /**
+     * Get frame from video
+     * @returns {string}
+     */
+    getFrameFromVideo() {
+      const frameBuffer = captureFrame(this.$refs.video, 'jpeg');
+
+      return 'data:image/jpeg;base64,' + frameBuffer.toString('base64');
+    },
   },
 };
 </script>
 
 <style lang="stylus" scoped>
 
-  .expanded-window
-    position relative
-    height 100vh
-    width 100vw
+.expanded-window
+  position relative
+  height 100vh
+  width 100vw
 
-  .wrapper
-    position absolute
-    top 0
-    left 0
-    height 100vh
-    width 100vw
-    flex-direction column
-    display flex
+.wrapper
+  position absolute
+  top 0
+  left 0
+  height 100vh
+  width 100vw
+  flex-direction column
+  display flex
 
-  .tablet-wrapper
-    width 100vw
-    .tablet
-      width 100%
-      height 100%
-
-  .sharing
+.tablet-wrapper
+  width 100vw
+  .tablet
     width 100%
     height 100%
-    background-color var(--app-bg)
 
-  .video-preview
-    background-color var(--app-bg)
-    position absolute
-    left 0
-    top 0
-    width 100%
-    height 100%
-    object-fit contain
-    filter blur(5px) grayscale(1)
+.sharing
+  width 100%
+  height 100%
+  background-color var(--app-bg)
+  background-size contain
+  background-position center
+  background-repeat no-repeat
 
-  .badge
-    position absolute
+.video-preview
+  background-color var(--app-bg)
+  position absolute
+  left 0
+  top 0
+  width 100%
+  height 100%
+  object-fit contain
+  filter blur(5px) grayscale(1)
 
-  .user
-    top 30px
-    left 30px
-    display flex
-    flex-direction row
-    background-color var(--button-bg-5)
-    padding 8px
-    border-radius 4px
-    font-weight 500
-    align-items center
-    opacity 1
-    transition opacity 0.2s ease
+.badge
+  position absolute
 
-    &:hover
-      opacity 0
+.user
+  top 30px
+  left 30px
+  display flex
+  flex-direction row
+  background-color var(--button-bg-5)
+  padding 8px
+  border-radius 4px
+  font-weight 500
+  align-items center
+  opacity 1
+  transition opacity 0.2s ease
 
-    &__avatar
-      margin-right 8px
+  &:hover
+    opacity 0
 
-  .settings
-    top 30px
-    right 30px
+  &__avatar
+    margin-right 8px
 
-  .expanded
-    bottom 30px
-    right 30px
+.settings
+  top 30px
+  right 30px
 
-  .control
-    background-color var(--app-bg)
-    border-radius 4px
-    top calc(100% - 126px)
-    left calc(50% - 92px)
-    height auto
-    opacity 1
-    transition opacity 0.2s ease
-    box-shadow 0 0 0 1px var(--button-bg-5)
+.expanded
+  bottom 30px
+  right 30px
 
-    &--hidden
-      opacity 0
-      pointer-events none
+.control
+  background-color var(--app-bg)
+  border-radius 4px
+  top calc(100% - 126px)
+  left calc(50% - 92px)
+  height auto
+  opacity 1
+  transition opacity 0.2s ease
+  box-shadow 0 0 0 1px var(--button-bg-5)
+
+  &--hidden
+    opacity 0
+    pointer-events none
 
 </style>

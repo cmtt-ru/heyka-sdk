@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="user"
+    v-if="me"
     class="call-controls"
     :class="{'call-controls--row': row}"
   >
@@ -98,7 +98,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      user: 'myInfo',
+      me: 'myInfo',
       getSpeakingUser: 'getSpeakingUser',
       selectedChannel: 'myChannel',
       userById: 'users/getUserById',
@@ -117,8 +117,8 @@ export default {
         };
       }
 
-      if (this.user) {
-        return this.user;
+      if (this.me.user) {
+        return this.me.user;
       }
 
       return '';
@@ -155,7 +155,7 @@ export default {
         return;
       }
 
-      if (this.user.id !== this.lastUserInChannel) {
+      if (this.me.user.id !== this.lastUserInChannel) {
         this.channelName = this.userById(this.lastUserInChannel).name;
         this.channelIcon = 'connect';
 
