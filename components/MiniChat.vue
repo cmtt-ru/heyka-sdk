@@ -1,11 +1,21 @@
 <template>
   <div class="mini-chat">
-    <pseudo-popup>
+    <pseudo-popup
+      ref="pseudoPopup"
+      close-popover
+    >
       <template #header>
         Chat
       </template>
 
       <template #body>
+        <div
+          v-if="chatHistory.length === 0"
+          class="mini-chat__dummy"
+        >
+          No messages yet
+        </div>
+
         <div
           v-for="(item, i) in chatHistory"
           :key="i"
@@ -36,27 +46,18 @@
           :type="8"
           size="large"
           icon="forward"
+          @click="sendHandler"
         />
 
         <ui-input
+          ref="input"
+          v-model="message"
           placeholder="Type message here"
+          @keydown.native.enter="sendHandler"
         />
       </template>
     </pseudo-popup>
   </div>
-<!--  <div class="mini-chat">-->
-<!--    <div class="mini-chat__header">-->
-<!--      header-->
-<!--    </div>-->
-
-<!--    <div class="mini-chat__messages">-->
-<!--      chat-->
-<!--    </div>-->
-
-<!--    <div class="mini-chat__footer">-->
-<!--      footer-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <script>
@@ -67,6 +68,8 @@ import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
+import broadcastActions from '@sdk/classes/broadcastActions';
+import xss from 'xss';
 
 export default {
   components: {
@@ -83,77 +86,18 @@ export default {
   data: () => {
     return {
       chatHistory: [
-        {
-          userId: '4042dab6-18ca-4965-8190-dd5601b03a1b',
-          message: 'Will you two be down in San Fransico any time soon?',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Excited for this new album!',
-        },
-        {
-          userId: 'bdf89c14-06ea-4a9f-a01d-b48f8e66d041',
-          message: 'Yeah, true 🤟🏻',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Try this https://yandex.ru',
-        },
-        {
-          userId: '4042dab6-18ca-4965-8190-dd5601b03a1b',
-          message: 'Will you two be down in San Fransico any time soon?',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Excited for this new album!',
-        },
-        {
-          userId: 'bdf89c14-06ea-4a9f-a01d-b48f8e66d041',
-          message: 'Yeah, true 🤟🏻',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Try this https://yandex.ru',
-        },
-        {
-          userId: '4042dab6-18ca-4965-8190-dd5601b03a1b',
-          message: 'Will you two be down in San Fransico any time soon?',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Excited for this new album!',
-        },
-        {
-          userId: 'bdf89c14-06ea-4a9f-a01d-b48f8e66d041',
-          message: 'Yeah, true 🤟🏻',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Try this https://yandex.ru',
-        },
-        {
-          userId: '4042dab6-18ca-4965-8190-dd5601b03a1b',
-          message: 'Will you two be down in San Fransico any time soon?',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Excited for this new album!',
-        },
-        {
-          userId: 'bdf89c14-06ea-4a9f-a01d-b48f8e66d041',
-          message: 'Yeah, true 🤟🏻',
-        },
-        {
-          userId: '4f37cf73-11e3-4a28-9eb0-d21173ea19b5',
-          message: 'Try this https://yandex.ru',
-        },
+
       ],
+
+      message: '',
     };
   },
 
   computed: {
     ...mapGetters({
       getUserById: 'users/getUserById',
+      myId: 'me/getMyId',
+      getMiniChatMessages: 'channels/getMiniChatMessages',
     }),
     /**
      * Get needed texts from I18n-locale file
@@ -164,8 +108,19 @@ export default {
     },
   },
 
+  watch: {
+    getMiniChatMessages() {
+      this.processMessages();
+    },
+  },
+
   mounted() {
-    this.fillUsers();
+    this.processMessages();
+
+    this.$nextTick(() => {
+      this.$refs.pseudoPopup.scrollToBottom(true);
+      this.$refs.input.focusInput();
+    });
   },
 
   methods: {
@@ -176,14 +131,36 @@ export default {
         this.$set(item, 'user', this.getUserById(item.userId));
         this.$set(item, 'htmlMessage', this.linkify(item.message));
       });
-
-      console.log('-----', this.chatHistory);
     },
 
     linkify(text) {
       const URLMatcher = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\\/%=~_|$])/igm;
 
       return text.replace(URLMatcher, match => `<a href="${match}">${match}</a>`);
+    },
+
+    sendHandler() {
+      const sanitizedMessage = xss(this.message);
+
+      if (sanitizedMessage) {
+        broadcastActions.dispatch('app/sendMiniChatMessage', sanitizedMessage);
+        this.message = '';
+      }
+    },
+
+    processMessages() {
+      this.chatHistory = this.getMiniChatMessages.map(i => {
+        return {
+          userId: i.userId,
+          message: xss(i.data.message),
+        };
+      });
+
+      this.fillUsers();
+
+      this.$nextTick(() => {
+        this.$refs.pseudoPopup.scrollToBottom();
+      });
     },
   },
 };
@@ -192,15 +169,15 @@ export default {
 <style lang="stylus">
 
   .mini-chat
-    position fixed
-    top 40px
-    left 40px
     width 320px
     height 400px
-    background #fff
-    border-radius 12px
-    color #000
-    overflow hidden
+
+    &__dummy
+      display flex
+      height 100%
+      justify-content center
+      align-items center
+      opacity 0.5
 
     &__send
       color var(--new-UI-01)

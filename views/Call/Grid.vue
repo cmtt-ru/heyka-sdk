@@ -59,7 +59,7 @@
 
       <div class="bottom-content__col">
         <ui-button
-          v-popover.click="{name: 'Devices'}"
+          v-popover.click="{name: 'MiniChat', options: {disableOutsideClick: true}}"
           class="bottom-content__chat"
           :type="7"
           popover
@@ -69,15 +69,12 @@
         />
       </div>
     </div>
-
-    <mini-chat />
   </div>
 </template>
 
 <script>
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
-import MiniChat from '@components/MiniChat';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -107,7 +104,6 @@ export default {
     CallButtons,
     UiButton,
     Cell,
-    MiniChat,
   },
 
   data() {
@@ -129,9 +125,6 @@ export default {
       channelId: 'me/getSelectedChannelId',
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
-      audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
-      handUpStatus: 'channels/getHandUpStatusByUserId',
-      conversationEvents: 'channels/getConversationEvents',
       isSharingFullScreen: 'janus/isSharingFullScreen',
     }),
 
