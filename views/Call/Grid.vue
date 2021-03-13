@@ -46,17 +46,38 @@
       />
     </div>
 
-    <call-buttons
-      class="bottom-control"
-      :buttons="buttonsSetup"
-      size="large"
-    />
+    <div class="bottom-content">
+      <div class="bottom-content__col" />
+
+      <div class="bottom-content__col bottom-content__col--1">
+        <call-buttons
+          class="bottom-content__controls"
+          :buttons="buttonsSetup"
+          size="large"
+        />
+      </div>
+
+      <div class="bottom-content__col">
+        <ui-button
+          v-popover.click="{name: 'Devices'}"
+          class="bottom-content__chat"
+          :type="7"
+          popover
+          :height="52"
+          size="medium"
+          icon="chat"
+        />
+      </div>
+    </div>
+
+    <mini-chat />
   </div>
 </template>
 
 <script>
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
+import MiniChat from '@components/MiniChat';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -86,6 +107,7 @@ export default {
     CallButtons,
     UiButton,
     Cell,
+    MiniChat,
   },
 
   data() {
@@ -405,6 +427,23 @@ export default {
     align-content center
     box-sizing border-box
 
-  .bottom-control
-    margin 28px auto 0
+  .bottom-content
+    margin-top 28px
+    display flex
+
+    &__col
+      display flex
+      align-items center
+      flex-grow 1
+      flex-basis 33.333%
+
+      &--1
+        flex-basis 100%
+
+    &__controls
+      margin 0 auto
+
+    &__chat
+      margin-left auto
+      margin-right 40px
 </style>
