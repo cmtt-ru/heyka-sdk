@@ -22,10 +22,6 @@
       :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
     >
-      <div
-        class="avatar__image__border"
-        :style="{'border-radius': borderRadius + 'px'}"
-      />
       <img
         loading="lazy"
         class=""
@@ -35,6 +31,10 @@
         :src="image"
         @load="loadHandler"
       >
+        <div
+        class="avatar__image__border"
+        :style="{'border-radius': borderRadius + 'px'}"
+      />
     </div>
 
     <div
