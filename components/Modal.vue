@@ -1,7 +1,6 @@
 <template>
   <div
     role="dialog"
-    :aria-label="label"
     aria-modal="true"
     class="modal"
     :class="{ 'modal--centered': centered }"
@@ -23,14 +22,12 @@ export default {
       default: true,
       type: Boolean,
     },
-    focusElement: {
-      default: null,
-      type: Object,
-    },
-    label: {
-      default: '',
-      type: String,
-    },
+  },
+
+   data() {
+    return {
+      scrollPosition: null,
+    };
   },
 
   mounted() {
@@ -66,21 +63,22 @@ export default {
     disableScrolling() {
       this.scrollPosition = window.pageYOffset;
 
-      const $body = document.querySelector('body');
-      $body.style.overflow = 'hidden';
-      $body.style.position = 'fixed';
-      $body.style.top = `-${this.scrollPosition}px`;
-      $body.style.width = '100%';
+      const body = document.querySelector('body');
+      body.style.overflowY = 'scroll';
+      body.style.position = 'fixed';
+      body.style.top = `-${this.scrollPosition}px`;
+      body.style.width = '100%';
     },
 
-    enableScrolling() {
-      const $body = document.querySelector('body');
-      $body.style.removeProperty('overflow');
-      $body.style.removeProperty('position');
-      $body.style.removeProperty('top');
-      $body.style.removeProperty('width');
 
-      window.scrollTo(0, this.scrollPosition);
+    enableScrolling() {
+      const body = document.querySelector('body');
+      body.style.removeProperty('overflowY');
+      body.style.removeProperty('position');
+      body.style.removeProperty('top');
+      body.style.removeProperty('width');
+
+      window.scrollTo({ top: this.scrollPosition, behavior: "instant"});
     },
 
   },
@@ -108,5 +106,6 @@ export default {
   width 100%
   height 100%
   z-index -1
+  background-color var(--new-bg-02)
 
 </style>
