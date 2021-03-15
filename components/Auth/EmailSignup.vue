@@ -51,6 +51,7 @@ import { determineLocale } from '@sdk/translations/i18n';
 import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
 import { setTokens } from '@api/tokens';
+import apiSignup from '@api/auth/signup';
 
 export default {
   components: {
@@ -87,7 +88,7 @@ export default {
   methods: {
     async registerHandler() {
       try {
-        const res = await this.$API.auth.signup({ user: this.newUser });
+        const res = await apiSignup({ user: this.newUser });
 
         setTokens(res.data.credentials);
 
