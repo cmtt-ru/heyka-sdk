@@ -17,6 +17,13 @@
     "offline": "Offline",
     "idle": "Idle"
   },
+  "calendar": {
+    "justNow": "just now",
+    "minutes": "m",
+    "hours": "h",
+    "days": "d",
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  },
   "workspace": {
     "navbar": {
       "channelsHeader": "Channels",
