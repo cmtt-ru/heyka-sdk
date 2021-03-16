@@ -406,5 +406,17 @@
   },
   "janus": {
     "connectionError": "Unable to connect to the server"
+  },
+  "landing": {
+    "downloads": "Downloads",
+    "signIn": "Sign in",
+    "submit": "Submit",
+    "getApp": "Get App",
+    "mailPlaceholder": "Your mail to be first...",
+    "peopleAmount": "{n} people",
+    "waitingListText": "in waiting list now",
+    "betaBonus" : "Beta users will receive a free premium account for year",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"
   }
 }

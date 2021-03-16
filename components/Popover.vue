@@ -1,7 +1,7 @@
 <template>
   <div
     class="popover"
-    :style="[$themes.getColors('content'), {'min-width': minWidth + 'px'}]"
+    :style="{'min-width': minWidth + 'px'}"
   >
     <slot />
   </div>
@@ -21,8 +21,9 @@ export default {
 <style lang="stylus" scoped>
   .popover
     display flex
-    background var(--app-bg)
+    background var(--new-bg-04)
     box-shadow var(--new-shadow-03)
+    color var(--new-UI-02)
     border-radius 8px
     z-index 100
     flex-direction column
