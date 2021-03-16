@@ -69,6 +69,7 @@ import Avatar from '@components/Avatar';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
 import broadcastActions from '@sdk/classes/broadcastActions';
+import { linkify } from '@libs/texts';
 import xss from 'xss';
 
 export default {
@@ -129,14 +130,8 @@ export default {
     fillUsers() {
       this.chatHistory.forEach(item => {
         this.$set(item, 'user', this.getUserById(item.userId));
-        this.$set(item, 'htmlMessage', this.linkify(item.message));
+        this.$set(item, 'htmlMessage', linkify(item.message));
       });
-    },
-
-    linkify(text) {
-      const URLMatcher = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\\/%=~_|$])/igm;
-
-      return text.replace(URLMatcher, match => `<a href="${match}">${match}</a>`);
     },
 
     sendHandler() {
