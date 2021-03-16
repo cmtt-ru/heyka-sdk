@@ -149,6 +149,8 @@ export default {
     },
 
     processMessages() {
+      this.markAllMessagesAsRead();
+
       this.chatHistory = this.getMiniChatMessages.map(i => {
         return {
           userId: i.userId,
@@ -162,6 +164,15 @@ export default {
         this.$refs.pseudoPopup.scrollToBottom();
       });
     },
+
+    /**
+     * Mark all messages as read
+     * @returns {void}
+     */
+    markAllMessagesAsRead() {
+      this.$store.dispatch('app/markMiniChatAsRead');
+    },
+
   },
 };
 </script>
