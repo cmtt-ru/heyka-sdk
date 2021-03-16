@@ -19,3 +19,14 @@ export function msToTime(duration) {
 
   return hours + ':' + minutes + ':' + seconds;
 }
+
+/**
+ * Make html links in text
+ * @param {string} text – text
+ * @return {string}
+ */
+export function linkify(text) {
+  const URLMatcher = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\\/%=~_|$])/igm;
+
+  return text.replace(URLMatcher, match => `<a href="${match}">${match}</a>`);
+}
