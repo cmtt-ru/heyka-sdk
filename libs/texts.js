@@ -26,7 +26,21 @@ export function msToTime(duration) {
  * @return {string}
  */
 export function linkify(text) {
-  const URLMatcher = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\\/%=~_|$])/igm;
+  const regex = /(?:http(s)?:\/\/)?(?:[\w.-]+@)?[\w.-]+(?:\.[\w.-]+)+/igm;
 
-  return text.replace(URLMatcher, match => `<a href="${match}">${match}</a>`);
+  const result = text.replace(regex, match => {
+    if (match.includes('@')) {
+      return `<a href="mailto:${match}">${match}</a>`;
+    } else {
+      let url = match;
+
+      if (!url.startsWith('http')) {
+        url = `https://${url}`;
+      }
+
+      return `<a href="${url}">${match}</a>`;
+    }
+  });
+
+  return result;
 }
