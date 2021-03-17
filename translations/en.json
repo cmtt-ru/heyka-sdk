@@ -399,7 +399,7 @@
     "errorSubtitle": "Произошла внутреняя ошибка",
     "button": "Открыть приложение"
   },
-  "slackInvite":{
+  "slackInvite": {
     "webWait": "Loading...",
     "noWorkspaces": "Your workspace is not connected with Slack.",
     "connect": "Connect with Slack",
@@ -410,6 +410,9 @@
     "successInviteStart": "You've succesfully sent ",
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
+  },
+  "janus": {
+    "connectionError": "Unable to connect to the server"
   },
   "landing": {
     "downloads": "Downloads",

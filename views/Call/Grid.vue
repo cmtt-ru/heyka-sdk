@@ -25,8 +25,7 @@
         class="top-content__devices"
         :type="7"
         popover
-        :height="52"
-        size="medium"
+        :height="44"
         icon="settings"
       />
     </div>
@@ -46,11 +45,37 @@
       />
     </div>
 
-    <call-buttons
-      class="bottom-control"
-      :buttons="buttonsSetup"
-      size="large"
-    />
+    <div class="bottom-content">
+      <div class="bottom-content__col" />
+
+      <div class="bottom-content__col bottom-content__col--1">
+        <call-buttons
+          class="bottom-content__controls"
+          :buttons="buttonsSetup"
+          size="large"
+        />
+      </div>
+
+      <div class="bottom-content__col">
+        <div class="mini-chat-button">
+          <transition name="badge-show">
+            <div
+              v-if="miniChatBadge"
+              :key="miniChatBadgeKey"
+              class="mini-chat-button__badge"
+            />
+          </transition>
+
+          <ui-button
+            v-popover.click="{name: 'MiniChat'}"
+            popover
+            :type="7"
+            :height="44"
+            icon="chat"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -96,6 +121,8 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
+      miniChatBadge: false,
+      miniChatBadgeKey: 0,
     };
   },
 
@@ -107,10 +134,9 @@ export default {
       channelId: 'me/getSelectedChannelId',
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
-      audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
-      handUpStatus: 'channels/getHandUpStatusByUserId',
-      conversationEvents: 'channels/getConversationEvents',
       isSharingFullScreen: 'janus/isSharingFullScreen',
+      hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
+      miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
     }),
 
     /**
@@ -152,7 +178,6 @@ export default {
     selectedChannelName() {
       return this.selectedChannel?.name || 'no channel selected';
     },
-
   },
 
   watch: {
@@ -160,12 +185,21 @@ export default {
     usersCount: function () {
       this.resize();
     },
+
     selectedChannel(channelId) {
       if (!channelId) {
         Object.keys(this.videoStreams).forEach(key => {
           this.$delete(this.videoStreams, key);
         });
       }
+    },
+
+    hasMiniChatNewMessages(val) {
+      this.miniChatBadge = val;
+    },
+
+    miniChatLastMessageTimestamp(val) {
+      this.miniChatBadgeKey = val;
     },
   },
 
@@ -206,6 +240,9 @@ export default {
         });
       });
     }
+
+    this.miniChatBadge = this.hasMiniChatNewMessages;
+    this.miniChatBadgeKey = this.miniChatLastMessageTimestamp;
   },
 
   beforeDestroy() {
@@ -370,6 +407,7 @@ export default {
     &__devices
       margin-left 8px
       flex-shrink 0
+      border-radius 11px
 
   .left-info
     display flex
@@ -405,6 +443,47 @@ export default {
     align-content center
     box-sizing border-box
 
-  .bottom-control
-    margin 28px auto 0
+  .bottom-content
+    margin-top 28px
+    display flex
+
+    &__col
+      display flex
+      align-items center
+      flex-grow 1
+      flex-basis 33.333%
+
+      &--1
+        flex-basis 100%
+
+    &__controls
+      margin 0 auto
+
+  .mini-chat-button
+    position relative
+    margin-left auto
+    margin-right 40px
+
+    .ui-button
+      border-radius 11px
+
+    &__badge
+      position absolute
+      width 11px
+      height 11px
+      top -3px
+      right -3px
+      border-radius 11px
+      background var(--new-signal-03)
+
+  .badge-show-enter-active
+    transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);
+
+  .badge-show-leave-active
+    transition transform .25s ease
+
+  .badge-show-enter,
+  .badge-show-leave-to
+    transform scale(0)
+
 </style>

@@ -112,7 +112,7 @@ export default {
      * false if check only on submit
      */
     checkOnInput: {
-       type: Boolean,
+      type: Boolean,
       default: false,
     },
 
@@ -297,7 +297,8 @@ export default {
         this.localValue = this.localValue.trim();
       } else if (!this.checkOnInput) {
         this.$parent.$emit('ui-error', this.id, false);
-        return
+
+        return;
       }
       text = text.trim();
 

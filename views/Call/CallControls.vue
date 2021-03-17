@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="user"
+    v-if="me"
     class="call-controls"
     :class="{'call-controls--row': row}"
   >
@@ -98,11 +98,13 @@ export default {
 
   computed: {
     ...mapGetters({
-      user: 'myInfo',
+      me: 'myInfo',
       getSpeakingUser: 'getSpeakingUser',
       selectedChannel: 'myChannel',
       userById: 'users/getUserById',
       userAvatar: 'users/getUserAvatarUrl',
+      miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
+      miniChatMessages: 'channels/getMiniChatMessages',
     }),
 
     /**
@@ -117,8 +119,8 @@ export default {
         };
       }
 
-      if (this.user) {
-        return this.user;
+      if (this.me.user) {
+        return this.me.user;
       }
 
       return '';
@@ -155,7 +157,7 @@ export default {
         return;
       }
 
-      if (this.user.id !== this.lastUserInChannel) {
+      if (this.me.user.id !== this.lastUserInChannel) {
         this.channelName = this.userById(this.lastUserInChannel).name;
         this.channelIcon = 'connect';
 
@@ -170,6 +172,22 @@ export default {
 
     selectedChannelName() {
       this.channelName = this.selectedChannelName;
+    },
+
+    miniChatLastMessageTimestamp(val) {
+      const lastMessage = this.miniChatMessages.slice(-1)[0];
+
+      if (this.me.user.id !== lastMessage.userId) {
+        this.channelName = this.userById(lastMessage.userId).name;
+        this.channelIcon = 'chat';
+
+        clearTimeout(lastUserTimer);
+
+        lastUserTimer = setTimeout(() => {
+          this.channelName = this.selectedChannel?.name;
+          this.channelIcon = 'channel';
+        }, LAST_USER_INTERVAL);
+      }
     },
   },
 

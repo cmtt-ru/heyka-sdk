@@ -129,7 +129,7 @@ export default {
       const users = this.$store.getters.getUsersByChannel(this.channel.id).map(u => u.user);
 
       if (this.topChannel) {
-        return [this.me, ...users.filter((user) => user.id !== this.myId)];
+        return [this.me.user, ...users.filter((user) => user.id !== this.myId)];
       } else if (!this.topChannel && this.duringAnimation) {
         return users.filter((user) => user.id !== this.myId);
       } else {
@@ -239,7 +239,7 @@ export default {
     background-color var(--new-UI-07)
 
     & .channel__more
-      display inline-flex
+      visibility visible
 
   &:active
     background-color var(--new-UI-08)
@@ -271,7 +271,7 @@ export default {
     color var(--new-UI-04)
     margin 0 4px
     flex-shrink 0
-    display none
+    visibility hidden
 
     &:hover
       background-color var(--new-UI-07)
