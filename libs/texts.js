@@ -25,31 +25,6 @@ export function msToTime(duration) {
 }
 
 /**
- * Make html links in text
- * @param {string} text – text
- * @return {string}
- */
-export function linkify(text) {
-  const regex = /(?:http(s)?:\/\/)?(?:[\w.-]+@)?[\w.-/]+(?:\.[\w.-]+)+/igm;
-
-  const result = text.replace(regex, match => {
-    if (match.includes('@')) {
-      return `<a target="_blank" :href="mailto:${match}">${match}</a>`;
-    } else {
-      let url = match;
-
-      if (!url.startsWith('http')) {
-        url = `https://${url}`;
-      }
-
-      return `<a target="_blank" href="${url}">${match}</a>`;
-    }
-  });
-
-  return result;
-}
-
-/**
  * Convert html tags to safe format
  * @example: <div>test</div> ==> &lt;div&gt;test&lt;/div&gt;
  * @param {string} text – text

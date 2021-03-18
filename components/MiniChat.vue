@@ -68,8 +68,9 @@ import Avatar from '@components/Avatar';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
 import broadcastActions from '@sdk/classes/broadcastActions';
-import { linkify, escapeHtml } from '@libs/texts';
+import { escapeHtml } from '@libs/texts';
 import xss from 'xss';
+import linkify from 'linkifyjs/html';
 
 export default {
   components: {
@@ -126,7 +127,9 @@ export default {
     fillUsers() {
       this.chatHistory.forEach(item => {
         this.$set(item, 'user', this.getUserById(item.userId));
-        this.$set(item, 'htmlMessage', linkify(item.message));
+        this.$set(item, 'htmlMessage', linkify(item.message, {
+          defaultProtocol: 'https',
+        }));
       });
     },
 
