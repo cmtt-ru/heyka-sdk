@@ -173,7 +173,7 @@
     },
     "about": {
       "version": "version",
-      "notice": "Notice & Acknowledgements",
+      "notice": "Terms & conditions",
       "checkUpdates": "Check for updates"
     },
     "support": {
@@ -361,7 +361,8 @@
       "subtitle": "Придумайте новый пароль, чтобы восстановить доступ к аккаунту",
       "successSubtitle": "Новый пароль сохранен. Эту страницу можно закрыть",
       "save": "Сохранить",
-      "openApp": "Открыть приложение"
+      "openApp": "Открыть приложение",
+      "newPassword": "Новый пароль"
     },
     "socialCallback": {
       "successTitle": "Всё хорошо",
@@ -392,7 +393,7 @@
     "errorSubtitle": "Произошла внутреняя ошибка",
     "button": "Открыть приложение"
   },
-  "slackInvite":{
+  "slackInvite": {
     "webWait": "Loading...",
     "noWorkspaces": "Your workspace is not connected with Slack.",
     "connect": "Connect with Slack",
@@ -403,5 +404,20 @@
     "successInviteStart": "You've succesfully sent ",
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
+  },
+  "janus": {
+    "connectionError": "Unable to connect to the server"
+  },
+  "landing": {
+    "downloads": "Downloads",
+    "signIn": "Sign in",
+    "submit": "Submit",
+    "getApp": "Get App",
+    "mailPlaceholder": "Your mail to be first...",
+    "peopleAmount": "{n} people",
+    "waitingListText": "in waiting list now",
+    "betaBonus" : "Beta users will receive a free premium account for year",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"
   }
 }

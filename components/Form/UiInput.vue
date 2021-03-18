@@ -109,6 +109,14 @@ export default {
     },
 
     /**
+     * false if check only on submit
+     */
+    checkOnInput: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
      * true if field is required
      */
     required: {
@@ -287,6 +295,10 @@ export default {
 
       if (externalCheck) {
         this.localValue = this.localValue.trim();
+      } else if (!this.checkOnInput) {
+        this.$parent.$emit('ui-error', this.id, false);
+
+        return;
       }
       text = text.trim();
 

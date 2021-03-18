@@ -43,7 +43,7 @@
     <ui-button
       v-if="buttons.includes('screen')"
       :disabled="janusInProgress"
-      class="call-buttons__button"
+      class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
       :active="mediaState.screen"
@@ -299,6 +299,10 @@ export default {
 <style lang="stylus" scoped>
   .call-buttons
     display flex
+
+    &__screen
+      &.ui-button--active
+        background-color var(--new-signal-03)
 
     &__button
       flex-shrink 0
