@@ -129,7 +129,7 @@ export default {
       const users = this.$store.getters.getUsersByChannel(this.channel.id).map(u => u.user);
 
       if (this.topChannel) {
-        return [this.me, ...users.filter((user) => user.id !== this.myId)];
+        return [this.me.user, ...users.filter((user) => user.id !== this.myId)];
       } else if (!this.topChannel && this.duringAnimation) {
         return users.filter((user) => user.id !== this.myId);
       } else {
