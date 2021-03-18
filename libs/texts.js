@@ -24,6 +24,31 @@ export function msToTime(duration) {
   return hours + ':' + minutes + ':' + seconds;
 }
 
+/**
+ * Make html links in text
+ * @param {string} text – text
+ * @return {string}
+ */
+export function linkify(text) {
+  const regex = /(?:http(s)?:\/\/)?(?:[\w.-]+@)?[\w.-]+(?:\.[\w.-]+)+/igm;
+
+  const result = text.replace(regex, match => {
+    if (match.includes('@')) {
+      return `<a href="mailto:${match}">${match}</a>`;
+    } else {
+      let url = match;
+
+      if (!url.startsWith('http')) {
+        url = `https://${url}`;
+      }
+
+      return `<a href="${url}">${match}</a>`;
+    }
+  });
+
+  return result;
+}
+
 /* --------------LEVENSHTEIN STUFF----------------*/
 
 // other probably useful stuff:

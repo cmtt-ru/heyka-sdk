@@ -11,6 +11,7 @@
 
       <div
         class="pseudo-popup__header__close"
+        :data-popover-close="closePopover"
         @click="closeHandler"
       >
         <span v-if="cancelText">{{ $t('techTexts.cancel') }}</span>
@@ -95,6 +96,14 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    /**
+     * Close button closes popover
+     */
+    closePopover: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -148,6 +157,25 @@ export default {
      */
     closeHandler() {
       this.$emit('close');
+    },
+
+    /**
+     * Scroll body to bottom
+     * @param {boolean} force – force scroll down
+     * @returns {void}
+     */
+    scrollToBottom(force = false) {
+      const BOTTOM_DISTANCE = 100;
+
+      if (force) {
+        this.$refs.body.style.scrollBehavior = 'initial';
+        this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
+        this.$refs.body.style.scrollBehavior = 'smooth';
+      } else {
+        if (this.$refs.body.scrollTop > this.$refs.body.scrollHeight - this.$refs.body.clientHeight - BOTTOM_DISTANCE) {
+          this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
+        }
+      }
     },
   },
 };

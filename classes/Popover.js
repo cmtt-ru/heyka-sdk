@@ -110,6 +110,8 @@ export default class Popover {
       y: 0,
     };
 
+    this.showState = false;
+
     this.bind();
   }
 
@@ -231,13 +233,13 @@ export default class Popover {
             }
           }
         } else {
-          this.show(true);
+          this.show(!this.showState);
         }
       };
 
       this.element.__clickOutsideHandler = event => {
         const conditionToHide =
-          !(this.instance.$el === event.target || this.instance.$el.contains(event.target)) ||
+          (!(this.instance.$el === event.target || this.instance.$el.contains(event.target)) && !this.options.disableOutsideClick) ||
           (event.target.hasAttribute('data-popover-close') || event.target.closest('[data-popover-close]'));
 
         if (conditionToHide) {
@@ -333,6 +335,7 @@ export default class Popover {
         this.popper.update();
         document.body.addEventListener('mouseup', this.element.__clickOutsideHandler);
       }, 0);
+      this.showState = true;
     } else {
       await this.unmount();
       if (this.element && this.element.__clickOutsideHandler) {
@@ -342,6 +345,7 @@ export default class Popover {
         this.popper.destroy();
         this.popper = null;
       }
+      this.showState = false;
     }
 
     this.showInProgress = false;
