@@ -11,7 +11,7 @@
 
       <div
         class="pseudo-popup__header__close"
-        :data-popover-close="closePopover"
+        data-popover-close
         @click="closeHandler"
       >
         <span v-if="cancelText">{{ $t('techTexts.cancel') }}</span>
@@ -93,14 +93,6 @@ export default {
      * true if button in header must be "Cancel" instead of "Close"
      */
     cancelText: {
-      type: Boolean,
-      default: false,
-    },
-
-    /**
-     * Close button closes popover
-     */
-    closePopover: {
       type: Boolean,
       default: false,
     },
