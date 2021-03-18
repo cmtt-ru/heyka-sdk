@@ -30,7 +30,7 @@ export function msToTime(duration) {
  * @return {string}
  */
 export function linkify(text) {
-  const regex = /(?:http(s)?:\/\/)?(?:[\w.-]+@)?[\w.-]+(?:\.[\w.-]+)+/igm;
+  const regex = /(?:http(s)?:\/\/)?(?:[\w.-]+@)?[\w.-/]+(?:\.[\w.-]+)+/igm;
 
   const result = text.replace(regex, match => {
     if (match.includes('@')) {

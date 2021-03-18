@@ -203,8 +203,11 @@ export default {
       &__name
         font-weight 500
         margin-right 4px
+        white-space nowrap
 
       &__text
+        word-break break-word
+
         a
           display inline
           color var(--new-UI-01)
