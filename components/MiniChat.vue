@@ -68,7 +68,7 @@ import Avatar from '@components/Avatar';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
 import broadcastActions from '@sdk/classes/broadcastActions';
-import { linkify } from '@libs/texts';
+import { linkify, escapeHtml } from '@libs/texts';
 import xss from 'xss';
 
 export default {
@@ -85,10 +85,7 @@ export default {
 
   data: () => {
     return {
-      chatHistory: [
-
-      ],
-
+      chatHistory: [],
       message: '',
     };
   },
@@ -134,7 +131,7 @@ export default {
     },
 
     sendHandler() {
-      const sanitizedMessage = xss(this.message);
+      const sanitizedMessage = escapeHtml(xss(this.message));
 
       if (sanitizedMessage) {
         broadcastActions.dispatch('app/sendMiniChatMessage', sanitizedMessage);

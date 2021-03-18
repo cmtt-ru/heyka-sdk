@@ -49,6 +49,21 @@ export function linkify(text) {
   return result;
 }
 
+/**
+ * Convert html tags to safe format
+ * @example: <div>test</div> ==> &lt;div&gt;test&lt;/div&gt;
+ * @param {string} text – text
+ * @return {string}
+ */
+export function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 /* --------------LEVENSHTEIN STUFF----------------*/
 
 // other probably useful stuff:
