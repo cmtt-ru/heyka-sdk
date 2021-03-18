@@ -34,7 +34,7 @@ export function linkify(text) {
 
   const result = text.replace(regex, match => {
     if (match.includes('@')) {
-      return `<a href="mailto:${match}">${match}</a>`;
+      return `<a target="_blank" :href="mailto:${match}">${match}</a>`;
     } else {
       let url = match;
 
@@ -42,7 +42,7 @@ export function linkify(text) {
         url = `https://${url}`;
       }
 
-      return `<a href="${url}">${match}</a>`;
+      return `<a target="_blank" href="${url}">${match}</a>`;
     }
   });
 
