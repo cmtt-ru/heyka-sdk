@@ -2,7 +2,6 @@
   <div class="mini-chat">
     <pseudo-popup
       ref="pseudoPopup"
-      close-popover
     >
       <template #header>
         Chat
