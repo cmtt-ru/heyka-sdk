@@ -18,6 +18,7 @@
         <div
           v-for="(item, i) in chatHistory"
           :key="i"
+          :ref="i === chatHistory.length - 1 ? 'last-message' : ''"
           class="mini-chat__message"
         >
           <template v-if="item.user">
@@ -116,7 +117,7 @@ export default {
     this.processMessages();
 
     this.$nextTick(() => {
-      this.$refs.pseudoPopup.scrollToBottom(true);
+      this.$refs.pseudoPopup.scrollToBottom();
       this.$refs.input.focusInput();
     });
   },
@@ -138,6 +139,7 @@ export default {
 
       if (sanitizedMessage) {
         broadcastActions.dispatch('app/sendMiniChatMessage', sanitizedMessage);
+        this.$refs.pseudoPopup.scrollToBottom();
         this.message = '';
       }
     },
@@ -155,7 +157,7 @@ export default {
       this.fillUsers();
 
       this.$nextTick(() => {
-        this.$refs.pseudoPopup.scrollToBottom();
+        this.$refs.pseudoPopup.smartScrollToBottom(this.$refs['last-message'][0].getBoundingClientRect().height);
       });
     },
 

@@ -153,20 +153,26 @@ export default {
 
     /**
      * Scroll body to bottom
-     * @param {boolean} force – force scroll down
      * @returns {void}
      */
-    scrollToBottom(force = false) {
-      const BOTTOM_DISTANCE = 100;
+    scrollToBottom() {
+      this.$refs.body.style.scrollBehavior = 'initial';
+      this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
+      this.$refs.body.style.scrollBehavior = 'smooth';
+    },
 
-      if (force) {
-        this.$refs.body.style.scrollBehavior = 'initial';
+    /**
+     * Smart scroll body to bottom for Mini Chat
+     * @param {boolean} n – bottom compensation
+     * @returns {void}
+     */
+    smartScrollToBottom(n) {
+      const BOTTOM_DISTANCE = 150;
+
+      console.log('n', n);
+
+      if (this.$refs.body.scrollTop > this.$refs.body.scrollHeight - this.$refs.body.clientHeight - (BOTTOM_DISTANCE + n)) {
         this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
-        this.$refs.body.style.scrollBehavior = 'smooth';
-      } else {
-        if (this.$refs.body.scrollTop > this.$refs.body.scrollHeight - this.$refs.body.clientHeight - BOTTOM_DISTANCE) {
-          this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
-        }
       }
     },
   },
