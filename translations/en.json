@@ -419,5 +419,15 @@
     "betaBonus" : "Beta users will receive a free premium account for year",
     "terms": "Terms of Use",
     "privacy": "Privacy Policy"
+  },
+  "errors": {
+    "403": {
+      "title": "Forbidden",
+      "subtitle": "You don't have permission to access"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtitle": "Try another one"
+    }
   }
 }
