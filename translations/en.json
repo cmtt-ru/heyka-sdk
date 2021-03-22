@@ -9,6 +9,7 @@
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
+    "next": "Next",
     "yes": "Yes",
     "no": "No",
     "back": "Back",
@@ -290,6 +291,15 @@
     "mutedForAll": {
       "text": "Turned off your mic",
       "turnOn": "Turn it on"
+    }
+  },
+  "modal": {
+    "common": {
+      "name": "Name"
+    },
+    "deleteUser": {
+      "header": "Deleting user",
+      "body": "Are you sure you want to delete {n}?"
     }
   },
   "autoUpdate": {
