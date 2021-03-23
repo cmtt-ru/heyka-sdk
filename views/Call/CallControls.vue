@@ -10,10 +10,9 @@
     >
       <avatar
         class="call-controls__avatar"
-        :user-id="speakingUser.id"
-        :image="userAvatar(speakingUser.id, 44)"
-        :size="44"
         :class="{'call-controls__avatar--speaking': speakingUser.speaking}"
+        :user-id="speakingUser.id"
+        :size="44"
         :border-radius="11"
       />
 

@@ -56,7 +56,6 @@
       <avatar
         v-show="!mediaCanShow"
         class="cell__avatar"
-        :image="userAvatar(user, currentSizes.avatar)"
         :user-id="user.id"
         :size="currentSizes.avatar"
       />

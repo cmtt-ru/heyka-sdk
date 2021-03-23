@@ -24,7 +24,6 @@
             <avatar
               class="mini-chat__message__avatar"
               :user-id="item.userId"
-              :image="userAvatar(item.user, 20)"
               :size="20"
             />
 

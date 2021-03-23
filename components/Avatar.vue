@@ -135,14 +135,6 @@ export default {
     },
 
     /**
-     * if true, image is not rounded
-     */
-    square: {
-      type: [ Boolean ],
-      default: false,
-    },
-
-    /**
      * Avatar border radius
      */
     borderRadius: {
@@ -151,11 +143,11 @@ export default {
     },
 
     /**
-     * online status (small circle in bottom right corner)
+     * Whether to show online status
      */
     status: {
-      type: [ String ],
-      default: null,
+      type: [ Boolean ],
+      default: false,
     },
 
     /**
@@ -209,7 +201,7 @@ export default {
      * @returns {object} background-color and border-color
      */
     statusStyle() {
-      return STATUS_COLORS[this.status] || null;
+      return STATUS_COLORS[this.userStatus] || null;
     },
 
     /**
@@ -219,7 +211,6 @@ export default {
     imageClasses() {
       const classes = {};
 
-      classes['avatar__image--square'] = this.square;
       classes['avatar__image--guest'] = this.guest;
       classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
@@ -290,6 +281,14 @@ export default {
       return '';
     },
 
+    userStatus() {
+      if (this.status && this.user) {
+        return this.user.onlineStatus;
+      }
+
+      return false;
+    },
+
     guest() {
       return this.user && this.user.role === 'guest';
     },
@@ -351,9 +350,6 @@ export default {
 
       &--dot-20
         mask-image radial-gradient(circle at calc(100% - 3px) calc(100% - 3px), transparent 5px, white 5.5px)
-
-      &--square
-        border-radius 0 !important
 
       & img
         position absolute
