@@ -5,19 +5,36 @@
   >
     <transition name="fade">
       <div
-        v-if="onair && mic"
+        v-if="onair"
         class="avatar__onair"
         :style="{'border-radius': borderRadius + 'px'}"
       />
     </transition>
+
     <div
-      v-if="!noColor && (!loaded || !image)"
+      v-if="!noColor && (!loaded || !imageUrl)"
       class="avatar__no-image"
       :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
-    />
+    >
+      <svg
+        class="avatar__username"
+        viewBox="0 0 100 100"
+      >
+        <text
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="currentColor"
+          x="50%"
+          y="50%"
+          dy="0.1em"
+        >{{ userInitials }}</text>
+      </svg>
+      <span class="" />
+    </div>
+
     <div
-      v-if="image"
+      v-if="imageUrl"
       class="avatar__image"
       :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
@@ -26,13 +43,14 @@
         class="avatar__image__border"
         :style="{'border-radius': borderRadius + 'px'}"
       />
+
       <img
         loading="lazy"
         class=""
         alt=""
         :width="size"
         :height="size"
-        :src="image"
+        :src="imageUrl"
         @load="loadHandler"
       >
     </div>
@@ -51,6 +69,10 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
+import { getUserAvatarUrl } from '@libs/image';
+import { removeEmoji } from '@libs/texts';
+
 const COLORS = [
   '#ff0074AA',
   '#EFCA08',
@@ -62,11 +84,13 @@ const COLORS = [
   '#C64191',
   '#B0A8B9',
   '#4FFBDF',
-  '#4B4453', // used when no userId is provided
+  '#4B4453',
 ];
 
+const COLORS_LENGTH = COLORS.length;
+
 /**
- * status-to-color map (small circle in bottom right corner)
+ * Status to color map (small circle in bottom right corner)
  */
 const STATUS_COLORS = {
   online: {
@@ -84,7 +108,7 @@ const STATUS_COLORS = {
 };
 
 /**
- * sizes of holes in avatar (for status)
+ * Sizes of holes in avatar (for status)
  */
 const STATUS_SIZES = {
   32: 'avatar__image--dot',
@@ -93,9 +117,7 @@ const STATUS_SIZES = {
 };
 
 export default {
-
   props: {
-
     /**
      * Image size
      */
@@ -116,14 +138,6 @@ export default {
      * if true, image is not rounded
      */
     square: {
-      type: [ Boolean ],
-      default: false,
-    },
-
-    /**
-     * true if user is guest (make avatar greenish)
-     */
-    guest: {
       type: [ Boolean ],
       default: false,
     },
@@ -153,14 +167,6 @@ export default {
     },
 
     /**
-     * If person has mic on (in addition to onair)
-     */
-    mic: {
-      type: [ Boolean ],
-      default: true,
-    },
-
-    /**
      * ID of avatar's user
      */
     userId: {
@@ -176,6 +182,7 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       loaded: false,
@@ -183,6 +190,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      userById: 'users/getUserById',
+    }),
     /**
      * Set img size in css
      * @returns {object} height and width
@@ -202,6 +212,10 @@ export default {
       return STATUS_COLORS[this.status] || null;
     },
 
+    /**
+     * Image classes
+     * @returns {object}
+     */
     imageClasses() {
       const classes = {};
 
@@ -212,18 +226,76 @@ export default {
       return classes;
     },
 
+    /**
+     * Get static color from user id
+     * @return {string}
+     */
     imageColor() {
-      if (this.userId === null) {
-        return COLORS[10];
+      if (!this.userId) {
+        return COLORS[0];
       }
-      const firstDigit = this.userId.match(/\d/);
 
-      return COLORS[firstDigit];
+      const firstDigits = parseInt(this.userId
+        .replace(/[^0-9]/g, '')
+        .substr(0, 2));
+
+      const colorIndex = firstDigits % COLORS_LENGTH;
+
+      return COLORS[colorIndex];
+    },
+
+    imageUrl() {
+      if (this.image) {
+        return this.image;
+      }
+
+      if (this.userId && this.user) {
+        return getUserAvatarUrl(this.user, this.size);
+      }
+
+      return null;
+    },
+
+    user() {
+      if (this.userId && !this.image) {
+        return this.userById(this.userId);
+      }
+
+      return null;
+    },
+
+    /**
+     * Get user initials
+     * @example Andrews Hayman --> AH
+     * @return {string}
+     */
+    userInitials() {
+      if (this.user) {
+        /**
+         * User name without Emojis & extra spaces
+         */
+        const cleanName = removeEmoji(this.user.name).replace(/ +(?= )/g, '');
+        const nameArray = cleanName.split(' ');
+        const length = nameArray.length;
+
+        if (length === 0) {
+          return '';
+        } else if (length === 1) {
+          return nameArray[0].charAt(0);
+        } else {
+          return nameArray[0].charAt(0) + nameArray[1].charAt(0);
+        }
+      }
+
+      return '';
+    },
+
+    guest() {
+      return this.user && this.user.role === 'guest';
     },
   },
 
   methods: {
-
     loadHandler() {
       this.loaded = true;
       this.$emit('load');
@@ -243,6 +315,18 @@ export default {
       width 100%
       height 100%
       border-radius 50%
+
+    &__username
+      display block
+      width 100%
+      height 100%
+      color #fff
+      text-align center
+      font-size 40px
+
+      text
+        color #fff
+        text-shadow 0 1px 3px rgba(0,0,0,0.1)
 
     &__image
       position relative
