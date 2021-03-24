@@ -128,12 +128,14 @@ async function authorize() {
       reject(data);
     });
 
+    const selectedChannelId = store.getters['me/getSelectedChannelId'];
+
     const authData = {
       transaction: 'auth',
       workspaceId: store.getters['me/getSelectedWorkspaceId'],
       token: accessToken,
       onlineStatus: onlineStatus,
-      prevSocketId: client.prevSocketId,
+      prevSocketId: selectedChannelId ? client.prevSocketId : null,
       // ...(prevSocketId ? /**/{ prevSocketId } : prevSocketId),
     };
 
