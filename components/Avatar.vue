@@ -18,6 +18,7 @@
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
     >
       <svg
+        v-if="guest"
         class="avatar__username"
         viewBox="0 0 100 100"
       >
@@ -211,7 +212,6 @@ export default {
     imageClasses() {
       const classes = {};
 
-      classes['avatar__image--guest'] = this.guest;
       classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
       return classes;
