@@ -419,5 +419,15 @@
     "betaBonus" : "Бета-юзеры получат премиум-аккаунт на год",
     "terms": "Условия использования",
     "privacy": "Политика конфиденциальности"
+  },
+  "errors": {
+    "403": {
+      "title": "Forbidden",
+      "subtitle": "You don't have permission to access"
+    },
+    "404": {
+      "title": "404",
+      "subtitle": "Page not found"
+    }
   }
 }
