@@ -66,7 +66,7 @@ export default {
      */
     textSize: {
       type: Number,
-      default: 0.3,
+      default: 0.45,
     },
 
     /**
@@ -74,7 +74,7 @@ export default {
      */
     secondaryTextSize: {
       type: Number,
-      default: 0.2,
+      default: 0.35,
     },
 
     /**
@@ -147,6 +147,7 @@ export default {
       return {
         height: `${this.innerHeight / 2}px`,
         width: `${this.innerHeight / 2}px`,
+        'margin-left': `${this.padding * 2}px`,
       };
     },
     firstNameStyle() {
@@ -176,7 +177,7 @@ export default {
   animation loading 2s ease-in-out infinite
 
   &__avatar
-    background-color var(--new-UI-08)
+    background var(--new-bg-05)
     border-radius 50%
     flex-shrink 0
 
@@ -188,23 +189,21 @@ export default {
     flex-grow 2
 
   &__name
-    max-width 300px
-    min-width 130px
-    width 50%
+    max-width 500px
+    width 100%
     border-radius 1000px
-    background-color var(--new-UI-08)
+    background var(--new-bg-05)
 
     &--secondary
-      max-width 200px
-      min-width 50px
-      width 40%
+      max-width 250px
+      width 50%
+      opacity 0.5
 
   &__right-button
     width 20px
     height 20px
-    margin-left 8px
     border-radius 10px
-    background-color var(--new-UI-08)
+    background var(--new-bg-05)
     flex-shrink 0
 
 @keyframes loading {
