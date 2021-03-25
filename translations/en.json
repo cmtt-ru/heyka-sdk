@@ -28,8 +28,9 @@
       "inviteUser": "Invite"
     },
     "channel": {
-      "join": "Join",
+      "join": "Connect",
       "disconnect": "Disconnect",
+      "emptyDesc": "Enter the channel to invite others",
       "invite": "Invite to channel",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
