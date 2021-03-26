@@ -23,7 +23,7 @@
         class="badge__avatar"
         :user-id="user.id"
         :size="12"
-        border-radius="0"
+        :border-radius="0"
       />
       <div class="badge__name">
         {{ user.name }}
