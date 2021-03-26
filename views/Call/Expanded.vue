@@ -35,7 +35,7 @@
         class="user__avatar"
         :user-id="sharingUser.id"
         :size="20"
-        border-radius="4"
+        :border-radius="4"
       />
       <div class="user__name">
         {{ sharingUser.name }}
@@ -205,22 +205,22 @@ export default {
         this.insertVideo(publisher.stream);
       }
     });
+
     janusVideoroomWrapper.on('publisher-joined', publisher => {
       if (publisher.userId === this.userId) {
         this.handleVideoStream();
       }
     });
+
     janusVideoroomWrapper.on('textroom-data', this.onTextroomData.bind(this));
+
+    window.addEventListener('beforeunload', (e) => {
+      this.destroy();
+    });
   },
 
   beforeDestroy() {
-    janusVideoroomWrapper.disconnectTextroom();
-    janusVideoroomWrapper.removeAllListeners('new-stream');
-    janusVideoroomWrapper.removeAllListeners('publisher-joined');
-
-    this.$refs.video.onerror = null;
-    this.$refs.video.onloadedmetadata = null;
-    __resizeObserver.unobserve(this.$refs.expanded);
+    this.destroy();
   },
 
   destroyed() {
@@ -356,6 +356,20 @@ export default {
       const frameBuffer = captureFrame(this.$refs.video, 'jpeg');
 
       return 'data:image/jpeg;base64,' + frameBuffer.toString('base64');
+    },
+
+    /**
+     * Destroy stuff
+     * @returns {void}
+     */
+    destroy() {
+      janusVideoroomWrapper.disconnectTextroom();
+      janusVideoroomWrapper.removeAllListeners('new-stream');
+      janusVideoroomWrapper.removeAllListeners('publisher-joined');
+
+      this.$refs.video.onerror = null;
+      this.$refs.video.onloadedmetadata = null;
+      __resizeObserver.unobserve(this.$refs.expanded);
     },
   },
 };
