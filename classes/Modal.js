@@ -38,14 +38,18 @@ class Modal {
   */
   setModalComponent(vueComponent) {
     this.modalComponent = vueComponent;
-    this.modalComponent.$on('confirm', () => {
-      this.vueEventHandler('confirm');
+    this.modalComponent.$on('confirm', (data) => {
+      this.vueEventHandler('confirm', data);
     });
-    this.modalComponent.$on('reject', () => {
-      this.vueEventHandler('reject');
+    this.modalComponent.$on('reject', (data) => {
+      const amount = this.onCloseCallbacks.length;
+
+      for (let i = 0; i < amount; i++) {
+        this.vueEventHandler('reject', data);
+      }
     });
-    this.modalComponent.$on('close', () => {
-      this.vueEventHandler('close');
+    this.modalComponent.$on('close', (data) => {
+      this.vueEventHandler('close', data);
     });
   }
 
@@ -54,17 +58,16 @@ class Modal {
     * event: 'confirm' | 'reject' | 'close'
     *
     * @param {string} event - event name
+    * @param {object} data - any data
     * @returns {void}
   */
-  vueEventHandler(event) {
-    const callback = this.onCloseCallbacks.pop();
+  vueEventHandler(event, data) {
+    if (this.onCloseCallbacks[0]) {
+      const callback = this.onCloseCallbacks.pop();
 
-    if (event === 'confirm') {
-      callback(true);
-    } else {
-      callback(false);
+      callback(event, data);
+      store.dispatch('app/removeModal');
     }
-    store.dispatch('app/removeModal');
   }
 }
 

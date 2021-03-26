@@ -16,7 +16,9 @@
     "done": "Done",
     "online": "Online",
     "offline": "Offline",
-    "idle": "Idle"
+    "idle": "Idle",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
   },
   "calendar": {
     "justNow": "just now",
@@ -300,6 +302,12 @@
     "deleteUser": {
       "header": "Deleting user",
       "body": "Are you sure you want to delete {n}?"
+    },
+    "addGroup": {
+      "header1": "Creating new group",
+      "nameAlreadyTakenError": "Group with such name already exists",
+      "header2": "Add users to {n}",
+      "addUsers": "Add user | Add user | Add {n} users"
     }
   },
   "autoUpdate": {

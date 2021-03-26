@@ -173,7 +173,7 @@ export default {
     },
 
     /**
-     * error name from backend
+     * error text from backend
      */
     backendError: {
       type: String,
