@@ -303,6 +303,10 @@
       "header": "Deleting user",
       "body": "Are you sure you want to delete {n}?"
     },
+    "deleteGroup": {
+      "header": "Deleting group",
+      "body": "Are you sure you want to delete {n}?"
+    },
     "addGroup": {
       "header1": "Creating new group",
       "nameAlreadyTakenError": "Group with such name already exists",

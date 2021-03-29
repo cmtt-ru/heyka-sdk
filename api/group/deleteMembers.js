@@ -8,7 +8,9 @@ import axios from 'axios';
  */
 export default async function (id, users) {
   const res = await axios.delete(`/groups/${id}/members`, {
-    users,
+    data: {
+      users,
+    },
   });
 
   return res.data;
