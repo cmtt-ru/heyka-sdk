@@ -169,7 +169,7 @@ export default {
      */
     regexError: {
       type: String,
-      default: 'default',
+      default: null,
     },
 
     /**

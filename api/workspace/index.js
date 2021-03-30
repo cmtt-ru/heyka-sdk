@@ -1,5 +1,7 @@
 import checkCode from './checkCode';
 import createWorkspace from './createWorkspace';
+import editWorkspace from './editWorkspace';
+import deleteWorkspace from './deleteWorkspace';
 import getWorkspaceByID from './getWorkspaceByID';
 import getWorkspaces from './getWorkspaces';
 import inviteByCode from './inviteByCode';
@@ -17,6 +19,8 @@ import info from './info';
 export default {
   checkCode,
   createWorkspace,
+  editWorkspace,
+  deleteWorkspace,
   getWorkspaceByID,
   getWorkspaces,
   inviteByCode,

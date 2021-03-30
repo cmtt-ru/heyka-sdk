@@ -3,6 +3,7 @@
     class="image"
   >
     <avatar
+      :key="localImage"
       class="user__avatar"
       :image="localImage"
       :size="size"
@@ -87,6 +88,7 @@ export default {
 
   watch: {
     image(val) {
+      console.log('watcher triggered', val);
       this.localImage = val;
     },
   },
@@ -118,7 +120,8 @@ export default {
         this.localDisplayImage(event.target.files[0]);
         const result = await this.$API.user.image(formData);
 
-        this.localImage = this.tempSrc;
+        // console.log(result, this.tempSrc);
+
         this.$emit('input', result.fileId);
       } catch (err) {
         this.tempSrc = null;
@@ -136,6 +139,7 @@ export default {
 
       reader.onload = (e) => {
         this.tempSrc = e.target.result;
+        this.localImage = e.target.result;
       };
       reader.readAsDataURL(file);
     },
