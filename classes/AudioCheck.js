@@ -4,6 +4,7 @@ import hark from 'hark';
 import router from '@/router';
 import i18n from '@sdk/translations/i18n';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+import microphone from '@sdk/classes/microphone';
 
 const texts = i18n.t('notifications');
 
@@ -18,28 +19,19 @@ const audioTest = new Audio(require('@assets/audio/test-sound.mp3'));
  */
 export default class AudioCheck extends EventEmitter {
   /**
- * Init checker
- *
- * @param {function} invoke - ipcRenderer.invoke
- * @param {function} shutdown - electron-shutdown-command
- */
+   * Init checker
+   *
+   * @param {function} invoke - ipcRenderer.invoke
+   * @param {function} shutdown - electron-shutdown-command
+   */
   constructor(invoke = () => null, shutdown = () => null) {
     super();
     this.invoke = invoke;
     this.shutdown = shutdown;
 
-    this.__mediaStream = null;
-    this.__harkInstance = null;
-    this.__needMediaStream = false;
     this.__skipMutedTalk = false;
 
     this.mediaState = {};
-
-    store.watch(() => store.getters['app/getSelectedDevices'], n => {
-      if (this.__needMediaStream) {
-        this.startMediaStream();
-      }
-    });
 
     store.watch(() => store.getters['me/getMediaState'], state => {
       this.mediaState = state;
@@ -54,82 +46,60 @@ export default class AudioCheck extends EventEmitter {
   }
 
   /**
-     * List of all devices
-     * @returns {object}
-     */
+   * List of all devices
+   * @returns {object}
+   */
   _devices() {
     return store.getters['app/getDevices'];
   }
 
   /**
-     * List of selected devices
-     * @returns {object}
-     */
+   * List of selected devices
+   * @returns {object}
+   */
   _selectedDevices() {
     return store.getters['app/getSelectedDevices'];
   }
 
   /**
-     * Selected microphone model
-     * @returns {object}
-     */
+   * Selected microphone model
+   * @returns {object}
+   */
   _selectedMicrophone() {
     return this._selectedDevices().microphone;
   }
 
   /**
-     * Start media stream for microphone volume test
-     * @return {void}
-     */
-  async startMediaStream() {
-    this.destroyMediaStream();
-
-    this.__needMediaStream = true;
-
+   * Start listen microphone volume event
+   * @return {void}
+   */
+  async _startListenVolume() {
     if (this._selectedMicrophone() === null) {
       return;
     }
 
-    try {
-      this.__mediaStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          deviceId: this._selectedMicrophone(),
-        },
-      });
+    this.microphoneHandler = this.microphoneVolumeChanged.bind(this);
 
-      audioTest.setSinkId(this._selectedDevices().speaker);
-
-      this.__harkInstance = hark(this.__mediaStream, {
-        interval: 100,
-      });
-
-      this.__harkInstance.on('volume_change', (db) => {
-        this.microphoneVolume = db;
-        this.emit('volume_change', db);
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    microphone.listen('audio-check');
+    microphone.on('volume-change', this.microphoneHandler);
   }
 
   /**
-   * Destroy's hark instance and media stream
+   * Stop listen microphone volume event
    * @returns {void}
    */
-  destroyMediaStream() {
-    if (this.__harkInstance) {
-      this.__harkInstance.stop();
-    }
+  _stopListenVolume() {
+    microphone.removeListener('volume-change', this.microphoneHandler);
+    microphone.forget('audio-check');
+  }
 
-    if (this.subscribeMutedTalk.__harkInstance) {
-      this.unsubscribeMutedTalk();
-    }
-
-    if (this.__mediaStream) {
-      this.__mediaStream.getTracks().forEach(track => track.stop());
-    }
-
-    this.__needMediaStream = true;
+  /**
+   * Microphone volume change event handler
+   * @param {number} db – volume
+   * @returns {void}
+   */
+  microphoneVolumeChanged(db) {
+    this.microphoneVolume = db;
   }
 
   /**
@@ -149,7 +119,7 @@ export default class AudioCheck extends EventEmitter {
       return true;
     }
 
-    this.startMediaStream();
+    this._startListenVolume();
 
     const checkDelay = 100; // milliseconds
     const sufficientAmount = 20; // times
@@ -158,19 +128,19 @@ export default class AudioCheck extends EventEmitter {
     for (let i = 0; i < sufficientAmount; i++) {
       await new Promise(resolve => setTimeout(resolve, checkDelay));
       if (this.microphoneVolume !== vol1) {
-        this.destroyMediaStream();
+        this._stopListenVolume();
 
         return true;
       }
     }
 
     if (this._checkNoPermission()) {
-      this.destroyMediaStream();
+      this._stopListenVolume();
 
       return true;
     }
 
-    this.destroyMediaStream();
+    this._stopListenVolume();
 
     this._checkNoSound();
   }
@@ -303,6 +273,7 @@ export default class AudioCheck extends EventEmitter {
         deviceId: this._selectedMicrophone(),
       },
     });
+
     this.subscribeMutedTalk.__harkInstance = hark(this.subscribeMutedTalk.__mediaStream, {
       interval: 100,
     });

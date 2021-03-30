@@ -1,5 +1,8 @@
 <template>
-  <div class="progress-bar">
+  <div
+    class="progress-bar"
+    :class="{'progress-bar--animated': animated}"
+  >
     <div
       class="progress-bar__value"
       :style="{width: value + '%'}"
@@ -20,6 +23,11 @@ export default {
       type: Number,
       default: 0,
     },
+
+    animated: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
@@ -35,4 +43,8 @@ export default {
     &__value
       background var(--new-signal-02)
       height 100%
+
+    &--animated
+      .progress-bar__value
+        transition width linear 0.1s
 </style>

@@ -42,8 +42,9 @@
 import UiButton from '@components/UiButton';
 import { UiSelect } from '@components/Form';
 import ProgressBar from '@components/ProgressBar';
-import AudioCheck from '@classes/audioCheck';
 import mediaDevices from '@sdk/classes/mediaDevices';
+import microphone from '@sdk/classes/microphone';
+import sounds from '@sdk/classes/sounds';
 
 /**
  * DB compensator
@@ -98,7 +99,6 @@ export default {
       },
       set(value) {
         this.selectDevice('speaker', value);
-        // AudioCheck.startMediaStream();
       },
     },
 
@@ -111,7 +111,6 @@ export default {
       },
       set(value) {
         this.selectDevice('microphone', value);
-        // AudioCheck.startMediaStream();
       },
     },
 
@@ -129,16 +128,16 @@ export default {
   },
 
   mounted() {
-    AudioCheck.startMediaStream();
-    AudioCheck.on('volume_change', (db) => {
-      this.microphoneVolume = Math.max(0, db + Math.round(DB_COMPENSATOR));
-    });
+    microphone.listen('devices');
+    microphone.on('volume-change', this.microphoneVolumeHandler);
 
     mediaDevices.startLinuxDeviceChangeTimer();
   },
 
   destroyed() {
-    AudioCheck.destroyMediaStream();
+    microphone.forget('devices');
+    microphone.removeListener('volume-change', this.microphoneVolumeHandler);
+
     mediaDevices.stopLinuxDeviceChangeTimer();
   },
 
@@ -148,7 +147,7 @@ export default {
      * @returns {void}
      */
     playTestSound() {
-      AudioCheck.playTestSound();
+      sounds.play('test-sound');
     },
 
     /**
@@ -163,6 +162,10 @@ export default {
       data[device] = deviceId;
 
       this.$store.dispatch('app/setSelectedDevices', data);
+    },
+
+    microphoneVolumeHandler(db) {
+      this.microphoneVolume = Math.max(0, db + Math.round(DB_COMPENSATOR));
     },
   },
 };

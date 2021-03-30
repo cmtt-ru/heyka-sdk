@@ -87,7 +87,6 @@ export default {
       }
       janusWrapper.setMuting(!state);
       if (state) {
-        AudioCheck.destroyMediaStream();
         AudioCheck.checkAudio();
       }
     },
@@ -172,10 +171,6 @@ export default {
     }
   },
 
-  destroyed() {
-    AudioCheck.destroyMediaStream();
-  },
-
   methods: {
     setOperationStart(operation) {
       this.$store.dispatch('janus/setInProgress', true);
@@ -217,7 +212,6 @@ export default {
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
-          console.log('AudioCheck.subscribeMutedTalk');
           AudioCheck.subscribeMutedTalk();
         }
 
@@ -304,8 +298,6 @@ export default {
       }
 
       this.resetOperations();
-
-      AudioCheck.destroyMediaStream();
 
       if (audioQC) {
         audioQC.destroy();
