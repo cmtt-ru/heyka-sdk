@@ -1,6 +1,8 @@
 import checkCode from './checkCode';
 import createWorkspace from './createWorkspace';
 import editWorkspace from './editWorkspace';
+import getWorkspaceSettings from './getWorkspaceSettings';
+import setWorkspaceSettings from './setWorkspaceSettings';
 import deleteWorkspace from './deleteWorkspace';
 import getWorkspaceByID from './getWorkspaceByID';
 import getWorkspaces from './getWorkspaces';
@@ -20,6 +22,8 @@ export default {
   checkCode,
   createWorkspace,
   editWorkspace,
+  getWorkspaceSettings,
+  setWorkspaceSettings,
   deleteWorkspace,
   getWorkspaceByID,
   getWorkspaces,
