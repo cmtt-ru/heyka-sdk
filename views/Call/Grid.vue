@@ -204,6 +204,14 @@ export default {
   },
 
   async mounted() {
+    window.pauseAll = () => {
+      janusVideoroomWrapper.pauseAllSubscriptions();
+    };
+
+    window.resumeAll = () => {
+      janusVideoroomWrapper.resumeAllSubscriptions();
+    };
+
     this.mounted = true;
     window.addEventListener('resize', this.resize, false); // TODO: add small debounce for performance
     this.resize();
