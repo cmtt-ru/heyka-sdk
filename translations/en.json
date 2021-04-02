@@ -7,15 +7,26 @@
     "cancel": "Cancel",
     "search": "Search",
     "create": "Create",
+    "upload": "Upload",
     "delete": "Delete",
     "edit": "Edit",
+    "next": "Next",
     "yes": "Yes",
     "no": "No",
     "back": "Back",
     "done": "Done",
     "online": "Online",
     "offline": "Offline",
-    "idle": "Idle"
+    "idle": "Idle",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
+  },
+  "calendar": {
+    "justNow": "just now",
+    "minutes": "m",
+    "hours": "h",
+    "days": "d",
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   },
   "workspace": {
     "navbar": {
@@ -230,6 +241,14 @@
     },
     "userMore": {
       "edit": "Edit profile"
+    },
+    "manageUser": {
+      "admin": "Make an admin",
+      "noAdmin": "Take away admin rights"
+    },
+    "manageWorkspace": {
+      "edit": "Edit info",
+      "delete": "Delete workspace"
     }
   },
   "notifications": {
@@ -284,6 +303,50 @@
       "text": "Turned off your mic",
       "turnOn": "Turn it on"
     }
+  },
+  "modal": {
+    "common": {
+      "name": "Name",
+      "saveChanges": "Save changes"
+    },
+    "deleteUser": {
+      "header": "Deleting user",
+      "body": "Are you sure you want to delete {n}?"
+    },
+    "deleteGroup": {
+      "header": "Deleting group",
+      "body": "Are you sure you want to delete {n}?"
+    },
+    "editGroup": {
+      "header": "Rename group"
+    },
+    "addGroup": {
+      "header1": "Creating new group",
+      "nameAlreadyTakenError": "Group with such name already exists",
+      "header2": "Add users to {n}",
+      "addUsers": "Add user | Add user | Add {n} users"
+    },
+    "deleteWorkspace": {
+      "header": "Deleting workspace",
+      "body": "Enter the name of the workspace to confirm"
+    },
+    "editWorkspace": {
+      "header": "Edit workspace info",
+      "avatar": "We recommended an image of at least 512x512 for the avatar"
+    }
+  },
+  "manage": {
+    "members": "Members",
+    "groups": "Groups",
+    "canInvite": "All members can invite new users",
+    "inviteUsersText": "You can invite users via",
+    "inviteUsersLink": "Heyka app",
+    "noGroupsHeader": "You have no groups",
+    "noGroupsDesc": "You can gather users in groups. It's neat, try it!",
+    "noGroupButton": "Create group",
+    "addGroup": "New group",
+    "addMembers": "Add members",
+    "membersAmount": "{n} members | {n} member | {n} members"
   },
   "autoUpdate": {
     "message": "Updated version of Heyka is available and will be installed at the next launch",

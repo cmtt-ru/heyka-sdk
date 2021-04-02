@@ -24,6 +24,25 @@ export function msToTime(duration) {
   return hours + ':' + minutes + ':' + seconds;
 }
 
+export function dateToElapsedTime(date, texts) {
+  date = new Date(date);
+  const deltaTime = Date.now() - date.getTime();
+
+  if (deltaTime < 1000 * 60) {
+    return texts.justNow;
+  } else if (deltaTime < 1000 * 60 * 60) {
+    return `${Math.floor((deltaTime / (1000 * 60)))}${texts.minutes}`;
+  } else if (deltaTime < 1000 * 60 * 60 * 24) {
+    return `${Math.floor((deltaTime / (1000 * 60 * 60)))}${texts.hours}`;
+  } else if (deltaTime < 1000 * 60 * 60 * 24 * 7) {
+    return `${Math.floor((deltaTime / (1000 * 60 * 60 * 24)))}${texts.days}`;
+  } else if (date.getUTCFullYear() === new Date().getUTCFullYear()) {
+    return `${date.getUTCDate()} ${texts.months[date.getMonth()]}`;
+  } else {
+    return `${date.getUTCDate()} ${texts.months[date.getMonth()]} ${date.getUTCFullYear()}`;
+  }
+}
+
 /**
  * Convert html tags to safe format
  * @example: <div>test</div> ==> &lt;div&gt;test&lt;/div&gt;

@@ -118,7 +118,6 @@ export default {
         this.localDisplayImage(event.target.files[0]);
         const result = await this.$API.user.image(formData);
 
-        this.localImage = this.tempSrc;
         this.$emit('input', result.fileId);
       } catch (err) {
         this.tempSrc = null;
@@ -136,6 +135,7 @@ export default {
 
       reader.onload = (e) => {
         this.tempSrc = e.target.result;
+        this.localImage = e.target.result;
       };
       reader.readAsDataURL(file);
     },
