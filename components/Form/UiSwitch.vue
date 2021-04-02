@@ -85,6 +85,7 @@ export default {
   height 18px
   border-radius 4px
   cursor pointer
+  overflow hidden
 
   &--disabled
     opacity 0.5
