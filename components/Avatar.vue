@@ -31,7 +31,7 @@
         :src="image"
         @load="loadHandler"
       >
-        <div
+      <div
         class="avatar__image__border"
         :style="{'border-radius': borderRadius + 'px'}"
       />
@@ -260,7 +260,7 @@ export default {
         right 0
         display block
         background-color transparent
-        box-shadow inset 0 0 0 2px rgba(0,0,0,0.1)
+        box-shadow inset 0 0 0 1px rgba(0,0,0,0.1)
 
       &--dot
         mask-image radial-gradient(circle at calc(100% - 4px) calc(100% - 4px), transparent 6px, white 6.5px)

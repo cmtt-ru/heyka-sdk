@@ -6,8 +6,8 @@ import axios from 'axios';
  *
  * @returns {string} 'ok'
  */
-export default function (id) {
-  const res = axios.delete(`/workspaces/${id}`);
+export default async function (id) {
+  const res = await axios.delete(`/workspaces/${id}`);
 
   return res.data;
 }

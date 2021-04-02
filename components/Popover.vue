@@ -4,14 +4,16 @@
     :style="{'min-width': minWidth + 'px'}"
   >
     <div class="popover__header">
-      <div class="popover__header__text">Actions</div>
+      <div class="popover__header__text">
+        Actions
+      </div>
       <svg-icon
-      class="popover__header__close"
-      data-popover-close
-      :width="18"
-      :height="18"
-      name="close"
-    />
+        class="popover__header__close"
+        data-popover-close
+        :width="18"
+        :height="18"
+        name="close"
+      />
     </div>
     <slot />
   </div>
@@ -54,9 +56,9 @@ export default {
       box-shadow 0px 0px 0px 300vh rgba(0, 0, 0, 0.28);
 
     &__header
-      display none 
+      display none
       flex-direction row
-      justify-content space-between 
+      justify-content space-between
       align-items center
       padding 13px 20px
       height 52px

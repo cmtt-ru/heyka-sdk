@@ -16,8 +16,8 @@ import axios from 'axios';
  *   @returns {object} data.workspace.user
  *    @returns {string} data.workspace.user.role  - eg. "admin"
  */
-export default function (params) {
-  const res = axios.post('/workspaces', params);
+export default async function (params) {
+  const res = await axios.post('/workspaces', params);
 
   return res.data;
 }

@@ -20,8 +20,8 @@ import axios from 'axios';
  *   @returns {date} data.workspace.createdAt
  *   @returns {date} data.workspace.updatedAt
  */
-export default function (code) {
-  const res = axios.get(`/check/${code}`);
+export default async function (code) {
+  const res = await axios.get(`/check/${code}`);
 
   return res.data;
 }

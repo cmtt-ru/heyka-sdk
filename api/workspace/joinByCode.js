@@ -6,8 +6,8 @@ import axios from 'axios';
  *
  * @returns {string} result string
  */
-export default function (code) {
-  const res = axios.post(`/join/${code}`);
+export default async function (code) {
+  const res = await axios.post(`/join/${code}`);
 
   return res.data;
 }

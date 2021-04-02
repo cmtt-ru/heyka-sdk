@@ -6,8 +6,8 @@ import axios from 'axios';
  *
  * @returns {string} result string
  */
-export default function (id) {
-  const res = axios.post(`/workspaces/${id}/leave`);
+export default async function (id) {
+  const res = await axios.post(`/workspaces/${id}/leave`);
 
   return res.data;
 }

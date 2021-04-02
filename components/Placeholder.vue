@@ -4,6 +4,7 @@
       v-for="index in amount"
       :key="index"
       class="placeholder"
+      :class="{'placeholder--animate': !noAnimation}"
       :style="placeholderStyle"
     >
       <div
@@ -112,7 +113,7 @@ export default {
     /**
      * true if no placeholder animation needed
      */
-    static: {
+    noAnimation: {
       type: Boolean,
       default: false,
     },
@@ -174,7 +175,9 @@ export default {
   justify-content space-between
   align-items center
   box-sizing border-box
-  animation loading 2s ease-in-out infinite
+
+  &--animate
+    animation loading 2s ease-in-out infinite
 
   &__avatar
     background var(--new-bg-05)

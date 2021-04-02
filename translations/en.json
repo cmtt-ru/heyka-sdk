@@ -241,6 +241,14 @@
     },
     "userMore": {
       "edit": "Edit profile"
+    },
+    "manageUser": {
+      "admin": "Make an admin",
+      "noAdmin": "Take away admin rights"
+    },
+    "manageWorkspace": {
+      "edit": "Edit info",
+      "delete": "Delete workspace"
     }
   },
   "notifications": {
@@ -326,6 +334,19 @@
       "header": "Edit workspace info",
       "avatar": "We recommended an image of at least 512x512 for the avatar"
     }
+  },
+  "manage": {
+    "members": "Members",
+    "groups": "Groups",
+    "canInvite": "All members can invite new users",
+    "inviteUsersText": "You can invite users via",
+    "inviteUsersLink": "Heyka app",
+    "noGroupsHeader": "You have no groups",
+    "noGroupsDesc": "You can gather users in groups. It's neat, try it!",
+    "noGroupButton": "Create group",
+    "addGroup": "New group",
+    "addMembers": "Add members",
+    "membersAmount": "{n} members | {n} member | {n} members"
   },
   "autoUpdate": {
     "message": "Updated version of Heyka is available and will be installed at the next launch",

@@ -42,14 +42,14 @@ class Modal {
       this.vueEventHandler('confirm', data);
     });
     this.modalComponent.$on('reject', (data) => {
+      this.vueEventHandler('reject', data);
+    });
+    this.modalComponent.$on('close', (data) => {
       const amount = this.onCloseCallbacks.length;
 
       for (let i = 0; i < amount; i++) {
-        this.vueEventHandler('reject', data);
+        this.vueEventHandler('close', data);
       }
-    });
-    this.modalComponent.$on('close', (data) => {
-      this.vueEventHandler('close', data);
     });
   }
 

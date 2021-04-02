@@ -3,7 +3,6 @@
     class="image"
   >
     <avatar
-      :key="localImage"
       class="user__avatar"
       :image="localImage"
       :size="size"
@@ -88,7 +87,6 @@ export default {
 
   watch: {
     image(val) {
-      console.log('watcher triggered', val);
       this.localImage = val;
     },
   },
@@ -119,8 +117,6 @@ export default {
       try {
         this.localDisplayImage(event.target.files[0]);
         const result = await this.$API.user.image(formData);
-
-        // console.log(result, this.tempSrc);
 
         this.$emit('input', result.fileId);
       } catch (err) {
