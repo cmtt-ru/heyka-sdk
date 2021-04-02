@@ -37,6 +37,7 @@
 <script>
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
+import discardPass from '@api/auth/discardPass';
 
 export default {
   components: {
@@ -74,7 +75,7 @@ export default {
   methods: {
     async resetHandler() {
       try {
-        await this.$API.auth.discardPass({ email: this.login.email });
+        await discardPass({ email: this.login.email });
       } catch (err) {
         console.log('ERROR:', err);
       }
