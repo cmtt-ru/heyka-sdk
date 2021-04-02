@@ -11,6 +11,7 @@ class Sounds {
       'user-joined': new Audio(require('@assets/audio/user-joined.mp3')),
       'microphone-toggle': new Audio(require('@assets/audio/mute.mp3')),
       push: new Audio(require('@assets/audio/push.mp3')),
+      'test-sound': new Audio(require('@assets/audio/push.mp3')),
     };
   }
 
