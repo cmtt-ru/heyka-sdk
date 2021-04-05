@@ -310,6 +310,8 @@ export default {
         mediaCapturer.destroyStream(this.$refs.audio.srcObject);
         this.$refs.audio.srcObject = null;
       }
+
+      AudioCheck.unsubscribeMutedTalk();
     },
 
     /**
