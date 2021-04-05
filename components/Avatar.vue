@@ -33,7 +33,7 @@
       >
       <div
         class="avatar__image__border"
-        :style="{'border-radius': borderRadius + 'px', ...outline}"
+        :style="outlineStyle"
       />
     </div>
 
@@ -196,10 +196,11 @@ export default {
       };
     },
 
-    outline() {
+    outlineStyle() {
       const width = this.size > BORDERLINE_WIDTH ? 2 : 1;
 
       return {
+        'border-radius': this.borderRadius + 'px',
         'box-shadow': `inset 0 0 0 ${width}px rgba(0,0,0,0.1)`,
       };
     },
