@@ -123,6 +123,7 @@ export default {
       mountedTimestamp: Date.now(),
       miniChatBadge: false,
       miniChatBadgeKey: 0,
+      pausedByScreenSharing: false,
     };
   },
 
@@ -205,14 +206,6 @@ export default {
   },
 
   async mounted() {
-    window.pauseAll = () => {
-      janusVideoroomWrapper.pauseAllSubscriptions();
-    };
-
-    window.resumeAll = () => {
-      janusVideoroomWrapper.resumeAllSubscriptions();
-    };
-
     this.mounted = true;
     window.addEventListener('resize', this.resize, false); // TODO: add small debounce for performance
     this.resize();
@@ -266,11 +259,12 @@ export default {
     if (!IS_ELECTRON) {
       mediaCapturer.removeAllListeners('stop-sharing-screen');
     }
-  },
 
-  destroyed() {
     window.removeEventListener('resize', this.resize, false);
+
     broadcastEvents.removeAllListeners('grid-expand');
+    broadcastEvents.off('grid-hide', this.windowHideHandler);
+    broadcastEvents.off('grid-expanded-focus', this.windowFocusHandler);
   },
 
   methods: {
@@ -397,11 +391,19 @@ export default {
     },
 
     windowFocusHandler() {
-      window.resumeAll();
+      if (this.pausedByScreenSharing) {
+        janusVideoroomWrapper.resumeAllSubscriptions();
+
+        this.pausedByScreenSharing = false;
+      }
     },
 
     windowHideHandler() {
-      window.pauseAll();
+      if (this.amISharingScreen) {
+        janusVideoroomWrapper.pauseAllSubscriptions();
+
+        this.pausedByScreenSharing = true;
+      }
     },
 
     userAvatar: getUserAvatarUrl,
