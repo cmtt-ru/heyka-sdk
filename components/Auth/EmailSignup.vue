@@ -52,6 +52,7 @@ import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
+import joinByCode from '@api/workspace/joinByCode';
 
 export default {
   components: {
@@ -95,7 +96,7 @@ export default {
         const inviteCode = authFileStore.get('inviteCode');
 
         if (inviteCode) {
-          this.$API.workspace.joinByCode(inviteCode);
+          joinByCode(inviteCode);
           authFileStore.set('inviteCode', null);
         }
 
