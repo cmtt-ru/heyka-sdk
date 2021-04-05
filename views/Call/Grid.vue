@@ -123,6 +123,7 @@ export default {
       mountedTimestamp: Date.now(),
       miniChatBadge: false,
       miniChatBadgeKey: 0,
+      pausedByScreenSharing: false,
     };
   },
 
@@ -137,6 +138,7 @@ export default {
       isSharingFullScreen: 'janus/isSharingFullScreen',
       hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
       miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
+      amISharingScreen: 'amISharingScreen',
     }),
 
     /**
@@ -212,6 +214,10 @@ export default {
       this.expandedClickHandler(userId);
     });
 
+    broadcastEvents.on('grid-hide', this.windowHideHandler);
+
+    broadcastEvents.on('grid-expanded-focus', this.windowFocusHandler);
+
     // Send command to subscribe for all video publishers
     this.handleVideoStreams();
 
@@ -253,11 +259,12 @@ export default {
     if (!IS_ELECTRON) {
       mediaCapturer.removeAllListeners('stop-sharing-screen');
     }
-  },
 
-  destroyed() {
     window.removeEventListener('resize', this.resize, false);
+
     broadcastEvents.removeAllListeners('grid-expand');
+    broadcastEvents.off('grid-hide', this.windowHideHandler);
+    broadcastEvents.off('grid-expanded-focus', this.windowFocusHandler);
   },
 
   methods: {
@@ -381,6 +388,22 @@ export default {
         name: 'expanded',
         params: { id },
       });
+    },
+
+    windowFocusHandler() {
+      if (this.pausedByScreenSharing) {
+        janusVideoroomWrapper.resumeAllSubscriptions();
+
+        this.pausedByScreenSharing = false;
+      }
+    },
+
+    windowHideHandler() {
+      if (this.amISharingScreen) {
+        janusVideoroomWrapper.pauseAllSubscriptions();
+
+        this.pausedByScreenSharing = true;
+      }
     },
 
     userAvatar: getUserAvatarUrl,

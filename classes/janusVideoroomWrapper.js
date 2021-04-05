@@ -311,6 +311,18 @@ class JanusVideoroomWrapper extends EventEmitter {
   }
 
   /**
+   * Pause all subscriptions that are playing
+   * @returns {void}
+   */
+  pauseAllSubscriptions() {
+    this.__publishers.forEach(publisher => {
+      if (publisher.plugin && !publisher.paused) {
+        this.pauseSubscription(publisher.janusId);
+      }
+    });
+  }
+
+  /**
    * Unpause all subscriptions that are in pause
    * @returns {void}
    */
