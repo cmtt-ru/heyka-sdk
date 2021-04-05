@@ -137,6 +137,7 @@ export default {
       isSharingFullScreen: 'janus/isSharingFullScreen',
       hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
       miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
+      amISharingScreen: 'amISharingScreen',
     }),
 
     /**
@@ -219,6 +220,10 @@ export default {
     broadcastEvents.on('grid-expand', (userId) => {
       this.expandedClickHandler(userId);
     });
+
+    broadcastEvents.on('grid-hide', this.windowHideHandler);
+
+    broadcastEvents.on('grid-expanded-focus', this.windowFocusHandler);
 
     // Send command to subscribe for all video publishers
     this.handleVideoStreams();
@@ -389,6 +394,14 @@ export default {
         name: 'expanded',
         params: { id },
       });
+    },
+
+    windowFocusHandler() {
+      window.resumeAll();
+    },
+
+    windowHideHandler() {
+      window.pauseAll();
     },
 
     userAvatar: getUserAvatarUrl,
