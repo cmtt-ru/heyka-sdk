@@ -175,6 +175,10 @@ export default {
     },
 
     miniChatLastMessageTimestamp(val) {
+      if (!this.miniChatMessages.length) {
+        return;
+      }
+
       const lastMessage = this.miniChatMessages.slice(-1)[0];
 
       if (this.me.user.id !== lastMessage.userId) {
