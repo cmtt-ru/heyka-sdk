@@ -129,6 +129,10 @@ export default {
      * @returns {void}
      */
     scrollHandler: throttle(THROTTLE_TIMEOUT, function () {
+      if (!this.$refs.body) {
+        return;
+      }
+
       if (this.$refs.body.scrollHeight > this.$refs.body.clientHeight) {
         if (this.headerHasShadow) {
           this.headerShadow = this.$refs.body.scrollTop > 0;
