@@ -307,7 +307,8 @@
   "modal": {
     "common": {
       "name": "Name",
-      "saveChanges": "Save changes"
+      "saveChanges": "Save changes",
+      "recommendAvatarSize": "We recommend using at least 512x512 image"
     },
     "deleteUser": {
       "header": "Deleting user",
@@ -340,7 +341,7 @@
     "groups": "Groups",
     "canInvite": "All members can invite new users",
     "inviteUsersText": "You can invite users via",
-    "inviteUsersLink": "Heyka app",
+    "inviteUsersLink": "Heyka",
     "noGroupsHeader": "You have no groups",
     "noGroupsDesc": "You can gather users in groups. It's neat, try it!",
     "noGroupButton": "Create group",
