@@ -481,6 +481,24 @@
     "waitingListText": "in waiting list now",
     "betaBonus" : "Beta users will receive a free premium account for year",
     "terms": "Terms of Use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "info": [
+      {
+        "header": "Speed",
+        "desc": "Instant connections to rooms, up to 32 participants simultaneously"
+      },
+      {
+        "header": "Simplicity",
+        "desc": "Compact as a radio set, and clean design on top of it. No irritating sounds and call windows over whole screen"
+      },
+      {
+        "header": "Transparency",
+        "desc": "No personal data collection: you can monitor all data we are sending to the server"
+      },
+      {
+        "header": "Cross-platform",
+        "desc": "Heyka works on iOS, Android, Windows, Mac, Linux and even in browsers"
+      }
+    ]
   }
 }
