@@ -354,7 +354,8 @@
     "message": "Updated version of Heyka is available and will be installed at the next launch",
     "install": "Install",
     "later": "Later",
-    "noUpdate": "No updates available"
+    "noUpdate": "No updates available",
+    "downloading": "Downloading update..."
   },
   "tooltips": {
     "search": "Search",
