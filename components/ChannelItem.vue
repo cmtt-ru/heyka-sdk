@@ -65,7 +65,6 @@ const ANIM_TIME = 1000; // must be higher than in css in Sidebar.vue (include AP
 
 const ICON_MAP = {
   public: 'channel',
-  publicOnline: 'channelOnAir',
   private: 'lock',
   temp: 'clock',
   default: 'channel',

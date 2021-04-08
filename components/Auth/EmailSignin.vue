@@ -138,7 +138,7 @@ export default {
           }
 
           await this.$router.push({
-            name: 'landing',
+            name: 'Landing',
           });
         }
       } catch (err) {
@@ -154,6 +154,8 @@ export default {
         }
       } finally {
         this.loginInProgress = false;
+        // window.postMessage('close-auth', '*');
+        window.localStorage.setItem('closeAuth', 'true');
       }
     },
 

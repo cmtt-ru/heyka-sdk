@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div class="auth__cover">
-      <img src="./img/auth-cover.jpg">
+      <img :src="imgSrc">
     </div>
 
     <div class="auth__body">
@@ -66,6 +66,14 @@ export default {
     texts() {
       return this.$t('auth');
     },
+
+    imgSrc() {
+      if (this.$themes.getCurrentTheme() === 'light') {
+        return require('./img/auth-cover.jpg');
+      }
+
+      return require('./img/auth-cover-dark.png');
+    },
   },
 
   watch: {
@@ -75,6 +83,10 @@ export default {
   },
 
   mounted() {
+    if (this.$route.query.darkTheme) {
+      this.$themes.manualSetTheme('dark');
+    }
+
     if (!IS_ELECTRON) {
       const inviteCode = this.$route.query.invite;
 
@@ -89,6 +101,9 @@ export default {
       }
     }
   },
+  // beforeDestroy() {
+  //   this.$themes.manualSetTheme('light');
+  // },
 
   methods: {
     /**
@@ -107,143 +122,147 @@ export default {
 </script>
 
 <style lang="stylus">
-  //@import '~@styles/global.styl';
+//@import '~@styles/global.styl';
 
-  .auth
-    display flex
-    height 100%
-    overflow hidden
-    justify-content center
-    font-size 12px
-    line-height 1.5
+.auth
+  display flex
+  height 100%
+  overflow hidden
+  justify-content center
+  font-size 12px
+  line-height 1.5
 
-    @media $desktop
-      border-radius 10px
-      box-shadow 0 2px 6px rgba(0, 0, 0, 0.12)
-      width 520px
+  @media $desktop
+    border-radius 10px
+    box-shadow 0 2px 6px rgba(0, 0, 0, 0.12)
+    width 520px
 
-    @media $mobile
-      height 520px
-      width 100%
-
-    &__cover
-      width 220px
-
-      img
-        display block
-        width 100%
-
-      @media $mobile
-        display none
-
-    &__body
-      display flex
-      width 300px
-      justify-content center
-
-      &__wrapper
-        position relative
-        display flex
-        width 268px
-        flex-direction column
-        overflow hidden
-
-    &__header
-      height 80px
-
-      .ui-button
-        margin-top 35px
-        margin-left -4px
-
-      .icon--arrow-down
-        transform rotate(90deg)
-        width 20px
-        height 20px
-
-    &__footer
-      height 65px
-      color var(--new-UI-04)
-
-    &__form
-      position relative
-      flex 1
-
-      h1
-        font-size 26px
-        font-weight 700
-        line-height 1.6
-
-  /* Used in child components */
-  .auth-page
-    position absolute
+  @media $mobile
     width 100%
-    will-change transform
+    height 100vh
+
+  &__cover
+    width 220px
+
+    img
+      display block
+      width 100%
+      height 100%
+      object-fit cover
+
+  &__body
+    display flex
+    width 300px
+    justify-content center
+
+    &__wrapper
+      position relative
+      display flex
+      width 268px
+      padding 0 10px
+      flex-direction column
+      overflow hidden
+
+  &__header
+    height 80px
+
+    .ui-button
+      margin-top 35px
+      margin-left -4px
+
+    .icon--arrow-down
+      transform rotate(90deg)
+      width 20px
+      height 20px
+
+  &__footer
+    height 65px
+    color var(--new-UI-04)
+
+  &__form
+    position relative
+    flex 1
 
     h1
       font-size 26px
       font-weight 700
       line-height 1.6
-      margin-bottom 16px
 
-    .ui-button--9
-      font-weight normal
-      font-size 12px
+@media screen and (max-width: 519px)
+  .auth__cover
+    display none
 
-  /* Page transitions */
-  $animation-duration = 350ms
-  .next-leave-to
-    animation leaveToLeft $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+/* Used in child components */
+.auth-page
+  position absolute
+  width 100%
+  will-change transform
 
-  .next-enter-active
-    transform translateX(100%)
+  h1
+    font-size 26px
+    font-weight 700
+    line-height 1.6
+    margin-bottom 16px
 
-  .next-enter-to
-    animation enterFromRight $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
-    transform translateX(100%)
+  .ui-button--9
+    font-weight normal
+    font-size 12px
 
-  .prev-leave-to
-    animation leaveToRight $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+/* Page transitions */
+$animation-duration = 350ms
+.next-leave-to
+  animation leaveToLeft $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
 
-  .prev-enter-active
-    transform translateX(-100%)
+.next-enter-active
+  transform translateX(100%)
 
-  .prev-enter-to
-    animation enterFromLeft $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+.next-enter-to
+  animation enterFromRight $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+  transform translateX(100%)
 
-  @keyframes leaveToLeft {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
+.prev-leave-to
+  animation leaveToRight $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+
+.prev-enter-active
+  transform translateX(-100%)
+
+.prev-enter-to
+  animation enterFromLeft $animation-duration both cubic-bezier(0.165, 0.84, 0.44, 1)
+
+@keyframes leaveToLeft {
+  from {
+    transform: translateX(0);
   }
-
-  @keyframes enterFromLeft {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  to {
+    transform: translateX(-100%);
   }
+}
 
-  @keyframes leaveToRight {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100%);
-    }
+@keyframes enterFromLeft {
+  from {
+    transform: translateX(-100%);
   }
+  to {
+    transform: translateX(0);
+  }
+}
 
-  @keyframes enterFromRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+@keyframes leaveToRight {
+  from {
+    transform: translateX(0);
   }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes enterFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 
 </style>
