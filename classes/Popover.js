@@ -151,10 +151,16 @@ export default class Popover {
         return component.default;
       }
     } catch (err) {
-      const component = await import(/* webpackMode: "eager" */ `@sdk/views/ContextMenus/${name}.vue`);
+      try {
+        const component = await import(/* webpackMode: "eager" */ `@sdk/views/ContextMenus/${name}.vue`);
 
-      if (component.default) {
-        return component.default;
+        if (component.default) {
+          return component.default;
+        }
+      } catch (err2) {
+        console.log('no popover file found');
+
+        return null;
       }
     }
   }
@@ -174,6 +180,10 @@ export default class Popover {
     }
 
     const Component = await this.loadComponent(this.componentName);
+
+    if (Component === null) {
+      return false;
+    }
     const ComponentClass = Vue.extend(Component);
 
     ComponentClass.options.router = router;
@@ -320,7 +330,11 @@ export default class Popover {
     this.showInProgress = true;
 
     if (state) {
-      await this.mount();
+      const res = await this.mount();
+
+      if (res === false) {
+        return;
+      }
 
       let refElement = this.element;
 
