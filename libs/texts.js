@@ -24,6 +24,13 @@ export function msToTime(duration) {
   return hours + ':' + minutes + ':' + seconds;
 }
 
+/**
+ * Convert date to fancy "last seen" time
+ *
+ * @param {date} date – date
+ * @param {object} texts – object with "justNow", "minutes", "hours", "days" and "months" fields (for i18n)
+ * @returns {string}
+ */
 export function dateToElapsedTime(date, texts) {
   date = new Date(date);
   const deltaTime = Date.now() - date.getTime();
