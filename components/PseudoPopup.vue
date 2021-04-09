@@ -169,8 +169,6 @@ export default {
     smartScrollToBottom(n) {
       const BOTTOM_DISTANCE = 150;
 
-      console.log('n', n);
-
       if (this.$refs.body.scrollTop > this.$refs.body.scrollHeight - this.$refs.body.clientHeight - (BOTTOM_DISTANCE + n)) {
         this.$refs.body.scrollTo(0, this.$refs.body.scrollHeight);
       }
