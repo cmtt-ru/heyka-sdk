@@ -19,7 +19,8 @@
     "offline": "Не в сети",
     "idle": "Недоступен",
     "selectAll": "Выбрать всех",
-    "deselectAll": "Отм. выбор"
+    "deselectAll": "Отм. выбор",
+    "actions": "Действия"
   },
   "calendar": {
     "justNow": "только что",
