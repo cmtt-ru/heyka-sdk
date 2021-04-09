@@ -5,7 +5,7 @@
   >
     <div class="popover__header">
       <div class="popover__header__text">
-        Actions
+        {{ $t('techTexts.actions') }}
       </div>
       <svg-icon
         class="popover__header__close"

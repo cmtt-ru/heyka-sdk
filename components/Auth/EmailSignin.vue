@@ -138,7 +138,7 @@ export default {
             joinByCode(inviteCode);
             authFileStore.set('inviteCode', null);
           }
-
+          window.localStorage.setItem('closeAuth', 'true');
           await this.$router.push({
             name: 'Landing',
           });
@@ -156,8 +156,6 @@ export default {
         }
       } finally {
         this.loginInProgress = false;
-        // window.postMessage('close-auth', '*');
-        window.localStorage.setItem('closeAuth', 'true');
       }
     },
 

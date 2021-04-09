@@ -19,7 +19,8 @@
     "offline": "Offline",
     "idle": "Idle",
     "selectAll": "Select all",
-    "deselectAll": "Deselect all"
+    "deselectAll": "Deselect all",
+    "actions": "Actions"
   },
   "calendar": {
     "justNow": "just now",
