@@ -24,6 +24,13 @@ export function msToTime(duration) {
   return hours + ':' + minutes + ':' + seconds;
 }
 
+/**
+ * Convert date to fancy "last seen" time
+ *
+ * @param {date} date – date
+ * @param {object} texts – object with "justNow", "minutes", "hours", "days" and "months" fields (for i18n)
+ * @returns {string}
+ */
 export function dateToElapsedTime(date, texts) {
   date = new Date(date);
   const deltaTime = Date.now() - date.getTime();
@@ -223,4 +230,14 @@ export function detectLang(str) {
     code: 'en',
     arr: LAYOUTS[0],
   };
+}
+
+/**
+ * Accepts some string and remove all Emojis
+ *
+ * @param {string} str – string
+ * @return {*}
+ */
+export function removeEmoji(str) {
+  return str.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
 }

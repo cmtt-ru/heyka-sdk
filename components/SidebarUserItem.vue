@@ -6,9 +6,8 @@
   >
     <avatar
       class="user__avatar"
-      :image="userAvatar(user.id, 20)"
-      :status="isStrangeStatus"
       :user-id="user.id"
+      :status="isStrangeStatus"
       :size="20"
     />
 
@@ -60,11 +59,7 @@ export default {
      * @returns {string|null}
      */
     isStrangeStatus() {
-      if (this.user.onlineStatus !== 'online' && this.user.onlineStatus !== 'offline') {
-        return this.user.onlineStatus;
-      }
-
-      return null;
+      return this.user.onlineStatus !== 'online' && this.user.onlineStatus !== 'offline';
     },
 
     /**

@@ -40,8 +40,9 @@
       "inviteUser": "Invite"
     },
     "channel": {
-      "join": "Join",
+      "join": "Connect",
       "disconnect": "Disconnect",
+      "emptyDesc": "Enter the channel to invite others",
       "invite": "Invite to channel",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
@@ -308,7 +309,8 @@
   "modal": {
     "common": {
       "name": "Name",
-      "saveChanges": "Save changes"
+      "saveChanges": "Save changes",
+      "recommendAvatarSize": "We recommend using at least 512x512 image"
     },
     "deleteUser": {
       "header": "Deleting user",
@@ -341,7 +343,7 @@
     "groups": "Groups",
     "canInvite": "All members can invite new users",
     "inviteUsersText": "You can invite users via",
-    "inviteUsersLink": "Heyka app",
+    "inviteUsersLink": "Heyka",
     "noGroupsHeader": "You have no groups",
     "noGroupsDesc": "You can gather users in groups. It's neat, try it!",
     "noGroupButton": "Create group",
@@ -353,7 +355,8 @@
     "message": "Updated version of Heyka is available and will be installed at the next launch",
     "install": "Install",
     "later": "Later",
-    "noUpdate": "No updates available"
+    "noUpdate": "No updates available",
+    "downloading": "Downloading update..."
   },
   "tooltips": {
     "search": "Search",
@@ -502,5 +505,16 @@
         "desc": "Heyka works on iOS, Android, Windows, Mac, Linux and even in browsers"
       }
     ]
+  },
+  "errors": {
+    "403": {
+      "title": "Forbidden",
+      "subtitle": "You don't have permission to access"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtitle": "Try another one"
+    }
+
   }
 }

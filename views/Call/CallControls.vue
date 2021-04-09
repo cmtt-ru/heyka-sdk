@@ -10,10 +10,9 @@
     >
       <avatar
         class="call-controls__avatar"
-        :user-id="speakingUser.id"
-        :image="userAvatar(speakingUser.id, 44)"
-        :size="44"
         :class="{'call-controls__avatar--speaking': speakingUser.speaking}"
+        :user-id="speakingUser.id"
+        :size="44"
         :border-radius="11"
       />
 
@@ -175,6 +174,10 @@ export default {
     },
 
     miniChatLastMessageTimestamp(val) {
+      if (!this.miniChatMessages.length) {
+        return;
+      }
+
       const lastMessage = this.miniChatMessages.slice(-1)[0];
 
       if (this.me.user.id !== lastMessage.userId) {

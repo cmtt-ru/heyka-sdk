@@ -42,6 +42,7 @@
     "channel": {
       "join": "Войти",
       "disconnect": "Отключиться",
+      "emptyDesc": "Войдите в канал, чтобы пригласить других", 
       "invite": "Пригласить в канал",
       "inviteCopied": "Гостевая ссылка скопирована",
       "invitesDeleted": "Все гостевые ссылки удалены",
@@ -308,7 +309,8 @@
   "modal": {
     "common": {
       "name": "Имя",
-      "saveChanges": "Сохранить изменения"
+      "saveChanges": "Сохранить изменения",
+      "recommendAvatarSize": "Рекомендуем использовать изображение не менее 512x512"
     },
     "deleteUser": {
       "header": "Удаление пользователя",
@@ -341,19 +343,20 @@
     "groups": "Группы",
     "canInvite": "Все участники могут приглашать новых пользователей",
     "inviteUsersText": "Приглашайте пользователей через",
-    "inviteUsersLink": "Heyka app",
+    "inviteUsersLink": "Heyka",
     "noGroupsHeader": "У вас пока нет групп",
     "noGroupsDesc": "Вы можете объединять людей в группы, это очень удобно, попробуйте!",
     "noGroupButton": "Создать группу",
     "addGroup": "Новая группа",
     "addMembers": "Добавить участников",
-    "membersAmount": "0 участников | {n} участник | {n} участника | {n} участников" 
+    "membersAmount": "0 участников | {n} участник | {n} участника | {n} участников"
   },
   "autoUpdate": {
-    "message": "Хорошие новости, вышло новое обновление, хотите скачать?",
+    "message": "Доступно обновление. Перезапустите приложение, чтобы его установить",
     "install": "Обновиться",
     "later": "Позже",
-    "noUpdate": "Нет доступных обновлений"
+    "noUpdate": "Нет доступных обновлений",
+    "downloading": "Скачиваем обновление..."
   },
   "tooltips": {
     "search": "Поиск",
@@ -502,5 +505,15 @@
         "desc": "Heyka работает на iOS, Android, Windows, Mac, Linux и даже в браузерах"
       }
     ]
+  },
+  "errors": {
+    "403": {
+      "title": "Forbidden",
+      "subtitle": "You don't have permission to access"
+    },
+    "404": {
+      "title": "404",
+      "subtitle": "Page not found"
+    }
   }
 }

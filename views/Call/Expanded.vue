@@ -33,10 +33,9 @@
     <div class="badge user">
       <avatar
         class="user__avatar"
-        :image="userAvatar(sharingUser.id, 20)"
         :user-id="sharingUser.id"
         :size="20"
-        square
+        :border-radius="4"
       />
       <div class="user__name">
         {{ sharingUser.name }}
@@ -47,16 +46,19 @@
       v-popover.click="{name: 'Devices'}"
       class="badge settings"
       :type="7"
-      size="medium"
+      popover
+      :height="44"
       icon="settings"
     />
+
     <router-link
-      class="badge expanded"
       :to="{ name: 'grid'}"
     >
       <ui-button
+        class="badge expanded"
         :type="7"
-        size="medium"
+        popover
+        :height="44"
         icon="grid"
       />
     </router-link>
@@ -203,22 +205,22 @@ export default {
         this.insertVideo(publisher.stream);
       }
     });
+
     janusVideoroomWrapper.on('publisher-joined', publisher => {
       if (publisher.userId === this.userId) {
         this.handleVideoStream();
       }
     });
+
     janusVideoroomWrapper.on('textroom-data', this.onTextroomData.bind(this));
+
+    window.addEventListener('beforeunload', (e) => {
+      this.destroy();
+    });
   },
 
   beforeDestroy() {
-    janusVideoroomWrapper.disconnectTextroom();
-    janusVideoroomWrapper.removeAllListeners('new-stream');
-    janusVideoroomWrapper.removeAllListeners('publisher-joined');
-
-    this.$refs.video.onerror = null;
-    this.$refs.video.onloadedmetadata = null;
-    __resizeObserver.unobserve(this.$refs.expanded);
+    this.destroy();
   },
 
   destroyed() {
@@ -355,6 +357,20 @@ export default {
 
       return 'data:image/jpeg;base64,' + frameBuffer.toString('base64');
     },
+
+    /**
+     * Destroy stuff
+     * @returns {void}
+     */
+    destroy() {
+      janusVideoroomWrapper.disconnectTextroom();
+      janusVideoroomWrapper.removeAllListeners('new-stream');
+      janusVideoroomWrapper.removeAllListeners('publisher-joined');
+
+      this.$refs.video.onerror = null;
+      this.$refs.video.onloadedmetadata = null;
+      __resizeObserver.unobserve(this.$refs.expanded);
+    },
   },
 };
 </script>
@@ -422,12 +438,14 @@ export default {
     margin-right 8px
 
 .settings
-  top 30px
-  right 30px
+  top 32px
+  right 40px
+  border-radius 11px
 
 .expanded
-  bottom 30px
-  right 30px
+  bottom 44px
+  right 40px
+  border-radius 11px
 
 .control
   background-color var(--app-bg)
