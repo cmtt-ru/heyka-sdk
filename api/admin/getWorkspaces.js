@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * Get workspaces to witch you have access
+ * Get workspaces to which you have access
  * @returns {array}
  */
 export default function () {

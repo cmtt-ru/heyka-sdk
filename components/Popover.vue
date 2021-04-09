@@ -3,12 +3,26 @@
     class="popover"
     :style="{'min-width': minWidth + 'px'}"
   >
+    <div class="popover__header">
+      <div class="popover__header__text">
+        Actions
+      </div>
+      <svg-icon
+        class="popover__header__close"
+        data-popover-close
+        :width="18"
+        :height="18"
+        name="close"
+      />
+    </div>
     <slot />
   </div>
 </template>
 
 <script>
+
 export default {
+
   props: {
     minWidth: {
       type: Number,
@@ -29,17 +43,65 @@ export default {
     flex-direction column
     box-sizing border-box
 
-    /deep/ a
-      .ui-button
-        width 100%
+    @media $mobile
 
-    /deep/ .delimiter
-      height 1px
-      background var(--new-UI-06)
-      margin 0 12px 0 38px
+      width calc(100% - 32px) !important
+      max-width 343px
+      inset auto !important
+      bottom 16px !important
+      left 0 !important
+      right 0 !important
+      margin 0 auto !important
+      transform none !important
+      box-shadow 0px 0px 0px 300vh rgba(0, 0, 0, 0.28);
 
-    /deep/ .buttons
-      padding 4px
-      display flex
-      flex-direction column
+    &__header
+      display none
+      flex-direction row
+      justify-content space-between
+      align-items center
+      padding 13px 20px
+      height 52px
+      box-sizing border-box
+      font-weight bold
+
+      @media $mobile
+        display flex
+
+      &__close
+        color var(--new-UI-03)
+
+  /deep/ a
+    .ui-button
+      width 100%
+
+  /deep/ .delimiter
+    height 1px
+    background var(--new-UI-06)
+    margin 0 12px 0 38px
+
+  /deep/ .buttons
+    padding 4px
+    display flex
+    flex-direction column
+
+ @media $mobile
+
+  /deep/ .buttons
+    padding 0
+
+  /deep/ .ui-button
+    margin-bottom 4px
+    height 48px
+    box-sizing border-box
+    font-weight 500
+    font-size 16px
+    line-height 24px
+    padding 0 16px
+
+  /deep/ .ui-button__icon
+    height 24px
+    width 24px
+    margin-right 12px
+
 </style>

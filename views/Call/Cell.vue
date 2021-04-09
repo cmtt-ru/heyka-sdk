@@ -518,7 +518,7 @@ export default {
     align-items center
     position relative
     overflow hidden
-    background var(--new-bg-05)
+    background #141414
 
   &__feed
     position absolute

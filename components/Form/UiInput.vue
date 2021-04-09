@@ -169,11 +169,11 @@ export default {
      */
     regexError: {
       type: String,
-      default: 'default',
+      default: null,
     },
 
     /**
-     * error name from backend
+     * error text from backend
      */
     backendError: {
       type: String,
@@ -319,10 +319,10 @@ export default {
         errors.push(this.texts['email']);
       }
       if (this.regex && this.regex.test(text) === false) {
-        errors.push(this.texts[this.regexError] || this.texts['default']);
+        errors.push(this.regexError || this.texts['default']);
       }
       if (this.backendError) {
-        errors.push(this.texts[this.backendError] || this.texts['defaultBackend']);
+        errors.push(this.backendError || this.texts['defaultBackend']);
       }
 
       if (errors.length > 0) {
