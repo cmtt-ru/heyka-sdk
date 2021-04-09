@@ -242,6 +242,16 @@ export default {
       return this.type;
     },
 
+    /**
+     * Debounce checking errors in input on symbols enter
+     * @returns {void}
+     */
+    debounceCheck: function () {
+      return debounce(CHECK_DELAY, false, () => {
+        this.checkErrors();
+      });
+    },
+
   },
 
   watch: {
@@ -263,14 +273,6 @@ export default {
       this.passVisible = !this.passVisible;
       this.focusInput();
     },
-
-    /**
-     * Debounce updating our info and sending API
-     * @returns {void}
-     */
-    debounceCheck: debounce(CHECK_DELAY, false, function (el) {
-      this.checkErrors(el.target.value);
-    }),
 
     trySelectingAll(event) {
       if (this.readonly) {
@@ -362,6 +364,7 @@ export default {
      */
     submitHandler() {
       if (this.enterSubmit === true) {
+        this.debounceCheck.cancel();
         this.$parent.$emit('ui-submit');
       }
     },
