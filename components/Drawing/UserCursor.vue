@@ -21,10 +21,9 @@
     >
       <avatar
         class="badge__avatar"
-        :image="userAvatar(user.id, 12)"
         :user-id="user.id"
         :size="12"
-        square
+        :border-radius="0"
       />
       <div class="badge__name">
         {{ user.name }}

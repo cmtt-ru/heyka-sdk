@@ -5,19 +5,37 @@
   >
     <transition name="fade">
       <div
-        v-if="onair && mic"
+        v-if="onair"
         class="avatar__onair"
         :style="{'border-radius': borderRadius + 'px'}"
       />
     </transition>
+
     <div
-      v-if="!noColor && (!loaded || !image)"
+      v-if="!noColor && (!loaded || !imageUrl)"
       class="avatar__no-image"
       :class="imageClasses"
       :style="{'background-color': imageColor, 'border-radius': borderRadius + 'px'}"
-    />
+    >
+      <svg
+        v-if="guest"
+        class="avatar__username"
+        viewBox="0 0 100 100"
+      >
+        <text
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="currentColor"
+          x="50%"
+          y="50%"
+          dy="0.1em"
+        >{{ userInitials }}</text>
+      </svg>
+      <span class="" />
+    </div>
+
     <div
-      v-if="image"
+      v-if="imageUrl"
       class="avatar__image"
       :class="imageClasses"
       :style="{'border-radius': borderRadius + 'px'}"
@@ -28,7 +46,7 @@
         alt=""
         :width="size"
         :height="size"
-        :src="image"
+        :src="imageUrl"
         @load="loadHandler"
       >
       <div
@@ -51,22 +69,48 @@
 
 <script>
 
+import { mapGetters } from 'vuex';
+import { getUserAvatarUrl } from '@libs/image';
+import { removeEmoji } from '@libs/texts';
+
 const COLORS = [
-  '#ff0074AA',
-  '#EFCA08',
-  '#EE7674',
-  '#D33F49',
-  '#845EC2',
-  '#008E83',
-  '#266DD3',
-  '#C64191',
-  '#B0A8B9',
-  '#4FFBDF',
-  '#4B4453', // used when no userId is provided
+  '#D65D56',
+  '#D66D56',
+  '#D67C56',
+  '#D69356',
+  '#D6A356',
+  '#D6B256',
+  '#D6C156',
+  '#D6D156',
+  '#CCD656',
+  '#BCD656',
+  '#ADD656',
+  '#95D656',
+  '#7FD656',
+  '#68D656',
+  '#56D67A',
+  '#56D6A0',
+  '#56D6C6',
+  '#56CED6',
+  '#56C6D6',
+  '#56B7D6',
+  '#56A8D6',
+  '#5690D6',
+  '#5662D6',
+  '#7056D6',
+  '#8656D6',
+  '#9E56D6',
+  '#AD56D6',
+  '#C456D6',
+  '#D656C1',
+  '#D65693',
+  '#D65675',
 ];
 
+const COLORS_LENGTH = COLORS.length;
+
 /**
- * status-to-color map (small circle in bottom right corner)
+ * Status to color map (small circle in bottom right corner)
  */
 const STATUS_COLORS = {
   online: {
@@ -84,7 +128,7 @@ const STATUS_COLORS = {
 };
 
 /**
- * sizes of holes in avatar (for status)
+ * Sizes of holes in avatar (for status)
  */
 const STATUS_SIZES = {
   32: 'avatar__image--dot',
@@ -93,9 +137,7 @@ const STATUS_SIZES = {
 };
 
 export default {
-
   props: {
-
     /**
      * Image size
      */
@@ -113,22 +155,6 @@ export default {
     },
 
     /**
-     * if true, image is not rounded
-     */
-    square: {
-      type: [ Boolean ],
-      default: false,
-    },
-
-    /**
-     * true if user is guest (make avatar greenish)
-     */
-    guest: {
-      type: [ Boolean ],
-      default: false,
-    },
-
-    /**
      * Avatar border radius
      */
     borderRadius: {
@@ -137,11 +163,11 @@ export default {
     },
 
     /**
-     * online status (small circle in bottom right corner)
+     * Whether to show online status
      */
     status: {
-      type: [ String ],
-      default: null,
+      type: [ Boolean ],
+      default: false,
     },
 
     /**
@@ -150,14 +176,6 @@ export default {
     onair: {
       type: [ Boolean ],
       default: false,
-    },
-
-    /**
-     * If person has mic on (in addition to onair)
-     */
-    mic: {
-      type: [ Boolean ],
-      default: true,
     },
 
     /**
@@ -176,6 +194,7 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       loaded: false,
@@ -183,6 +202,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      userById: 'users/getUserById',
+    }),
     /**
      * Set img size in css
      * @returns {object} height and width
@@ -199,31 +221,99 @@ export default {
      * @returns {object} background-color and border-color
      */
     statusStyle() {
-      return STATUS_COLORS[this.status] || null;
+      return STATUS_COLORS[this.userStatus] || null;
     },
 
+    /**
+     * Image classes
+     * @returns {object}
+     */
     imageClasses() {
       const classes = {};
 
-      classes['avatar__image--square'] = this.square;
-      classes['avatar__image--guest'] = this.guest;
       classes[STATUS_SIZES[this.size] || STATUS_SIZES['default']] = !!this.statusStyle;
 
       return classes;
     },
 
+    /**
+     * Get static color from user id
+     * @return {string}
+     */
     imageColor() {
-      if (this.userId === null) {
-        return COLORS[10];
+      if (!this.userId) {
+        return COLORS[0];
       }
-      const firstDigit = this.userId.match(/\d/);
 
-      return COLORS[firstDigit];
+      const firstDigits = parseInt(this.userId
+        .replace(/[^0-9]/g, '')
+        .substr(0, 2));
+
+      const colorIndex = firstDigits % COLORS_LENGTH;
+
+      return COLORS[colorIndex];
+    },
+
+    imageUrl() {
+      if (this.image) {
+        return this.image;
+      }
+
+      if (this.userId && this.user) {
+        return getUserAvatarUrl(this.user, this.size);
+      }
+
+      return null;
+    },
+
+    user() {
+      if (this.userId && !this.image) {
+        return this.userById(this.userId);
+      }
+
+      return null;
+    },
+
+    /**
+     * Get user initials
+     * @example Andrews Hayman --> AH
+     * @return {string}
+     */
+    userInitials() {
+      if (this.user) {
+        /**
+         * User name without Emojis & extra spaces
+         */
+        const cleanName = removeEmoji(this.user.name).replace(/ +(?= )/g, '');
+        const nameArray = cleanName.split(' ');
+        const length = nameArray.length;
+
+        if (length === 0) {
+          return '';
+        } else if (length === 1) {
+          return nameArray[0].charAt(0);
+        } else {
+          return nameArray[0].charAt(0) + nameArray[1].charAt(0);
+        }
+      }
+
+      return '';
+    },
+
+    userStatus() {
+      if (this.status && this.user) {
+        return this.user.onlineStatus;
+      }
+
+      return false;
+    },
+
+    guest() {
+      return this.user && this.user.role === 'guest';
     },
   },
 
   methods: {
-
     loadHandler() {
       this.loaded = true;
       this.$emit('load');
@@ -243,6 +333,18 @@ export default {
       width 100%
       height 100%
       border-radius 50%
+
+    &__username
+      display block
+      width 100%
+      height 100%
+      color #fff
+      text-align center
+      font-size 40px
+
+      text
+        color #fff
+        text-shadow 0 1px 3px rgba(0,0,0,0.1)
 
     &__image
       position relative
@@ -267,9 +369,6 @@ export default {
 
       &--dot-20
         mask-image radial-gradient(circle at calc(100% - 3px) calc(100% - 3px), transparent 5px, white 5.5px)
-
-      &--square
-        border-radius 0 !important
 
       & img
         position absolute
