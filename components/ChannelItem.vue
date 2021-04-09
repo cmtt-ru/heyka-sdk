@@ -223,8 +223,8 @@ export default {
   background-color var(--new-UI-07)
 
 .channel
-  padding 4px 0
-  margin 2px 0
+  padding 6px 0
+  margin 4px 0
   width 100%
   border-radius 6px
   display flex
@@ -266,7 +266,7 @@ export default {
 
   &__more
     color var(--new-UI-04)
-    margin 0 4px
+    margin 0 6px
     flex-shrink 0
     visibility hidden
 

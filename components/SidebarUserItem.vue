@@ -88,8 +88,8 @@ export default {
 .router-link-active
     background-color var(--new-UI-07)
 .user
-    padding 4px 4px 4px 6px
-    margin 2px 0
+    padding 6px
+    margin 4px 0
     width 100%
     border-radius 6px
     display flex
