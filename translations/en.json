@@ -363,6 +363,7 @@
     "microphoneOff": "Mute",
     "speakerOn": "Sound on",
     "speakerOff": "Sound off",
+    "settings": "Settings",
     "grid": "Сall window"
   },
   "inputErrors": {

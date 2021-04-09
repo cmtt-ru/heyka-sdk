@@ -363,6 +363,7 @@
     "microphoneOff": "Выкл. микрофон",
     "speakerOn": "Вкл. аудио",
     "speakerOff": "Выкл. аудио",
+    "settings": "Настройки",
     "grid": "Окно звонка"
   },
   "inputErrors": {
