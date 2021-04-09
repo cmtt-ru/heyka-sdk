@@ -308,7 +308,8 @@
   "modal": {
     "common": {
       "name": "Имя",
-      "saveChanges": "Сохранить изменения"
+      "saveChanges": "Сохранить изменения",
+      "recommendAvatarSize": "Рекомендуем использовать изображение не менее 512x512"
     },
     "deleteUser": {
       "header": "Удаление пользователя",
@@ -341,7 +342,7 @@
     "groups": "Группы",
     "canInvite": "Все участники могут приглашать новых пользователей",
     "inviteUsersText": "Приглашайте пользователей через",
-    "inviteUsersLink": "Heyka app",
+    "inviteUsersLink": "Heyka",
     "noGroupsHeader": "У вас пока нет групп",
     "noGroupsDesc": "Вы можете объединять людей в группы, это очень удобно, попробуйте!",
     "noGroupButton": "Создать группу",
