@@ -33,11 +33,12 @@ export default class AudioCheck extends EventEmitter {
 
     this.mediaState = {};
 
-    store.watch(() => store.getters['me/getMediaState'], state => {
-      this.mediaState = state;
-      if (this.subscribeMutedTalk.__harkInstance && this.mediaState.microphone) {
-        this.unsubscribeMutedTalk();
-      }
+    store.watch(() => store.getters['me/getMediaState'].microphone, state => {
+      this.mediaState = {
+        microphone: state,
+      };
+
+      this.unsubscribeMutedTalk();
     });
 
     broadcastEvents.on('audio-check-skip-muted-talk', () => {
