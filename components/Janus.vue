@@ -56,6 +56,7 @@ export default {
       selectedCameraDevice: state => state.realSelectedDevices.camera,
       microphonesDeviceList: state => state.devices.microphones,
       speakersDeviceList: state => state.devices.speakers,
+      internetConnectionState: state => state.connectionStatus.internet,
     }),
   },
   watch: {
@@ -383,7 +384,9 @@ export default {
       switch (errorCode) {
         case JanusWrapper.errors.SERVER_DOWN:
           cnsl.error('Janus server is down');
-          this.reSelectChannel();
+          if (this.internetConnectionState) {
+            this.reSelectChannel();
+          }
           break;
         case JanusWrapper.errors.AUTHENTICATION_ERROR:
           cnsl.error('Janus authentication error');
