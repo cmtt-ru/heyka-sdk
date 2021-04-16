@@ -265,6 +265,7 @@ export default {
 
         const notification = {
           data: {
+            icon: 'warning',
             text: this.$t('janus.connectionError'),
           },
         };
