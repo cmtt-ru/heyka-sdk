@@ -191,7 +191,6 @@ export default {
       display flex
       align-items center
       flex 0 0 38px
-      font-size 14px
       font-weight 500
       background var(--new-bg-04)
       padding 3px 16px
