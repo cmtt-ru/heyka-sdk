@@ -142,7 +142,7 @@ export default {
 
     &:hover,
     &.context-menu--opened
-        background-color var(--item-bg-hover)
+        background-color var(--new-UI-06)
 
     &__avatar-wrapper
       position relative
@@ -181,7 +181,7 @@ export default {
     &__sharing
         flex-shrink 0
         order 2
-        color var(--color-2)
+        color var(--new-UI-01)
 
     &__aqi
       display block

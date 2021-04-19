@@ -180,7 +180,7 @@ export default {
 
     &__link
       margin-left 8px
-      color var(--text-tech-2)
+      color var(--new-UI-01)
       cursor pointer
 
 </style>

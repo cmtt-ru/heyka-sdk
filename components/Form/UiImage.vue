@@ -209,7 +209,7 @@ export default {
     top 0
     left 0
     object-fit cover
-    background-color var(--app-bg)
+    background-color var(--new-bg-04)
     filter grayscale(100%) blur(2px)
 
   input

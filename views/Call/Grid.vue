@@ -416,6 +416,7 @@ export default {
     display flex
     flex-direction column
     height 100vh
+    color var(--new-white)
 
   .top-content
     height 108px
@@ -446,7 +447,7 @@ export default {
     flex-shrink 0
 
   .channel-name
-    color var(--new-UI-09)
+    color var(--new-white)
     margin 0 16px 0 4px
     font-weight bold
     font-size 32px
