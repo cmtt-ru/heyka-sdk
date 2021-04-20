@@ -85,5 +85,5 @@ export default {
   box-sizing border-box
 
   &--selected
-    background-color var(--item-bg-multi-pick)
+    background-color var(--new-signal-02-1)
 </style>

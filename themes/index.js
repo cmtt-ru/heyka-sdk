@@ -88,8 +88,8 @@ class Themes {
       auto: this.storeVue.auto,
     });
     if (Object.prototype.hasOwnProperty.call(this.storeVue.themeArray, name)) {
-      for (const prop in this.storeVue.themeArray[name].colors['root']) { // задаём глобальные переменные css
-        document.documentElement.style.setProperty(prop, this.storeVue.themeArray[name].colors['root'][prop]);
+      for (const prop in this.storeVue.themeArray[name].colors) {
+        document.documentElement.style.setProperty(prop, this.storeVue.themeArray[name].colors[prop]);
       }
 
       return true;
