@@ -69,9 +69,9 @@
       "deletePhoto": "Удалить фото",
       "fullNameLabel": "Полное имя",
       "emailLabel": "Почта",
-      "editEmail": "Изменить почту",
+      "editEmail": "Изменить",
       "passLabel": "Пароль",
-      "resetPass": "Сбросить пароль",
+      "resetPass": "Сбросить",
       "saved": "Изменения сохранены",
       "bigImage": "Мы не можем загрузить файлы крупнее, чем",
       "socialLinked": "Теперь вы можете входить с помощью {0}"

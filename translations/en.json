@@ -69,9 +69,9 @@
       "deletePhoto": "Delete photo",
       "fullNameLabel": "Full name",
       "emailLabel": "Email",
-      "editEmail": "Edit email",
+      "editEmail": "Change",
       "passLabel": "Password",
-      "resetPass": "Reset password",
+      "resetPass": "Reset",
       "saved": "Changes saved",
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"
