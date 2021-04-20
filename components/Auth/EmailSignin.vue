@@ -74,6 +74,8 @@ import { UiForm, UiInput } from '@components/Form';
 import { authFileStore, heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
+import signin from '@api/auth/signin';
+import joinByCode from '@api/workspace/joinByCode';
 
 export default {
   components: {
@@ -122,7 +124,7 @@ export default {
       this.loginInProgress = true;
 
       try {
-        await this.$API.auth.signin({ credentials: this.login });
+        await signin({ credentials: this.login });
 
         if (IS_ELECTRON) {
           heykaStore.set('loginEmail', this.login.email);
@@ -133,7 +135,7 @@ export default {
           const inviteCode = await authFileStore.get('inviteCode');
 
           if (inviteCode) {
-            this.$API.workspace.joinByCode(inviteCode);
+            joinByCode(inviteCode);
             authFileStore.set('inviteCode', null);
           }
           window.localStorage.setItem('closeAuth', 'true');
