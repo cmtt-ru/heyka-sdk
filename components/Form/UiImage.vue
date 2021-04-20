@@ -146,8 +146,9 @@ export default {
        */
     async tooBigImageAlert() {
       const notification = {
+        lifespan: 5000,
         data: {
-          lifespan: 5000,
+          icon: 'warning',
           text: `${this.$t('workspace.userSettings.bigImage')} ${PRETTY_MAX_FILE_SIZE}`,
         },
       };

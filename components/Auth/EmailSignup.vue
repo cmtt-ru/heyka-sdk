@@ -107,6 +107,7 @@ export default {
         if (err.response.data.message === errorMessages.emailExists) {
           const notification = {
             data: {
+              icon: 'warning',
               text: errorMessages.emailExists,
             },
           };
