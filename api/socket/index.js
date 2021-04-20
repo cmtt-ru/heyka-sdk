@@ -276,7 +276,11 @@ function bindChannelEvents() {
 
   /** Channel created */
   client.on(eventNames.channelCreated, async (data) => {
-    store.dispatch('channels/addChannel', data.channelId);
+    const selectedWorkspaceId = store.getters['me/getSelectedWorkspaceId'];
+
+    if (selectedWorkspaceId === data.workspaceId) {
+      store.dispatch('channels/addChannel', data.channelId);
+    }
   });
 
   /** Channel deleted */
