@@ -28,10 +28,12 @@ import { setTokens } from '../tokens';
  *   @returns {date} user.credentials.accessTokenExpiredAt
  *   @returns {date} user.credentials.refreshTokenExpiredAt
  */
-export default async function (params) {
+export default async function signin(params) {
   const res = await axios.post('/signin', params);
 
   setTokens(res.data.credentials);
 
   return res;
 }
+
+signin.ignoreTokens = true;
