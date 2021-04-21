@@ -56,24 +56,8 @@
         />
       </div>
 
-      <div class="bottom-content__col">
-        <div class="mini-chat-button">
-          <transition name="badge-show">
-            <div
-              v-if="miniChatBadge"
-              :key="miniChatBadgeKey"
-              class="mini-chat-button__badge"
-            />
-          </transition>
-
-          <ui-button
-            v-popover.click="{name: 'MiniChat'}"
-            popover
-            :type="7"
-            :height="44"
-            icon="chat"
-          />
-        </div>
+      <div class="bottom-content__col bottom-content__col--2">
+        <mini-chat-button />
       </div>
     </div>
   </div>
@@ -82,6 +66,7 @@
 <script>
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
+import MiniChatButton from '@components/MiniChat/Button';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -111,6 +96,7 @@ export default {
     CallButtons,
     UiButton,
     Cell,
+    MiniChatButton,
   },
 
   data() {
@@ -121,8 +107,6 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
-      miniChatBadge: false,
-      miniChatBadgeKey: 0,
       pausedByScreenSharing: false,
     };
   },
@@ -136,8 +120,6 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       isSharingFullScreen: 'janus/isSharingFullScreen',
-      hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
-      miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
       amISharingScreen: 'amISharingScreen',
     }),
 
@@ -195,14 +177,6 @@ export default {
         });
       }
     },
-
-    hasMiniChatNewMessages(val) {
-      this.miniChatBadge = val;
-    },
-
-    miniChatLastMessageTimestamp(val) {
-      this.miniChatBadgeKey = val;
-    },
   },
 
   async mounted() {
@@ -246,9 +220,6 @@ export default {
         });
       });
     }
-
-    this.miniChatBadge = this.hasMiniChatNewMessages;
-    this.miniChatBadgeKey = this.miniChatLastMessageTimestamp;
   },
 
   beforeDestroy() {
@@ -480,34 +451,12 @@ export default {
       &--1
         flex-basis 100%
 
+      &--2
+        padding-right 40px
+
+        .mini-chat-button
+          margin-left auto
+
     &__controls
       margin 0 auto
-
-  .mini-chat-button
-    position relative
-    margin-left auto
-    margin-right 40px
-
-    .ui-button
-      border-radius 11px
-
-    &__badge
-      position absolute
-      width 11px
-      height 11px
-      top -3px
-      right -3px
-      border-radius 11px
-      background var(--new-signal-03)
-
-  .badge-show-enter-active
-    transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);
-
-  .badge-show-leave-active
-    transition transform .25s ease
-
-  .badge-show-enter,
-  .badge-show-leave-to
-    transform scale(0)
-
 </style>
