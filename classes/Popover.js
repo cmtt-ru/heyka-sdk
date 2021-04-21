@@ -237,7 +237,8 @@ export default class Popover {
             if (event.which === RIGHT_MOUSE) {
               this.show(true);
             }
-          } else {
+          }
+          if (this.modes.left || !this.modes.right) {
             if (event.which === LEFT_MOUSE) {
               this.show(true);
             }

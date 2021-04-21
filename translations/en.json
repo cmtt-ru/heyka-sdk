@@ -410,37 +410,44 @@
       "register": "Sign up"
     },
     "signupSuccess":{
-      "title": "Аккаунт зарегистрирован!",
-      "subtitle": "Пожалуйста, проверьте входящие для подтверждения почты"
+      "title": "Account registered!",
+      "subtitle": "Please check your inbox to verify your email!"
     },
     "footer": {
       "privacy": "You consent to the processing of personal data"
     },
     "verify": {
-      "successTitle": "Email подтвержден!",
-      "failTitle": "Что-то пошло не так",
-      "successSubtitle": "Аккаунт создан успешно",
-      "failSubtitle": "Обратитесь в техническую поддержку",
-      "openApp": "Открыть приложение",
-      "downloadApp": "Скачать Heyka",
-      "createWorkspace": "Создать воркспейс"
+      "successTitle": "Email is verified!",
+      "failTitle": "Something went wrong",
+      "successSubtitle": "Account created successfully",
+      "failSubtitle": "Please contact technical support",
+      "openApp": "Open app",
+      "downloadApp": "Download Heyka",
+      "createWorkspace": "Create workspace"
     },
     "newPassword": {
-      "title": "Восстановление пароля",
-      "subtitle": "Придумайте новый пароль, чтобы восстановить доступ к аккаунту",
-      "successSubtitle": "Новый пароль сохранен. Эту страницу можно закрыть",
-      "save": "Сохранить",
-      "openApp": "Открыть приложение",
-      "newPassword": "Новый пароль"
+      "title": "Password reset",
+      "subtitle": "Come up with a new password to regain access to your account",
+      "successSubtitle": "New password saved. You can close this window",
+      "save": "Save",
+      "openApp": "Open app",
+      "newPassword": "New pass"
+    },
+    "newEmail": {
+      "title": "Email change",
+      "subtitle": "You'll get a verification email at new adress",
+      "successSubtitle": "Check inbox at {n}",
+      "change": "Change",
+      "openApp": "Open app"
     },
     "socialCallback": {
-      "successTitle": "Всё хорошо",
-      "failTitle": "Что-то пошло не так",
-      "signupSubtitle": "Аккаунт создан успешно",
-      "loginSubtitle": "Вы авторизовались в {0}. Эту страницу можно закрыть",
-      "linkSubtitle": "Профиль в {0} успешно подключён. Эту страницу можно закрыть",
-      "errorSubtitle": "Произошла внутреняя ошибка",
-      "button": "Открыть приложение"
+      "successTitle": "All good!",
+      "failTitle": "Something went wrong",
+      "signupSubtitle": "Account created successfully",
+      "loginSubtitle": "You have authenticaded with {0}. You can close this window",
+      "linkSubtitle": "Profile in {0} is now connected successfully. You can close this window",
+      "errorSubtitle": "An internal error occured",
+      "button": "Open app"
     }
   },
   "appStatus": {
@@ -455,12 +462,12 @@
     "tooltip": "Unstable connection"
   },
   "slackCallback": {
-    "successTitle": "Всё получилось",
-    "failTitle": "Что-то пошло не так",
-    "successSubtitle": "Вы подключили Slack «{0}» к команде {1} в Heyka. Эту страницу можно закрыть",
-    "rejectSubtitle": "Вы отменили подключение Slack",
-    "errorSubtitle": "Произошла внутреняя ошибка",
-    "button": "Открыть приложение"
+    "successTitle": "All good!",
+    "failTitle": "Something went wrong",
+    "successSubtitle": "You've connected Slack «{0}» to team {1} in Heyka. You can close this window",
+    "rejectSubtitle": "You've cancelled connection to Slack",
+    "errorSubtitle": "An internal error occured",
+    "button": "Open app"
   },
   "slackInvite": {
     "webWait": "Loading...",

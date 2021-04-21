@@ -433,6 +433,13 @@
       "openApp": "Открыть приложение",
       "newPassword": "Новый пароль"
     },
+    "newEmail": {
+      "title": "Смена почты",
+      "subtitle": "На новую почту придёт письмо с подтверждением.",
+      "successSubtitle": "Проверьте входящие почты {n}",
+      "change": "Сменить",
+      "openApp": "Открыть приложение"
+    },
     "socialCallback": {
       "successTitle": "Всё хорошо",
       "failTitle": "Что-то пошло не так",

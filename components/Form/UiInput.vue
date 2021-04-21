@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { debounce } from 'throttle-debounce';
+import { debounce } from '@libs/throttle-debounce';
 import { v4 as uuid4 } from 'uuid';
 const CHECK_DELAY = 500;
 const NUMBER_REGEXP = /^\d*$/;
@@ -272,7 +272,8 @@ export default {
 
   watch: {
     backendError() {
-      this.checkErrors();
+      this.debounceCheck.clear();
+      this.checkErrors(this.localValue, true);
     },
   },
 
@@ -385,7 +386,7 @@ export default {
      */
     submitHandler() {
       if (this.enterSubmit === true) {
-        this.debounceCheck.cancel();
+        this.debounceCheck.clear();
         this.$parent.$emit('ui-submit');
       }
     },
