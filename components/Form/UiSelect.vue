@@ -352,7 +352,7 @@ export default {
   border-color var(--new-signal-03)
 
 .error-text
-  color var(--text-tech-0)
+  color var(--new-signal-03)
   font-size 10px
   line-height 12px
   min-height 16px
