@@ -156,7 +156,11 @@ export default {
       this.fillUsers();
 
       this.$nextTick(() => {
-        this.$refs.pseudoPopup.smartScrollToBottom(this.$refs['last-message'][0].getBoundingClientRect().height);
+        const lastMessage = this.$refs['last-message'];
+
+        if (lastMessage) {
+          this.$refs.pseudoPopup.smartScrollToBottom(this.$refs['last-message'][0].getBoundingClientRect().height);
+        }
       });
     },
 

@@ -62,6 +62,9 @@
         icon="grid"
       />
     </router-link>
+
+    <mini-chat-button class="badge chat" />
+
     <div
       ref="controls"
       v-draggable="controlsOptions"
@@ -77,6 +80,7 @@
 import CallControls from '@sdk/views/Call/CallControls';
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
+import MiniChatButton from '@components/MiniChat/Button';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters, mapState } from 'vuex';
 import Tablet from '@components/Drawing/Tablet';
@@ -93,6 +97,7 @@ export default {
     UiButton,
     Avatar,
     Tablet,
+    MiniChatButton,
   },
   data() {
     return {
@@ -446,6 +451,10 @@ export default {
   bottom 44px
   right 40px
   border-radius 11px
+
+.chat
+  bottom 44px
+  right 40px + 44px + 12px
 
 .control
   background-color var(--app-bg)
