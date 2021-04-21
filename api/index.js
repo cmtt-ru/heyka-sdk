@@ -43,6 +43,8 @@ function injectMiddleware(functions) {
  * @returns {function(...[*]=)}
  */
 function middleware(func, functionName) {
+  console.log('API -->', functionName, func.ignoreTokens, func.important);
+
   return async function () {
     try {
       if (IS_ELECTRON) {
