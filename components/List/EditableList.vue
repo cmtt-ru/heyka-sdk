@@ -22,7 +22,7 @@
         class="icon-delete"
         :type="7"
         size="small"
-        icon="trash"
+        icon="close"
         @click.native="deleteItem(index)"
       />
     </div>

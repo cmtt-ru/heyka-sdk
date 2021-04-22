@@ -33,7 +33,7 @@
       </div>
 
       <div
-        class="dropdown__list"
+        class="dropdown__list scroll"
         :class="{'dropdown__list--visible': visible}"
       >
         <div
