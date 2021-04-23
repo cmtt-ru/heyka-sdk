@@ -52,6 +52,7 @@ import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
+import notify from '@libs/notify';
 
 export default {
   components: {
@@ -104,13 +105,7 @@ export default {
         this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
         if (err.response.data.message === errorMessages.emailExists) {
-          const notification = {
-            data: {
-              text: errorMessages.emailExists,
-            },
-          };
-
-          await this.$store.dispatch('app/addNotification', notification);
+          notify(errorMessages.emailExists);
         }
         console.log('ERROR:', err);
       }

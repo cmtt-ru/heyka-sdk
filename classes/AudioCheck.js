@@ -2,11 +2,9 @@ import { EventEmitter } from 'events';
 import store from '@/store';
 import hark from 'hark';
 import router from '@/router';
-import i18n from '@sdk/translations/i18n';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import microphone from '@sdk/classes/microphone';
-
-const texts = i18n.t('notifications');
+import notify from '@libs/notify';
 
 /**
  * Audio element for audio test
@@ -152,20 +150,15 @@ export default class AudioCheck extends EventEmitter {
    */
   async _checkNoMic() {
     if (this._devices().microphones.length === 0) {
-      const notification = {
-        data: {
-          text: texts.nomic.text,
-          buttons: [
-            {
-              text: texts.nomic.button1,
-              type: 1,
-              close: true,
-            },
-          ],
-        },
-      };
-
-      await store.dispatch('app/addNotification', notification);
+      notify('notifications.nomic.text', {
+        buttons: [
+          {
+            text: 'notifications.nomic.button1',
+            type: 1,
+            close: true,
+          },
+        ],
+      });
 
       return true;
     } else {
@@ -179,49 +172,39 @@ export default class AudioCheck extends EventEmitter {
    */
   async _checkNoSound() {
     if (this._devices().microphones.length > 2) {
-      const notification = {
-        data: {
-          text: texts.othermic.text,
-          buttons: [
-            {
-              text: texts.othermic.button1,
-              type: 1,
-              action: () => {
-                router.push({ name: 'settings-devices' });
-              },
+      notify('notifications.othermic.text', {
+        buttons: [
+          {
+            text: 'notifications.othermic.button1',
+            type: 1,
+            action: () => {
+              router.push({ name: 'settings-devices' });
             },
-            {
-              text: texts.othermic.button2,
-              close: true,
-            },
-          ],
-        },
-      };
-
-      await store.dispatch('app/addNotification', notification);
+          },
+          {
+            text: 'notifications.othermic.button2',
+            close: true,
+          },
+        ],
+      });
     } else {
-      const notification = {
-        data: {
-          text: texts.noaudio.text,
-          buttons: [
-            {
-              text: texts.noaudio.button1,
-              type: 12,
-              action: () => {
-                //! asks password on mac!
-                this.shutdown.reboot({ sudo: true });
-              },
+      notify('notifications.noaudio.text', {
+        buttons: [
+          {
+            text: 'notifications.noaudio.button1',
+            type: 12,
+            action: () => {
+              //! asks password on mac!
+              this.shutdown.reboot({ sudo: true });
             },
-            {
-              text: texts.noaudio.button2,
-              type: 1,
-              close: true,
-            },
-          ],
-        },
-      };
-
-      await store.dispatch('app/addNotification', notification);
+          },
+          {
+            text: 'notifications.noaudio.button2',
+            type: 1,
+            close: true,
+          },
+        ],
+      });
     }
   }
 
@@ -237,26 +220,21 @@ export default class AudioCheck extends EventEmitter {
     const micState = await this.invoke('remote-systemPreferences-microphone');
 
     if (micState === 'restricted' || micState === 'denied') {
-      const notification = {
-        data: {
-          text: texts.nomicpermission.text,
-          buttons: [
-            {
-              text: texts.nomicpermission.button1,
-              type: 1,
-              action: () => {
-                window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone', '_blank');
-              },
+      notify('notifications.nomicpermission.text', {
+        buttons: [
+          {
+            text: 'notifications.nomicpermission.button1',
+            type: 1,
+            action: () => {
+              window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone', '_blank');
             },
-            {
-              text: texts.nomicpermission.button2,
-              close: true,
-            },
-          ],
-        },
-      };
-
-      await store.dispatch('app/addNotification', notification);
+          },
+          {
+            text: 'notifications.nomicpermission.button2',
+            close: true,
+          },
+        ],
+      });
 
       return true;
     } else {

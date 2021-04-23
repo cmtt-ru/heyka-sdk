@@ -55,5 +55,3 @@ export default function showNotify(i18nKey, options = {}) {
 function translate(keyOrText) {
   return i18n.t(keyOrText) || keyOrText;
 }
-
-window.Notify = showNotify;
