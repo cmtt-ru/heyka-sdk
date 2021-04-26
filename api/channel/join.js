@@ -8,10 +8,12 @@ import { setTokens } from '../tokens';
  * @param {string} params.name - temp user name
  * @returns {string} 'ok'
  */
-export default async function (token, params) {
+export default async function join(token, params) {
   const res = await axios.post(`/channels/join/${token}`, params);
 
   setTokens(res.data.credentials, false);
 
   return res.data;
 }
+
+join.ignoreTokens = true;
