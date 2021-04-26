@@ -17,7 +17,7 @@ import connectionCheck from '@sdk/classes/connectionCheck';
 import * as sockets from '@api/socket';
 import { client } from './socket/client';
 import { IS_ELECTRON, API_URL } from '@sdk/Constants';
-import isMainWindow from '@shared/WindowManager/isMainWindow';
+import isMainWindow from '@sdk/libs/isMainWindow';
 import Logger from '@sdk/classes/logger';
 
 const cnsl = new Logger('API', '#eeb837');
