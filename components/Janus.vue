@@ -18,6 +18,7 @@ import network from '@sdk/classes/network';
 import AudioQualityController from '@sdk/classes/AudioQualityController';
 import { conversationBroadcast } from '@api/socket/utils';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+import notify from '@libs/notify';
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 /**
@@ -263,14 +264,7 @@ export default {
       } catch (e) {
         await this.$store.dispatch('unselectChannel', this.selectedChannelId);
 
-        const notification = {
-          data: {
-            icon: 'warning',
-            text: this.$t('janus.connectionError'),
-          },
-        };
-
-        await this.$store.dispatch('app/addNotification', notification);
+        notify('janus.connectionError', { icon: 'warning' });
       }
     },
 

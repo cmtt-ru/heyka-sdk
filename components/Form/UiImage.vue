@@ -43,6 +43,7 @@
 
 <script>
 import Avatar from '@components/Avatar';
+import notify from '@libs/notify';
 
 const MAX_FILE_SIZE = 1048576;
 const PRETTY_MAX_FILE_SIZE = '1Mb';
@@ -145,15 +146,10 @@ export default {
        * @returns {void}
        */
     async tooBigImageAlert() {
-      const notification = {
+      notify(`${this.$t('workspace.userSettings.bigImage')} ${PRETTY_MAX_FILE_SIZE}`, {
         lifespan: 5000,
-        data: {
-          icon: 'warning',
-          text: `${this.$t('workspace.userSettings.bigImage')} ${PRETTY_MAX_FILE_SIZE}`,
-        },
-      };
-
-      await this.$store.dispatch('app/addNotification', notification);
+        icon: 'warning',
+      });
     },
 
     clickInput() {

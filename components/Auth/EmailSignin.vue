@@ -76,6 +76,7 @@ import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
 import signin from '@api/auth/signin';
 import joinByCode from '@api/workspace/joinByCode';
+import notify from '@libs/notify';
 
 export default {
   components: {
@@ -144,16 +145,11 @@ export default {
           });
         }
       } catch (err) {
-        if (err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
-            err.response.data.message === errorMessages.invalidRequestPayloadInput) { // ? maybe not needed
-          const notification = {
-            data: {
-              icon: 'warning',
-              text: this.notifTexts.wrongPass,
-            },
-          };
-
-          await this.$store.dispatch('app/addNotification', notification);
+        if (
+          err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
+          err.response.data.message === errorMessages.invalidRequestPayloadInput
+        ) { // ? maybe not needed
+          notify('notifications.login.wrongPass', { icon: 'warning' });
         }
       } finally {
         this.loginInProgress = false;
