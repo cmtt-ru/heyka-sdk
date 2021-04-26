@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import hark from 'hark';
+import hark from '@sdk/classes/hark';
 import mediaCapturer from '@classes/mediaCapturer';
 import Logger from '@sdk/classes/logger';
 const cnsl = new Logger('Audiobridge plugin', '#2980B9');

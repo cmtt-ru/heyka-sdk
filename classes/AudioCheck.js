@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import store from '@/store';
-import hark from 'hark';
+import hark from '@sdk/classes/hark';
 import router from '@/router';
 import i18n from '@sdk/translations/i18n';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
