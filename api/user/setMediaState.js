@@ -12,6 +12,11 @@ import { client } from '@api/socket/client';
  *
  * @returns {string} 'ok'
  */
-export default function (mediaState) {
+function setMediaState(mediaState) {
   return axios.post(`/user/media-state?socketId=${client.id}`, mediaState);
 }
+
+setMediaState.ignoreTokens = true;
+setMediaState.important = true;
+
+export default setMediaState;

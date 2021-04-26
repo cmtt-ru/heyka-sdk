@@ -140,7 +140,7 @@ export default {
           }
           window.localStorage.setItem('closeAuth', 'true');
           await this.$router.push({
-            name: 'Landing',
+            name: 'landing',
           });
         }
       } catch (err) {
