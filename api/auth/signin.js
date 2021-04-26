@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setTokens } from '../tokens';
+import store from '@/store';
 
 /**
  * Sign in user with email and password
@@ -30,6 +31,10 @@ import { setTokens } from '../tokens';
  */
 export default async function (params) {
   const res = await axios.post('/signin', params);
+
+  if (res.data.user.lang) {
+    await store.dispatch('app/setLanguage', res.data.user.lang);
+  }
 
   setTokens(res.data.credentials);
 
