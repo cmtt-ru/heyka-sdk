@@ -2,7 +2,6 @@
 import { EventEmitter } from 'events';
 
 var audioContextType;
-var audioContext = null;
 
 function getMaxVolume (analyser, fftBins) {
   var maxVolume = -Infinity;
@@ -23,6 +22,7 @@ if (typeof window !== 'undefined') {
 
 export default function(stream, options) {
   var harker = new EventEmitter();
+  var audioContext = null;
 
   // make it not break in non-supported browsers
   if (!audioContextType) return harker;
