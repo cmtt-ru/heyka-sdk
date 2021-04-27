@@ -313,6 +313,8 @@ export default class AudioCheck extends EventEmitter {
       return;
     }
 
+    await store.dispatch('app/removePushByName', 'noSound');
+
     const push = {
       inviteId: Date.now().toString(),
       local: true,

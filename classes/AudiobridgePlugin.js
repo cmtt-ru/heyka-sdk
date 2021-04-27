@@ -1,10 +1,9 @@
 import { EventEmitter } from 'events';
-import hark from '@sdk/classes/hark';
-import mediaCapturer from '@classes/mediaCapturer';
 import Logger from '@sdk/classes/logger';
+import microphone from '@sdk/classes/microphone';
+
 const cnsl = new Logger('Audiobridge plugin', '#2980B9');
 const JANUS_PLUGIN = 'janus.plugin.audiobridge';
-const HARK_UPDATE_INTERVAL_MS = 75;
 
 /**
  * Handle communication with audiobridge plugin
@@ -38,17 +37,15 @@ class AudiobridgePlugin extends EventEmitter {
     this.__userId = userId;
     this.__maxBitrate = 48;
 
-    // hark stream
-    this.__harkStream = null;
-    this.__localStream = null;
+    /** Microphone handlers */
+    this.__speakingHandler = null;
+    this.__volumeHandler = null;
 
     this.__detached = false;
     this.__pluginHandle = null;
 
     /** Janus PeerConnection */
     this.__pc = null;
-
-    window.setPrebuffer = this.setPrebuffer;
   }
 
   /**
@@ -213,17 +210,13 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {undefined}
    */
   detach() {
+    microphone.removeListener('speaking', this.__speakingHandler);
+    microphone.removeListener('volume-change', this.__volumeHandler);
+    microphone.forget('audiobridge-plugin');
+
     if (this.__pluginHandle) {
       this.__pluginHandle.detach();
       this.__pluginHandle = null;
-    }
-    if (this.__harkStream) {
-      this.__harkStream.stop();
-      this.__harkStream = null;
-    }
-    if (this.__localStream) {
-      mediaCapturer.destroyStream(this.__localStream);
-      this.__localStream = null;
     }
   }
 
@@ -247,14 +240,6 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {void}
    */
   setMicrophoneDevice(deviceId) {
-    if (this.__harkStream) {
-      this.__harkStream.stop();
-      this.__harkStream = null;
-    }
-    if (this.__localStream) {
-      mediaCapturer.destroyStream(this.__localStream);
-      this.__localStream = null;
-    }
     this.__deviceId = deviceId;
     this.__pluginHandle.createOffer({
       media: {
@@ -342,20 +327,24 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {undefined}
    */
   _onLocalAudioStream(stream) {
-    this.__localStream = stream;
+    this.__speakingHandler = this._speakingHandler.bind(this);
+    this.__volumeHandler = this._volumeHandler.bind(this);
 
-    this.__harkStream = hark(stream, {
-      interval: HARK_UPDATE_INTERVAL_MS,
-    });
-    this.__harkStream.on('speaking', () => {
+    microphone.listen('audiobridge-plugin');
+    microphone.on('speaking', this.__speakingHandler);
+    microphone.on('volume-change', this.__volumeHandler);
+  }
+
+  _speakingHandler(state) {
+    if (state) {
       this.emit('start-speaking');
-    });
-    this.__harkStream.on('stopped_speaking', () => {
+    } else {
       this.emit('stop-speaking');
-    });
-    this.__harkStream.on('volume_change', (db, threshold) => {
-      this.emit('volume-change', db);
-    });
+    }
+  }
+
+  _volumeHandler(db) {
+    this.emit('volume-change', db);
   }
 
   /**
