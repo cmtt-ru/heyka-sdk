@@ -5,8 +5,10 @@ import axios from 'axios';
  *
  * @returns {string} count
  */
-export default async function () {
+export default async function subscribeCount() {
   const res = await axios.get('/subscription/count');
 
   return res.data;
 }
+
+subscribeCount.ignoreTokens = true;

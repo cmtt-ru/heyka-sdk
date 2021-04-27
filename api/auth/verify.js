@@ -8,10 +8,12 @@ import { setTokens } from '../tokens';
  *
  * @returns {string} result data
  */
-export default async function (jwt) {
+export default async function verify(jwt) {
   const res = await axios.get(`/verify/${jwt}`);
 
   setTokens(res.data.credentials);
 
   return res.data;
 }
+
+verify.ignoreTokens = true;
