@@ -167,8 +167,6 @@ if (isMainWindow()) {
   });
 }
 
-window.releaseApiCallBuffer = releaseApiCallBuffer;
-
 const apiStructure = {
   user: injectMiddleware(userApi, 'user'),
   auth: injectMiddleware(authApi, 'auth'),
