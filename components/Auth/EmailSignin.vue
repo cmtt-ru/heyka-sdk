@@ -125,6 +125,11 @@ export default {
       try {
         await this.$API.auth.signin({ credentials: this.login });
 
+        if (this.notifyClose) {
+          this.notifyClose();
+          this.notifyClose = null;
+        }
+
         if (IS_ELECTRON) {
           heykaStore.set('loginEmail', this.login.email);
           await this.$store.dispatch('initial');
@@ -147,7 +152,12 @@ export default {
           err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
           err.response.data.message === errorMessages.invalidRequestPayloadInput
         ) { // ? maybe not needed
-          notify('notifications.login.wrongPass');
+          if (this.notifyClose) {
+            this.notifyClose();
+            this.notifyClose = null;
+          }
+
+          this.notifyClose = await notify('notifications.login.wrongPass');
         }
       } finally {
         this.loginInProgress = false;
