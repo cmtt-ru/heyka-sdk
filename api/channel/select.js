@@ -18,6 +18,8 @@ import { client } from '@api/socket/client';
  * @returns {number} connectionOptions.videoRoomId
  * @returns {string} connectionOptions.channelAuthToken
  */
-export default function (id, mediaState) {
+export default function select(id, mediaState) {
   return axios.post(`/channels/${id}/select?socketId=${client.id}`, mediaState).then(res => res.data);
 }
+
+select.important = true;
