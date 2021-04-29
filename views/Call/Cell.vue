@@ -548,7 +548,7 @@ export default {
     left 0
     width 100%
     height 100%
-    border 2px solid var(--new-signal-02)
+    border 4px solid var(--new-signal-02)
     border-radius 12px
     box-sizing border-box
     pointer-events none

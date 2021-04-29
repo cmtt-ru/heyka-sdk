@@ -224,7 +224,7 @@ export default {
 
 .channel
   padding 6px 0
-  margin 4px 0
+  margin 3px 0
   width 100%
   border-radius 6px
   display flex

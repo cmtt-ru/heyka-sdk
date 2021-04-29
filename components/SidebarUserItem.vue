@@ -89,7 +89,7 @@ export default {
     background-color var(--new-UI-07)
 .user
     padding 6px
-    margin 4px 0
+    margin 3px 0
     width 100%
     border-radius 6px
     display flex

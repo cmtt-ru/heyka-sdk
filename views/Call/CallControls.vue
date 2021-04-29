@@ -247,7 +247,7 @@ export default {
         left 0
         right 0
         border-radius 11px
-        border 4px solid #51C362
+        border 2px solid #51C362
         z-index 2
 
     &__user-name

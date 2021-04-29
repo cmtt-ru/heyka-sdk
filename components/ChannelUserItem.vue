@@ -175,7 +175,7 @@ export default {
         padding-right 4px
 
         &__icon
-            margin-left 6px
+            margin-left 8px
             color var(--new-UI-03)
 
     &__sharing
