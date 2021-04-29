@@ -19,10 +19,6 @@
         v-show="mediaCanShow"
         class="cell__feed__gradient"
       />
-      <div
-        v-show="mediaState.speaking && mediaState.microphone"
-        class="cell__talking"
-      />
 
       <ui-button
         :key="hasVideo"
@@ -72,7 +68,10 @@
         />
       </div>
     </div>
-
+    <div
+      v-show="mediaState.speaking && mediaState.microphone"
+      class="cell__talking"
+    />
     <div
       v-show="handUpStatus"
       class="cell__raised-hand"
@@ -495,10 +494,10 @@ export default {
 
   &__talking
     position absolute
-    top 0
-    left 0
-    width 100%
-    height 100%
+    top 4px
+    bottom 4px
+    left 4px
+    right 4px
     border 2px solid var(--new-signal-02)
     border-radius 12px
     box-sizing border-box
