@@ -67,7 +67,8 @@
 
     <ui-button
       v-if="buttons.includes('grid')"
-      class="call-buttons__button"
+      class="call-buttons__button call-buttons__button--grid"
+      :class="{'notif': anyRaisedHand}"
       :type="7"
       popover
       :size="size"
@@ -176,6 +177,9 @@ export default {
       mediaState: 'me/getMediaState',
       janusInProgress: 'janus/inProgress',
       selectedDevices: 'app/getSelectedDevices',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
+      channelId: 'me/getSelectedChannelId',
+      getUsersByChannel: 'getUsersByChannel',
     }),
 
     allowDraw: {
@@ -204,6 +208,25 @@ export default {
     buttonHeight() {
       // eslint-disable-next-line no-magic-numbers
       return this.size === 'medium' ? 44 : 60;
+    },
+
+    /**
+     * Get users array
+     * @returns {array} array of users
+     */
+    users() {
+      return this.getUsersByChannel(this.channelId);
+    },
+
+    anyRaisedHand() {
+      for (const user of this.users) {
+        console.log(user);
+        if (this.getHandUpStatusByUserId(user.user.id)) {
+          return true;
+        }
+      }
+
+      return false;
     },
   },
 
@@ -306,6 +329,22 @@ export default {
 
     &__button
       flex-shrink 0
+
+      &--grid
+        &.notif
+          position relative
+
+          &:after
+            content ''
+            position absolute
+            width 12px
+            height 12px
+            top -3px
+            right -3px
+            border-radius 12px
+            background-color var(--new-UI-01)
+            border 2px solid var(--new-black)
+            box-sizing border-box
 
       &--disconnect
         color var(--new-signal-03)
