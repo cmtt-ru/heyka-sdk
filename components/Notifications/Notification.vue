@@ -27,7 +27,7 @@
         <ui-button
           v-for="button in data.buttons"
           :key="button.text"
-          :type="button.type || 8"
+          :type="button.type || 3"
           size="small"
           class="notification__button"
           @click="clickHandler(button)"
