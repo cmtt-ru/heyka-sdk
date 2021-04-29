@@ -191,7 +191,10 @@
       "checkUpdates": "Check for updates"
     },
     "support": {
-      "tellerror": "Report an error"
+      "title": "Support",
+      "text": "Let us know if you have encountered a bug or error in the application. We will try to help.",
+      "report": "Report an error",
+      "logs": "Open logs"
     }
   },
   "call": {
