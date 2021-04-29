@@ -15,8 +15,6 @@
       </ui-button>
     </div>
 
-    <div class="ui-delimiter" />
-
     <div class="ui-tabs__content">
       <slot />
     </div>
