@@ -331,20 +331,26 @@ export default {
       flex-shrink 0
 
       &--grid
+        position relative
+
+        &:after
+          content ''
+          position absolute
+          width 12px
+          height 12px
+          top -3px
+          right -3px
+          border-radius 12px
+          background-color var(--new-UI-01)
+          border 2px solid var(--new-black)
+          box-sizing border-box
+          transition transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);
+          transform scale(0)
+
         &.notif
-          position relative
 
           &:after
-            content ''
-            position absolute
-            width 12px
-            height 12px
-            top -3px
-            right -3px
-            border-radius 12px
-            background-color var(--new-UI-01)
-            border 2px solid var(--new-black)
-            box-sizing border-box
+            transform scale(1)
 
       &--disconnect
         color var(--new-signal-03)
