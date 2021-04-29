@@ -20,7 +20,6 @@
       class="call-buttons__button"
       :type="7"
       popover
-      :active="allowDraw"
       :size="size"
       :icon="buttonIcons.drawing.icon"
       :height="buttonHeight"
@@ -57,7 +56,6 @@
       class="call-buttons__button"
       :type="7"
       popover
-      :active="mediaState.speakers"
       :size="size"
       :icon="buttonIcons.speakers.icon"
       :height="buttonHeight"
