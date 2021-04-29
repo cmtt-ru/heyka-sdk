@@ -46,9 +46,9 @@
     </div>
 
     <div class="bottom-content">
-      <div class="bottom-content__col" />
+      <div class="bottom-content__col bottom-content__col--left" />
 
-      <div class="bottom-content__col bottom-content__col--1">
+      <div class="bottom-content__col bottom-content__col--center">
         <call-buttons
           class="bottom-content__controls"
           :buttons="buttonsSetup"
@@ -57,6 +57,16 @@
       </div>
 
       <div class="bottom-content__col">
+        <ui-button
+          popover
+          class="tech-button"
+          :class="{ 'tech-button--active': getHandUpStatusByUserId(myId) }"
+          size="large"
+          :type="7"
+          :height="60"
+          icon="hand-up"
+          @click="raiseHandHandler"
+        />
         <div class="mini-chat-button">
           <transition name="badge-show">
             <div
@@ -69,8 +79,10 @@
           <ui-button
             v-popover.click="{name: 'MiniChat'}"
             popover
+            size="large"
+            class="tech-button"
             :type="7"
-            :height="44"
+            :height="60"
             icon="chat"
           />
         </div>
@@ -139,6 +151,7 @@ export default {
       hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
       miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
       amISharingScreen: 'amISharingScreen',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
     /**
@@ -390,6 +403,10 @@ export default {
       });
     },
 
+    raiseHandHandler() {
+      broadcastActions.dispatch('app/raiseHandInChannel', !this.getHandUpStatusByUserId(this.myId));
+    },
+
     windowFocusHandler() {
       if (this.pausedByScreenSharing) {
         janusVideoroomWrapper.resumeAllSubscriptions();
@@ -475,20 +492,37 @@ export default {
       align-items center
       flex-grow 1
       flex-basis 33.333%
+      justify-content flex-end
 
-      &--1
+      &--center
         flex-basis 100%
+        justify-content center
+
+        @media screen and (max-width: 1090px)
+          justify-content flex-start
+          flex-basis initial
+          margin-left 40px
+
+          .bottom-content__controls
+            margin 0
+
+      &--left
+        @media screen and (max-width: 1090px)
+          display none
 
     &__controls
       margin 0 auto
 
+  .tech-button
+    border-radius 11px
+
+    &--active
+      background-color var(--new-UI-01)
+
   .mini-chat-button
     position relative
-    margin-left auto
+    margin-left 12px
     margin-right 40px
-
-    .ui-button
-      border-radius 11px
 
     &__badge
       position absolute

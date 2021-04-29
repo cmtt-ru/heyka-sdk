@@ -242,9 +242,6 @@
       "leave": "Leave channel",
       "invite": "Invite to channel"
     },
-    "userMore": {
-      "edit": "Edit profile"
-    },
     "manageUser": {
       "admin": "Make an admin",
       "noAdmin": "Take away admin rights"
