@@ -1,4 +1,3 @@
-
 <template>
   <div
     class="cell"
@@ -14,6 +13,12 @@
       class="cell__inner"
       @dblclick="expandedClickHandler"
     >
+      <blurred-avatar
+        v-show="!mediaCanShow"
+        class="cell__blurred-avatar"
+        :user-id="user.id"
+      />
+
       <video
         v-show="mediaCanShow"
         ref="video"
@@ -83,6 +88,7 @@
 <script>
 import UiButton from '@components/UiButton';
 import Avatar from '@components/Avatar';
+import BlurredAvatar from '@components/BlurredAvatar';
 import ConnectionIndicator from '@components/ConnectionIndicator';
 import { getUserAvatarUrl } from '@libs/image';
 import { mapGetters } from 'vuex';
@@ -142,6 +148,7 @@ export default {
     UiButton,
     Avatar,
     ConnectionIndicator,
+    BlurredAvatar,
   },
   props: {
     /**
@@ -635,6 +642,11 @@ export default {
   &__avatar
     margin auto
     transform translateY(-11px)
+
+  &__blurred-avatar
+    position absolute
+    top 0
+    left 0
 
   &__username
     bottom 4px
