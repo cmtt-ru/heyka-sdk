@@ -27,6 +27,12 @@
         :name="icon"
         size="small"
       />
+      <svg-icon
+        v-if="getHandUpStatusByUserId(user.id)"
+        class="user__statuses__icon user__statuses__icon--blue"
+        name="hand-up"
+        size="small"
+      />
     </div>
 
     <ui-button
@@ -52,11 +58,6 @@ import ConnectionIndicator from '@components/ConnectionIndicator';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import { mapGetters } from 'vuex';
-
-const ICON_MAP = {
-  mic: 'mic-off',
-  headphones: 'headphones-off',
-};
 
 export default {
   components: {
@@ -98,6 +99,7 @@ export default {
     ...mapGetters({
       userAvatar: 'users/getUserAvatarUrl',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
     /**
@@ -108,11 +110,11 @@ export default {
       const icons = [];
 
       if (this.mediaState.microphone === false) {
-        icons.push(ICON_MAP['mic']);
+        icons.push('mic-off');
       }
 
       if (this.mediaState.speakers === false) {
-        icons.push(ICON_MAP['headphones']);
+        icons.push('headphones-off');
       }
 
       return icons;
@@ -177,6 +179,9 @@ export default {
         &__icon
             margin-left 6px
             color var(--new-UI-03)
+
+            &--blue
+              color var(--new-UI-01)
 
     &__sharing
         flex-shrink 0

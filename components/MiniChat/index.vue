@@ -29,9 +29,14 @@
             />
 
             <p>
-              <span class="mini-chat__message__name">{{ item.user.name }}:</span>
+              <span
+                class="mini-chat__message__name"
+                :style="{color: item.color}"
+              >{{ item.user.name }}<span v-if="item.colon">:</span>
+              </span>
               <span
                 class="mini-chat__message__text"
+                :style="{color: item.color}"
                 v-html="item.htmlMessage"
               />
             </p>
@@ -95,7 +100,10 @@ export default {
     ...mapGetters({
       getUserById: 'users/getUserById',
       myId: 'me/getMyId',
+      getConversationEvents: 'channels/getConversationEvents',
       getMiniChatMessages: 'channels/getMiniChatMessages',
+      getHandUpHistory: 'channels/getHandUpHistory',
+
     }),
     /**
      * Get needed texts from I18n-locale file
@@ -108,6 +116,9 @@ export default {
 
   watch: {
     getMiniChatMessages() {
+      this.processMessages();
+    },
+    getHandUpHistory() {
       this.processMessages();
     },
   },
@@ -145,12 +156,21 @@ export default {
 
     processMessages() {
       this.markAllMessagesAsRead();
-
-      this.chatHistory = this.getMiniChatMessages.map(i => {
-        return {
-          userId: i.userId,
-          message: xss(i.data.message),
-        };
+      this.chatHistory = this.getConversationEvents().map(i => {
+        console.log(i);
+        if (i.action === 'mini-chat') {
+          return {
+            userId: i.userId,
+            colon: true,
+            message: xss(i.data.message),
+          };
+        } else if (i.action === 'hand-up') {
+          return {
+            userId: i.userId,
+            color: 'var(--new-UI-01)',
+            message: this.$t('push.raisedHand'),
+          };
+        }
       });
 
       this.fillUsers();

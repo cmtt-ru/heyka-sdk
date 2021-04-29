@@ -46,9 +46,9 @@
     </div>
 
     <div class="bottom-content">
-      <div class="bottom-content__col" />
+      <div class="bottom-content__col bottom-content__col--left" />
 
-      <div class="bottom-content__col bottom-content__col--1">
+      <div class="bottom-content__col bottom-content__col--center">
         <call-buttons
           class="bottom-content__controls"
           :buttons="buttonsSetup"
@@ -57,6 +57,16 @@
       </div>
 
       <div class="bottom-content__col bottom-content__col--2">
+        <ui-button
+          popover
+          class="tech-button"
+          :class="{ 'tech-button--active': getHandUpStatusByUserId(myId) }"
+          size="large"
+          :type="7"
+          :height="60"
+          icon="hand-up"
+          @click="raiseHandHandler"
+        />
         <mini-chat-button />
       </div>
     </div>
@@ -121,6 +131,7 @@ export default {
       users: 'usersInMyChannel',
       isSharingFullScreen: 'janus/isSharingFullScreen',
       amISharingScreen: 'amISharingScreen',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
     /**
@@ -162,6 +173,10 @@ export default {
     selectedChannelName() {
       return this.selectedChannel?.name || 'no channel selected';
     },
+
+    speaking() {
+      return this.mediaState.speaking;
+    },
   },
 
   watch: {
@@ -175,6 +190,20 @@ export default {
         Object.keys(this.videoStreams).forEach(key => {
           this.$delete(this.videoStreams, key);
         });
+      }
+    },
+
+    hasMiniChatNewMessages(val) {
+      this.miniChatBadge = val;
+    },
+
+    miniChatLastMessageTimestamp(val) {
+      this.miniChatBadgeKey = val;
+    },
+
+    speaking(val) {
+      if (val) {
+        this.raiseHandHandler(false);
       }
     },
   },
@@ -361,6 +390,15 @@ export default {
       });
     },
 
+    raiseHandHandler(value) {
+      let status = !this.getHandUpStatusByUserId(this.myId);
+
+      if (value !== undefined) {
+        status = value;
+      }
+      broadcastActions.dispatch('app/raiseHandInChannel', status);
+    },
+
     windowFocusHandler() {
       if (this.pausedByScreenSharing) {
         janusVideoroomWrapper.resumeAllSubscriptions();
@@ -447,15 +485,56 @@ export default {
       align-items center
       flex-grow 1
       flex-basis 33.333%
+      justify-content flex-end
 
-      &--1
+      &--center
         flex-basis 100%
+        justify-content center
+
+        @media screen and (max-width: 1090px)
+          justify-content flex-start
+          flex-basis initial
+          margin-left 40px
+
+          .bottom-content__controls
+            margin 0
+
+      &--left
+        @media screen and (max-width: 1090px)
+          display none
 
       &--2
         padding-right 40px
 
-        .mini-chat-button
-          margin-left auto
+  .tech-button
+    border-radius 11px
+
+    &--active
+      background-color var(--new-UI-01)
+
+  .mini-chat-button
+    position relative
+    margin-left 12px
+    margin-right 40px
+
+    &__badge
+      position absolute
+      width 11px
+      height 11px
+      top -3px
+      right -3px
+      border-radius 11px
+      background var(--new-signal-03)
+
+  .badge-show-enter-active
+    transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);
+
+  .badge-show-leave-active
+    transition transform .25s ease
+
+  .badge-show-enter,
+  .badge-show-leave-to
+    transform scale(0)
 
     &__controls
       margin 0 auto
