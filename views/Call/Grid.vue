@@ -193,6 +193,10 @@ export default {
     selectedChannelName() {
       return this.selectedChannel?.name || 'no channel selected';
     },
+
+    speaking() {
+      return this.mediaState.speaking;
+    },
   },
 
   watch: {
@@ -215,6 +219,12 @@ export default {
 
     miniChatLastMessageTimestamp(val) {
       this.miniChatBadgeKey = val;
+    },
+
+    speaking(val) {
+      if (val) {
+        this.raiseHandHandler(false);
+      }
     },
   },
 
@@ -403,8 +413,13 @@ export default {
       });
     },
 
-    raiseHandHandler() {
-      broadcastActions.dispatch('app/raiseHandInChannel', !this.getHandUpStatusByUserId(this.myId));
+    raiseHandHandler(value) {
+      let status = !this.getHandUpStatusByUserId(this.myId);
+
+      if (value !== undefined) {
+        status = value;
+      }
+      broadcastActions.dispatch('app/raiseHandInChannel', status);
     },
 
     windowFocusHandler() {
