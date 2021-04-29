@@ -529,7 +529,7 @@ export default {
       margin 0 auto
 
   .tech-button
-    border-radius 11px
+    border-radius 15px
 
     &--active
       background-color var(--new-UI-01)
