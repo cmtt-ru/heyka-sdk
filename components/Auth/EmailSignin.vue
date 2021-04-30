@@ -74,6 +74,7 @@ import { UiForm, UiInput } from '@components/Form';
 import { authFileStore, heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
+import notify from '@libs/notify';
 
 export default {
   components: {
@@ -124,6 +125,11 @@ export default {
       try {
         await this.$API.auth.signin({ credentials: this.login });
 
+        if (this.notifyClose) {
+          this.notifyClose();
+          this.notifyClose = null;
+        }
+
         if (IS_ELECTRON) {
           heykaStore.set('loginEmail', this.login.email);
           await this.$store.dispatch('initial');
@@ -142,15 +148,16 @@ export default {
           });
         }
       } catch (err) {
-        if (err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
-            err.response.data.message === errorMessages.invalidRequestPayloadInput) { // ? maybe not needed
-          const notification = {
-            data: {
-              text: this.notifTexts.wrongPass,
-            },
-          };
+        if (
+          err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
+          err.response.data.message === errorMessages.invalidRequestPayloadInput
+        ) { // ? maybe not needed
+          if (this.notifyClose) {
+            this.notifyClose();
+            this.notifyClose = null;
+          }
 
-          await this.$store.dispatch('app/addNotification', notification);
+          this.notifyClose = await notify('notifications.login.wrongPass');
         }
       } finally {
         this.loginInProgress = false;
