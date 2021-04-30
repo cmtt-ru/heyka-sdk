@@ -507,7 +507,7 @@ export default {
         padding-right 40px
 
   .tech-button
-    border-radius 11px
+    border-radius 15px
 
     &--active
       background-color var(--new-UI-01)
