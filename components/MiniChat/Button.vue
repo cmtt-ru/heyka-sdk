@@ -12,7 +12,9 @@
       v-popover.click="{name: 'MiniChat'}"
       popover
       :type="7"
-      :height="44"
+      :size="currentSizes.size"
+      :height="height"
+      :style="{'border-radius': currentSizes.borderRadius}"
       icon="chat"
     />
   </div>
@@ -22,9 +24,37 @@
 import UiButton from '@components/UiButton';
 import { mapGetters } from 'vuex';
 
+const SIZES = [
+  {
+    minHeight: 60,
+    size: 'large',
+    borderRadius: '15px',
+  },
+  {
+    minHeight: 32,
+    size: 'medium',
+    borderRadius: '11px',
+  },
+  {
+    minHeight: 0,
+    size: 'small',
+    borderRadius: '8px',
+  },
+];
+
 export default {
   components: {
     UiButton,
+  },
+
+  props: {
+    /**
+     * size of mini chan button (in pixels)
+     */
+    height: {
+      type: Number,
+      default: 44,
+    },
   },
 
   data() {
@@ -39,6 +69,16 @@ export default {
       hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
       miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
     }),
+
+    currentSizes() {
+      for (const size of SIZES) {
+        if (this.height >= size.minHeight) {
+          return size;
+        }
+      }
+
+      return SIZES[0];
+    },
   },
 
   watch: {

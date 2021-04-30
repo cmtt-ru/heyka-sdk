@@ -465,7 +465,6 @@ export default {
 
   &__inner
     border-radius 12px
-    border 4px solid transparent
     height 100%
     padding 4px
     box-sizing border-box
@@ -501,10 +500,10 @@ export default {
 
   &__talking
     position absolute
-    top 0
-    left 0
-    width 100%
-    height 100%
+    top 4px
+    bottom 4px
+    left 4px
+    right 4px
     border 4px solid var(--new-signal-02)
     border-radius 12px
     box-sizing border-box

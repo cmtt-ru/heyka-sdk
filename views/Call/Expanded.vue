@@ -64,6 +64,17 @@
 
     <mini-chat-button class="badge chat" />
 
+    <ui-button
+      popover
+      class="badge hand-up"
+      :active="getHandUpStatusByUserId(myId)"
+      size="medium"
+      :type="7"
+      :height="44"
+      icon="hand-up"
+      @click="handUpHandler"
+    />
+
     <div
       ref="controls"
       v-draggable="controlsOptions"
@@ -86,6 +97,8 @@ import Tablet from '@components/Drawing/Tablet';
 import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import captureFrame from 'capture-frame';
+
+import broadcastActions from '@sdk/classes/broadcastActions';
 
 /* variable for watching page size */
 let __resizeObserver = {};
@@ -117,9 +130,11 @@ export default {
     ...mapGetters({
       selectedChannel: 'me/getSelectedChannelId',
       myId: 'me/getMyId',
+      mediaState: 'me/getMediaState',
       userAvatar: 'users/getUserAvatarUrl',
       getUserWhoSharesMedia: 'getUserWhoSharesMedia',
       getUserWhoSharesScreen: 'getUserWhoSharesScreen',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
     ...mapState({
       janusOptions: 'janus',
@@ -153,6 +168,10 @@ export default {
       return this.$route.params.id;
     },
 
+    speaking() {
+      return this.mediaState.speaking;
+    },
+
   },
   watch: {
     isUserSharingMedia(val) {
@@ -171,6 +190,12 @@ export default {
     userId() {
       broadcastEvents.dispatch('grid-expanded-ready');
       this.handleVideoStream();
+    },
+
+    speaking(val) {
+      if (val) {
+        this.handUpHandler(false);
+      }
     },
   },
 
@@ -375,6 +400,15 @@ export default {
       this.$refs.video.onloadedmetadata = null;
       __resizeObserver.unobserve(this.$refs.expanded);
     },
+
+    handUpHandler(value) {
+      let status = !this.getHandUpStatusByUserId(this.myId);
+
+      if (value !== undefined) {
+        status = value;
+      }
+      broadcastActions.dispatch('app/handUpInChannel', status);
+    },
   },
 };
 </script>
@@ -455,6 +489,11 @@ export default {
 .chat
   bottom 44px
   right 40px + 44px + 12px
+
+.hand-up
+  bottom 44px
+  border-radius 11px
+  right 40px + 44px + 44px + 12px + 12px
 
 .control
   background-color var(--new-black)

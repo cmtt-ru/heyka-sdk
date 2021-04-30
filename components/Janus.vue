@@ -264,7 +264,7 @@ export default {
       } catch (e) {
         await this.$store.dispatch('unselectChannel', this.selectedChannelId);
 
-        notify('janus.connectionError');
+        notify('janus.connectionError', { icon: 'warning' });
       }
     },
 

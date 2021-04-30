@@ -25,7 +25,8 @@
         class="top-content__devices"
         :type="7"
         popover
-        :height="44"
+        :height="60"
+        size="large"
         icon="settings"
       />
     </div>
@@ -56,36 +57,19 @@
         />
       </div>
 
-      <div class="bottom-content__col">
+      <div class="bottom-content__col bottom-content__col--right">
         <ui-button
           popover
           class="tech-button"
-          :class="{ 'tech-button--active': getHandUpStatusByUserId(myId) }"
+          :active="getHandUpStatusByUserId(myId)"
           size="large"
           :type="7"
           :height="60"
           icon="hand-up"
-          @click="raiseHandHandler"
+          @click="handUpHandler"
         />
-        <div class="mini-chat-button">
-          <transition name="badge-show">
-            <div
-              v-if="miniChatBadge"
-              :key="miniChatBadgeKey"
-              class="mini-chat-button__badge"
-            />
-          </transition>
 
-          <ui-button
-            v-popover.click="{name: 'MiniChat'}"
-            popover
-            size="large"
-            class="tech-button"
-            :type="7"
-            :height="60"
-            icon="chat"
-          />
-        </div>
+        <mini-chat-button :height="60" />
       </div>
     </div>
   </div>
@@ -221,10 +205,9 @@ export default {
 
     speaking(val) {
       if (val) {
-        this.raiseHandHandler(false);
+        this.handUpHandler(false);
       }
     },
-
   },
 
   async mounted() {
@@ -409,13 +392,13 @@ export default {
       });
     },
 
-    raiseHandHandler(value) {
+    handUpHandler(value) {
       let status = !this.getHandUpStatusByUserId(this.myId);
 
       if (value !== undefined) {
         status = value;
       }
-      broadcastActions.dispatch('app/raiseHandInChannel', status);
+      broadcastActions.dispatch('app/handUpInChannel', status);
     },
 
     windowFocusHandler() {
@@ -459,7 +442,7 @@ export default {
     &__devices
       margin-left 8px
       flex-shrink 0
-      border-radius 11px
+      border-radius 15px
 
   .left-info
     display flex
@@ -510,7 +493,7 @@ export default {
         flex-basis 100%
         justify-content center
 
-        @media screen and (max-width: 1090px)
+        @media screen and (max-width: 1000px)
           justify-content flex-start
           flex-basis initial
           margin-left 40px
@@ -519,22 +502,17 @@ export default {
             margin 0
 
       &--left
-        @media screen and (max-width: 1090px)
+        @media screen and (max-width: 1000px)
           display none
 
-      &--2
+      &--right
         padding-right 40px
 
   .tech-button
     border-radius 15px
 
-    &--active
-      background-color var(--new-UI-01)
-
   .mini-chat-button
-    position relative
     margin-left 12px
-    margin-right 40px
 
     &__badge
       position absolute

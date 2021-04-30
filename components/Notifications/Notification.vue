@@ -12,6 +12,14 @@
       :style="styles"
       class="notification"
     >
+      <svg-icon
+        v-if="data.icon"
+        class="notification__icon"
+        :style="iconColor"
+        :name="data.icon"
+        width="14"
+        height="14"
+      />
       <div class="notification__text">
         {{ data.text }}
       </div>
@@ -117,6 +125,19 @@ export default {
         'pointer-events': 'none',
       },
     };
+  },
+
+  computed: {
+    iconColor() {
+      if (!this.data.icon) {
+        return;
+      }
+      if (this.data.icon === 'warning') {
+        return { color: 'var(--new-signal-03)' };
+      }
+
+      return { color: 'var(--new-signal-02)' };
+    },
   },
 
   /**
@@ -301,6 +322,12 @@ $ANIM_DELAY = 200ms
   pointer-events auto
   transition all $ANIM ease
   opacity 1
+
+  &__icon
+    margin-right 8px
+    color var(--new-signal-02)
+    flex-shrink 0
+    height 100%
 
   &__button-wrapper
     flex-shrink 0

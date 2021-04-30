@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 /**
- * Send PUSH NOTIFICATION to user
+ * Send several push notifications to users
  * @param {object} params - params
- * @param {string} params.userId - id of recipient
+ * @param {string} params.users - array of user ids'
  * @param {boolean} params.isResponseNeeded - id of recipient
  * @param {object} params.message - object with any kind of message
  *
@@ -11,7 +11,7 @@ import axios from 'axios';
  * @returns {string} data.inviteId
  */
 export default async function (params) {
-  const res = await axios.post(`/send-invite`, params);
+  const res = await axios.post(`/send-invites`, params);
 
   return res.data;
 }

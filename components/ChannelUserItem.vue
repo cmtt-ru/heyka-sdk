@@ -1,7 +1,7 @@
 <template>
   <div
     :key="mediaState.microphone + channelId"
-    v-popover.mouse.click="{name: 'UserInChannel', data: {userId: user.id, microphone: mediaState.microphone, channelId}}"
+    v-popover.mouse.right.left.click="{name: 'UserInChannel', data: {userId: user.id, microphone: mediaState.microphone, channelId}}"
     class="user"
   >
     <avatar

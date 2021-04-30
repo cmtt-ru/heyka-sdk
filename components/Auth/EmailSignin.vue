@@ -74,6 +74,8 @@ import { UiForm, UiInput } from '@components/Form';
 import { authFileStore, heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
+import signin from '@api/auth/signin';
+import joinByCode from '@api/workspace/joinByCode';
 import notify from '@libs/notify';
 
 export default {
@@ -123,7 +125,7 @@ export default {
       this.loginInProgress = true;
 
       try {
-        await this.$API.auth.signin({ credentials: this.login });
+        await signin({ credentials: this.login });
 
         if (this.notifyClose) {
           this.notifyClose();
@@ -139,7 +141,7 @@ export default {
           const inviteCode = await authFileStore.get('inviteCode');
 
           if (inviteCode) {
-            this.$API.workspace.joinByCode(inviteCode);
+            joinByCode(inviteCode);
             authFileStore.set('inviteCode', null);
           }
           window.localStorage.setItem('closeAuth', 'true');
@@ -157,7 +159,7 @@ export default {
             this.notifyClose = null;
           }
 
-          this.notifyClose = await notify('notifications.login.wrongPass');
+          this.notifyClose = await notify('notifications.login.wrongPass', { icon: 'warning' });
         }
       } finally {
         this.loginInProgress = false;

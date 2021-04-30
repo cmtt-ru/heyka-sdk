@@ -54,6 +54,7 @@
     "user": {
       "privateTalkButton": "Вызвать",
       "inviteButtonStart": "Пригласить в",
+      "alreadyIn": "Уже в",
       "inviteBySlackButton": "Пригласить через Slack",
       "inviteByTeamsButton": "Пригласить через MS Teams",
       "localTime": "Локальное время",
@@ -69,9 +70,9 @@
       "deletePhoto": "Удалить фото",
       "fullNameLabel": "Полное имя",
       "emailLabel": "Почта",
-      "editEmail": "Изменить почту",
+      "editEmail": "Изменить",
       "passLabel": "Пароль",
-      "resetPass": "Сбросить пароль",
+      "resetPass": "Сбросить",
       "saved": "Изменения сохранены",
       "bigImage": "Мы не можем загрузить файлы крупнее, чем",
       "socialLinked": "Теперь вы можете входить с помощью {0}"
@@ -182,7 +183,7 @@
     },
     "network": {
       "transparencyCategory": "Прозрачность",
-      "transparency": "Мы прозрачны и уважаем вашу конфиденциальность. На этой вкладке отображаются все запросы, сделанные на серверы приложением.",
+      "transparency": "Мы прозрачны и уважаем вашу конфиденциальность. На этой вкладке отображаются последние 100 запросов, сделанные на серверы приложением.",
       "googleCategory": "Включить Google Analytics",
       "googleLabel": "Разрешить"
     },
@@ -224,7 +225,7 @@
     "griduser": {
       "fullscreen": "Полный экран",
       "mute": "Выкл. микрофон для всех",
-      "raiseHand": "Поднять руку"
+      "handUp": "Поднять руку"
     },
     "userProfile": {
       "profile": "Профиль",
@@ -434,6 +435,13 @@
       "save": "Сохранить",
       "openApp": "Открыть приложение",
       "newPassword": "Новый пароль"
+    },
+    "newEmail": {
+      "title": "Смена почты",
+      "subtitle": "На новую почту придёт письмо с подтверждением.",
+      "successSubtitle": "Проверьте входящие почты {n}",
+      "change": "Сменить",
+      "openApp": "Открыть приложение"
     },
     "socialCallback": {
       "successTitle": "Всё хорошо",
