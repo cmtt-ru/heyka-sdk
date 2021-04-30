@@ -411,7 +411,7 @@ export default {
   border none
   background-color transparent
   font-family Inter, sans-serif
-  font-size 14px
+  font-size 15px
   line-height 18px
   color var(--new-UI-02)
   outline none !important
