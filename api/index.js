@@ -5,6 +5,7 @@ import channelApi from './channel';
 import appApi from './app';
 import adminApi from './admin';
 import groupApi from './group';
+
 import { errorMessages } from './errors/types';
 import { handleError } from './errors';
 import trottleAPI from './throttle';
@@ -16,20 +17,27 @@ import connectionCheck from '@sdk/classes/connectionCheck';
 import * as sockets from '@api/socket';
 import { client } from './socket/client';
 import { IS_ELECTRON, API_URL } from '@sdk/Constants';
+import isMainWindow from '@sdk/libs/isMainWindow';
+import Logger from '@sdk/classes/logger';
+
+const cnsl = new Logger('API', '#eeb837');
 
 axios.defaults.baseURL = API_URL;
+
+const apiBuffer = {};
 
 /**
  * Inject's middleware function in all api methods
  *
  * @param {object} functions – object with functions
+ * @param {string} namespace – functions namespace
  * @returns {object}
  */
-function injectMiddleware(functions) {
+function injectMiddleware(functions, namespace) {
   Object.keys(functions).forEach(name => {
     const origFunc = functions[name];
 
-    functions[name] = middleware(origFunc, name);
+    functions[name] = middleware(origFunc, name, namespace);
   });
 
   return functions;
@@ -40,22 +48,28 @@ function injectMiddleware(functions) {
  *
  * @param {function} func – specific function
  * @param {string} functionName – function name
+ * @param {string} namespace – functions namespace
  * @returns {function(...[*]=)}
  */
-function middleware(func, functionName) {
-  console.log('API -->', functionName, func.ignoreTokens, func.important);
-
+function middleware(func, functionName, namespace) {
   return async function () {
     try {
       if (IS_ELECTRON) {
-        // throttle some of the API methods
+        /** Throttle some of the API methods */
         if (trottleAPI.needForThrottle(functionName)) {
           if (!trottleAPI.throttle(functionName)) {
             throw new Error(`${functionName} throttled`);
           }
         }
 
+        // cnsl.log(`call ${namespace}/${functionName}`);
+
         if (!connectionCheck.isOnline()) {
+          /** If api function has important flag then add api call to buffer */
+          if (func.important) {
+            addApiCallToBuffer(functionName, namespace, arguments);
+          }
+
           throw new Error(`Can't call API method '${functionName}'. No internet connection`);
         }
 
@@ -68,7 +82,10 @@ function middleware(func, functionName) {
         connectionCheck.handleApiState(true);
       }
 
-      await checkAndRefreshTokens();
+      /** If api function has ignore token flag then ignore refreshing tokens */
+      if (!func.ignoreTokens) {
+        await checkAndRefreshTokens();
+      }
 
       return await func.apply(null, arguments);
     } catch (err) {
@@ -106,12 +123,58 @@ function middleware(func, functionName) {
   };
 }
 
-export default {
-  user: injectMiddleware(userApi),
-  auth: injectMiddleware(authApi),
-  workspace: injectMiddleware(workspaceApi),
-  channel: injectMiddleware(channelApi),
-  group: injectMiddleware(groupApi),
-  app: injectMiddleware(appApi),
-  admin: injectMiddleware(adminApi),
+/**
+ * Add api call to buffer.
+ * Used when api were called without internet connection.
+ * @param {string} name – function name
+ * @param {string} namespace – functions namespace
+ * @param {IArguments} apiArguments – api arguments
+ * @returns {void}
+ */
+function addApiCallToBuffer(name, namespace, apiArguments) {
+  apiBuffer[`${namespace}/${name}`] = {
+    namespace,
+    name,
+    arguments: apiArguments,
+  };
+
+  cnsl.log(`added to buffer ${namespace}/${name}`);
+}
+
+/**
+ * Release api call buffer.
+ * Just iterates over buffer and call apis.
+ * @returns {Promise<void>}
+ */
+async function releaseApiCallBuffer() {
+  for (const key in apiBuffer) {
+    const item = apiBuffer[key];
+
+    cnsl.log(`release ${item.namespace}/${item.name}`);
+
+    await apiStructure[item.namespace][item.name].apply(null, item.arguments);
+
+    delete apiBuffer[key];
+  }
+}
+
+/**
+ * Release api buffer when internet becomes online
+ */
+if (isMainWindow()) {
+  connectionCheck.on('internet-reconnected', () => {
+    releaseApiCallBuffer();
+  });
+}
+
+const apiStructure = {
+  user: injectMiddleware(userApi, 'user'),
+  auth: injectMiddleware(authApi, 'auth'),
+  workspace: injectMiddleware(workspaceApi, 'workspace'),
+  channel: injectMiddleware(channelApi, 'channel'),
+  group: injectMiddleware(groupApi, 'group'),
+  app: injectMiddleware(appApi, 'app'),
+  admin: injectMiddleware(adminApi, 'admin'),
 };
+
+export default apiStructure;

@@ -7,6 +7,8 @@ import axios from 'axios';
  *
  * @returns {string} result data
  */
-export default function (jwt) {
+export default function checkWebToken(jwt) {
   return axios.get(`/check-token?token=${jwt}`).then(res => res.data);
 }
+
+checkWebToken.ignoreTokens = true;
