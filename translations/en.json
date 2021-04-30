@@ -183,7 +183,7 @@
     },
     "network": {
       "transparencyCategory": "Transparency",
-      "transparency": "We are transparent and respect your privacy. This tab shows all requests that are made to our servers.",
+      "transparency": "We are transparent and respect your privacy. This tab shows last 100 requests that are made to our servers.",
       "googleCategory": "Enable Google Analytics",
       "googleLabel": "Allow"
     },
