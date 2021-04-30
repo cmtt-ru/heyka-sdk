@@ -465,7 +465,6 @@ export default {
 
   &__inner
     border-radius 12px
-    border 4px solid transparent
     height 100%
     padding 4px
     box-sizing border-box
