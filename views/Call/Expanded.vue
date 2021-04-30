@@ -72,7 +72,7 @@
       :type="7"
       :height="44"
       icon="hand-up"
-      @click="raiseHandHandler"
+      @click="handUpHandler"
     />
 
     <div
@@ -194,7 +194,7 @@ export default {
 
     speaking(val) {
       if (val) {
-        this.raiseHandHandler(false);
+        this.handUpHandler(false);
       }
     },
   },
@@ -401,13 +401,13 @@ export default {
       __resizeObserver.unobserve(this.$refs.expanded);
     },
 
-    raiseHandHandler(value) {
+    handUpHandler(value) {
       let status = !this.getHandUpStatusByUserId(this.myId);
 
       if (value !== undefined) {
         status = value;
       }
-      broadcastActions.dispatch('app/raiseHandInChannel', status);
+      broadcastActions.dispatch('app/handUpInChannel', status);
     },
   },
 };

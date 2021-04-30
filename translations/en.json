@@ -225,7 +225,7 @@
     "griduser": {
       "fullscreen": "Fullscreen",
       "mute": "Mute for all",
-      "raiseHand": "Raise hand"
+      "handUp": "Raise hand"
     },
     "userProfile": {
       "profile": "Profile",

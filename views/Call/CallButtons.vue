@@ -215,7 +215,6 @@ export default {
 
     anyRaisedHand() {
       for (const user of this.users) {
-        console.log(user);
         if (this.getHandUpStatusByUserId(user.user.id)) {
           return true;
         }

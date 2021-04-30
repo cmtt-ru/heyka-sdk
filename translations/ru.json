@@ -225,7 +225,7 @@
     "griduser": {
       "fullscreen": "Полный экран",
       "mute": "Выкл. микрофон для всех",
-      "raiseHand": "Поднять руку"
+      "handUp": "Поднять руку"
     },
     "userProfile": {
       "profile": "Профиль",

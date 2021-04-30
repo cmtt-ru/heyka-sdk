@@ -25,7 +25,8 @@
         class="top-content__devices"
         :type="7"
         popover
-        :height="44"
+        :height="60"
+        size="large"
         icon="settings"
       />
     </div>
@@ -56,7 +57,7 @@
         />
       </div>
 
-      <div class="bottom-content__col bottom-content__col--2">
+      <div class="bottom-content__col bottom-content__col--right">
         <ui-button
           popover
           class="tech-button"
@@ -65,7 +66,7 @@
           :type="7"
           :height="60"
           icon="hand-up"
-          @click="raiseHandHandler"
+          @click="handUpHandler"
         />
         <mini-chat-button :height="60" />
       </div>
@@ -203,7 +204,7 @@ export default {
 
     speaking(val) {
       if (val) {
-        this.raiseHandHandler(false);
+        this.handUpHandler(false);
       }
     },
   },
@@ -390,13 +391,13 @@ export default {
       });
     },
 
-    raiseHandHandler(value) {
+    handUpHandler(value) {
       let status = !this.getHandUpStatusByUserId(this.myId);
 
       if (value !== undefined) {
         status = value;
       }
-      broadcastActions.dispatch('app/raiseHandInChannel', status);
+      broadcastActions.dispatch('app/handUpInChannel', status);
     },
 
     windowFocusHandler() {
@@ -440,7 +441,7 @@ export default {
     &__devices
       margin-left 8px
       flex-shrink 0
-      border-radius 11px
+      border-radius 15px
 
   .left-info
     display flex
@@ -503,7 +504,7 @@ export default {
         @media screen and (max-width: 1000px)
           display none
 
-      &--2
+      &--right
         padding-right 40px
 
   .tech-button
