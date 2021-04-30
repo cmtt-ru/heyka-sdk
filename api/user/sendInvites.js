@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * Send PUSH NOTIFICATION to user
+ * Send several push notifications to users
  * @param {object} params - params
  * @param {string} params.users - array of user ids'
  * @param {boolean} params.isResponseNeeded - id of recipient
