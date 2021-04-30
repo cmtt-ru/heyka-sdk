@@ -494,11 +494,11 @@ export default {
 
   &__talking
     position absolute
-    top 4px
-    bottom 4px
-    left 4px
-    right 4px
-    border 2px solid var(--new-signal-02)
+    top 0
+    left 0
+    width 100%
+    height 100%
+    border 4px solid var(--new-signal-02)
     border-radius 12px
     box-sizing border-box
     pointer-events none
