@@ -126,7 +126,6 @@ const ICON_MAP = {
   camera: {
     true: {
       icon: 'video',
-      color: 'var(--text-0)',
     },
     false: {
       icon: 'video-off',

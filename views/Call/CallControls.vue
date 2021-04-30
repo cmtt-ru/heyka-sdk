@@ -260,11 +260,14 @@ export default {
 
     &__channel
       display flex
-      color rgba(255,255,255,0.6) //! поменять, когда появится цвет в дизайне
+      color var(--new-white)
       align-items center
       line-height 18px
       margin-left -4px
       margin-top 2px
+
+      & span
+         opacity 0.6
 
       svg
         flex-shrink 0
@@ -281,7 +284,7 @@ export default {
       flex-shrink 0
 
       &--disconnect
-        color var(--color-0)
+        color var(--new-signal-03)
 
       &:last-child
         margin-right 0

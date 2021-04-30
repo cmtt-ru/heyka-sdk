@@ -34,11 +34,9 @@ import broadcastEvents from '@sdk/classes/broadcastEvents';
 const STATES = {
   true: {
     icon: 'mic',
-    stroke: 'var(--text-0)',
   },
   false: {
     icon: 'mic-off',
-    stroke: 'var(--text-1)',
   },
 };
 
@@ -255,6 +253,7 @@ export default {
 .mic
   position relative
   background var(--new-overlay-01)
+  color var(--new-white)
   cursor pointer
   display flex
   flex-direction row

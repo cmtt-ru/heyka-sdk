@@ -114,16 +114,16 @@ const COLORS_LENGTH = COLORS.length;
  */
 const STATUS_COLORS = {
   online: {
-    'background-color': 'var(--color-1)',
-    'border-color': 'var(--color-1)',
+    'background-color': 'var(--new-signal-02)',
+    'border-color': 'var(--new-signal-02)',
   },
   idle: {
-    'background-color': 'var(--color-3)',
-    'border-color': 'var(--color-3)',
+    'background-color': 'var(--new-signal-01)',
+    'border-color': 'var(--new-signal-01)',
   },
   offline: {
     'background-color': 'transparent',
-    'border-color': 'var(--color-4)',
+    'border-color': 'var(--new-UI-05)',
   },
 };
 

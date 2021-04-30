@@ -62,7 +62,7 @@ if (IS_ELECTRON) {
 }
 
 if (API_URL) {
-  COOKIE_URL = API_URL.split('.').splice(-2)
+  COOKIE_URL = '.' + API_URL.split('.').splice(-2)
     .join('.');
 }
 

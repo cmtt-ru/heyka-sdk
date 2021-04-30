@@ -111,15 +111,14 @@ export default {
       right 16px
       width 14px
       height 14px
-      background-color var(--new-UI-09)
+      background-color var(--new-white)
       border-radius 12px
       z-index 2
       transition all 0.28s cubic-bezier(0.4, 0, 0.2, 1)
       transition-property right
 
     &--checked
-      background-color var(--color-2)
-      box-shadow inset 0 0 0 0.5px #1264CD
+      background-color var(--new-UI-01)
 
       &:after
         right 2px

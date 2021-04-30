@@ -16,7 +16,7 @@
         v-model="localValue"
         :type="localType"
         class="input"
-        :class="{'input--with-icon': icon, 'input--with-eye': isPass}"
+        :class="{'input--with-icon': icon, 'input--with-eye': isPass , 'input--with-clear': clearable}"
         :placeholder="placeholder"
         :readonly="readonly"
         @input="debounceCheck"
@@ -25,10 +25,18 @@
       >
       <svg-icon
         v-if="isPass"
-        class="input__eye"
+        class="input__right-icon"
         :name="eyeIcon"
         size="medium"
         @click.native.stop="passIconClickHandler()"
+      />
+      <svg-icon
+        v-if="clearable && value"
+        class="input__right-icon input__right-icon--clear"
+        name="clear"
+        :width="18"
+        :height="18"
+        @click.native.stop="clearHandler()"
       />
     </div>
     <div
@@ -80,6 +88,14 @@ export default {
      * Is textarea?
      */
     textarea: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * true if need to display cross to the right of input
+     */
+    clearable: {
       type: Boolean,
       default: false,
     },
@@ -274,6 +290,11 @@ export default {
       this.focusInput();
     },
 
+    clearHandler() {
+      this.localValue = '';
+      this.$refs.input.blur();
+    },
+
     trySelectingAll(event) {
       if (this.readonly) {
         event.target.select();
@@ -411,13 +432,14 @@ export default {
   border none
   background-color transparent
   font-family Inter, sans-serif
-  font-size 14px
+  font-size 15px
   line-height 18px
   color var(--new-UI-02)
   outline none !important
 
   &::placeholder
     color var(--new-UI-04)
+    font-weight normal
 
   &__icon
     position absolute
@@ -428,7 +450,7 @@ export default {
     color var(--new-UI-01)
     pointer-events none
 
-  &__eye
+  &__right-icon
     position absolute
     top 0
     bottom 0
@@ -437,11 +459,17 @@ export default {
     cursor pointer
     color var(--new-UI-04)
 
+    &--clear
+      right 17px
+
   &--with-icon
     padding-left 34px
 
   &--with-eye
     padding-right 30px
+
+  &--with-clear
+    padding-right 40px
 
 .ui-error
   border-color var(--new-signal-03)

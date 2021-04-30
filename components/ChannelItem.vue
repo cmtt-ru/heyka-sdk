@@ -40,7 +40,7 @@
             v-for="person in users"
             :key="person.id"
             :user-id="person.id"
-            :size="12"
+            :size="14"
           />
         </div>
         <div
