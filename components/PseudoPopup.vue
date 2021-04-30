@@ -207,7 +207,7 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--shadow-10)
+        box-shadow 0 0 0 1px var(--new-stroke-01)
 
     &__body
       flex 1 1 auto
@@ -230,6 +230,6 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--shadow-10)
+        box-shadow 0 0 0 1px var(--new-stroke-01)
 
 </style>

@@ -299,7 +299,7 @@ export default {
       opacity 0.8 //! временно?
 
     &__icon
-      color var(--icon-1)
+      color var(--new-UI-03)
       margin-left 6px
       flex-shrink 0
 
@@ -338,7 +338,7 @@ export default {
       background-color var(--new-UI-06)
 
     &__icon
-      color var(--color-1)
+      color var(--new-signal-02)
 
     &--selected
       color var(--new-UI-02)
@@ -349,10 +349,10 @@ export default {
   overflow hidden
 
 .ui-error
-  border-color var(--color-0)
+  border-color var(--new-signal-03)
 
 .error-text
-  color var(--text-tech-0)
+  color var(--new-signal-03)
   font-size 10px
   line-height 12px
   min-height 16px

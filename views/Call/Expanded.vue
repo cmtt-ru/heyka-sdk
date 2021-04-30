@@ -2,7 +2,6 @@
   <div
     ref="expanded"
     class="expanded-window"
-    :style="$themes.getColors('popover')"
     @dblclick="showGridHandler"
   >
     <div class="sharing-wrapper wrapper">
@@ -381,6 +380,8 @@ export default {
   position relative
   height 100vh
   width 100vw
+  background-color var(--new-black)
+  color var(--new-white)
 
 .wrapper
   position absolute
@@ -400,13 +401,12 @@ export default {
 .sharing
   width 100%
   height 100%
-  background-color var(--app-bg)
   background-size contain
   background-position center
   background-repeat no-repeat
 
 .video-preview
-  background-color var(--app-bg)
+  background-color var(--new-black)
   position absolute
   left 0
   top 0
@@ -423,7 +423,7 @@ export default {
   left 30px
   display flex
   flex-direction row
-  background-color var(--button-bg-5)
+  background-color var(--new-black)
   padding 8px
   border-radius 4px
   font-weight 500
@@ -448,14 +448,14 @@ export default {
   border-radius 11px
 
 .control
-  background-color var(--app-bg)
+  background-color var(--new-black)
   border-radius 4px
   top calc(100% - 126px)
   left calc(50% - 92px)
   height auto
   opacity 1
   transition opacity 0.2s ease
-  box-shadow 0 0 0 1px var(--button-bg-5)
+  box-shadow 0 0 0 1px var(--new-UI-06)
 
   &--hidden
     opacity 0

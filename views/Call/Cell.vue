@@ -567,7 +567,7 @@ export default {
     top 4px
     left 4px
     transition opacity 0.15s ease
-    background-color var(--button-bg-5)
+    background-color var(--new-transparent)
     width 28px
     padding 9px 0
     min-height 28px
