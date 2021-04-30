@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
 import store from '@/store';
-import hark from '@sdk/classes/hark';
 import router from '@/router';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import microphone from '@sdk/classes/microphone';
@@ -247,41 +246,39 @@ export default class AudioCheck extends EventEmitter {
    * @returns {void}
    */
   async subscribeMutedTalk() {
-    this.subscribeMutedTalk.__mediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        deviceId: this._selectedMicrophone(),
-      },
-    });
-
-    this.subscribeMutedTalk.__harkInstance = hark(this.subscribeMutedTalk.__mediaStream, {
-      interval: 100,
-    });
-
     this.subscribeMutedTalk.talkingLevel = -100;
+    this.subscribeMutedTalk.eventHandler = this.mutedTalkVolumeChangeHandler.bind(this);
+
+    microphone.listen('muted-talk');
+    microphone.on('volume-change', this.subscribeMutedTalk.eventHandler);
+  }
+
+  /**
+   * Volume change handler for muted talk
+   * @param {number} db — microphone volume in db
+   * @returns {void}
+   */
+  mutedTalkVolumeChangeHandler(db) {
     const minLevel = -40; // speak louder and you'll get notification
 
-    this.subscribeMutedTalk.__harkInstance.on('volume_change', (db) => {
-      this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
+    this.subscribeMutedTalk.talkingLevel = (this.subscribeMutedTalk.talkingLevel + db) / 2;
 
-      if (this.subscribeMutedTalk.talkingLevel > minLevel) {
-        this.showTakingMutedNotification();
-        this.unsubscribeMutedTalk();
-      }
-    });
-  }
+    if (this.subscribeMutedTalk.talkingLevel > minLevel) {
+      this.showTakingMutedNotification();
+      this.unsubscribeMutedTalk();
+    }
+  };
 
   /**
    * Unsubscribe from 'louder than minLevel' event
    * @returns {void}
    */
   async unsubscribeMutedTalk() {
-    if (this.subscribeMutedTalk.__harkInstance) {
-      this.subscribeMutedTalk.__harkInstance.stop();
-      delete this.subscribeMutedTalk.__harkInstance;
-    }
+    if (this.subscribeMutedTalk.eventHandler) {
+      microphone.removeListener('volume-change', this.subscribeMutedTalk.eventHandler);
+      microphone.forget('muted-talk');
 
-    if (this.subscribeMutedTalk.__mediaStream) {
-      this.subscribeMutedTalk.__mediaStream.getTracks().forEach(track => track.stop());
+      this.subscribeMutedTalk.eventHandler = null;
     }
   }
 
@@ -293,6 +290,9 @@ export default class AudioCheck extends EventEmitter {
     if (this.mediaState.microphone || this.__skipMutedTalk) {
       return;
     }
+
+    await store.dispatch('app/removePushByName', 'noSound');
+
     const push = {
       inviteId: Date.now().toString(),
       local: true,
