@@ -68,6 +68,7 @@
           icon="hand-up"
           @click="handUpHandler"
         />
+
         <mini-chat-button :height="60" />
       </div>
     </div>
