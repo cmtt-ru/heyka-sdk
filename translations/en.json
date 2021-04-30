@@ -106,10 +106,10 @@
       "header": "Add to workspace",
       "link": "Link",
       "email": "Email",
-      "copy": "Copy invite link",
-      "copied": "Copied!",
+      "linkHeader": "Users can join your workspace via this temporary link.",
+      "copy": "Copy link",
       "addEmail": "Add email",
-      "expires": "Your invite link expires in 30 days",
+      "expires": "Invite link copied. It will expire in 30 days",
       "send": "Send",
       "sendSuccess": "You have successfully sent",
       "inviteAmount": "1 invitation | {n} invitations",
@@ -165,6 +165,7 @@
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
       "muteHotkey": "Ctrl+Shift+M mutes the mic",
+      "macMuteHotkey": "Cmd+Shift+M mutes the mic",
       "closeOverlay": "Show «Close» button in call overlay",
       "restartNow": "Restart now",
       "serverLabel": "Server",
@@ -245,9 +246,6 @@
       "leave": "Leave channel",
       "invite": "Invite to channel"
     },
-    "userMore": {
-      "edit": "Edit profile"
-    },
     "manageUser": {
       "admin": "Make an admin",
       "noAdmin": "Take away admin rights"
@@ -300,6 +298,7 @@
     "noResponse": "Didn't accept your invitation",
     "declined": "Can’t talk right now",
     "isbusy": "will contact you later",
+    "raisedHand": "raised a hand",
     "mutedTalking": {
       "text": "No one can hear you",
       "info": "Turn on your mic?",

@@ -138,7 +138,7 @@ export default {
     return {
       medianVolume: INIT_VOLUME,
       volumeHistory: [ INIT_VOLUME ],
-      currentVolume: 0,
+      currentVolume: INIT_VOLUME,
     };
   },
 
@@ -280,14 +280,14 @@ export default {
     height 100%
     transform-origin bottom left
     mix-blend-mode color-dodge
-    //transition transform 0.1s linear
+    transition transform 0.1s linear
 
   &__icon
     position relative
 
   &--disabled
     pointer-events none
-    opacity 0.5
+    //opacity 0.5
 
   &--header
 

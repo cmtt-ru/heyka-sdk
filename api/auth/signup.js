@@ -29,6 +29,8 @@ import axios from 'axios';
  * @returns {date} user.credentials.accessTokenExpiredAt
  * @returns {date} user.credentials.refreshTokenExpiredAt
  */
-export default function (params) {
+export default function signup(params) {
   return axios.post('/signup', params);
 }
+
+signup.ignoreTokens = true;

@@ -1,14 +1,9 @@
 <template>
   <div
     class="cell"
-    :class="{'cell--elevated': raisedHand, 'cell--reconnecting': reconnectingStatus(user.id)}"
+    :class="{'cell--reconnecting': reconnectingStatus(user.id)}"
     :style="cellDimensions"
   >
-    <div
-      v-show="handUpTimestamp > initTime"
-      :key="handUpTimestamp"
-      class="cell__raised-hand"
-    />
     <div
       class="cell__inner"
       @dblclick="expandedClickHandler"
@@ -28,10 +23,6 @@
       <div
         v-show="mediaCanShow"
         class="cell__feed__gradient"
-      />
-      <div
-        v-show="mediaState.speaking && mediaState.microphone"
-        class="cell__talking"
       />
 
       <ui-button
@@ -82,6 +73,21 @@
         />
       </div>
     </div>
+    <div
+      v-show="mediaState.speaking && mediaState.microphone"
+      class="cell__talking"
+    />
+    <div
+      v-show="handUpStatus"
+      class="cell__raised-hand"
+    >
+      <svg-icon
+        name="hand-up"
+        :width="currentSizes['button']"
+        :height="currentSizes['button']"
+        class="cell__raised-hand__icon"
+      />
+    </div>
   </div>
 </template>
 
@@ -99,9 +105,6 @@ import captureFrame from 'capture-frame';
  * @type {number}
  */
 const ASPECT_RATIO = 0.7380952381;
-
-/* Timeout for hand up */
-const TOO_LATE = 5000;
 
 const SIZES = [
   {
@@ -185,7 +188,6 @@ export default {
   },
   data() {
     return {
-      raisedHand: false,
       isMediaPlaying: false,
       isStreamActive: false,
       isNeedToWaitVideo: true,
@@ -205,7 +207,7 @@ export default {
      * Hand up timestamp
      * @returns {number}
      */
-    handUpTimestamp() {
+    handUpStatus() {
       return this.getHandUpStatusByUserId(this.user.id);
     },
 
@@ -302,15 +304,6 @@ export default {
     videoStream(val) {
       if (val) {
         this.insertVideoStreamForUser(val);
-      }
-    },
-
-    handUpTimestamp(val) {
-      if (val) {
-        this.raisedHand = true;
-        setTimeout(() => {
-          this.raisedHand = false;
-        }, TOO_LATE);
       }
     },
   },
@@ -463,59 +456,16 @@ export default {
     left 4px
     right 4px
     pointer-events none
-    border-radius var(--borderWidth)
-    animation showRaisedHand 5s linear forwards
-    animation-iteration-count 1
-    --borderWidth: 12px
+    border-radius 12px
+    border 4px solid var(--new-UI-01)
 
-    @keyframes showRaisedHand {
-      0% {
-        visibility: visible;
-        opacity: 0;
-      }
-      5% {
-        visibility: visible;
-        opacity: 1;
-      }
-      95% {
-        visibility: visible;
-        opacity: 1;
-      }
-      100% {
-        visibility: hidden;
-        opacity: 0;
-      }
-    }
-
-    &:after
-      content ''
-      position absolute
-      top calc(-1 * var(--borderWidth))
-      left calc(-1 * var(--borderWidth))
-      height calc(100% + var(--borderWidth) * 2)
-      width calc(100% + var(--borderWidth) * 2)
-      background linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)
-      border-radius calc(var(--borderWidth) * 2)
-      z-index 1
-      animation animatedGradient 2s ease alternate
-      animation-iteration-count 3
-      background-size 300% 300%
-      filter blur(25px)
-
-    @keyframes animatedGradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+    &__icon
+      color var(--new-UI-01)
+      padding 4px
 
   &__inner
     border-radius 12px
+    border 4px solid transparent
     height 100%
     padding 4px
     box-sizing border-box
@@ -555,7 +505,7 @@ export default {
     left 0
     width 100%
     height 100%
-    border 2px solid var(--new-signal-02)
+    border 4px solid var(--new-signal-02)
     border-radius 12px
     box-sizing border-box
     pointer-events none

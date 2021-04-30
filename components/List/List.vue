@@ -5,7 +5,7 @@
   >
     <slot />
     <div
-      v-show="itemsAmount===0 && filterBy!==''"
+      v-show="!noEmptyText && itemsAmount===0 && filterBy!==''"
       v-textfade
       class="no-results"
     >
@@ -59,6 +59,14 @@ export default {
      * Determine if list's items can be selected
      */
     selectable: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * True if we shouldn't display "no results for X"
+     */
+    noEmptyText: {
       type: Boolean,
       default: false,
     },

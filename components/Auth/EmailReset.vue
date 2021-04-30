@@ -37,6 +37,7 @@
 <script>
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
+import notify from '@libs/notify';
 
 export default {
   components: {
@@ -79,13 +80,7 @@ export default {
         console.log('ERROR:', err);
       }
 
-      const notification = {
-        data: {
-          text: this.notifTexts.passReset,
-        },
-      };
-
-      await this.$store.dispatch('app/addNotification', notification);
+      notify('notifications.login.passReset');
     },
   },
 };
