@@ -60,14 +60,14 @@
         <ui-button
           popover
           class="tech-button"
-          :class="{ 'tech-button--active': getHandUpStatusByUserId(myId) }"
+          :active="getHandUpStatusByUserId(myId)"
           size="large"
           :type="7"
           :height="60"
           icon="hand-up"
           @click="raiseHandHandler"
         />
-        <mini-chat-button />
+        <mini-chat-button :height="60" />
       </div>
     </div>
   </div>
@@ -491,7 +491,7 @@ export default {
         flex-basis 100%
         justify-content center
 
-        @media screen and (max-width: 1090px)
+        @media screen and (max-width: 1000px)
           justify-content flex-start
           flex-basis initial
           margin-left 40px
@@ -500,7 +500,7 @@ export default {
             margin 0
 
       &--left
-        @media screen and (max-width: 1090px)
+        @media screen and (max-width: 1000px)
           display none
 
       &--2
@@ -509,13 +509,8 @@ export default {
   .tech-button
     border-radius 15px
 
-    &--active
-      background-color var(--new-UI-01)
-
   .mini-chat-button
-    position relative
     margin-left 12px
-    margin-right 40px
 
     &__badge
       position absolute

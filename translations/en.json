@@ -54,6 +54,7 @@
     "user": {
       "privateTalkButton": "Private talk",
       "inviteButtonStart": "Invite to",
+      "alreadyIn": "Already in",
       "inviteBySlackButton": "Send invite via Slack",
       "inviteByTeamsButton": "Send invite via MS Teams",
       "localTime": "Local time",

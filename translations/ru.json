@@ -54,6 +54,7 @@
     "user": {
       "privateTalkButton": "Вызвать",
       "inviteButtonStart": "Пригласить в",
+      "alreadyIn": "Уже в",
       "inviteBySlackButton": "Пригласить через Slack",
       "inviteByTeamsButton": "Пригласить через MS Teams",
       "localTime": "Локальное время",

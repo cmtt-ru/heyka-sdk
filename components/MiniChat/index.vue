@@ -157,7 +157,6 @@ export default {
     processMessages() {
       this.markAllMessagesAsRead();
       this.chatHistory = this.getConversationEvents().map(i => {
-        console.log(i);
         if (i.action === 'mini-chat') {
           return {
             userId: i.userId,

@@ -71,7 +71,6 @@ export default {
       this.blurredImage = await this.blurImage(this.imageUrl);
     } else {
       this.blurredImage = this.blurColor(idToColor(this.userId));
-      console.log('this.blurredImage', this.blurredImage);
     }
   },
 
