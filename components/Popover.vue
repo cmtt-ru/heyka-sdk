@@ -54,6 +54,7 @@ export default {
       margin 0 auto !important
       transform none !important
       box-shadow 0px 0px 0px 300vh rgba(0, 0, 0, 0.28);
+      border-radius 10px
 
     &__header
       display none
@@ -62,6 +63,7 @@ export default {
       align-items center
       padding 13px 20px
       height 52px
+      font-size 16px
       box-sizing border-box
       font-weight bold
 
@@ -91,13 +93,24 @@ export default {
     padding 0
 
   /deep/ .ui-button
-    margin-bottom 4px
+    margin-bottom 8px
     height 48px
     box-sizing border-box
     font-weight 500
     font-size 16px
     line-height 24px
-    padding 0 16px
+    padding 0 20px
+    position relative
+    border-radius 0
+
+    &:not(:last-child):after
+      content ''
+      position absolute
+      bottom -4px
+      right 0
+      left 55px
+      height 1px
+      background-color var(--new-stroke-01)
 
   /deep/ .ui-button__icon
     height 24px

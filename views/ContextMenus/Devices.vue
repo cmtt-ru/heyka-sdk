@@ -23,5 +23,4 @@ export default {
 .device-popover
   width 300px
   height 275px
-  color var(--text-0)
 </style>

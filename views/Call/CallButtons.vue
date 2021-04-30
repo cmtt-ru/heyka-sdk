@@ -6,7 +6,7 @@
   >
     <microphone
       v-if="buttons.includes('microphone')"
-      :disabled="!isDeviceAvailable('microphone') || janusInProgress"
+      :disabled="!isDeviceAvailable('microphone')"
       class="call-buttons__button"
       :active="mediaState.microphone"
       :size="size"
@@ -29,7 +29,7 @@
 
     <ui-button
       v-if="buttons.includes('camera')"
-      :disabled="!isDeviceAvailable('camera') || janusInProgress"
+      :disabled="!isDeviceAvailable('camera')"
       class="call-buttons__button"
       :type="7"
       popover
@@ -42,7 +42,6 @@
 
     <ui-button
       v-if="buttons.includes('screen')"
-      :disabled="janusInProgress"
       class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
@@ -79,7 +78,6 @@
 
     <ui-button
       v-if="buttons.includes('leave')"
-      :disabled="janusInProgress"
       class="call-buttons__button call-buttons__button--disconnect"
       :type="7"
       popover
@@ -129,7 +127,6 @@ const ICON_MAP = {
   camera: {
     true: {
       icon: 'video',
-      color: 'var(--text-0)',
     },
     false: {
       icon: 'video-off',

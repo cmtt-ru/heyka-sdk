@@ -94,6 +94,7 @@
 <script>
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
+import MiniChatButton from '@components/MiniChat/Button';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -123,6 +124,7 @@ export default {
     CallButtons,
     UiButton,
     Cell,
+    MiniChatButton,
   },
 
   data() {
@@ -133,8 +135,6 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
-      miniChatBadge: false,
-      miniChatBadgeKey: 0,
       pausedByScreenSharing: false,
     };
   },
@@ -148,8 +148,6 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       isSharingFullScreen: 'janus/isSharingFullScreen',
-      hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
-      miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
       amISharingScreen: 'amISharingScreen',
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
@@ -226,6 +224,7 @@ export default {
         this.raiseHandHandler(false);
       }
     },
+
   },
 
   async mounted() {
@@ -269,9 +268,6 @@ export default {
         });
       });
     }
-
-    this.miniChatBadge = this.hasMiniChatNewMessages;
-    this.miniChatBadgeKey = this.miniChatLastMessageTimestamp;
   },
 
   beforeDestroy() {
@@ -448,6 +444,7 @@ export default {
     display flex
     flex-direction column
     height 100vh
+    color var(--new-white)
 
   .top-content
     height 108px
@@ -478,7 +475,7 @@ export default {
     flex-shrink 0
 
   .channel-name
-    color var(--new-UI-09)
+    color var(--new-white)
     margin 0 16px 0 4px
     font-weight bold
     font-size 32px
@@ -525,8 +522,8 @@ export default {
         @media screen and (max-width: 1090px)
           display none
 
-    &__controls
-      margin 0 auto
+      &--2
+        padding-right 40px
 
   .tech-button
     border-radius 15px
@@ -558,4 +555,6 @@ export default {
   .badge-show-leave-to
     transform scale(0)
 
+    &__controls
+      margin 0 auto
 </style>

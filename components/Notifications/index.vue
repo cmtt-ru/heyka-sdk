@@ -1,6 +1,5 @@
 <template>
   <div
-    :style="$themes.getColors('popover')"
     class="notification-wrapper"
     :class="{'notification-wrapper--modal': isModal}"
   >

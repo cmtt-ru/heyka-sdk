@@ -165,6 +165,7 @@
       "resize": "Resizeable window",
       "nomic": "Disable mic after hanging up",
       "muteHotkey": "Ctrl+Shift+M mutes the mic",
+      "macMuteHotkey": "Cmd+Shift+M mutes the mic",
       "closeOverlay": "Show «Close» button in call overlay",
       "restartNow": "Restart now",
       "serverLabel": "Server",

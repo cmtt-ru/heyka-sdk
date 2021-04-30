@@ -22,7 +22,7 @@
         class="icon-delete"
         :type="7"
         size="small"
-        icon="trash"
+        icon="close"
         @click.native="deleteItem(index)"
       />
     </div>
@@ -214,7 +214,7 @@ export default {
     align-items flex-start
 
 .icon-delete
-    color var(--color-0)
+    color var(--new-signal-03)
     margin 4px 4px 0 8px
     flex-shrink 0
 

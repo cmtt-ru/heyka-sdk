@@ -11,10 +11,12 @@ import { setTokens } from '../tokens';
  * @returns {date} data.accessTokenExpiredAt — new access token's exiring date
  * @returns {date} data.refreshTokenExpiredAt — new access token's exiring date
  */
-export default async function (code) {
+export default async function signinByLink(code) {
   const res = await axios.post(`/signin/link/${code}`);
 
   setTokens(res.data);
 
   return res;
 }
+
+signinByLink.ignoreTokens = true;
