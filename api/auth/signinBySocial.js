@@ -9,6 +9,8 @@ import axios from 'axios';
  *
  * @returns {object} result data
  */
-export default function (social, params) {
+export default function signinBySocial(social, params) {
   return axios.get(`/signin/${social}`, params).then(res => res.data);
 }
+
+signinBySocial.ignoreTokens = true;

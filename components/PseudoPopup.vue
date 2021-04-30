@@ -191,7 +191,6 @@ export default {
       display flex
       align-items center
       flex 0 0 38px
-      font-size 14px
       font-weight 500
       background var(--new-bg-04)
       padding 3px 16px
@@ -207,7 +206,7 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--shadow-10)
+        box-shadow 0 0 0 1px var(--new-stroke-01)
 
     &__body
       flex 1 1 auto
@@ -230,6 +229,6 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--shadow-10)
+        box-shadow 0 0 0 1px var(--new-stroke-01)
 
 </style>

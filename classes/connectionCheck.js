@@ -64,9 +64,11 @@ class ConnectionCheck extends EventEmitter {
    * @returns {void}
    */
   async handleApiState(state) {
-    store.commit('app/SET_CONNECTION_STATUS', {
-      api: state,
-    });
+    if (store.state.app.connectionStatus.api !== state) {
+      store.commit('app/SET_CONNECTION_STATUS', {
+        api: state,
+      });
+    }
   }
 
   /**

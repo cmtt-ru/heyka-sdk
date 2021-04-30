@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setTokens } from '../tokens';
+import store from '@/store';
 
 /**
  * Sign in user with email and password
@@ -28,10 +29,16 @@ import { setTokens } from '../tokens';
  *   @returns {date} user.credentials.accessTokenExpiredAt
  *   @returns {date} user.credentials.refreshTokenExpiredAt
  */
-export default async function (params) {
+export default async function signin(params) {
   const res = await axios.post('/signin', params);
+
+  if (res.data.user.lang) {
+    await store.dispatch('app/setLanguage', res.data.user.lang);
+  }
 
   setTokens(res.data.credentials);
 
   return res;
 }
+
+signin.ignoreTokens = true;

@@ -9,6 +9,8 @@ import axios from 'axios';
  *
  * @returns {string} auth link
  */
-export default function (params) {
+export default function resetPass(params) {
   return axios.post('/reset-password', params).then(res => res.data);
 }
+
+resetPass.ignoreTokens = true;

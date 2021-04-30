@@ -46,9 +46,9 @@
     </div>
 
     <div class="bottom-content">
-      <div class="bottom-content__col" />
+      <div class="bottom-content__col bottom-content__col--left" />
 
-      <div class="bottom-content__col bottom-content__col--1">
+      <div class="bottom-content__col bottom-content__col--center">
         <call-buttons
           class="bottom-content__controls"
           :buttons="buttonsSetup"
@@ -57,6 +57,16 @@
       </div>
 
       <div class="bottom-content__col">
+        <ui-button
+          popover
+          class="tech-button"
+          :class="{ 'tech-button--active': getHandUpStatusByUserId(myId) }"
+          size="large"
+          :type="7"
+          :height="60"
+          icon="hand-up"
+          @click="raiseHandHandler"
+        />
         <div class="mini-chat-button">
           <transition name="badge-show">
             <div
@@ -69,8 +79,10 @@
           <ui-button
             v-popover.click="{name: 'MiniChat'}"
             popover
+            size="large"
+            class="tech-button"
             :type="7"
-            :height="44"
+            :height="60"
             icon="chat"
           />
         </div>
@@ -82,6 +94,7 @@
 <script>
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
+import MiniChatButton from '@components/MiniChat/Button';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -111,6 +124,7 @@ export default {
     CallButtons,
     UiButton,
     Cell,
+    MiniChatButton,
   },
 
   data() {
@@ -121,8 +135,6 @@ export default {
       padding: {},
       videoStreams: {},
       mountedTimestamp: Date.now(),
-      miniChatBadge: false,
-      miniChatBadgeKey: 0,
       pausedByScreenSharing: false,
     };
   },
@@ -136,9 +148,8 @@ export default {
       selectedChannel: 'myChannel',
       users: 'usersInMyChannel',
       isSharingFullScreen: 'janus/isSharingFullScreen',
-      hasMiniChatNewMessages: 'channels/hasMiniChatNewMessages',
-      miniChatLastMessageTimestamp: 'channels/getMiniChatLastMessageTimestamp',
       amISharingScreen: 'amISharingScreen',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
     /**
@@ -180,6 +191,10 @@ export default {
     selectedChannelName() {
       return this.selectedChannel?.name || 'no channel selected';
     },
+
+    speaking() {
+      return this.mediaState.speaking;
+    },
   },
 
   watch: {
@@ -203,6 +218,13 @@ export default {
     miniChatLastMessageTimestamp(val) {
       this.miniChatBadgeKey = val;
     },
+
+    speaking(val) {
+      if (val) {
+        this.raiseHandHandler(false);
+      }
+    },
+
   },
 
   async mounted() {
@@ -246,9 +268,6 @@ export default {
         });
       });
     }
-
-    this.miniChatBadge = this.hasMiniChatNewMessages;
-    this.miniChatBadgeKey = this.miniChatLastMessageTimestamp;
   },
 
   beforeDestroy() {
@@ -390,6 +409,15 @@ export default {
       });
     },
 
+    raiseHandHandler(value) {
+      let status = !this.getHandUpStatusByUserId(this.myId);
+
+      if (value !== undefined) {
+        status = value;
+      }
+      broadcastActions.dispatch('app/raiseHandInChannel', status);
+    },
+
     windowFocusHandler() {
       if (this.pausedByScreenSharing) {
         janusVideoroomWrapper.resumeAllSubscriptions();
@@ -416,6 +444,7 @@ export default {
     display flex
     flex-direction column
     height 100vh
+    color var(--new-white)
 
   .top-content
     height 108px
@@ -446,7 +475,7 @@ export default {
     flex-shrink 0
 
   .channel-name
-    color var(--new-UI-09)
+    color var(--new-white)
     margin 0 16px 0 4px
     font-weight bold
     font-size 32px
@@ -475,20 +504,37 @@ export default {
       align-items center
       flex-grow 1
       flex-basis 33.333%
+      justify-content flex-end
 
-      &--1
+      &--center
         flex-basis 100%
+        justify-content center
 
-    &__controls
-      margin 0 auto
+        @media screen and (max-width: 1090px)
+          justify-content flex-start
+          flex-basis initial
+          margin-left 40px
+
+          .bottom-content__controls
+            margin 0
+
+      &--left
+        @media screen and (max-width: 1090px)
+          display none
+
+      &--2
+        padding-right 40px
+
+  .tech-button
+    border-radius 15px
+
+    &--active
+      background-color var(--new-UI-01)
 
   .mini-chat-button
     position relative
-    margin-left auto
+    margin-left 12px
     margin-right 40px
-
-    .ui-button
-      border-radius 11px
 
     &__badge
       position absolute
@@ -509,4 +555,6 @@ export default {
   .badge-show-leave-to
     transform scale(0)
 
+    &__controls
+      margin 0 auto
 </style>

@@ -40,7 +40,7 @@ export default {
     position fixed
     bottom 22px
     left 22px
-    background var(--app-bg)
+    background var(--new-bg-04)
     border-radius 100px
     width 32px
     height 32px

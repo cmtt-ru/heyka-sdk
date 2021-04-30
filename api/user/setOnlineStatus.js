@@ -8,9 +8,12 @@ import { client } from '@api/socket/client';
  *
  * @returns {string} 'ok'
  */
-export default function (status, cause = undefined) {
+
+export default function setOnlineStatus(status, cause = undefined) {
   return axios.post(`/user/online-status?socketId=${client.id}`, {
     onlineStatus: status,
     cause,
   });
 }
+
+setOnlineStatus.important = true;

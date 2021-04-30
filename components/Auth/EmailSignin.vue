@@ -74,6 +74,7 @@ import { UiForm, UiInput } from '@components/Form';
 import { authFileStore, heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
+import notify from '@libs/notify';
 
 export default {
   components: {
@@ -124,6 +125,11 @@ export default {
       try {
         await this.$API.auth.signin({ credentials: this.login });
 
+        if (this.notifyClose) {
+          this.notifyClose();
+          this.notifyClose = null;
+        }
+
         if (IS_ELECTRON) {
           heykaStore.set('loginEmail', this.login.email);
           await this.$store.dispatch('initial');
@@ -138,19 +144,20 @@ export default {
           }
           window.localStorage.setItem('closeAuth', 'true');
           await this.$router.push({
-            name: 'Landing',
+            name: 'landing',
           });
         }
       } catch (err) {
-        if (err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
-            err.response.data.message === errorMessages.invalidRequestPayloadInput) { // ? maybe not needed
-          const notification = {
-            data: {
-              text: this.notifTexts.wrongPass,
-            },
-          };
+        if (
+          err.response.data.message === errorMessages.emailOrPasswordAreInvalid ||
+          err.response.data.message === errorMessages.invalidRequestPayloadInput
+        ) { // ? maybe not needed
+          if (this.notifyClose) {
+            this.notifyClose();
+            this.notifyClose = null;
+          }
 
-          await this.$store.dispatch('app/addNotification', notification);
+          this.notifyClose = await notify('notifications.login.wrongPass');
         }
       } finally {
         this.loginInProgress = false;
@@ -180,7 +187,7 @@ export default {
 
     &__link
       margin-left 8px
-      color var(--text-tech-2)
+      color var(--new-UI-01)
       cursor pointer
 
 </style>
