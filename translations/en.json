@@ -243,9 +243,6 @@
       "leave": "Leave channel",
       "invite": "Invite to channel"
     },
-    "userMore": {
-      "edit": "Edit profile"
-    },
     "manageUser": {
       "admin": "Make an admin",
       "noAdmin": "Take away admin rights"
@@ -298,6 +295,7 @@
     "noResponse": "Didn't accept your invitation",
     "declined": "Can’t talk right now",
     "isbusy": "will contact you later",
+    "raisedHand": "raised a hand",
     "mutedTalking": {
       "text": "No one can hear you",
       "info": "Turn on your mic?",

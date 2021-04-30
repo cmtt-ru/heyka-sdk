@@ -24,9 +24,11 @@ function elementCheck(el) {
   if (el.offsetWidth < el.scrollWidth) {
     if (!el.style.webkitMaskImage) {
       addStyles(el, STYLE_FADE);
+      el.setAttribute('title', el.innerText);
     }
   } else if (el.style.webkitMaskImage) {
     addStyles(el, STYLE_NOFADE);
+    el.removeAttribute('title');
   }
 }
 

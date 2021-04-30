@@ -15,14 +15,6 @@
       >
         {{ texts.fullscreen }}
       </ui-button>
-      <ui-button
-        v-if="isMe"
-        :type="11"
-        data-popover-close
-        @click="raiseHandHandler"
-      >
-        {{ texts.raiseHand }}
-      </ui-button>
     </div>
   </popover>
 </template>
@@ -99,9 +91,6 @@ export default {
       });
     },
 
-    raiseHandHandler() {
-      broadcastActions.dispatch('app/raiseHandInChannel', this.myId);
-    },
   },
 };
 </script>
