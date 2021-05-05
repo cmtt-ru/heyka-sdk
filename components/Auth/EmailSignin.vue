@@ -141,13 +141,11 @@ export default {
           const inviteCode = await authFileStore.get('inviteCode');
 
           if (inviteCode) {
-            joinByCode(inviteCode);
+            joinByCode(inviteCode); // ! надо показывать отдельную страницу/модалку с подтверждением присоединения в воркспейс
             authFileStore.set('inviteCode', null);
           }
-          window.localStorage.setItem('closeAuth', 'true');
-          await this.$router.push({
-            name: 'landing',
-          });
+          window.localStorage.setItem('authSuccess', 'true'); // for modal window in landing
+          await this.$router.push({ name: 'auth-success' }).catch(() => {});
         }
       } catch (err) {
         if (
