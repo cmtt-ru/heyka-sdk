@@ -464,7 +464,7 @@ export default {
   flex-direction row
   background-color var(--new-black)
   padding 8px
-  border-radius 4px
+  border-radius 6px
   font-weight 500
   align-items center
   opacity 1
@@ -497,16 +497,17 @@ export default {
 
 .control
   background-color var(--new-black)
-  border-radius 4px
+  border-radius 11px
   top calc(100% - 126px)
-  left calc(50% - 92px)
+  left calc(50% - 146px)
   height auto
   opacity 1
   transition opacity 0.2s ease
   box-shadow 0 0 0 1px var(--new-UI-06)
+  max-width 292px
 
-  &--hidden
-    opacity 0
-    pointer-events none
+  //&--hidden
+  //  opacity 0
+  //  pointer-events none
 
 </style>
