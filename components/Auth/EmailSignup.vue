@@ -48,7 +48,6 @@
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
-import { errorMessages } from '@api/errors/types';
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
 import notify from '@libs/notify';
@@ -96,8 +95,8 @@ export default {
 
         this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
-        if (err.response.data.message === errorMessages.emailExists) {
-          notify(errorMessages.emailExists, { icon: 'warning' });
+        if (err.response.data.message) {
+          notify(err.response.data.message, { icon: 'warning' });
         }
         console.log('ERROR:', err);
       }
