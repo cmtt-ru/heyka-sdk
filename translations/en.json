@@ -522,6 +522,11 @@
       }
     ]
   },
+  "downloadPage": {
+    "header": "Download app for your platform",
+    "version": "Version",
+    "dontClose": "Don't close this page to automatically login in app"
+  },
   "errors": {
     "403": {
       "title": "Forbidden",
