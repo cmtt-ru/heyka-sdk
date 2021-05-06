@@ -6,8 +6,10 @@ import axios from 'axios';
  *
  * @returns {string} result string
  */
-export default async function (code) {
+export default async function joinByCode(code) {
   const res = await axios.post(`/join/${code}`);
 
   return res.data;
 }
+
+joinByCode.ignoreTokens = true;

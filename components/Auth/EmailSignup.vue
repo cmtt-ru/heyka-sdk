@@ -48,11 +48,9 @@
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
-import { authFileStore } from '@/store/localStore';
 import { errorMessages } from '@api/errors/types';
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
-import joinByCode from '@api/workspace/joinByCode';
 import notify from '@libs/notify';
 
 export default {
@@ -93,13 +91,6 @@ export default {
         const res = await apiSignup({ user: this.newUser });
 
         setTokens(res.data.credentials);
-
-        const inviteCode = authFileStore.get('inviteCode');
-
-        if (inviteCode) {
-          joinByCode(inviteCode);
-          authFileStore.set('inviteCode', null);
-        }
 
         console.log(res);
 

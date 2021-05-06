@@ -12,7 +12,7 @@
             class="l-mt-12"
             style="position: absolute"
           >
-            {{ texts.header.workspace }}
+            {{ subheader }}
           </p>
 
           <ui-button
@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       transitionName: '',
-      inviteCode: null,
+      subheader: null,
     };
   },
 
@@ -74,6 +74,14 @@ export default {
 
       return require('./img/auth-cover-dark.png');
     },
+
+    /**
+     * Workspace invite code
+     * @returns {string | (string | null)[]}
+     */
+    inviteCode() {
+      return this.$route.query.invite;
+    },
   },
 
   watch: {
@@ -82,22 +90,26 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     if (this.$route.query.darkTheme) {
       this.$themes.manualSetTheme('dark');
     }
 
     if (!IS_ELECTRON) {
-      const inviteCode = this.$route.query.invite;
-
-      if (inviteCode) {
-        this.inviteCode = inviteCode;
-
-        authFileStore.set('inviteCode', inviteCode);
-
+      if (this.inviteCode) {
+        authFileStore.set('inviteCode', this.inviteCode);
         window.onbeforeunload = () => {
           authFileStore.set('inviteCode', null);
         };
+
+        try {
+          const workspaceInfo = await this.$API.workspace.checkCode(this.inviteCode);
+
+          this.subheader = `${this.texts.header.workspace} ${workspaceInfo.workspace.name}`;
+          console.log('workspace invite info:', workspaceInfo);
+        } catch (err) {
+
+        }
       }
     }
   },

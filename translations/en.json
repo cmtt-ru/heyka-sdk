@@ -340,6 +340,10 @@
     "editWorkspace": {
       "header": "Edit workspace info",
       "avatar": "We recommended an image of at least 512x512 for the avatar"
+    },
+    "workspaceInvite": {
+      "header": "Invite",
+      "body": "{0} is inviting you to join workspace {1}"
     }
   },
   "manage": {

@@ -71,11 +71,10 @@
 <script>
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
-import { authFileStore, heykaStore } from '@/store/localStore';
+import { heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
 import signin from '@api/auth/signin';
-import joinByCode from '@api/workspace/joinByCode';
 import notify from '@libs/notify';
 
 export default {
@@ -138,12 +137,6 @@ export default {
         } else {
           heykaStore.set('loginEmail', this.login.email);
 
-          const inviteCode = await authFileStore.get('inviteCode');
-
-          if (inviteCode) {
-            joinByCode(inviteCode); // ! надо показывать отдельную страницу/модалку с подтверждением присоединения в воркспейс
-            authFileStore.set('inviteCode', null);
-          }
           window.localStorage.setItem('authSuccess', 'true'); // for modal window in landing
           await this.$router.push({ name: 'auth-success' }).catch(() => {});
         }
