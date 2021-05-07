@@ -106,6 +106,9 @@ export default {
           const workspaceInfo = await this.$API.workspace.checkCode(this.inviteCode);
 
           this.subheader = `${this.texts.header.workspace} ${workspaceInfo.workspace.name}`;
+          if (workspaceInfo.email) {
+            authFileStore.set('loginEmail', workspaceInfo.email);
+          }
           console.log('workspace invite info:', workspaceInfo);
         } catch (err) {
 
