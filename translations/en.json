@@ -484,6 +484,11 @@
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
   },
+  "deeplink": {
+    "header": "Channel invite",
+    "subheader": "You can close this page now",
+    "openApp": "Open app"
+  },
   "janus": {
     "connectionError": "Unable to connect to the server"
   },
