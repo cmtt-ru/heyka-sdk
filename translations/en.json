@@ -77,7 +77,7 @@
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"
     },
-    "empty": "So far you've been disconnected\nfrom all channels",
+    "empty": "No active channels",
     "new": "What's new?",
     "editChannel": {
       "createTitle": "New channel",
