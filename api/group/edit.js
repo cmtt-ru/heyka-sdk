@@ -8,8 +8,10 @@ import axios from 'axios';
  *
  * @returns {object} {id, name, createdAt, updatedAt, createdBy}
  */
-export default async function (id, params) {
+export default async function edit(id, params) {
   const res = await axios.post(`/groups/${id}`, params);
 
   return res.data;
 }
+
+edit.showError = true;

@@ -7,8 +7,10 @@ import axios from 'axios';
  *
  * @returns {string} result string
  */
-export default async function (id, emailList) {
+export default async function inviteByMail(id, emailList) {
   const res = await axios.post(`/workspaces/${id}/invite/email`, { emailList });
 
   return res.data;
 }
+
+inviteByMail.showError = true;
