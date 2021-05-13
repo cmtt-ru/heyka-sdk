@@ -19,6 +19,7 @@
         :class="{'input--with-icon': icon, 'input--with-eye': isPass , 'input--with-clear': clearable}"
         :placeholder="placeholder"
         :readonly="readonly"
+        autocapitalize="none"
         @input="debounceCheck"
         @click="trySelectingAll"
         @keyup.enter="submitHandler"
@@ -112,6 +113,14 @@ export default {
      * Make input readonly
      */
     readonly: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * Make input lowercase-only
+     */
+    lowercase: {
       type: Boolean,
       default: false,
     },
@@ -277,6 +286,18 @@ export default {
     },
   },
 
+  mounted() {
+    if (this.lowercase) {
+      this.$refs.input.addEventListener('keyup', this.toLowerCase);
+    }
+  },
+
+  beforeDestroy() {
+    if (this.lowercase) {
+      this.$refs.input.removeEventListener('keyup', this.toLowerCase);
+    }
+  },
+
   methods: {
     /**
      * Focus cursor on input
@@ -302,6 +323,12 @@ export default {
       }
     },
 
+    toLowerCase() {
+      this.$nextTick(() => {
+        this.localValue = this.localValue.toLowerCase();
+      });
+    },
+
     /**
      * Check input for validation errors
      * Also, edit error text accordingly
@@ -316,6 +343,8 @@ export default {
       }
       this.errorText = null;
       const errors = [];
+
+      // this.localValue = this.localValue.toLowerCase();
 
       if (externalCheck) {
         this.localValue = this.localValue.trim();
