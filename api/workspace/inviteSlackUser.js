@@ -8,8 +8,10 @@ import axios from 'axios';
  *
  * @returns {string} ok
  */
-export default async function (id, params) {
+export default async function inviteSlackUser(id, params) {
   const res = await axios.post(`/workspaces/${id}/slack/invite`, params);
 
   return res.data;
 }
+
+inviteSlackUser.showError = true;
