@@ -1,53 +1,155 @@
 <template>
-  <div class="media-permissions media-permissions__tint">
+  <div
+    v-if="mode !== null"
+    class="media-permissions media-permissions__tint"
+  >
     <div class="media-permissions__popup">
-      <h1>Just a minute</h1>
+      <!-- Onboarding popup -->
+      <template v-if="mode === 'onboarding'">
+        <h1>Just a minute</h1>
 
-      <p class="media-permissions__popup__sub-title">
-        To use Heyka, please allow access
-        to your devices
-      </p>
+        <p class="media-permissions__popup__sub-title">
+          To use Heyka, please allow access
+          to your devices
+        </p>
 
-      <div class="media-permissions__devices">
-        <div class="media-permissions__devices__item">
-          <div class="media-permissions__devices__item__icon">
-            <svg-icon name="mic" />
+        <div class="media-permissions__devices">
+          <div class="media-permissions__devices__item">
+            <div class="media-permissions__devices__item__icon">
+              <svg-icon name="mic" />
+            </div>
+
+            <p>Microphone</p>
+
+            <ui-switch v-model="microphoneSwitch" />
           </div>
 
-          <p>Microphone</p>
+          <div class="media-permissions__devices__item">
+            <div class="media-permissions__devices__item__icon">
+              <svg-icon name="video" />
+            </div>
 
-          <ui-switch v-model="microphoneSwitch" />
-        </div>
+            <p>Camera</p>
 
-        <div class="media-permissions__devices__item">
-          <div class="media-permissions__devices__item__icon">
-            <svg-icon name="video" />
+            <ui-switch v-model="cameraSwitch" />
           </div>
 
-          <p>Camera</p>
+          <div class="media-permissions__devices__item">
+            <div class="media-permissions__devices__item__icon">
+              <svg-icon name="screencast" />
+            </div>
 
-          <ui-switch v-model="cameraSwitch" />
-        </div>
+            <p>Screen sharing</p>
 
-        <div class="media-permissions__devices__item">
-          <div class="media-permissions__devices__item__icon">
-            <svg-icon name="screencast" />
+            <ui-switch v-model="screenSwitch" />
           </div>
-
-          <p>Screen sharing</p>
-
-          <ui-switch v-model="screenSwitch" />
         </div>
-      </div>
 
-      <ui-button
-        class="media-permissions__skip"
-        :type="17"
-        size="large"
-        wide
-      >
-        Skip this step
-      </ui-button>
+        <ui-button
+          class="media-permissions__skip"
+          :type="17"
+          size="large"
+          wide
+          @click.native="closeHandler(true)"
+        >
+          Skip this step
+        </ui-button>
+      </template>
+
+      <template v-if="mode === 'microphone'">
+        <div class="media-permissions__popup__close">
+          <svg-icon
+            name="close"
+            @click.native="closeHandler"
+          />
+        </div>
+
+        <div class="media-permissions__icon">
+          <svg-icon name="mic" />
+        </div>
+
+        <h2>
+          Heyka needs permission to use
+          your microphone.
+        </h2>
+
+        <p class="media-permissions__popup__text">
+          Otherwise no one can hear you.
+        </p>
+
+        <ui-button
+          class="l-mt-24"
+          :type="1"
+          size="large"
+          wide
+          @click="openPreferences('microphone')"
+        >
+          Go to the settings
+        </ui-button>
+      </template>
+
+      <template v-if="mode === 'camera'">
+        <div class="media-permissions__popup__close">
+          <svg-icon
+            name="close"
+            @click.native="closeHandler"
+          />
+        </div>
+
+        <div class="media-permissions__icon">
+          <svg-icon name="video" />
+        </div>
+
+        <h2>
+          Heyka needs permission to use
+          your camera.
+        </h2>
+
+        <p class="media-permissions__popup__text">
+          Otherwise no one can see you.
+        </p>
+
+        <ui-button
+          class="l-mt-24"
+          :type="1"
+          size="large"
+          wide
+          @click="openPreferences('camera')"
+        >
+          Go to the settings
+        </ui-button>
+      </template>
+
+      <template v-if="mode === 'screen'">
+        <div class="media-permissions__popup__close">
+          <svg-icon
+            name="close"
+            @click.native="closeHandler"
+          />
+        </div>
+
+        <div class="media-permissions__icon">
+          <svg-icon name="screencast" />
+        </div>
+
+        <h2>
+          Heyka needs permission to share your screen.
+        </h2>
+
+        <p class="media-permissions__popup__text">
+          Otherwise no one can see your screen.
+        </p>
+
+        <ui-button
+          class="l-mt-24"
+          :type="1"
+          size="large"
+          wide
+          @click="openPreferences('screen')"
+        >
+          Go to the settings
+        </ui-button>
+      </template>
     </div>
   </div>
 </template>
@@ -59,6 +161,8 @@ import SvgIcon from '@components/SvgIcon';
 import UiSwitch from '@components/Form/UiSwitch';
 import UiButton from '@components/UiButton';
 import WindowManager from '@shared/WindowManager/WindowManagerRenderer';
+import { heykaStore } from '@/store/localStore';
+import { mapGetters } from 'vuex';
 
 let updateTimer = null;
 const UPDATE_INTERVAL = 1000;
@@ -79,10 +183,19 @@ export default {
         camera: false,
         screen: false,
       },
+
+      wasOnboardingShown: true,
+
+      mode: null,
     };
   },
 
   computed: {
+    ...mapGetters({
+      mediaState: 'me/getMediaState',
+      selectedChannelId: 'me/getSelectedChannelId',
+    }),
+
     microphoneSwitch: {
       get() {
         return this.mediaAccess.microphone === 'granted';
@@ -116,11 +229,75 @@ export default {
         }
       },
     },
+
+    isAllGranted() {
+      return Object.values(this.mediaAccess).every(perm => perm === 'granted');
+    },
+  },
+
+  watch: {
+    async selectedChannelId(val) {
+      if (val) {
+        await this.askForPermission('microphone');
+
+        if (this.mediaAccess.microphone === 'denied') {
+          this.mode = 'microphone';
+        }
+      }
+    },
+
+    mode(val) {
+      if (val) {
+        this.focusWindow();
+      }
+    },
+
+    'mediaState.microphone': {
+      async handler(val) {
+        if (val) {
+          await this.askForPermission('microphone');
+
+          if (this.mediaAccess.microphone === 'denied') {
+            this.mode = 'microphone';
+          }
+        }
+      },
+    },
+
+    'mediaState.camera': {
+      async handler(val) {
+        if (val) {
+          await this.askForPermission('camera');
+
+          if (this.mediaAccess.camera === 'denied') {
+            this.mode = 'camera';
+          }
+        }
+      },
+    },
+
+    'mediaState.screen': {
+      async handler(val) {
+        if (val) {
+          await this.updateMediaAccessStatus();
+
+          if (this.mediaAccess.screen === 'denied') {
+            this.mode = 'screen';
+          }
+        }
+      },
+    },
+
   },
 
   async mounted() {
     await this.updateMediaAccessStatus();
-    console.log('permissions state', this.mediaAccess);
+
+    this.wasOnboardingShown = await heykaStore.get('onboardingPassed', false);
+
+    if (!this.wasOnboardingShown && !this.isAllGranted) {
+      this.mode = 'onboarding';
+    }
   },
 
   beforeDestroy() {
@@ -138,7 +315,7 @@ export default {
 
     async updateMediaAccessStatus() {
       this.mediaAccess = await window.ipcRenderer.invoke('remote-media-access-status');
-      console.log('updateMediaAccessStatus');
+      console.log('updateMediaAccessStatus', this.mediaAccess);
     },
 
     openPreferences(mediaType) {
@@ -172,13 +349,11 @@ export default {
       this.stopUpdateMediaAccess();
       currentWindow.on('focus', this.windowFocusHandler);
       updateTimer = setInterval(this.updateMediaAccessStatus, UPDATE_INTERVAL);
-      console.log('startUpdateMediaAccess', updateTimer);
     },
 
     stopUpdateMediaAccess() {
       currentWindow.removeListener('focus', this.windowFocusHandler);
       clearInterval(updateTimer);
-      console.log('stopUpdateMediaAccess', updateTimer);
       updateTimer = null;
     },
 
@@ -186,6 +361,18 @@ export default {
       setTimeout(() => {
         this.stopUpdateMediaAccess();
       }, UPDATE_INTERVAL);
+    },
+
+    closeHandler(skip = false) {
+      this.mode = null;
+
+      if (skip) {
+        heykaStore.set('onboardingPassed', true);
+      }
+    },
+
+    focusWindow() {
+      currentWindow.api('show');
     },
   },
 };
@@ -220,13 +407,41 @@ export default {
         font-size 18px
         line-height 24px
 
-      &__sub-title
+      h2
+        text-align center
+        font-weight 600
+        font-size 14px
+        line-height 22px
+        margin-top 16px
+        margin-bottom 8px
+
+      &__sub-title, &__text
         line-height 20px
         font-size 12px
         margin-top 12px
         text-align center
         color var(--new-UI-04)
         padding 0 12px
+
+      &__text
+        line-height 22px
+        margin-top 8px
+        color var(--new-black)
+        font-weight 400
+        padding 0px
+
+      &__close
+        padding 0 0 7px 0
+        margin-top -9px
+        display flex
+
+        svg
+          width 18px
+          height 18px
+          color var(--new-UI-03)
+          margin-left auto
+          margin-right -8px
+          cursor pointer
 
     &__devices
       margin-top 8px
@@ -262,5 +477,21 @@ export default {
 
     &__skip
       margin-top 32px
+
+    &__icon
+      flex-shrink 0
+      width 48px
+      height 48px
+      margin 0 auto
+      border-radius 100%
+      background var(--new-UI-06)
+      display flex
+      align-items center
+      justify-content center
+
+      svg
+        width 22px
+        height 22px
+        color var(--new-UI-03)
 
 </style>
