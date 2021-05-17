@@ -36,7 +36,7 @@
     </div>
 
     <ui-button
-      v-if="mediaState.screen"
+      v-if="mediaState.screen && amIInChannel"
       v-stop-propagation
       class="user__sharing"
       :type="7"
@@ -88,6 +88,14 @@ export default {
     channelId: {
       type: String,
       default: null,
+    },
+
+    /**
+     * Am I in channel
+     * @returns {boolean}
+     */
+    amIInChannel() {
+      return this.$store.getters['me/getSelectedChannelId'] === this.channelId;
     },
   },
   data() {
