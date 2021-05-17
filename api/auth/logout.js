@@ -4,6 +4,7 @@ import * as sockets from '@api/socket';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import { client } from '@api/socket/client';
+import { IS_ELECTRON } from '@sdk/Constants';
 
 /** List for event and logout user */
 broadcastEvents.on('logout', logout);
@@ -27,6 +28,10 @@ export default function logout(redirectToAuth = true) {
   sockets.destroy();
 
   if (redirectToAuth) {
-    router.replace({ name: 'auth' }).catch(() => {});
+    if (IS_ELECTRON) {
+      router.replace({ name: 'auth' }).catch(() => {});
+    } else {
+      router.replace({ name: 'landing' }).catch(() => {});
+    }
   }
 }
