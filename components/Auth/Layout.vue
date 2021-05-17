@@ -109,7 +109,6 @@ export default {
           if (workspaceInfo.email) {
             authFileStore.set('loginEmail', workspaceInfo.email);
           }
-          console.log('workspace invite info:', workspaceInfo);
         } catch (err) {
 
         }

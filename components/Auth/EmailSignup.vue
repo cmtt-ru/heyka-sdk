@@ -104,8 +104,6 @@ export default {
 
         setTokens(res.data.credentials);
 
-        console.log(res);
-
         if (authFileStore.get('inviteCode')) {
           authFileStore.set('inviteCode', null);
           this.$router.push({ name: 'auth-success' });
