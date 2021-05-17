@@ -19,7 +19,6 @@
         :class="{'input--with-icon': icon, 'input--with-eye': isPass , 'input--with-clear': clearable}"
         :placeholder="placeholder"
         :readonly="readonly"
-        autocapitalize="none"
         @input="debounceCheck"
         @click="trySelectingAll"
         @keyup.enter="submitHandler"
