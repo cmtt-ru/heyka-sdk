@@ -21,7 +21,8 @@
     "idle": "Недоступен",
     "selectAll": "Выбрать всех",
     "deselectAll": "Отм. выбор",
-    "actions": "Действия"
+    "actions": "Действия",
+    "wip": "В разработке"
   },
   "calendar": {
     "justNow": "только что",

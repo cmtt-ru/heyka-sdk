@@ -21,7 +21,8 @@
     "idle": "Idle",
     "selectAll": "Select all",
     "deselectAll": "Deselect all",
-    "actions": "Actions"
+    "actions": "Actions",
+    "wip": "Work in progress"
   },
   "calendar": {
     "justNow": "just now",
