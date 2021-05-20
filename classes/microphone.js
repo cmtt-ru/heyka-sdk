@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import store from '@/store';
-import hark from '@sdk/classes/hark';
+// import hark from '@sdk/classes/hark';
 
 /**
  * Class for managing microphone media stream
@@ -93,27 +93,27 @@ class Microphone extends EventEmitter {
     }
 
     try {
-      this.mediaStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          deviceId: this.getSelectedMicrophone(),
-        },
-      });
-
-      this.harkInstance = hark(this.mediaStream, {
-        interval: 100,
-      });
-
-      this.harkInstance.on('volume_change', (db) => {
-        this.emit('volume-change', db);
-      });
-
-      this.harkInstance.on('speaking', () => {
-        this.emit('speaking', true);
-      });
-
-      this.harkInstance.on('stopped_speaking', () => {
-        this.emit('speaking', false);
-      });
+      // this.mediaStream = await navigator.mediaDevices.getUserMedia({
+      //   audio: {
+      //     deviceId: this.getSelectedMicrophone(),
+      //   },
+      // });
+      //
+      // this.harkInstance = hark(this.mediaStream, {
+      //   interval: 100,
+      // });
+      //
+      // this.harkInstance.on('volume_change', (db) => {
+      //   this.emit('volume-change', db);
+      // });
+      //
+      // this.harkInstance.on('speaking', () => {
+      //   this.emit('speaking', true);
+      // });
+      //
+      // this.harkInstance.on('stopped_speaking', () => {
+      //   this.emit('speaking', false);
+      // });
     } catch (err) {
       console.log(err);
     }
