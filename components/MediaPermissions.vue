@@ -194,6 +194,7 @@ export default {
     ...mapGetters({
       mediaState: 'me/getMediaState',
       selectedChannelId: 'me/getSelectedChannelId',
+      myId: 'me/getMyId',
     }),
 
     microphoneSwitch: {
@@ -288,16 +289,12 @@ export default {
       },
     },
 
-  },
+    myId(id) {
+      if (id) {
+        this.tryToShow();
+      }
+    },
 
-  async mounted() {
-    await this.updateMediaAccessStatus();
-
-    this.wasOnboardingShown = await heykaStore.get('onboardingPassed', false);
-
-    if (!this.wasOnboardingShown && !this.isAllGranted) {
-      this.mode = 'onboarding';
-    }
   },
 
   beforeDestroy() {
@@ -305,6 +302,18 @@ export default {
   },
 
   methods: {
+    async tryToShow() {
+      if (this.myId) {
+        await this.updateMediaAccessStatus();
+
+        this.wasOnboardingShown = await heykaStore.get('onboardingPassed', false);
+
+        if (!this.wasOnboardingShown && !this.isAllGranted) {
+          this.mode = 'onboarding';
+        }
+      }
+    },
+
     async askForPermission(mediaType) {
       const state = await window.ipcRenderer.invoke('remote-ask-for-media-access', mediaType);
 
@@ -389,6 +398,7 @@ export default {
     width 100%
     height 100%
     z-index 1000
+    color var(--new-UI-02)
 
     &__tint
       background rgba(0, 0, 0, 0.28)
@@ -397,7 +407,7 @@ export default {
       width 282px
       padding 24px
       border-radius 10px
-      background #fff
+      background var(--new-bg-03)
       box-shadow 0 20px 30px rgba(0, 0, 0, 0.2)
       box-sizing border-box
 
