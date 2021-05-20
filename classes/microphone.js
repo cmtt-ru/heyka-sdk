@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import store from '@/store';
-import hark from '@sdk/classes/hark';
+// import hark from '@sdk/classes/hark';
 
 /**
  * Class for managing microphone media stream
