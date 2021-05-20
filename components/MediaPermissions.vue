@@ -342,34 +342,24 @@ export default {
      * @returns {void}
      */
     async showMacScreenSharingPermission() {
-      const timeout = 1000;
-
       if (IS_MAC) {
         const screens = await mediaCapturer.getSources('screen', 0);
         const stream = await mediaCapturer.getStream(screens[0].id);
 
         setTimeout(() => {
           mediaCapturer.destroyStream(stream);
-        }, timeout);
+        }, UPDATE_INTERVAL);
       }
     },
 
     startUpdateMediaAccess() {
       this.stopUpdateMediaAccess();
-      currentWindow.on('focus', this.windowFocusHandler);
       updateTimer = setInterval(this.updateMediaAccessStatus, UPDATE_INTERVAL);
     },
 
     stopUpdateMediaAccess() {
-      currentWindow.removeListener('focus', this.windowFocusHandler);
       clearInterval(updateTimer);
       updateTimer = null;
-    },
-
-    windowFocusHandler() {
-      setTimeout(() => {
-        this.stopUpdateMediaAccess();
-      }, UPDATE_INTERVAL);
     },
 
     closeHandler(skip = false) {
@@ -378,6 +368,8 @@ export default {
       if (skip) {
         heykaStore.set('onboardingPassed', true);
       }
+
+      this.stopUpdateMediaAccess();
     },
 
     focusWindow() {
