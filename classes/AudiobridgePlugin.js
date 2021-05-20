@@ -245,11 +245,7 @@ class AudiobridgePlugin extends EventEmitter {
       media: {
         replaceAudio: true,
         video: false,
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          deviceId,
-        },
+        audio: true,
       },
       success: (jsep) => {
         this.__pluginHandle.send({
