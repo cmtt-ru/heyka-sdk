@@ -528,5 +528,30 @@
       "subtitle": "Try another one"
     }
 
+  },
+  "mediaPermissions": {
+    "onboarding": {
+      "title": "Just a minute",
+      "subTitle": "To use Heyka, please allow access to your devices",
+      "microphone": "Microphone",
+      "camera": "Camera",
+      "screen": "Screen sharing",
+      "skip": "Skip this step"
+    },
+    "microphone": {
+      "title": "Heyka needs permission to use your microphone",
+      "subTitle": "Otherwise no one can hear you",
+      "settings": "Go to the settings"
+    },
+    "camera": {
+      "title": "Heyka needs permission to use your camera",
+      "subTitle": "Otherwise no one can see you",
+      "settings": "Go to the settings"
+    },
+    "screen": {
+      "title": "Heyka needs permission to share your screen",
+      "subTitle": "Otherwise no one can see your screen",
+      "settings": "Go to the settings"
+    }
   }
 }

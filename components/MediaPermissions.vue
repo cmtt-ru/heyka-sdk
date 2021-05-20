@@ -6,11 +6,10 @@
     <div class="media-permissions__popup">
       <!-- Onboarding popup -->
       <template v-if="mode === 'onboarding'">
-        <h1>Just a minute</h1>
+        <h1>{{ texts.onboarding.title }}</h1>
 
         <p class="media-permissions__popup__sub-title">
-          To use Heyka, please allow access
-          to your devices
+          {{ texts.onboarding.subTitle }}
         </p>
 
         <div class="media-permissions__devices">
@@ -19,7 +18,7 @@
               <svg-icon name="mic" />
             </div>
 
-            <p>Microphone</p>
+            <p>{{ texts.onboarding.microphone }}</p>
 
             <ui-switch v-model="microphoneSwitch" />
           </div>
@@ -29,7 +28,7 @@
               <svg-icon name="video" />
             </div>
 
-            <p>Camera</p>
+            <p>{{ texts.onboarding.camera }}</p>
 
             <ui-switch v-model="cameraSwitch" />
           </div>
@@ -39,7 +38,7 @@
               <svg-icon name="screencast" />
             </div>
 
-            <p>Screen sharing</p>
+            <p>{{ texts.onboarding.screen }}</p>
 
             <ui-switch v-model="screenSwitch" />
           </div>
@@ -52,7 +51,7 @@
           wide
           @click.native="closeHandler(true)"
         >
-          Skip this step
+          {{ texts.onboarding.skip }}
         </ui-button>
       </template>
 
@@ -69,12 +68,11 @@
         </div>
 
         <h2>
-          Heyka needs permission to use
-          your microphone.
+          {{ texts.microphone.title }}
         </h2>
 
         <p class="media-permissions__popup__text">
-          Otherwise no one can hear you.
+          {{ texts.microphone.subTitle }}
         </p>
 
         <ui-button
@@ -84,7 +82,7 @@
           wide
           @click="openPreferences('microphone')"
         >
-          Go to the settings
+          {{ texts.microphone.settings }}
         </ui-button>
       </template>
 
@@ -101,12 +99,11 @@
         </div>
 
         <h2>
-          Heyka needs permission to use
-          your camera.
+          {{ texts.camera.title }}
         </h2>
 
         <p class="media-permissions__popup__text">
-          Otherwise no one can see you.
+          {{ texts.camera.subTitle }}
         </p>
 
         <ui-button
@@ -116,7 +113,7 @@
           wide
           @click="openPreferences('camera')"
         >
-          Go to the settings
+          {{ texts.camera.settings }}
         </ui-button>
       </template>
 
@@ -133,11 +130,11 @@
         </div>
 
         <h2>
-          Heyka needs permission to share your screen.
+          {{ texts.screen.title }}
         </h2>
 
         <p class="media-permissions__popup__text">
-          Otherwise no one can see your screen.
+          {{ texts.screen.subTitle }}
         </p>
 
         <ui-button
@@ -147,7 +144,7 @@
           wide
           @click="openPreferences('screen')"
         >
-          Go to the settings
+          {{ texts.screen.settings }}
         </ui-button>
       </template>
     </div>
@@ -196,6 +193,14 @@ export default {
       selectedChannelId: 'me/getSelectedChannelId',
       myId: 'me/getMyId',
     }),
+
+    /**
+     * Get needed texts from I18n-locale file
+     * @returns {object}
+     */
+    texts() {
+      return this.$t('mediaPermissions');
+    },
 
     microphoneSwitch: {
       get() {
