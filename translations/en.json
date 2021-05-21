@@ -21,7 +21,8 @@
     "idle": "Idle",
     "selectAll": "Select all",
     "deselectAll": "Deselect all",
-    "actions": "Actions"
+    "actions": "Actions",
+    "wip": "Work in progress"
   },
   "calendar": {
     "justNow": "just now",
@@ -77,7 +78,7 @@
       "bigImage": "We can't upload files larger than",
       "socialLinked": "Now you can login with {0}"
     },
-    "empty": "So far you've been disconnected\nfrom all channels",
+    "empty": "No active channels",
     "new": "What's new?",
     "editChannel": {
       "createTitle": "New channel",
@@ -94,6 +95,7 @@
       "userTab": "User list",
       "guestTab": "Guest link",
       "userInSameChannel": "Already in your channel",
+      "slackInvite": "Invite via Slack",
       "inviteUsers": "Send invite | Send invite | Send {n} invites",
       "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
       "generateUrl": "Generate URL",
@@ -421,7 +423,8 @@
       "subtitle": "Please check your inbox to verify your email!"
     },
     "footer": {
-      "privacy": "You consent to the processing of personal data"
+      "privacy": "You consent to",
+      "privacyLink": "the processing of personal data"
     },
     "verify": {
       "successTitle": "Email is verified!",
@@ -488,6 +491,11 @@
     "successInviteMiddle": "an invite | {n} invites",
     "successInviteEnd": "; as soon as users accept invites you'll see them on your team's user list."
   },
+  "deeplink": {
+    "header": "Channel invite",
+    "subheader": "You can close this page now",
+    "openApp": "Open app"
+  },
   "janus": {
     "connectionError": "Unable to connect to the server"
   },
@@ -513,6 +521,10 @@
         "desc": "Compact as a radio set, and clean design on top of it. No irritating sounds and call windows over the whole screen"
       },
       {
+        "header": "Functionality",
+        "desc": "Use video calling, draw on other's screens, exchange links, create channels and invite colleagues"
+      },
+      {
         "header": "Transparency",
         "desc": "No personal data collection: you can monitor all data we are sending to the server"
       },
@@ -521,6 +533,11 @@
         "desc": "Heyka works on iOS, Android, Windows, Mac, Linux and even in browsers"
       }
     ]
+  },
+  "downloadPage": {
+    "header": "Download app for your platform",
+    "version": "Version",
+    "dontClose": "Don't close this page to automatically login in app"
   },
   "errors": {
     "403": {

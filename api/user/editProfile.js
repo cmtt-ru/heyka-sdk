@@ -16,8 +16,10 @@ import axios from 'axios';
  * @returns {date} data.createdAt
  * @returns {date} data.updatedAt
  */
-export default async function (params) {
+export default async function editProfile(params) {
   const res = await axios.post(`/profile`, params);
 
   return res.data;
 }
+
+editProfile.showError = true;

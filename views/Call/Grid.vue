@@ -502,6 +502,8 @@ export default {
             margin 0
 
       &--left
+        padding-left 40px
+
         @media screen and (max-width: 1000px)
           display none
 

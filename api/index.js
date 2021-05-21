@@ -19,6 +19,7 @@ import { client } from './socket/client';
 import { IS_ELECTRON, API_URL } from '@sdk/Constants';
 import isMainWindow from '@sdk/libs/isMainWindow';
 import Logger from '@sdk/classes/logger';
+import notify from '@libs/notify';
 
 const cnsl = new Logger('API', '#eeb837');
 
@@ -93,6 +94,13 @@ function middleware(func, functionName, namespace) {
         await handleError(err);
 
         return;
+      }
+
+      /** Show backend error message if showError flag is true */
+      if (func.showError) {
+        notify(err.response.data.message, {
+          icon: 'warning',
+        });
       }
 
       /** Update tokens if token is expired */
