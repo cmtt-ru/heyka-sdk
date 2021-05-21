@@ -49,10 +49,9 @@ import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
 import { determineLocale } from '@sdk/translations/i18n';
 import { authFileStore } from '@/store/localStore';
-import { errorMessages } from '@api/errors/types';
+
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
-import joinByCode from '@api/workspace/joinByCode';
 import notify from '@libs/notify';
 
 export default {
@@ -83,6 +82,12 @@ export default {
     },
   },
 
+  async created() {
+    const email = await authFileStore.get('loginEmail', '');
+
+    this.$set(this.newUser, 'email', email);
+  },
+
   async mounted() {
     this.newUser.lang = await determineLocale();
   },
@@ -90,23 +95,26 @@ export default {
   methods: {
     async registerHandler() {
       try {
-        const res = await apiSignup({ user: this.newUser });
+        const data = { ...this.newUser };
+
+        if (authFileStore.get('inviteCode')) {
+          data.inviteCode = authFileStore.get('inviteCode');
+        }
+        const res = await apiSignup({ user: data });
 
         setTokens(res.data.credentials);
 
-        const inviteCode = authFileStore.get('inviteCode');
-
-        if (inviteCode) {
-          joinByCode(inviteCode);
+        if (authFileStore.get('inviteCode')) {
           authFileStore.set('inviteCode', null);
-        }
+          this.$router.push({ name: 'auth-success' });
 
-        console.log(res);
+          return;
+        }
 
         this.$router.push({ name: 'auth-email-signup-success' });
       } catch (err) {
-        if (err.response.data.message === errorMessages.emailExists) {
-          notify(errorMessages.emailExists, { icon: 'warning' });
+        if (err.response.data.message) {
+          notify(err.response.data.message, { icon: 'warning' });
         }
         console.log('ERROR:', err);
       }
