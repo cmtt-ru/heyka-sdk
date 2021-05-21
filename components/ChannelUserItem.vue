@@ -38,6 +38,7 @@
     <ui-button
       v-if="mediaState.screen"
       v-stop-propagation
+      :disabled="!amIInChannel"
       class="user__sharing"
       :type="7"
       size="small"
@@ -89,6 +90,7 @@ export default {
       type: String,
       default: null,
     },
+
   },
   data() {
     return {
@@ -118,6 +120,14 @@ export default {
       }
 
       return icons;
+    },
+
+    /**
+     * Am I in channel
+     * @returns {boolean}
+     */
+    amIInChannel() {
+      return this.$store.getters['me/getSelectedChannelId'] === this.channelId;
     },
 
   },

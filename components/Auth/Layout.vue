@@ -34,7 +34,10 @@
 
         <div class="auth__footer">
           <p>
-            {{ texts.footer.privacy }}
+            {{ texts.footer.privacy }} <a
+              style="text-decoration: underline; display: initial"
+              :href="privacyLink"
+            >{{ texts.footer.privacyLink }}</a>
           </p>
         </div>
       </div>
@@ -45,6 +48,8 @@
 <script>
 import UiButton from '@components/UiButton';
 import { authFileStore } from '@/store/localStore';
+
+import { WEB_URL } from '@sdk/Constants';
 
 export default {
   components: {
@@ -73,6 +78,10 @@ export default {
       }
 
       return require('./img/auth-cover-dark.png');
+    },
+
+    privacyLink() {
+      return `${WEB_URL}/privacy-policy`;
     },
   },
 
