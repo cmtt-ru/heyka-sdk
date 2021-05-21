@@ -10,8 +10,10 @@ import axios from 'axios';
  * @returns {object} result data
  * @returns {string} data.inviteId
  */
-export default async function (params) {
+export default async function sendInvites(params) {
   const res = await axios.post(`/send-invites`, params);
 
   return res.data;
 }
+
+sendInvites.showError = true;

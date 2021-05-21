@@ -18,8 +18,10 @@ import axios from 'axios';
  *   @returns {object} data.workspace.user
  *    @returns {string} data.workspace.user.role  - eg. "admin"
  */
-export default async function (id, params) {
+export default async function editWorkspace(id, params) {
   const res = await axios.post(`/workspaces/${id}`, params);
 
   return res.data;
 }
+
+editWorkspace.showError = true;
