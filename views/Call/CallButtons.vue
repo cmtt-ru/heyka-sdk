@@ -280,7 +280,7 @@ export default {
     async disconnectHandler() {
       broadcastActions.dispatch('unselectChannel', this.$store.getters['me/getSelectedChannelId']);
       if (!IS_ELECTRON) {
-        this.$router.replace({ name: 'guest-finish' });
+        this.$router.replace({ name: 'landing' });
       }
     },
 
