@@ -36,8 +36,9 @@
     </div>
 
     <ui-button
-      v-if="mediaState.screen && amIInChannel"
+      v-if="mediaState.screen"
       v-stop-propagation
+      :disabled="!amIInChannel"
       class="user__sharing"
       :type="7"
       size="small"
@@ -90,13 +91,6 @@ export default {
       default: null,
     },
 
-    /**
-     * Am I in channel
-     * @returns {boolean}
-     */
-    amIInChannel() {
-      return this.$store.getters['me/getSelectedChannelId'] === this.channelId;
-    },
   },
   data() {
     return {
@@ -126,6 +120,14 @@ export default {
       }
 
       return icons;
+    },
+
+    /**
+     * Am I in channel
+     * @returns {boolean}
+     */
+    amIInChannel() {
+      return this.$store.getters['me/getSelectedChannelId'] === this.channelId;
     },
 
   },
