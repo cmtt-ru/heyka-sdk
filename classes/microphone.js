@@ -86,7 +86,7 @@ class Microphone extends EventEmitter {
    * @return {void}
    */
   async createMediaStream() {
-    if (window.IS_IOS) {
+    if (window.IS_IOS || window.IS_SAFARI) {
       return;
     }
 
