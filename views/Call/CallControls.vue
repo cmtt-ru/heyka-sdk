@@ -32,6 +32,7 @@
               :key="channelIcon"
               :name="channelIcon"
               size="large"
+              :style="channelIconMargin"
             />
           </transition>
           <transition
@@ -135,6 +136,18 @@ export default {
       }
 
       return '';
+    },
+
+    /**
+     * channelIconMargin: 4px if not channel icon
+     * @return {string}
+     */
+    channelIconMargin() {
+      if (this.channelIcon === 'channel') {
+        return 'margin-right: 0px';
+      }
+
+      return 'margin-right: 4px';
     },
 
     /**
@@ -272,6 +285,7 @@ export default {
       svg
         flex-shrink 0
         color var(--new-signal-02)
+        transform translateY(1px)
 
       span
         min-width 0
