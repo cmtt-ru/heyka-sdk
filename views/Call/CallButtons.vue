@@ -40,7 +40,7 @@
     />
 
     <ui-button
-      v-if="buttons.includes('screen')"
+      v-if="buttons.includes('screen') && IS_ELECTRON"
       class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
@@ -165,6 +165,12 @@ export default {
       type: String,
       default: 'medium',
     },
+  },
+
+  data() {
+    return {
+      IS_ELECTRON,
+    };
   },
 
   computed: {
