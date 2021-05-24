@@ -40,7 +40,7 @@
     />
 
     <ui-button
-      v-if="buttons.includes('screen') && IS_ELECTRON"
+      v-if="buttons.includes('screen') && (IS_ELECTRON || !IS_MOBILE)"
       class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
@@ -170,6 +170,7 @@ export default {
   data() {
     return {
       IS_ELECTRON,
+      IS_MOBILE,
     };
   },
 

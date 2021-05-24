@@ -478,9 +478,14 @@ export default {
     align-content center
     box-sizing border-box
 
+  $MOBILE_BREAKPOINT = 500px
+
   .bottom-content
     margin-top 28px
     display flex
+
+    @media screen and (max-width: $MOBILE_BREAKPOINT)
+      flex-wrap wrap
 
     &__col
       display flex
@@ -501,6 +506,10 @@ export default {
           .bottom-content__controls
             margin 0
 
+        @media screen and (max-width: $MOBILE_BREAKPOINT)
+          margin-left 0
+          justify-content center
+
       &--left
         padding-left 40px
 
@@ -509,6 +518,12 @@ export default {
 
       &--right
         padding-right 40px
+
+        @media screen and (max-width: $MOBILE_BREAKPOINT)
+          margin 12px 0
+          padding-right 0
+          justify-content center
+          flex-basis 100%
 
   .tech-button
     border-radius 15px
