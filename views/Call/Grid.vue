@@ -478,13 +478,11 @@ export default {
     align-content center
     box-sizing border-box
 
-  $MOBILE_BREAKPOINT = 500px
-
   .bottom-content
     margin-top 28px
     display flex
 
-    @media screen and (max-width: $MOBILE_BREAKPOINT)
+    @media $mobile
       flex-wrap wrap
 
     &__col
@@ -506,7 +504,7 @@ export default {
           .bottom-content__controls
             margin 0
 
-        @media screen and (max-width: $MOBILE_BREAKPOINT)
+        @media $mobile
           margin-left 0
           justify-content center
 
@@ -519,7 +517,7 @@ export default {
       &--right
         padding-right 40px
 
-        @media screen and (max-width: $MOBILE_BREAKPOINT)
+        @media $mobile
           margin 12px 0
           padding-right 0
           justify-content center
