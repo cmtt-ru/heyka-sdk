@@ -20,6 +20,7 @@
           :key="i"
           :ref="i === chatHistory.length - 1 ? 'last-message' : ''"
           class="mini-chat__message"
+          context-menu
         >
           <template v-if="item.user">
             <avatar
@@ -57,6 +58,7 @@
           ref="input"
           v-model="message"
           placeholder="Type message here"
+          context-menu
           @keydown.native.enter="sendHandler"
         />
       </template>
