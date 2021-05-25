@@ -1936,7 +1936,11 @@ function Janus(gatewayCallbacks) {
 						trackMutedTimeoutId = setTimeout(function() {
 							Janus.log("Removing remote track");
 							if (config.remoteStream) {
-								config.remoteStream.removeTrack(ev.target);
+                /**
+                 * Bug fix of the stream aspect ratio 2:1 with no internet connection
+                 * @since 25.05.2021
+                 */
+								// config.remoteStream.removeTrack(ev.target);
 								// pluginHandle.onremotestream(config.remoteStream);
 							}
 							trackMutedTimeoutId = null;
