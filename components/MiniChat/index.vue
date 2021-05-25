@@ -140,6 +140,7 @@ export default {
         this.$set(item, 'user', this.getUserById(item.userId));
         this.$set(item, 'htmlMessage', linkify(item.message, {
           defaultProtocol: 'https',
+          target: '_blank',
         }));
       });
     },
