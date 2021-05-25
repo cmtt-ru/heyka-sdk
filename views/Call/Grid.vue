@@ -120,6 +120,7 @@ export default {
       videoStreams: {},
       mountedTimestamp: Date.now(),
       pausedByScreenSharing: false,
+      unwatchSpeaking: null,
     };
   },
 
@@ -201,12 +202,6 @@ export default {
 
     miniChatLastMessageTimestamp(val) {
       this.miniChatBadgeKey = val;
-    },
-
-    speaking(val) {
-      if (val) {
-        this.handUpHandler(false);
-      }
     },
   },
 
@@ -397,6 +392,18 @@ export default {
 
       if (value !== undefined) {
         status = value;
+      }
+
+      if (status) {
+        this.unwatchSpeaking = this.$watch('speaking', (val) => {
+          if (val) {
+            this.handUpHandler(false);
+          }
+        });
+      } else {
+        if (this.unwatchSpeaking) {
+          this.unwatchSpeaking();
+        }
       }
       broadcastActions.dispatch('app/handUpInChannel', status);
     },

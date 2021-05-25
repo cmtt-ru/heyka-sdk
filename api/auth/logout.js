@@ -31,6 +31,8 @@ export default function logout(redirectToAuth = true) {
     if (IS_ELECTRON) {
       router.replace({ name: 'auth' }).catch(() => {});
     } else {
+      console.log('LOGOUT');
+      console.trace();
       router.replace({ name: 'landing' }).catch(() => {});
     }
   }
