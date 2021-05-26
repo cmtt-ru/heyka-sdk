@@ -40,7 +40,7 @@ export default {
     position fixed
     bottom 22px
     left 22px
-    background var(--new-bg-04)
+    background var(--Background-white)
     border-radius 100px
     width 32px
     height 32px

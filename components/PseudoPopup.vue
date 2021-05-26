@@ -192,7 +192,7 @@ export default {
       align-items center
       flex 0 0 38px
       font-weight 500
-      background var(--new-bg-04)
+      background var(--Background-white)
       padding 3px 16px
       transition box-shadow 0.15s ease
 
@@ -218,7 +218,7 @@ export default {
     &__footer
       display flex
       flex 0 0 56px
-      background var(--new-bg-04)
+      background var(--Background-white)
       padding 16px
       box-sizing border-box
       transition box-shadow 0.15s ease

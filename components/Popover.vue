@@ -35,7 +35,7 @@ export default {
 <style lang="stylus" scoped>
   .popover
     display flex
-    background var(--new-bg-04)
+    background var(--Background-white)
     box-shadow var(--new-shadow-03)
     color var(--new-UI-02)
     border-radius 8px
