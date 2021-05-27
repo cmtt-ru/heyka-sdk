@@ -278,7 +278,7 @@ export default {
     pointer-events none
 
   &__label
-    color var(--new-UI-02)
+    color var(--Font-primary)
     flex-shrink 0
 
   &__header
@@ -292,14 +292,14 @@ export default {
     justify-content space-between
     align-items center
     overflow hidden
-    color var(--new-UI-04)
+    color var(--Font-secondary)
     max-width 170px
 
     &:hover
       opacity 0.8 //! временно?
 
     &__icon
-      color var(--new-UI-03)
+      color var(--Icon-secondary)
       margin-left 6px
       flex-shrink 0
 
@@ -332,7 +332,7 @@ export default {
     flex-direction row
     justify-content space-between
     align-items center
-    color var(--new-UI-04)
+    color var(--Font-secondary)
 
     &:hover
       background-color var(--new-UI-06)
@@ -341,7 +341,7 @@ export default {
       color var(--new-signal-02)
 
     &--selected
-      color var(--new-UI-02)
+      color var(--Font-primary)
 
 .text-ellipsis
   white-space nowrap

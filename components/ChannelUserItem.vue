@@ -188,15 +188,15 @@ export default {
 
         &__icon
             margin-left 8px
-            color var(--new-UI-03)
+            color var(--Icon-secondary)
 
             &--blue
-              color var(--new-UI-01)
+              color var(--UI-active)
 
     &__sharing
         flex-shrink 0
         order 2
-        color var(--new-UI-01)
+        color var(--Icon-active)
 
     &__aqi
       display block

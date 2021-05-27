@@ -306,7 +306,7 @@ $ANIM_DELAY = 200ms
 
 .notification
   background-color var(--Background-white)
-  color var(--new-UI-02)
+  color var(--Font-primary)
   flex-shrink 0
   display flex
   flex-direction row

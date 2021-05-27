@@ -32,7 +32,7 @@ export default {
     stroke-dasharray 10, 1000
     animation dash-animation 2s cubic-bezier(0.8, 0.25, 0.25, 0.9) infinite, rotate-animation 2s linear infinite
     transform-origin center
-    stroke var(--new-UI-01)
+    stroke var(--UI-active)
 
   @keyframes rotate-animation
     to

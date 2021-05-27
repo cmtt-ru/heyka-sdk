@@ -197,7 +197,7 @@ export default {
       transition box-shadow 0.15s ease
 
       &__close
-        color var(--new-UI-01)
+        color var(--Font-active)
         margin-left auto
         cursor pointer
 

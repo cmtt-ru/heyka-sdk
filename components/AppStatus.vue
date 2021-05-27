@@ -58,7 +58,7 @@ export default {
       height 50%
       border-radius 100px
       animation pulse 1s linear infinite
-      border 2px solid var(--new-UI-01)
+      border 2px solid var(--UI-active)
       border-right-color transparent
 
   @keyframes pulse {

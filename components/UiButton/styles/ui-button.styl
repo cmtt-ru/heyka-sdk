@@ -197,7 +197,7 @@
    * Button type classes
    */
   &--1
-    buttonSolid(var(--new-UI-01), var(--new-white))
+    buttonSolid(var(--Button-active), var(--new-white))
 
     &:hover
       background var(--new-UI-01-1)
@@ -206,7 +206,7 @@
       background var(--new-UI-01-2)
 
   &--2
-    buttonSolid(var(--new-UI-06), var(--new-UI-02))
+    buttonSolid(var(--new-UI-06), var(--Font-primary))
 
     &:hover
       background var(--new-UI-07)
@@ -215,7 +215,7 @@
       background var(--new-UI-08)
 
   &--3
-    buttonBorder(var(--Background-white), var(--new-UI-02), var(--new-stroke-01))
+    buttonBorder(var(--Background-white), var(--Font-primary), var(--new-stroke-01))
     buttonDefaultHoverState()
 
   &--4
@@ -227,7 +227,7 @@
     buttonDefaultHoverState()
 
   &--6
-    buttonBorder(var(--new-UI-01-3), var(--new-UI-01), var(--new-stroke-02))
+    buttonSolid(var(--new-UI-01-3), var(--new-stroke-02))
     buttonDefaultHoverState()
 
   &--7
@@ -244,7 +244,7 @@
     buttonDefaultHoverState()
 
   &--9
-    color var(--new-UI-01)
+    color var(--Font-active)
     padding 0
 
     & ^[0]__icon-bg
@@ -261,8 +261,8 @@
       font-size 16px
 
   &--10
-    color var(--new-UI-02)
-    stroke var(--new-UI-02)
+    color var(--Font-primary)
+    stroke var(--Font-primary)
     padding 0
 
     & ^[0]__icon
@@ -271,13 +271,13 @@
     buttonDefaultHoverState()
 
   &--11
-    color var(--new-UI-02)
+    color var(--Font-primary)
     justify-content flex-start
     padding 0 8px
     border-radius 6px
 
     svg
-      color var(--new-UI-01)
+      color var(--Icon-active)
       width 18px
       height 18px
 
@@ -329,15 +329,15 @@
          background rgba(240, 240, 240, 0.15) //! not a var
 
       &:before
-        background var(--new-UI-01)
+        background var(--UI-active)
         border none
 
     &:hover:not(.ui-button--active)
       background var(--new-transparent)
 
   &--14
-    color var(--new-UI-01)
-    stroke var(--new-UI-01)
+    color var(--Font-active)
+    stroke var(--Font-active)
     padding 0
 
   &--15
@@ -345,12 +345,12 @@
     line-height 16px
     height 24px
     padding 4px 12px
-    color var(--new-UI-03)
+    color var(--Font-secondary)
     border-radius 4px
 
     &^[0]--active
       background var(--new-UI-09) !important
-      color var(--new-UI-02) !important
+      color var(--Font-primary) !important
       pointer-events none
       box-shadow var(--new-shadow-01)
 
@@ -392,7 +392,7 @@
     buttonActiveState()
 
   &--header
-    color var(--new-UI-03)
+    color var(--Icon-secondary)
 
     &:hover
       background var(--new-UI-07)
@@ -411,7 +411,7 @@
       background var(--new-overlay-03)
 
   &--active
-    background var(--new-UI-01)
+    background var(--Button-active)
     color var(--new-white)
 
     &:hover

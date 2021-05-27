@@ -35,9 +35,9 @@ export default {
 <style lang="stylus" scoped>
   .popover
     display flex
-    background var(--Background-white)
+    background var(--Background-darkgrey)
     box-shadow var(--new-shadow-03)
-    color var(--new-UI-02)
+    color var(--Font-primary)
     border-radius 8px
     z-index 100
     flex-direction column
@@ -71,7 +71,7 @@ export default {
         display flex
 
       &__close
-        color var(--new-UI-03)
+        color var(--Icon-secondary)
 
   /deep/ a
     .ui-button

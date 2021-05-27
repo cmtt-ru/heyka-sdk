@@ -118,5 +118,5 @@ export default {
         margin-left 4px
         display none
         flex-shrink 0
-        color var(--new-UI-04)
+        color var(--Icon-secondary)
 </style>

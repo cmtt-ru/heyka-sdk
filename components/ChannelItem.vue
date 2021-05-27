@@ -152,23 +152,23 @@ export default {
       if (this.channel.isPrivate && !this.channel.isTemporary) {
         return {
           name: ICON_MAP['private'],
-          color: 'var(--new-UI-01)',
+          color: 'var(--Icon-active)',
         };
       } else if (this.channel.isPrivate && this.channel.isTemporary) {
         return {
           name: ICON_MAP['temp'],
-          color: 'var(--new-UI-01)',
+          color: 'var(--Icon-active)',
         };
       } else {
         if (this.topChannel) {
           return {
             name: ICON_MAP['public'],
-            color: 'var(--new-signal-02)',
+            color: 'var(--UI-positive)',
           };
         } else {
           return {
             name: ICON_MAP['public'],
-            color: 'var(--new-UI-01)',
+            color: 'var(--Icon-active)',
           };
         }
       }
@@ -265,7 +265,7 @@ export default {
     margin 2px 0
 
   &__more
-    color var(--new-UI-04)
+    color var(--Icon-secondary)
     margin 0 6px
     flex-shrink 0
     visibility hidden
@@ -293,6 +293,6 @@ export default {
     &__more
       font-size 12px
       margin-left 4px
-      color var(--new-UI-03)
+      color var(--Icon-secondary)
 
 </style>

@@ -395,7 +395,7 @@ export default {
     width 100%
     height 100%
     z-index 1000
-    color var(--new-UI-02)
+    color var(--Font-primary)
 
     &__tint
       background rgba(0, 0, 0, 0.28)
@@ -404,7 +404,7 @@ export default {
       width 282px
       padding 24px
       border-radius 10px
-      background var(--new-bg-03)
+      background var(--Background-darkgrey)
       box-shadow 0 20px 30px rgba(0, 0, 0, 0.2)
       box-sizing border-box
 
@@ -427,7 +427,7 @@ export default {
         font-size 12px
         margin-top 12px
         text-align center
-        color var(--new-UI-04)
+        color var(--Font-secondary)
         padding 0 12px
 
       &__text
@@ -445,7 +445,7 @@ export default {
         svg
           width 18px
           height 18px
-          color var(--new-UI-03)
+          color var(--Icon-secondary)
           margin-left auto
           margin-right -8px
           cursor pointer
@@ -472,7 +472,7 @@ export default {
           svg
             width 14px
             height 14px
-            color var(--new-UI-03)
+            color var(--Icon-secondary)
 
         p
           font-weight 600
@@ -499,6 +499,6 @@ export default {
       svg
         width 22px
         height 22px
-        color var(--new-UI-03)
+        color var(--Icon-secondary)
 
 </style>

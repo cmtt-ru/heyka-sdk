@@ -443,7 +443,7 @@ export default {
     background-color var(--new-UI-07)
 
   &:focus-within
-    border-color var(--new-UI-01)
+    border-color var(--UI-active)
     background-color var(--new-UI-09)
 
   &--disabled
@@ -463,11 +463,11 @@ export default {
   font-family Inter, sans-serif
   font-size 15px
   line-height 18px
-  color var(--new-UI-02)
+  color var(--Font-primary)
   outline none !important
 
   &::placeholder
-    color var(--new-UI-04)
+    color var(--Font-secondary)
     font-weight normal
 
   &__icon
@@ -476,7 +476,7 @@ export default {
     bottom 0
     margin auto 0
     left 6px
-    color var(--new-UI-01)
+    color var(--Icon-active)
     pointer-events none
 
   &__right-icon
@@ -486,7 +486,7 @@ export default {
     margin auto 0
     right 8px
     cursor pointer
-    color var(--new-UI-04)
+    color var(--Icon-secondary)
 
     &--clear
       right 17px

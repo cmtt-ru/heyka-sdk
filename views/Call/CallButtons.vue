@@ -335,7 +335,7 @@ export default {
           top -3px
           right -3px
           border-radius 12px
-          background-color var(--new-UI-01)
+          background-color var(--UI-active)
           border 2px solid var(--new-black)
           box-sizing border-box
           transition transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);

@@ -118,7 +118,7 @@ export default {
       transition-property right
 
     &--checked
-      background-color var(--new-UI-01)
+      background-color var(--UI-active)
 
       &:after
         right 2px

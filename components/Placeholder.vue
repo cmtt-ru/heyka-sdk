@@ -180,7 +180,7 @@ export default {
     animation loading 2s ease-in-out infinite
 
   &__avatar
-    background var(--new-bg-05)
+    background var(--Background-placeholder)
     border-radius 50%
     flex-shrink 0
 
@@ -195,7 +195,7 @@ export default {
     max-width 500px
     width 100%
     border-radius 1000px
-    background var(--new-bg-05)
+    background var(--Background-placeholder)
 
     &--secondary
       max-width 250px
@@ -206,7 +206,7 @@ export default {
     width 20px
     height 20px
     border-radius 10px
-    background var(--new-bg-05)
+    background var(--Background-placeholder)
     flex-shrink 0
 
 @keyframes loading {

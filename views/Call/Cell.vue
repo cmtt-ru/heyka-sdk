@@ -457,10 +457,10 @@ export default {
     right 4px
     pointer-events none
     border-radius 12px
-    border 4px solid var(--new-UI-01)
+    border 4px solid var(--UI-active)
 
     &__icon
-      color var(--new-UI-01)
+      color var(--Icon-active)
       padding 4px
 
   &__inner
@@ -557,7 +557,7 @@ export default {
       height 50%
       border-radius 100px
       animation rotate 1s linear infinite
-      border 2px solid var(--new-UI-01)
+      border 2px solid var(--UI-active)
       border-right-color transparent
 
       @keyframes rotate {
