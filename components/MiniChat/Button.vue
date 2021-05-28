@@ -112,7 +112,7 @@ export default {
     top -3px
     right -3px
     border-radius 11px
-    background var(--new-signal-03)
+    background var(--UI-alert)
 
 .badge-show-enter-active
   transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);

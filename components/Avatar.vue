@@ -79,12 +79,12 @@ import { idToColor } from '@libs/utils';
  */
 const STATUS_COLORS = {
   online: {
-    'background-color': 'var(--new-signal-02)',
-    'border-color': 'var(--new-signal-02)',
+    'background-color': 'var(--UI-positive)',
+    'border-color': 'var(--UI-positive)',
   },
   idle: {
-    'background-color': 'var(--new-signal-01)',
-    'border-color': 'var(--new-signal-01)',
+    'background-color': 'var(--UI-alert)',
+    'border-color': 'var(--UI-alert)',
   },
   offline: {
     'background-color': 'transparent',
@@ -371,7 +371,7 @@ export default {
       top -4px
       border-radius 50%
       background linear-gradient(#48DA85, #14A49B)
-      mask-image radial-gradient(circle at 50% 50%, transparent calc(50% + 2.5px), var(--new-signal-02) calc(50% + 3px))
+      mask-image radial-gradient(circle at 50% 50%, transparent calc(50% + 2.5px), var(--UI-positive) calc(50% + 3px))
 
   .fade-enter-active,
   .fade-leave-active

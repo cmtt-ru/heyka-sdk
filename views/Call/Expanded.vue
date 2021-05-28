@@ -419,8 +419,8 @@ export default {
   position relative
   height 100vh
   width 100vw
-  background-color var(--new-black)
-  color var(--new-white)
+  background var(--Background-black)
+  color var(--Text-white)
 
 .wrapper
   position absolute
@@ -445,7 +445,7 @@ export default {
   background-repeat no-repeat
 
 .video-preview
-  background-color var(--new-black)
+  background var(--Background-black)
   position absolute
   left 0
   top 0
@@ -462,7 +462,7 @@ export default {
   left 30px
   display flex
   flex-direction row
-  background-color var(--new-black)
+  background var(--Background-black)
   padding 8px
   border-radius 6px
   font-weight 500
@@ -496,14 +496,14 @@ export default {
   right 40px + 44px + 44px + 12px + 12px
 
 .control
-  background-color var(--new-black)
+  background var(--Background-black)
   border-radius 11px
   top calc(100% - 126px)
   left calc(50% - 146px)
   height auto
   opacity 1
   transition opacity 0.2s ease
-  box-shadow 0 0 0 1px var(--new-UI-06)
+  box-shadow 0 0 0 1px var(--UI-divider-1)
   max-width 292px
 
   //&--hidden

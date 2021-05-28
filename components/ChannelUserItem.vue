@@ -154,7 +154,7 @@ export default {
 
     &:hover,
     &.context-menu--opened
-        background-color var(--new-UI-06)
+        background var(--Background-darkgrey)
 
     &__avatar-wrapper
       position relative
@@ -163,8 +163,8 @@ export default {
         flex-shrink 0
 
         &--guest
-          background-color var(--new-signal-02-1)
-          color var(--new-signal-02)
+          background var(--new-signal-02-1)
+          color var(--UI-positive)
           position absolute
           top -0.5px // or else avatar bleeds at edges
           left -0.5px
@@ -188,7 +188,7 @@ export default {
 
         &__icon
             margin-left 8px
-            color var(--Icon-secondary)
+            color var(--Text-secondary)
 
             &--blue
               color var(--UI-active)
@@ -196,7 +196,7 @@ export default {
     &__sharing
         flex-shrink 0
         order 2
-        color var(--Icon-active)
+        color var(--UI-active)
 
     &__aqi
       display block

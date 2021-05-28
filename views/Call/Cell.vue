@@ -460,7 +460,7 @@ export default {
     border 4px solid var(--UI-active)
 
     &__icon
-      color var(--Icon-active)
+      color var(--UI-active)
       padding 4px
 
   &__inner
@@ -504,7 +504,7 @@ export default {
     bottom 4px
     left 4px
     right 4px
-    border 4px solid var(--new-signal-02)
+    border 4px solid var(--UI-positive)
     border-radius 12px
     box-sizing border-box
     pointer-events none
@@ -523,7 +523,7 @@ export default {
     top 4px
     left 4px
     transition opacity 0.15s ease
-    background-color var(--new-transparent)
+    background var(--new-transparent)
     width 28px
     padding 9px 0
     min-height 28px

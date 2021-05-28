@@ -86,7 +86,7 @@ export default {
 
 <style lang="stylus" scoped>
 .router-link-active
-    background-color var(--new-UI-07)
+    background var(--new-UI-07)
 .user
     padding 6px
     margin 3px 0
@@ -98,13 +98,13 @@ export default {
     align-items center
 
     &:hover
-      background-color var(--new-UI-07)
+      background var(--new-UI-07)
 
       & .user__more
         display inline-flex
 
     &:active
-      background-color var(--new-UI-08)
+      background var(--new-UI-08)
 
     &__avatar
         flex-shrink 0
@@ -118,5 +118,5 @@ export default {
         margin-left 4px
         display none
         flex-shrink 0
-        color var(--Icon-secondary)
+        color var(--Text-secondary)
 </style>

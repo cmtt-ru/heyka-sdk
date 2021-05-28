@@ -319,7 +319,7 @@ export default {
 
     &__screen
       &.ui-button--active
-        background-color var(--new-signal-03)
+        background var(--UI-error)
 
     &__button
       flex-shrink 0
@@ -335,8 +335,8 @@ export default {
           top -3px
           right -3px
           border-radius 12px
-          background-color var(--UI-active)
-          border 2px solid var(--new-black)
+          background var(--UI-active)
+          border 2px solid var(--Background-black)
           box-sizing border-box
           transition transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);
           transform scale(0)
@@ -347,7 +347,7 @@ export default {
             transform scale(1)
 
       &--disconnect
-        color var(--new-signal-03)
+        color var(--UI-error)
 
       &:last-child
         margin-right 0 !important

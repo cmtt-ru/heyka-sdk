@@ -37,7 +37,7 @@ export default {
     display flex
     background var(--Background-darkgrey)
     box-shadow var(--new-shadow-03)
-    color var(--Font-primary)
+    color var(--Text-primary)
     border-radius 8px
     z-index 100
     flex-direction column
@@ -71,7 +71,7 @@ export default {
         display flex
 
       &__close
-        color var(--Icon-secondary)
+        color var(--Text-secondary)
 
   /deep/ a
     .ui-button
@@ -79,7 +79,7 @@ export default {
 
   /deep/ .delimiter
     height 1px
-    background var(--new-UI-06)
+    background var(--UI-divider-1)
     margin 0 12px 0 38px
 
   /deep/ .buttons
@@ -110,7 +110,7 @@ export default {
       right 0
       left 55px
       height 1px
-      background-color var(--new-stroke-01)
+      background var(--new-stroke-01)
 
   /deep/ .ui-button__icon
     height 24px

@@ -427,7 +427,7 @@ export default {
     display flex
     flex-direction column
     height 100vh
-    color var(--new-white)
+    color var(--Text-white)
 
   .top-content
     height 108px
@@ -454,11 +454,11 @@ export default {
     color rgba(255, 255, 255, 0.5)
 
   .channel-icon
-    color: var(--new-signal-02)
+    color: var(--UI-positive)
     flex-shrink 0
 
   .channel-name
-    color var(--new-white)
+    color var(--Text-white)
     margin 0 16px 0 4px
     font-weight bold
     font-size 32px
@@ -523,7 +523,7 @@ export default {
       top -3px
       right -3px
       border-radius 11px
-      background var(--new-signal-03)
+      background var(--UI-error)
 
   .badge-show-enter-active
     transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);

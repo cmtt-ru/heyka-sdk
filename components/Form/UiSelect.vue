@@ -278,7 +278,7 @@ export default {
     pointer-events none
 
   &__label
-    color var(--Font-primary)
+    color var(--Text-primary)
     flex-shrink 0
 
   &__header
@@ -292,20 +292,20 @@ export default {
     justify-content space-between
     align-items center
     overflow hidden
-    color var(--Font-secondary)
+    color var(--Text-secondary)
     max-width 170px
 
     &:hover
       opacity 0.8 //! временно?
 
     &__icon
-      color var(--Icon-secondary)
+      color var(--Text-secondary)
       margin-left 6px
       flex-shrink 0
 
   &__list
     position absolute
-    background-color var(--new-UI-09)
+    background var(--new-UI-09)
     top 100%
     right 0
     max-width 260px
@@ -332,16 +332,16 @@ export default {
     flex-direction row
     justify-content space-between
     align-items center
-    color var(--Font-secondary)
+    color var(--Text-secondary)
 
     &:hover
-      background-color var(--new-UI-06)
+      background var(--Background-darkgrey)
 
     &__icon
-      color var(--new-signal-02)
+      color var(--UI-positive)
 
     &--selected
-      color var(--Font-primary)
+      color var(--Text-primary)
 
 .text-ellipsis
   white-space nowrap
@@ -349,10 +349,10 @@ export default {
   overflow hidden
 
 .ui-error
-  border-color var(--new-signal-03)
+  border-color var(--UI-error)
 
 .error-text
-  color var(--new-signal-03)
+  color var(--UI-error)
   font-size 10px
   line-height 12px
   min-height 16px

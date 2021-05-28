@@ -34,14 +34,14 @@ export default {
 
 <style lang="stylus" scoped>
   .progress-bar
-    background var(--new-UI-06)
+    background var(--Background-darkgrey)
     height 4px
     border-radius 6px
     margin 4px 0 10px
     overflow hidden
 
     &__value
-      background var(--new-signal-02)
+      background var(--UI-positive)
       height 100%
 
     &--animated

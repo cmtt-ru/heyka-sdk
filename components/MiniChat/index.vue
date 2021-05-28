@@ -166,7 +166,7 @@ export default {
         } else if (i.action === 'hand-up') {
           return {
             userId: i.userId,
-            color: 'var(--Font-active)',
+            color: 'var(--UI-active)',
             message: this.$t('push.raisedHand'),
           };
         }
@@ -209,7 +209,7 @@ export default {
       opacity 0.5
 
     &__send
-      color var(--Icon-active)
+      color var(--UI-active)
       margin-right -14px
 
     &__message
@@ -234,7 +234,7 @@ export default {
 
         a
           display inline
-          color var(--Font-active)
+          color var(--UI-active)
 
           &:hover
             opacity 0.75

@@ -395,7 +395,7 @@ export default {
     width 100%
     height 100%
     z-index 1000
-    color var(--Font-primary)
+    color var(--Text-primary)
 
     &__tint
       background rgba(0, 0, 0, 0.28)
@@ -427,13 +427,13 @@ export default {
         font-size 12px
         margin-top 12px
         text-align center
-        color var(--Font-secondary)
+        color var(--Text-secondary)
         padding 0 12px
 
       &__text
         line-height 22px
         margin-top 8px
-        color var(--new-black)
+        color var(--Background-black)
         font-weight 400
         padding 0px
 
@@ -445,7 +445,7 @@ export default {
         svg
           width 18px
           height 18px
-          color var(--Icon-secondary)
+          color var(--Text-secondary)
           margin-left auto
           margin-right -8px
           cursor pointer
@@ -463,7 +463,7 @@ export default {
           width 32px
           height 32px
           border-radius 100%
-          background var(--new-UI-06)
+          background var(--Background-darkgrey)
           display flex
           align-items center
           justify-content center
@@ -472,7 +472,7 @@ export default {
           svg
             width 14px
             height 14px
-            color var(--Icon-secondary)
+            color var(--Text-secondary)
 
         p
           font-weight 600
@@ -491,7 +491,7 @@ export default {
       height 48px
       margin 0 auto
       border-radius 100%
-      background var(--new-UI-06)
+      background var(--Background-darkgrey)
       display flex
       align-items center
       justify-content center
@@ -499,6 +499,6 @@ export default {
       svg
         width 22px
         height 22px
-        color var(--Icon-secondary)
+        color var(--Text-secondary)
 
 </style>

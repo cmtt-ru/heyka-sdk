@@ -152,12 +152,12 @@ export default {
       if (this.channel.isPrivate && !this.channel.isTemporary) {
         return {
           name: ICON_MAP['private'],
-          color: 'var(--Icon-active)',
+          color: 'var(--UI-active)',
         };
       } else if (this.channel.isPrivate && this.channel.isTemporary) {
         return {
           name: ICON_MAP['temp'],
-          color: 'var(--Icon-active)',
+          color: 'var(--UI-active)',
         };
       } else {
         if (this.topChannel) {
@@ -168,7 +168,7 @@ export default {
         } else {
           return {
             name: ICON_MAP['public'],
-            color: 'var(--Icon-active)',
+            color: 'var(--UI-active)',
           };
         }
       }
@@ -220,7 +220,7 @@ export default {
 
 <style lang="stylus" scoped>
 .router-link-active
-  background-color var(--new-UI-07)
+  background var(--new-UI-07)
 
 .channel
   padding 6px 0
@@ -233,16 +233,16 @@ export default {
   justify-content flex-start
 
   &:hover
-    background-color var(--new-UI-07)
+    background var(--new-UI-07)
 
     & .channel__more
       visibility visible
 
   &:active
-    background-color var(--new-UI-08)
+    background var(--new-UI-08)
 
   &--top
-    background-color var(--new-UI-09)
+    background var(--new-UI-09)
     box-shadow var(--new-shadow-02)
 
   &__type
@@ -265,13 +265,13 @@ export default {
     margin 2px 0
 
   &__more
-    color var(--Icon-secondary)
+    color var(--Text-secondary)
     margin 0 6px
     flex-shrink 0
     visibility hidden
 
     &:hover
-      background-color var(--new-UI-07)
+      background var(--new-UI-07)
 
   &__users
     height 12px
@@ -293,6 +293,6 @@ export default {
     &__more
       font-size 12px
       margin-left 4px
-      color var(--Icon-secondary)
+      color var(--Text-secondary)
 
 </style>

@@ -253,7 +253,7 @@ export default {
 .mic
   position relative
   background var(--new-overlay-01)
-  color var(--new-white)
+  color var(--Text-white)
   cursor pointer
   display flex
   flex-direction row
@@ -271,7 +271,7 @@ export default {
 
   &__volume
     transform translateZ(0)
-    background-color var(--new-signal-02)
+    background var(--UI-positive)
     position absolute
     opacity 0.5
     bottom 0
