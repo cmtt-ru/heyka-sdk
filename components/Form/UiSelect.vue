@@ -294,6 +294,9 @@ export default {
     overflow hidden
     color var(--Text-secondary)
     max-width 170px
+    font-size 14px
+    font-weight normal
+    line-height 22px
 
     &:hover
       opacity 0.8 //! временно?
@@ -305,7 +308,7 @@ export default {
 
   &__list
     position absolute
-    background var(--new-UI-09)
+    background var(--Background-darkgrey)
     top 100%
     right 0
     max-width 260px
@@ -316,7 +319,7 @@ export default {
     display none
     margin 6px 0
     padding 4px
-    max-height 300px // TODO: дождаться варианта покрасивее от Кости
+    max-height 300px
     overflow-y auto
 
     &--visible
@@ -333,6 +336,8 @@ export default {
     justify-content space-between
     align-items center
     color var(--Text-secondary)
+    font-size 14px
+    line-height 16px
 
     &:hover
       background var(--Background-darkgrey)

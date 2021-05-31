@@ -305,7 +305,7 @@ $ANIM = 330ms
 $ANIM_DELAY = 200ms
 
 .notification
-  background var(--Background-white)
+  background var(--Background-darkgrey)
   color var(--Text-primary)
   flex-shrink 0
   display flex

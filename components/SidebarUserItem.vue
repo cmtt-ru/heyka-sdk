@@ -86,7 +86,7 @@ export default {
 
 <style lang="stylus" scoped>
 .router-link-active
-    background var(--new-UI-07)
+    background var(--Background-darkgrey)
 .user
     padding 6px
     margin 3px 0

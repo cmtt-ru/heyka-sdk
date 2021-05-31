@@ -447,7 +447,7 @@ export default {
     background var(--Background-darkgrey)
 
   &--disabled
-    background var(--new-UI-08)
+    background var(--Background-darkgrey)
     pointer-events none
 
     & .input

@@ -162,19 +162,6 @@ export default {
     &__avatar
         flex-shrink 0
 
-        &--guest
-          background var(--new-signal-02-1)
-          color var(--UI-positive)
-          position absolute
-          top -0.5px // or else avatar bleeds at edges
-          left -0.5px
-          width calc(100% + 1px)
-          height calc(100% + 1px)
-          border-radius 50%
-          display flex
-          align-items center
-          justify-content center
-
     &__name
         padding-left 8px
         flex-shrink 2

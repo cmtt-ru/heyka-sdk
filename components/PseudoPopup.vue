@@ -206,7 +206,7 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--new-stroke-01)
+        box-shadow 0 0 0 1px var(--UI-divider-1)
 
     &__body
       flex 1 1 auto
@@ -229,6 +229,6 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--new-stroke-01)
+        box-shadow 0 0 0 1px var(--UI-divider-1)
 
 </style>

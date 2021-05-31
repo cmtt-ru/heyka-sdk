@@ -194,7 +194,7 @@ export default {
 
         &--no-image
           background var(--Background-darkgrey)
-          color var(--new-UI-05)
+          color var(--Text-secondary)
           box-sizing border-box
 
         &:hover

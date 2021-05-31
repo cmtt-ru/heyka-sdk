@@ -110,7 +110,7 @@ export default {
       right 0
       left 55px
       height 1px
-      background var(--new-stroke-01)
+      background var(--UI-divider-2)
 
   /deep/ .ui-button__icon
     height 24px

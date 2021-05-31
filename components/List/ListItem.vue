@@ -83,7 +83,4 @@ export default {
   align-items center
   border-radius 4px
   box-sizing border-box
-
-  &--selected
-    background var(--new-signal-02-1)
 </style>

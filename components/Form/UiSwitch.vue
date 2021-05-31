@@ -96,7 +96,7 @@ export default {
     position relative
     width 32px
     height 18px
-    background var(--new-UI-05)
+    background var(--Background-darkgrey)
     border-radius 9px
     z-index 1
     flex-shrink 0
