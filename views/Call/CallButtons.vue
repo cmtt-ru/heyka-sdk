@@ -52,7 +52,19 @@
     />
 
     <ui-button
-      v-if="buttons.includes('speakers')"
+      v-if="buttons.includes('more') && !IS_ELECTRON && IS_MOBILE"
+      v-popover.click="{name: 'CallButtonsMore'}"
+      class="call-buttons__button"
+      :type="7"
+      popover
+      :active="mediaState.screen"
+      :size="size"
+      icon="burger"
+      :height="buttonHeight"
+    />
+
+    <ui-button
+      v-if="buttons.includes('speakers') && (IS_ELECTRON || !IS_MOBILE)"
       class="call-buttons__button"
       :type="7"
       popover
@@ -229,6 +241,16 @@ export default {
 
       return false;
     },
+  },
+
+  mounted() {
+    broadcastEvents.on('callbuttons-speakers', () => {
+      return this.switchProp('speakers');
+    });
+  },
+
+  beforeDestroy() {
+    broadcastEvents.removeAllListeners('callbuttons-speakers');
   },
 
   methods: {

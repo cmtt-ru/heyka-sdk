@@ -73,6 +73,18 @@ export default {
       &__close
         color var(--new-UI-03)
 
+// Add "popover-fullscreen" class to pages where popover should appear without margin. don't forget to remove it in beforeDestroy
+
+body.popover-fullscreen .popover
+  @media $mobile
+    width 100vw !important
+    max-width 767px
+    bottom 0 !important
+    border-bottom-left-radius 0
+    border-bottom-right-radius 0
+    border-top-left-radius 10px
+    border-top-right-radius 10px
+
   /deep/ a
     .ui-button
       width 100%

@@ -200,6 +200,7 @@ export default {
   .mini-chat
     width 320px
     height 400px
+    margin 0 auto
 
     &__dummy
       display flex

@@ -47,9 +47,15 @@
     </div>
 
     <div class="bottom-content">
-      <div class="bottom-content__col bottom-content__col--left" />
+      <div
+        v-if="!IS_MOBILE"
+        class="bottom-content__col bottom-content__col--left"
+      />
 
-      <div class="bottom-content__col bottom-content__col--center">
+      <div
+        class="bottom-content__col bottom-content__col--center"
+        :class="{'bottom-content__col--fixed-center': IS_MOBILE}"
+      >
         <call-buttons
           class="bottom-content__controls"
           :buttons="buttonsSetup"
@@ -57,7 +63,10 @@
         />
       </div>
 
-      <div class="bottom-content__col bottom-content__col--right">
+      <div
+        v-show="!IS_MOBILE"
+        class="bottom-content__col bottom-content__col--right"
+      >
         <ui-button
           popover
           class="tech-button"
@@ -69,7 +78,10 @@
           @click="handUpHandler"
         />
 
-        <mini-chat-button :height="60" />
+        <mini-chat-button
+          ref="miniChatButton"
+          :height="60"
+        />
       </div>
     </div>
   </div>
@@ -91,7 +103,7 @@ import broadcastActions from '@sdk/classes/broadcastActions';
 const cnsl = new Logger('Grid.vue', '#138D75');
 
 const BUTTON_SETUPS = {
-  default: ['camera', 'screen', 'speakers', 'microphone', 'leave'],
+  default: ['camera', 'screen', 'speakers', 'more', 'microphone', 'leave'],
   streaming: ['camera', 'screen', 'drawing', 'speakers', 'microphone', 'leave'],
 };
 
@@ -121,6 +133,7 @@ export default {
       mountedTimestamp: Date.now(),
       pausedByScreenSharing: false,
       unwatchSpeaking: null,
+      IS_MOBILE,
     };
   },
 
@@ -218,6 +231,16 @@ export default {
 
     broadcastEvents.on('grid-expanded-focus', this.windowFocusHandler);
 
+    broadcastEvents.on('callbuttons-hand', this.handUpHandler);
+    broadcastEvents.on('callbuttons-chat', () => {
+      //! жёсткий хак. эмитим событие mouseup на кнопке чата, которая есть где-то на странице.
+      //! потому что поповеры у нас открываются только по директиве v-popover
+      const clickEvent = document.createEvent('MouseEvents');
+
+      clickEvent.initEvent('mouseup', true, true);
+      document.getElementById('mini-chat-button').dispatchEvent(clickEvent);
+    });
+
     // Send command to subscribe for all video publishers
     this.handleVideoStreams();
 
@@ -262,6 +285,9 @@ export default {
     broadcastEvents.removeAllListeners('grid-expand');
     broadcastEvents.off('grid-hide', this.windowHideHandler);
     broadcastEvents.off('grid-expanded-focus', this.windowFocusHandler);
+
+    broadcastEvents.removeAllListeners('callbuttons-hand');
+    broadcastEvents.removeAllListeners('callbuttons-chat');
   },
 
   methods: {
@@ -489,9 +515,6 @@ export default {
     margin-top 28px
     display flex
 
-    @media $mobile
-      flex-wrap wrap
-
     &__col
       display flex
       align-items center
@@ -511,9 +534,9 @@ export default {
           .bottom-content__controls
             margin 0
 
-        @media $mobile
-          margin-left 0
-          justify-content center
+      &--fixed-center
+        justify-content center !important
+        margin-left 0 !important
 
       &--left
         padding-left 40px
@@ -523,12 +546,6 @@ export default {
 
       &--right
         padding-right 40px
-
-        @media $mobile
-          margin 12px 0
-          padding-right 0
-          justify-content center
-          flex-basis 100%
 
   .tech-button
     border-radius 15px
@@ -557,4 +574,5 @@ export default {
 
     &__controls
       margin 0 auto
+
 </style>
