@@ -350,6 +350,10 @@ export default {
     &__button
       flex-shrink 0
 
+      @media $mobile
+        height 56px !important
+        width 56px !important
+
       &--grid
         position relative
 

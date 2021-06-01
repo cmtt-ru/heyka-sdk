@@ -23,4 +23,11 @@ export default {
 .device-popover
   width 300px
   height 275px
+
+  @media $mobile
+    width calc(100vw - 32px)
+    height 275px
+
+    /deep/ .dropdown__header
+      max-width 300px
 </style>

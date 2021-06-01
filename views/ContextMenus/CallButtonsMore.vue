@@ -3,11 +3,11 @@
     <div class="buttons">
       <ui-button
         :type="11"
-        :icon="speakersInfo['icon']"
+        :icon="speakersInfo.icon"
         data-popover-close
         @click="switchSpeakersHandler"
       >
-        Звук
+        {{ texts[speakersInfo.text] }}
       </ui-button>
       <ui-button
         :type="11"
@@ -15,7 +15,7 @@
         data-popover-close
         @click="raiseHandHandler"
       >
-        Rise a hand
+        {{ handUpText }}
       </ui-button>
       <ui-button
         :type="11"
@@ -23,7 +23,7 @@
         data-popover-close
         @click="openChatHandler"
       >
-        Chat
+        {{ texts.chat }}
       </ui-button>
     </div>
   </popover>
@@ -36,11 +36,11 @@ import { mapGetters } from 'vuex';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 
 const SPEAKERS_INFO = {
-  true: {
+  false: {
     icon: 'headphones',
     text: 'speakers',
   },
-  false: {
+  true: {
     icon: 'headphones-off',
     text: 'speakersOff',
   },
@@ -66,6 +66,8 @@ export default {
   computed: {
     ...mapGetters({
       mediaState: 'me/getMediaState',
+      getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
+      myId: 'me/getMyId',
     }),
 
     /**
@@ -73,7 +75,7 @@ export default {
      * @returns {object}
      */
     texts() {
-      return this.$t('popover.griduser');
+      return this.$t('popover.gridMore');
     },
 
     /**
@@ -82,6 +84,18 @@ export default {
      */
     speakersInfo() {
       return SPEAKERS_INFO[this.mediaState.speakers];
+    },
+
+    isMyHandUp() {
+      return this.getHandUpStatusByUserId(this.myId);
+    },
+
+    handUpText() {
+      if (this.isMyHandUp) {
+        return this.texts.handDown;
+      }
+
+      return this.texts.handUp;
     },
   },
 

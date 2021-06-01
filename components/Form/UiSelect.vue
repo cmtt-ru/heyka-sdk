@@ -280,6 +280,7 @@ export default {
   &__label
     color var(--new-UI-02)
     flex-shrink 0
+    padding-right 16px
 
   &__header
     cursor pointer

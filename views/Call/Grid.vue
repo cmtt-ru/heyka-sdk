@@ -39,7 +39,7 @@
       <cell
         v-for="(user, index) in users"
         :key="user.user.id"
-        :width="Math.floor(fullGridWidth * currentGrid[index])"
+        :width="cellWidth(index)"
         :video-stream="videoStreams[user.user.id]"
         :user="user.user"
         :media-state="user.mediaState"
@@ -111,9 +111,14 @@ const BUTTON_SETUPS = {
  * Aspect ratio 124 / 168;
  * @type {number}
  */
-const ASPECT_RATIO = 0.7380952381;
+// const ASPECT_RATIO = 0.7380952381;
 
 const PADDING = 36;
+
+const MOBILE_WIDTH = 767; // same as css $mobile
+
+let GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
+let GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
 
 export default {
   components: {
@@ -340,11 +345,24 @@ export default {
      * @param {number} index cell's index
      * @return {object}
      */
-    cellDimensions(index) {
-      return {
-        width: Math.floor(this.fullGridWidth * this.currentGrid[index]) + 'px',
-        height: Math.floor(this.fullGridWidth * ASPECT_RATIO * this.currentGrid[index]) + 'px',
-      };
+    cellWidth(index) {
+      if (GRID_WIDTH < MOBILE_WIDTH) {
+        return this.cellMobileWidth(index);
+      } else {
+        return Math.floor(this.fullGridWidth * this.currentGrid[index]);
+      }
+    },
+
+    cellMobileWidth(index) {
+      if (this.usersCount % 2 === 0) {
+        return Math.floor(this.fullGridWidth / 2);
+      } else {
+        if (index === 0) {
+          return Math.floor(this.fullGridWidth);
+        } else {
+          return Math.floor(this.fullGridWidth / 2);
+        }
+      }
     },
 
     /**
@@ -352,23 +370,31 @@ export default {
      * @return {void}
      */
     resize() {
-      const bounds = document.getElementById('cell-grid');
+      GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
+      GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
 
-      if (!bounds || !this.grids) {
+      if (!GRID_WIDTH || !this.grids) {
         return;
       }
-      const boundHeight = bounds.offsetHeight;
-      const boundWidth = bounds.offsetWidth - PADDING * 2;
-      const closest = this.findClosest(boundHeight / boundWidth, this.grids);
+
+      const boundWidth = GRID_WIDTH - PADDING * 2;
+      const closest = this.findClosest(GRID_HEIGHT / boundWidth, this.grids);
 
       this.currentGrid = closest.sizes;
 
-      this.fullGridWidth = Math.min(boundWidth, boundHeight / closest.ratio);
+      this.fullGridWidth = Math.min(boundWidth, GRID_HEIGHT / closest.ratio);
 
-      if (boundHeight / boundWidth < closest.ratio) {
-        this.padding = { padding: '0 ' + (boundWidth - boundHeight / closest.ratio) / 2 + 'px' };
+      if (GRID_HEIGHT / boundWidth < closest.ratio) {
+        this.padding = { padding: '0 ' + (boundWidth - GRID_HEIGHT / closest.ratio) / 2 + 'px' };
       } else {
         this.padding = { padding: '0' };
+      }
+
+      if (GRID_WIDTH < MOBILE_WIDTH) {
+        const MOBILE_PADDING = 16;
+
+        this.fullGridWidth = GRID_WIDTH - MOBILE_PADDING * 2;
+        this.padding = { padding: `0 ${MOBILE_PADDING}px` };
       }
     },
 
@@ -477,6 +503,11 @@ export default {
       flex-shrink 0
       border-radius 15px
 
+      @media $mobile
+        background var(--new-transparent)
+        height 24px !important
+        width 24px !important
+
   .left-info
     display flex
     flex-direction row
@@ -486,9 +517,22 @@ export default {
     line-height 24px
     color rgba(255, 255, 255, 0.5)
 
+    @media $mobile
+      font-weight 500
+      font-size 16px
+      line-height 22px
+      flex-wrap wrap
+      justify-content center
+      flex-grow 2
+      padding-left 24px
+
   .channel-icon
     color: var(--new-signal-02)
     flex-shrink 0
+
+    @media $mobile
+      width 24px
+      height 24px
 
   .channel-name
     color var(--new-white)
@@ -497,9 +541,20 @@ export default {
     font-size 32px
     line-height 36px
 
+    @media $mobile
+      font-weight 500
+      font-size 18px
+      line-height 28px
+      margin 0 0 0 4px
+
   .channel-usercount
     padding 4px 16px 0 0
     flex-shrink 0
+
+    @media $mobile
+      flex-basis 100%
+      text-align center
+      padding 4px 0 0 8px
 
   .cell-grid
     height calc(100vh - 232px)
@@ -511,9 +566,25 @@ export default {
     align-content center
     box-sizing border-box
 
+    @media $mobile
+      overflow hidden overlay
+      align-content flex-start
+
   .bottom-content
     margin-top 28px
     display flex
+
+    @media $mobile
+      position relative
+
+      &:after
+        content ''
+        position absolute
+        top -32px
+        left 0
+        right 0
+        height 16px
+        background linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)
 
     &__col
       display flex

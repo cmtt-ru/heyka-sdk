@@ -613,6 +613,11 @@ export default {
     position relative
     z-index 3
 
+    @media $mobile
+      font-size 12px
+      line-height 12px
+      padding 4px
+
     &__you
       opacity 0.5
       margin-left 4px
