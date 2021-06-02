@@ -265,6 +265,16 @@
     "manageWorkspace": {
       "edit": "Редактировать",
       "delete": "Удалить воркспейс"
+    },
+    "chat": {
+      "header": "Чат"
+    },
+    "gridMore": {
+      "speakers": "Включить звук",
+      "speakersOff": "Отключить звук",
+      "handUp": "Поднять руку",
+      "handDown": "Опустить руку",
+      "chat": "Открыть чат"
     }
   },
   "notifications":{

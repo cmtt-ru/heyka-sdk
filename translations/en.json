@@ -265,6 +265,16 @@
     "manageWorkspace": {
       "edit": "Edit info",
       "delete": "Delete workspace"
+    },
+    "chat": {
+      "header": "Chat"
+    },
+    "gridMore": {
+      "speakers": "Speakers on",
+      "speakersOff": "Speakers off",
+      "handUp": "Raise hand",
+      "handDown": "Lower hand",
+      "chat": "Open chat"
     }
   },
   "notifications": {

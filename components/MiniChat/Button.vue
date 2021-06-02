@@ -9,6 +9,7 @@
     </transition>
 
     <ui-button
+      id="mini-chat-button"
       v-popover.click="{name: 'MiniChat'}"
       popover
       :type="7"
