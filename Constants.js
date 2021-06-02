@@ -23,6 +23,7 @@ IS_ELECTRON = parsedUserAgent.ua.indexOf('Electron') !== -1;
 window.IS_ELECTRON = IS_ELECTRON;
 window.IS_IOS = IS_IOS;
 window.IS_MOBILE = IS_MOBILE;
+window.IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 if (IS_ELECTRON) {
   let heykaStore;
