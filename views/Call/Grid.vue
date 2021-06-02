@@ -120,6 +120,7 @@ export default {
       videoStreams: {},
       mountedTimestamp: Date.now(),
       pausedByScreenSharing: false,
+      unwatchSpeaking: null,
     };
   },
 
@@ -201,12 +202,6 @@ export default {
 
     miniChatLastMessageTimestamp(val) {
       this.miniChatBadgeKey = val;
-    },
-
-    speaking(val) {
-      if (val) {
-        this.handUpHandler(false);
-      }
     },
   },
 
@@ -398,6 +393,18 @@ export default {
       if (value !== undefined) {
         status = value;
       }
+
+      if (status) {
+        this.unwatchSpeaking = this.$watch('speaking', (val) => {
+          if (val) {
+            this.handUpHandler(false);
+          }
+        });
+      } else {
+        if (this.unwatchSpeaking) {
+          this.unwatchSpeaking();
+        }
+      }
       broadcastActions.dispatch('app/handUpInChannel', status);
     },
 
@@ -482,6 +489,9 @@ export default {
     margin-top 28px
     display flex
 
+    @media $mobile
+      flex-wrap wrap
+
     &__col
       display flex
       align-items center
@@ -501,6 +511,10 @@ export default {
           .bottom-content__controls
             margin 0
 
+        @media $mobile
+          margin-left 0
+          justify-content center
+
       &--left
         padding-left 40px
 
@@ -509,6 +523,12 @@ export default {
 
       &--right
         padding-right 40px
+
+        @media $mobile
+          margin 12px 0
+          padding-right 0
+          justify-content center
+          flex-basis 100%
 
   .tech-button
     border-radius 15px

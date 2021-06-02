@@ -40,7 +40,7 @@
     />
 
     <ui-button
-      v-if="buttons.includes('screen')"
+      v-if="buttons.includes('screen') && (IS_ELECTRON || !IS_MOBILE)"
       class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
@@ -167,6 +167,13 @@ export default {
     },
   },
 
+  data() {
+    return {
+      IS_ELECTRON,
+      IS_MOBILE,
+    };
+  },
+
   computed: {
     ...mapGetters({
       mediaState: 'me/getMediaState',
@@ -279,9 +286,6 @@ export default {
      */
     async disconnectHandler() {
       broadcastActions.dispatch('unselectChannel', this.$store.getters['me/getSelectedChannelId']);
-      if (!IS_ELECTRON) {
-        this.$router.replace({ name: 'landing' });
-      }
     },
 
     /**
