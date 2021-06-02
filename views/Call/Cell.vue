@@ -104,7 +104,13 @@ import captureFrame from 'capture-frame';
  * Aspect ratio 124 / 168;
  * @type {number}
  */
-const ASPECT_RATIO = 0.7380952381;
+const ASPECT_RATIO = 0.738;
+
+/**
+ * Aspect ratio 224 / 343;
+ * @type {number}
+ */
+const MOBILE_ASPECT_RATIO = 0.653;
 
 const SIZES = [
   {
@@ -160,6 +166,14 @@ export default {
     width: {
       type: Number,
       default: 100,
+    },
+
+    /**
+     * true if we need mobile aspect ratio
+     */
+    isMobile: {
+      type: Boolean,
+      default: false,
     },
 
     /**
@@ -224,7 +238,11 @@ export default {
      * @returns {number}
      */
     height() {
-      return Math.floor(this.width * ASPECT_RATIO);
+      if (this.isMobile) {
+        return Math.floor(this.width * MOBILE_ASPECT_RATIO);
+      } else {
+        return Math.floor(this.width * ASPECT_RATIO);
+      }
     },
 
     /**
@@ -438,6 +456,9 @@ export default {
   position relative
   padding 4px
 
+  @media $mobile
+    padding 8px
+
   &--elevated
     z-index 5
 
@@ -591,6 +612,9 @@ export default {
   &__avatar
     margin auto
     transform translateY(-11px)
+
+    @media $mobile
+      transform translateY(-9px)
 
   &__blurred-avatar
     position absolute

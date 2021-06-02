@@ -50,32 +50,35 @@
       icon="settings"
     />
 
-    <router-link
-      :to="{ name: 'grid'}"
-    >
+    <div class="badge bottom-controls">
+      <router-link
+        :to="{ name: 'grid'}"
+      >
+        <ui-button
+          class="bottom-controls__button"
+          :type="7"
+          popover
+          :height="44"
+          icon="grid"
+        />
+      </router-link>
+
+      <mini-chat-button class="bottom-controls__button" />
+
       <ui-button
-        class="badge expanded"
-        :type="7"
         popover
+        class="bottom-controls__button"
+        :active="getHandUpStatusByUserId(myId)"
+        size="medium"
+        :type="7"
         :height="44"
-        icon="grid"
+        icon="hand-up"
+        @click="handUpHandler"
       />
-    </router-link>
-
-    <mini-chat-button class="badge chat" />
-
-    <ui-button
-      popover
-      class="badge hand-up"
-      :active="getHandUpStatusByUserId(myId)"
-      size="medium"
-      :type="7"
-      :height="44"
-      icon="hand-up"
-      @click="handUpHandler"
-    />
+    </div>
 
     <div
+      v-show="!IS_MOBILE"
       ref="controls"
       v-draggable="controlsOptions"
       class="badge control"
@@ -124,6 +127,7 @@ export default {
       isStreamPlaying: false,
       myColor: 'black',
       canDraw: false,
+      IS_MOBILE,
     };
   },
   computed: {
@@ -481,19 +485,18 @@ export default {
   right 40px
   border-radius 11px
 
-.expanded
+.bottom-controls
   bottom 44px
   right 40px
-  border-radius 11px
+  display flex
 
-.chat
-  bottom 44px
-  right 40px + 44px + 12px
+  @media $mobile
+    bottom 36px
+    right calc(50vw - 78px)
 
-.hand-up
-  bottom 44px
-  border-radius 11px
-  right 40px + 44px + 44px + 12px + 12px
+  &__button
+    border-radius 11px
+    margin-left 12px
 
 .control
   background-color var(--new-black)

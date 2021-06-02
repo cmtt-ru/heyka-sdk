@@ -4,18 +4,21 @@
   >
     <div class="top-content">
       <div class="left-info">
-        <svg-icon
-          name="channel"
-          :width="40"
-          :height="40"
-          class="channel-icon"
-        />
-        <div
-          v-textfade
-          class="channel-name"
-        >
-          {{ selectedChannelName }}
+        <div class="left-info__channel">
+          <svg-icon
+            name="channel"
+            :width="40"
+            :height="40"
+            class="channel-icon"
+          />
+          <div
+            v-textfade
+            class="channel-name"
+          >
+            {{ selectedChannelName }}
+          </div>
         </div>
+
         <div class="channel-usercount">
           {{ $tc("call.grid.users", usersCount) }}
         </div>
@@ -30,21 +33,36 @@
         icon="settings"
       />
     </div>
+    <pseudo-popup @scrollable="setScrollable">
+      <template #custom-header>
+        <div class="grid-shadow grid-shadow--top" />
+      </template>
 
-    <div
-      id="cell-grid"
-      class="cell-grid"
-      :style="padding"
-    >
-      <cell
-        v-for="(user, index) in users"
-        :key="user.user.id"
-        :width="cellWidth(index)"
-        :video-stream="videoStreams[user.user.id]"
-        :user="user.user"
-        :media-state="user.mediaState"
-      />
-    </div>
+      <template
+        #body
+      >
+        <div
+          id="cell-grid"
+          class="cell-grid"
+          :class="{'cell-grid--scrollable': scrollableGrid}"
+          :style="padding"
+        >
+          <cell
+            v-for="(user, index) in users"
+            :key="user.user.id"
+            :width="cellWidth(index)"
+            :is-mobile="isMobileWidth"
+            :video-stream="videoStreams[user.user.id]"
+            :user="user.user"
+            :media-state="user.mediaState"
+          />
+        </div>
+      </template>
+
+      <template #custom-footer>
+        <div />
+      </template>
+    </pseudo-popup>
 
     <div class="bottom-content">
       <div
@@ -91,6 +109,7 @@
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
 import MiniChatButton from '@components/MiniChat/Button';
+import PseudoPopup from '@components/PseudoPopup';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -107,18 +126,14 @@ const BUTTON_SETUPS = {
   streaming: ['camera', 'screen', 'drawing', 'speakers', 'microphone', 'leave'],
 };
 
-/**
- * Aspect ratio 124 / 168;
- * @type {number}
- */
-// const ASPECT_RATIO = 0.7380952381;
-
 const PADDING = 36;
+
+const MOBILE_PADDING = 8;
 
 const MOBILE_WIDTH = 767; // same as css $mobile
 
-let GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
-let GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
+let GRID_WIDTH = 0;
+let GRID_HEIGHT = 0;
 
 export default {
   components: {
@@ -126,6 +141,7 @@ export default {
     UiButton,
     Cell,
     MiniChatButton,
+    PseudoPopup,
   },
 
   data() {
@@ -139,6 +155,8 @@ export default {
       pausedByScreenSharing: false,
       unwatchSpeaking: null,
       IS_MOBILE,
+      isMobileWidth: false,
+      scrollableGrid: false,
     };
   },
 
@@ -346,7 +364,7 @@ export default {
      * @return {object}
      */
     cellWidth(index) {
-      if (GRID_WIDTH < MOBILE_WIDTH) {
+      if (this.isMobileWidth) {
         return this.cellMobileWidth(index);
       } else {
         return Math.floor(this.fullGridWidth * this.currentGrid[index]);
@@ -354,7 +372,9 @@ export default {
     },
 
     cellMobileWidth(index) {
-      if (this.usersCount % 2 === 0) {
+      if (this.usersCount <= 2) {
+        return Math.floor(this.fullGridWidth);
+      } else if (this.usersCount % 2 === 0) {
         return Math.floor(this.fullGridWidth / 2);
       } else {
         if (index === 0) {
@@ -373,6 +393,8 @@ export default {
       GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
       GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
 
+      this.isMobileWidth = (GRID_WIDTH < MOBILE_WIDTH);
+
       if (!GRID_WIDTH || !this.grids) {
         return;
       }
@@ -390,9 +412,7 @@ export default {
         this.padding = { padding: '0' };
       }
 
-      if (GRID_WIDTH < MOBILE_WIDTH) {
-        const MOBILE_PADDING = 16;
-
+      if (this.isMobileWidth) {
         this.fullGridWidth = GRID_WIDTH - MOBILE_PADDING * 2;
         this.padding = { padding: `0 ${MOBILE_PADDING}px` };
       }
@@ -476,6 +496,10 @@ export default {
       }
     },
 
+    setScrollable(val) {
+      this.scrollableGrid = val;
+    },
+
     userAvatar: getUserAvatarUrl,
   },
 };
@@ -526,6 +550,10 @@ export default {
       flex-grow 2
       padding-left 24px
 
+    &__channel
+      display flex
+      align-items center
+
   .channel-icon
     color: var(--new-signal-02)
     flex-shrink 0
@@ -566,9 +594,22 @@ export default {
     align-content center
     box-sizing border-box
 
-    @media $mobile
-      overflow hidden overlay
+    &--scrollable
       align-content flex-start
+
+  .call-window > /deep/.pseudo-popup
+    height auto
+
+  /deep/ .pseudo-popup__body
+    padding 0
+
+  /deep/ .pseudo-popup__header--with-shadow
+    box-shadow 0 0 16px 10px #000000
+    z-index 10
+
+  /deep/ .pseudo-popup__footer--with-shadow
+    box-shadow 0 0 16px 10px #000000
+    z-index 10
 
   .bottom-content
     margin-top 28px
@@ -576,15 +617,6 @@ export default {
 
     @media $mobile
       position relative
-
-      &:after
-        content ''
-        position absolute
-        top -32px
-        left 0
-        right 0
-        height 16px
-        background linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)
 
     &__col
       display flex
