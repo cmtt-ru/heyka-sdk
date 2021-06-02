@@ -23,6 +23,7 @@
           :key="i"
           :ref="i === chatHistory.length - 1 ? 'last-message' : ''"
           class="mini-chat__message"
+          context-menu
         >
           <template v-if="item.user">
             <avatar
@@ -60,6 +61,7 @@
           ref="input"
           v-model="message"
           placeholder="Type message here"
+          context-menu
           @keydown.native.enter="sendHandler"
         />
       </template>
@@ -144,6 +146,7 @@ export default {
         this.$set(item, 'user', this.getUserById(item.userId));
         this.$set(item, 'htmlMessage', linkify(item.message, {
           defaultProtocol: 'https',
+          target: '_blank',
         }));
       });
     },
