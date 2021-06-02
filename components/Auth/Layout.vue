@@ -200,7 +200,7 @@ export default {
 
   &__footer
     height 65px
-    color var(--new-UI-04)
+    color var(--Text-secondary)
 
   &__form
     position relative

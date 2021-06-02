@@ -39,9 +39,9 @@ export default {
 <style lang="stylus" scoped>
   .popover
     display flex
-    background var(--new-bg-04)
+    background var(--Background-darkgrey)
     box-shadow var(--new-shadow-03)
-    color var(--new-UI-02)
+    color var(--Text-primary)
     border-radius 8px
     z-index 100
     flex-direction column
@@ -76,7 +76,7 @@ export default {
         display flex
 
       &__close
-        color var(--new-UI-03)
+        color var(--Text-secondary)
 
 // Add "popover-fullscreen" class to pages where popover should appear without margin. don't forget to remove it in beforeDestroy
 
@@ -97,7 +97,7 @@ body.popover-fullscreen .popover
 
   /deep/ .delimiter
     height 1px
-    background var(--new-UI-06)
+    background var(--UI-divider-1)
     margin 0 12px 0 38px
 
   /deep/ .buttons
@@ -128,7 +128,7 @@ body.popover-fullscreen .popover
       right 0
       left 55px
       height 1px
-      background-color var(--new-stroke-01)
+      background var(--UI-divider-2)
 
   /deep/ .ui-button__icon
     height 24px

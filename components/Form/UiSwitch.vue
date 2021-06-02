@@ -96,7 +96,7 @@ export default {
     position relative
     width 32px
     height 18px
-    background-color var(--new-UI-05)
+    background var(--Background-darkgrey)
     border-radius 9px
     z-index 1
     flex-shrink 0
@@ -111,14 +111,14 @@ export default {
       right 16px
       width 14px
       height 14px
-      background-color var(--new-white)
+      background var(--Text-white)
       border-radius 12px
       z-index 2
       transition all 0.28s cubic-bezier(0.4, 0, 0.2, 1)
       transition-property right
 
     &--checked
-      background-color var(--new-UI-01)
+      background var(--UI-active)
 
       &:after
         right 2px

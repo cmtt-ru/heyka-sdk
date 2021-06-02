@@ -48,7 +48,29 @@
             "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)",
             "--new-button-shadow-01": "0px 1px 2px rgba(0, 0, 0, 0.08), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06), inset 0px -1px 0px rgba(0, 0, 0, 0.12), inset 1px 0px 0px rgba(0, 0, 0, 0.06), inset -1px 0px 0px rgba(0, 0, 0, 0.06)",
             "--new-button-shadow-02": "0px 2px 4px rgba(0, 0, 0, 0.08), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06), inset 0px -1px 0px rgba(0, 0, 0, 0.12), inset -1px 0px 0px rgba(0, 0, 0, 0.06), inset 1px 0px 0px rgba(0, 0, 0, 0.06)",
-            "--new-button-shadow-03": "0px 0px 2px rgba(0, 0, 0, 0.04), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06), inset 0px -1px 0px rgba(0, 0, 0, 0.12), inset -1px 0px 0px rgba(0, 0, 0, 0.06), inset 1px 0px 0px rgba(0, 0, 0, 0.06)" 
+            "--new-button-shadow-03": "0px 0px 2px rgba(0, 0, 0, 0.04), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06), inset 0px -1px 0px rgba(0, 0, 0, 0.12), inset -1px 0px 0px rgba(0, 0, 0, 0.06), inset 1px 0px 0px rgba(0, 0, 0, 0.06)",
+
+            "--UI-active": "#1575F1",
+            "--UI-positive": "#49AF58",
+            "--UI-alert": "#FF9900",
+            "--UI-error": "#FF4242",
+            "--UI-divider-1": "rgba(0, 0, 0, 0.12)",
+            "--UI-divider-2": "rgba(0, 0, 0, 0.06)",
+            "--UI-divider-3": "rgba(0, 0, 0, 0.16)",
+            "--Text-primary": "#000000",
+            "--Text-secondary": "#525B67",
+            "--Text-tertiary": "#757D88",
+            "--Text-white": "#FFFFFF",
+            "--Background-black": "#000000",
+            "--Background-white": "#FFFFFF",
+            "--Background-grey": "#F5F5F5",
+            "--Background-darkgrey": "#E5E5E5",
+            "--Background-placeholder": "linear-gradient(90deg, rgba(215, 215, 215, 0.44) 0%, #EAEAEA 100%)",
+            "--Icon-lightgrey": "#BBBEC4",
+            "--Button-white": "#FFFFFF",
+            "--Button-black": "#000000",
+            "--Button-darkgrey": "#202020",
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
         }
     },
     "dark": {
@@ -81,7 +103,7 @@
             "--new-bg-02": "rgba(0, 0, 0, 0.65)",
             "--new-bg-03": "#3D4046",
             "--new-bg-04": "#1F2227",
-            "--new-bg-05": "linear-gradient(90deg, rgba(215, 215, 215, 0.44) 0%, #EAEAEA 100%)",
+            "--new-bg-05": "linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.12) 100%)",
             "--new-stroke-01": "rgba(255, 255, 255, 0.1)",
             "--new-stroke-02": "rgba(255, 255, 255, 0.06)",
             "--new-stroke-03": "#E5E5E5",
@@ -99,7 +121,29 @@
             "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)",
             "--new-button-shadow-01": "0px 1px 2px rgba(255, 255, 255, 0.08), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset 1px 0px 0px rgba(255, 255, 255, 0.06), inset -1px 0px 0px rgba(255, 255, 255, 0.06)",
             "--new-button-shadow-02": "0px 2px 4px rgba(255, 255, 255, 0.08), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset -1px 0px 0px rgba(255, 255, 255, 0.06), inset 1px 0px 0px rgba(255, 255, 255, 0.06)",
-            "--new-button-shadow-03": "0px 0px 2px rgba(255, 255, 255, 0.04), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset -1px 0px 0px rgba(255, 255, 255, 0.06), inset 1px 0px 0px rgba(255, 255, 255, 0.06)" 
+            "--new-button-shadow-03": "0px 0px 2px rgba(255, 255, 255, 0.04), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset -1px 0px 0px rgba(255, 255, 255, 0.06), inset 1px 0px 0px rgba(255, 255, 255, 0.06)",
+
+            "--UI-active": "#3D92FF",
+            "--UI-positive": "#49AF58",
+            "--UI-alert": "#EE9911",
+            "--UI-error": "#F85757",
+            "--UI-divider-1": "rgba(255, 255, 255, 0.12)",
+            "--UI-divider-2": "rgba(255, 255, 255, 0.06)",
+            "--UI-divider-3": "rgba(255, 255, 255, 0.2)",
+            "--Text-primary": "#FFFFFF",
+            "--Text-secondary": "#9B9B9B",
+            "--Text-tertiary": "#7B7B7B",
+            "--Text-white": "#FFFFFF",
+            "--Background-black": "#000000",
+            "--Background-white": "#000000",
+            "--Background-grey": "linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #000000",
+            "--Background-darkgrey": "linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), #000000",
+            "--Background-placeholder": "linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.12) 100%)",
+            "--Icon-lightgrey": "#838383",
+            "--Button-white": "linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), #000000",
+            "--Button-black": "#FFFFFF",
+            "--Button-darkgrey": "#202020",
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
         }
     }
 }

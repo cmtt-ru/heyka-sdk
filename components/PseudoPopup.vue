@@ -201,12 +201,12 @@ export default {
       align-items center
       flex 0 0 38px
       font-weight 500
-      background var(--new-bg-04)
+      background var(--Background-white)
       padding 3px 16px
       transition box-shadow 0.15s ease
 
       &__close
-        color var(--new-UI-01)
+        color var(--UI-active)
         margin-left auto
         cursor pointer
 
@@ -215,7 +215,7 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--new-stroke-01)
+        box-shadow 0 0 0 1px var(--UI-divider-1)
 
     &__body
       flex 1 1 auto
@@ -227,7 +227,7 @@ export default {
     &__footer
       display flex
       flex 0 0 56px
-      background var(--new-bg-04)
+      background var(--Background-white)
       padding 16px
       box-sizing border-box
       transition box-shadow 0.15s ease
@@ -238,6 +238,6 @@ export default {
         padding 0
 
       &--with-shadow
-        box-shadow 0 0 0 1px var(--new-stroke-01)
+        box-shadow 0 0 0 1px var(--UI-divider-1)
 
 </style>

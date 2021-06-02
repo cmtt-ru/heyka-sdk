@@ -82,7 +82,7 @@ export default {
       flex-direction row
       justify-content space-between
       margin 5px 0 20px
-      background var(--new-UI-06)
+      background var(--Background-darkgrey)
       border-radius 6px
       padding 4px
       max-width 268px

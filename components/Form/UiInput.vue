@@ -434,20 +434,20 @@ export default {
   display flex
   flex-direction row
   align-items center
-  background-color var(--new-UI-06)
+  background var(--Background-grey)
   border 1px solid transparent
   border-radius 6px
   box-sizing border-box
 
   &:hover
-    background-color var(--new-UI-07)
+    background var(--Background-darkgrey)
 
   &:focus-within
-    border-color var(--new-UI-01)
-    background-color var(--new-UI-09)
+    border-color var(--UI-active)
+    background var(--Background-darkgrey)
 
   &--disabled
-    background-color var(--new-UI-08)
+    background var(--Background-darkgrey)
     pointer-events none
 
     & .input
@@ -463,11 +463,11 @@ export default {
   font-family Inter, sans-serif
   font-size 15px
   line-height 18px
-  color var(--new-UI-02)
+  color var(--Text-primary)
   outline none !important
 
   &::placeholder
-    color var(--new-UI-04)
+    color var(--Text-secondary)
     font-weight normal
 
   &__icon
@@ -476,7 +476,7 @@ export default {
     bottom 0
     margin auto 0
     left 6px
-    color var(--new-UI-01)
+    color var(--UI-active)
     pointer-events none
 
   &__right-icon
@@ -486,7 +486,7 @@ export default {
     margin auto 0
     right 8px
     cursor pointer
-    color var(--new-UI-04)
+    color var(--Text-secondary)
 
     &--clear
       right 17px
@@ -501,10 +501,10 @@ export default {
     padding-right 40px
 
 .ui-error
-  border-color var(--new-signal-03)
+  border-color var(--UI-error)
 
 .error-text
-  color var(--new-signal-03)
+  color var(--UI-error)
   font-size 12px
   line-height 18px
   min-height 16px

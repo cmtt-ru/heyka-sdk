@@ -214,7 +214,7 @@ export default {
     align-items flex-start
 
 .icon-delete
-    color var(--new-signal-03)
+    color var(--UI-error)
     margin 4px 4px 0 8px
     flex-shrink 0
 
