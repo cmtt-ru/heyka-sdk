@@ -36,6 +36,7 @@ const JANUS_WRAPPER_EVENTS = {
   audioSlowLink: 'audio-slow-link',
   videoSlowLink: 'video-slow-link',
   webrtcCleanUp: 'webrtc-cleanup',
+  startCameraStream: 'start-camera-stream',
 };
 
 /**
@@ -191,15 +192,13 @@ class JanusWrapper extends EventEmitter {
     });
     videoroomPlugin.on('success-publishing', () => this.emit(JANUS_WRAPPER_EVENTS.successVideoPublishing));
     videoroomPlugin.on('local-video-stream', () => {
-      console.log();
       this.__localVideoStream = true;
     });
     videoroomPlugin.on('video-slow-link', () => this.emit(JANUS_WRAPPER_EVENTS.videoSlowLink));
     videoroomPlugin.on('webrtc-cleanup', () => {
       this.emit(JANUS_WRAPPER_EVENTS.webrtcCleanUp);
       this.__localVideoStream = false;
-    }
-    );
+    });
 
     this.__videoroomPlugin = videoroomPlugin;
   }
@@ -260,6 +259,7 @@ class JanusWrapper extends EventEmitter {
     switch (type) {
       case 'camera':
         stream = await mediaCapturer.getCameraStream(source);
+        this.emit('start-camera-stream', stream);
         break;
 
       case 'screen':

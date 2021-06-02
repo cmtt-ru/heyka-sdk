@@ -258,6 +258,11 @@ export default {
       janusWrapper.on(JanusWrapper.events.successVideoPublishing, () => {
         this.setOperationFinish('publish');
       });
+      janusWrapper.on(JanusWrapper.events.startCameraStream, stream => {
+        if (IS_ELECTRON) {
+          this.$store.dispatch('me/startFaceMonitoring', stream);
+        }
+      });
 
       try {
         await janusWrapper.join();
@@ -289,6 +294,7 @@ export default {
         // unsubscribe from video events
         janusWrapper.removeAllListeners(JanusWrapper.events.videoSlowLink);
         janusWrapper.removeAllListeners(JanusWrapper.events.webrtcCleanUp);
+        janusWrapper.removeAllListeners(JanusWrapper.events.startCameraStream);
         janusWrapper.disconnect();
         janusWrapper = null;
       }
@@ -351,6 +357,10 @@ export default {
       }
       this.setOperationStart('unpublish');
       janusWrapper.unpublishVideoStream();
+
+      if (IS_ELECTRON) {
+        this.$store.dispatch('me/stopFaceMonitoring');
+      }
     },
 
     /**
