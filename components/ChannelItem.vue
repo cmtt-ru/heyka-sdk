@@ -242,7 +242,7 @@ export default {
     background var(--new-UI-08)
 
   &--top
-    background var(--new-UI-09)
+    background var(--Background-darkgrey)
     box-shadow var(--new-shadow-02)
 
   &__type
