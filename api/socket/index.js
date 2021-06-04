@@ -6,7 +6,7 @@ import connectionCheck from '@sdk/classes/connectionCheck';
 import { handleError } from '@api/errors';
 import Logger from '@sdk/classes/logger';
 import sounds from '@sdk/classes/sounds';
-import broadcastEvents from '@sdk/classes/broadcastEvents';
+import broadcastActions from '@sdk/classes/broadcastActions';
 
 const cnsl = new Logger('SOCKETS', '#d67a24');
 
@@ -324,6 +324,7 @@ function bindUserEvents() {
 
   /** User info changed */
   client.on(eventNames.userUpdated, data => {
+    console.log('users/UPDATE_USER', data.user, data);
     store.commit('users/UPDATE_USER', data.user);
   });
 
@@ -357,7 +358,7 @@ function bindUserEvents() {
 
   /** Me kicked from workspace */
   client.on(eventNames.kickedFromWorkspace, async () => {
-    broadcastEvents.dispatch('logout');
+    broadcastActions.dispatch('selectAnyWorkspace');
   });
 }
 
