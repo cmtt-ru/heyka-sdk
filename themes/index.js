@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+/* eslint-disable require-jsdoc */
 import Vue from 'vue';
 import themes from './themes.json';
 import vuex from '@/store';
@@ -90,12 +92,86 @@ class Themes {
     if (Object.prototype.hasOwnProperty.call(this.storeVue.themeArray, name)) {
       for (const prop in this.storeVue.themeArray[name].colors) {
         document.documentElement.style.setProperty(prop, this.storeVue.themeArray[name].colors[prop]);
+        this.setHoverVar(prop, this.storeVue.themeArray[name].colors[prop]);
+        this.setActiveVar(prop, this.storeVue.themeArray[name].colors[prop]);
       }
 
       return true;
     } else {
       return false;
     }
+  }
+
+  setHoverVar(name, hex) {
+    let r = 0,
+        g = 0,
+        b = 0;
+
+    // 3 digits
+    if (hex.length == 4) {
+      r = '0x' + hex[1] + hex[1];
+      g = '0x' + hex[2] + hex[2];
+      b = '0x' + hex[3] + hex[3];
+
+    // 6 digits
+    } else if (hex.length == 7) {
+      r = '0x' + hex[1] + hex[2];
+      g = '0x' + hex[3] + hex[4];
+      b = '0x' + hex[5] + hex[6];
+    }
+
+    document.documentElement.style.setProperty(`${name}-hover`, 'rgba(' + +r + ',' + +g + ',' + +b + ', 0.9)');
+  }
+
+  setActiveVar(name, hex) {
+    // Convert hex to RGB first
+    let r = 0,
+        g = 0,
+        b = 0;
+
+    if (hex.length == 4) {
+      r = '0x' + hex[1] + hex[1];
+      g = '0x' + hex[2] + hex[2];
+      b = '0x' + hex[3] + hex[3];
+    } else if (hex.length == 7) {
+      r = '0x' + hex[1] + hex[2];
+      g = '0x' + hex[3] + hex[4];
+      b = '0x' + hex[5] + hex[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const cmin = Math.min(r, g, b),
+        cmax = Math.max(r, g, b),
+        delta = cmax - cmin;
+
+    let h = 0,
+        s = 0,
+        l = 0;
+
+    if (delta == 0) {
+      h = 0;
+    } else if (cmax == r) {
+      h = ((g - b) / delta) % 6;
+    } else if (cmax == g) {
+      h = (b - r) / delta + 2;
+    } else {
+      h = (r - g) / delta + 4;
+    }
+
+    h = Math.round(h * 60);
+
+    if (h < 0) {
+      h += 360;
+    }
+
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(Math.min(l * 110, 100)).toFixed(1);
+
+    document.documentElement.style.setProperty(`${name}-active`, 'hsl(' + h + ',' + s + '%,' + l + '%)');
   }
 
   /**
