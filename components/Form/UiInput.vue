@@ -346,6 +346,7 @@ export default {
       // this.localValue = this.localValue.toLowerCase();
 
       if (externalCheck) {
+        this.debounceCheck.clear();
         this.localValue = this.localValue.trim();
       } else if (!this.checkOnInput) {
         this.$parent.$emit('ui-error', this.id, false);
