@@ -120,7 +120,7 @@ class Themes {
       b = '0x' + hex[5] + hex[6];
     }
 
-    document.documentElement.style.setProperty(`${name}-hover`, 'rgba(' + +r + ',' + +g + ',' + +b + ', 0.9)');
+    document.documentElement.style.setProperty(`${name}-hover`, 'rgba(' + +r + ',' + +g + ',' + +b + ',0.9)');
   }
 
   setActiveVar(name, hex) {
