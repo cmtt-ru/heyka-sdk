@@ -154,7 +154,9 @@ export default {
 
     &:hover,
     &.context-menu--opened
-        background var(--Background-darkgrey)
+      background var(--Background-darkgrey-hover)
+    &:active
+      background var(--Background-darkgrey-active)
 
     &__avatar-wrapper
       position relative

@@ -233,13 +233,13 @@ export default {
   justify-content flex-start
 
   &:hover
-    background var(--new-UI-07)
+    background var(--Background-darkgrey-hover)
 
     & .channel__more
       visibility visible
 
   &:active
-    background var(--new-UI-08)
+    background var(--Background-darkgrey-active)
 
   &--top
     background var(--Background-darkgrey)

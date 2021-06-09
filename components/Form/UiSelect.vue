@@ -300,7 +300,9 @@ export default {
     line-height 22px
 
     &:hover
-      opacity 0.8 //! временно?
+      color var(--Text-secondary-hover)
+    &:active
+      color var(--Text-secondary-active)
 
     &__icon
       color var(--Text-secondary)
@@ -341,7 +343,7 @@ export default {
     line-height 16px
 
     &:hover
-      background var(--Background-darkgrey)
+      background var(--Background-grey)
 
     &__icon
       color var(--UI-positive)

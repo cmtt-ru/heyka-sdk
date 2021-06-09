@@ -440,7 +440,7 @@ export default {
   box-sizing border-box
 
   &:hover
-    background var(--Background-darkgrey)
+    background var(--Background-darkgrey-hover)
 
   &:focus-within
     border-color var(--UI-active)
