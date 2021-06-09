@@ -86,37 +86,37 @@ export default {
 
 <style lang="stylus" scoped>
 .router-link-active
-    background var(--Background-darkgrey)
+  background var(--Background-darkgrey)
+
 .user
-    padding 6px
-    margin 3px 0
-    width 100%
-    border-radius 6px
-    display flex
-    flex-direction row
-    justify-content flex-start
-    align-items center
+  padding 6px
+  margin 3px 0
+  width 100%
+  border-radius 6px
+  display flex
+  flex-direction row
+  justify-content flex-start
+  align-items center
 
-    &:hover
-      background var(--new-UI-07)
+  &:hover
+    background var(--Background-darkgrey-hover)
+    & .user__more
+      display inline-flex
 
-      & .user__more
-        display inline-flex
+  &:active
+    background var(--Background-darkgrey-active)
 
-    &:active
-      background var(--new-UI-08)
+  &__avatar
+    flex-shrink 0
 
-    &__avatar
-        flex-shrink 0
+  &__name
+    padding-left 8px
+    flex-grow 1
+    line-height 16px
 
-    &__name
-        padding-left 8px
-        flex-grow 1
-        line-height 16px
-
-    &__more
-        margin-left 4px
-        display none
-        flex-shrink 0
-        color var(--Text-secondary)
+  &__more
+    margin-left 4px
+    display none
+    flex-shrink 0
+    color var(--Text-secondary)
 </style>

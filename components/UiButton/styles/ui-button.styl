@@ -169,7 +169,7 @@
    */
   buttonDefaultHoverState()
     &:hover
-      opacity 0.8
+      opacity 0.9
 
   /**
    * Active state
@@ -200,19 +200,19 @@
     buttonSolid(var(--UI-active), var(--Text-white))
 
     &:hover
-      background var(--new-UI-01-1)
+      background var(--UI-active-hover)
 
     &:active
-      background var(--new-UI-01-2)
+      background var(--UI-active-active)
 
   &--2
     buttonSolid(var(--Background-darkgrey), var(--Text-secondary))
 
     &:hover
-      background var(--new-UI-07)
+      background var(--Background-darkgrey-hover)
 
     &:active
-      background var(--new-UI-08)
+      background var(--Background-darkgrey-active)
 
   &--3
     buttonBorder(var(--Background-darkgrey), var(--Text-primary), var(--UI-divider-2))
@@ -226,18 +226,19 @@
     buttonSolid(var(--new-signal-02-1), var(--UI-positive))
     buttonDefaultHoverState()
 
-  &--6
-    buttonSolid(var(--new-UI-01-3), var(--new-stroke-02))
-    buttonDefaultHoverState()
+  // !type 6 is deprecated
+  // &--6
+  //   buttonSolid(var(--new-UI-01-3), var(--new-stroke-02))
+  //   buttonDefaultHoverState()
 
   &--7
     buttonSquareIcon(var(--new-transparent))
 
     &:hover
-      background var(--new-UI-07)
+      background var(--Background-darkgrey-hover)
 
     &:active
-      background var(--new-UI-08)
+      background var(--Background-darkgrey-active)
 
   &--8
     color var(--Text-white)
@@ -246,6 +247,7 @@
   &--9
     color var(--UI-active)
     padding 0
+    buttonDefaultHoverState()
 
     & ^[0]__icon-bg
       display flex
@@ -289,10 +291,9 @@
       margin-right auto
 
     &:hover
-      background var(--Background-grey)
-
+      background var(--Background-darkgrey-hover)
     &:active
-      background var(--Background-darkgrey)
+      background var(--Background-darkgrey-active)
 
   &--12
     buttonSolid(var(--UI-error), var(--Text-white))
@@ -308,7 +309,8 @@
     font-size 12px
     padding-left 22px
     padding-right 8px
-    color var(--new-UI-white)
+    color var(--Text-white)
+    buttonDefaultHoverState()
 
     &:before
       content ''
@@ -322,18 +324,17 @@
       box-sizing border-box
 
     &^[0]--active
-      background rgba(240, 240, 240, 0.2) //! not a var
+      background var(--Background-darkgrey)
       color var(--Text-white)
 
       &:hover
-         background rgba(240, 240, 240, 0.15) //! not a var
+         background var(--Background-darkgrey-hover)
+      &:active
+         background var(--Background-darkgrey-active)
 
       &:before
         background var(--UI-active)
         border none
-
-    &:hover:not(.ui-button--active)
-      background var(--new-transparent)
 
   &--14
     color var(--UI-active)
@@ -362,17 +363,15 @@
     background var(--Background-darkgrey)
 
     &:hover
-      background var(--new-UI-07)
-
+      background var(--Background-darkgrey-hover)
     &:active
-      background var(--new-UI-08)
+      background var(--Background-darkgrey-active)
 
   &--17
     box-shadow var(--new-button-shadow-01)
 
     &:hover
       box-shadow var(--new-button-shadow-02)
-
     &:active
       box-shadow var(--new-button-shadow-03)
 
@@ -401,21 +400,20 @@
       background var(--Background-black)
 
   &--popover
-    background var(--new-overlay-01)
+    background var(--Background-darkgrey)
     color var(--Text-white)
 
     &:hover
-      background var(--new-overlay-02)
-
+      background var(--Background-darkgrey-hover)
     &:active
-      background var(--new-overlay-03)
+      background var(--Background-darkgrey-active)
 
   &--active
     background var(--UI-active)
     color var(--Text-white)
 
     &:hover
-      background var(--new-UI-01-1)
+      background var(--UI-active-hover)
 
     &:active
-      background var(--new-UI-01-2)
+      background var(--UI-active-active)
