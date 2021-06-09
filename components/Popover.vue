@@ -78,22 +78,14 @@ export default {
       &__close
         color var(--Text-secondary)
 
-// Add "popover-fullscreen" class to pages where popover should appear without margin. don't forget to remove it in beforeDestroy
+  /deep/ .ui-button
+    width 100%
 
-body.popover-fullscreen .popover
-  @media $mobile
-    width 100vw !important
-    max-width 767px
-    bottom 0 !important
-    border-bottom-left-radius 0
-    border-bottom-right-radius 0
-    border-top-left-radius 10px
-    border-top-right-radius 10px
-    max-height 100vh
+    &:hover
+      background var(--Background-grey-hover)
 
-  /deep/ a
-    .ui-button
-      width 100%
+    &:active
+      background var(--Background-grey-active)
 
   /deep/ .delimiter
     height 1px
@@ -134,5 +126,18 @@ body.popover-fullscreen .popover
     height 24px
     width 24px
     margin-right 12px
+
+// Add "popover-fullscreen" class to pages where popover should appear without margin. don't forget to remove it in beforeDestroy
+
+body.popover-fullscreen .popover
+  @media $mobile
+    width 100vw !important
+    max-width 767px
+    bottom 0 !important
+    border-bottom-left-radius 0
+    border-bottom-right-radius 0
+    border-top-left-radius 10px
+    border-top-right-radius 10px
+    max-height 100vh
 
 </style>
