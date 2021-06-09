@@ -7,6 +7,7 @@ import connectionCheck from '@sdk/classes/connectionCheck';
 import { handleError } from '@api/errors';
 import Logger from '@sdk/classes/logger';
 import sounds from '@sdk/classes/sounds';
+import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 
 import { IS_ELECTRON } from '@sdk/Constants';
@@ -330,8 +331,14 @@ function bindUserEvents() {
     store.commit('channels/SET_USER_MEDIA_STATE', data);
   });
 
+  /** User changed password */
+  client.on(eventNames.passwordChanged, data => {
+    broadcastEvents.dispatch('logout');
+  });
+
   /** User info changed */
   client.on(eventNames.userUpdated, data => {
+    console.log('users/UPDATE_USER', data.user, data);
     store.commit('users/UPDATE_USER', data.user);
   });
 
@@ -345,7 +352,6 @@ function bindUserEvents() {
   /** Me updated */
   client.on(eventNames.meUpdated, async data => {
     store.dispatch('me/updateSocial', data.user);
-    console.log(data.user);
   });
 
   /** My online status updated */
@@ -365,7 +371,7 @@ function bindUserEvents() {
 
   /** Me kicked from workspace */
   client.on(eventNames.kickedFromWorkspace, async () => {
-    broadcastEvents.dispatch('logout');
+    broadcastActions.dispatch('selectAnyWorkspace');
   });
 }
 
