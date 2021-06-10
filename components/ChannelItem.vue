@@ -268,10 +268,10 @@ export default {
   &__more
     position absolute
     top 0
+    bottom 0
     right 0
     display inline
     width 32px
-    height 32px
     box-sizing border-box
     margin-left -32px
     border-top-right-radius 6px
@@ -279,13 +279,16 @@ export default {
     display flex
     flex-direction row
     justify-content center
-    align-items center
+    align-items flex-start
     visibility hidden
 
     &:hover,
     &.context-menu--opened
       background var(--UI-divider-2)
       visibility visible
+
+    & svg
+      padding-top 8px
 
   &__users
     height 12px
