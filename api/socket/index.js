@@ -243,6 +243,7 @@ function bindChannelEvents() {
     dataBuffer.delay(userId, () => {
       dataBuffer.remove(userId);
       store.commit('channels/REMOVE_USER', data);
+      store.commit('channels/REMOVE_CONVERSATION_DATA', data);
     });
   });
 
