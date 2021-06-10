@@ -523,7 +523,7 @@ export default {
     top 4px
     left 4px
     transition opacity 0.15s ease
-    background var(--new-transparent)
+    background transparent
     width 28px
     padding 9px 0
     min-height 28px

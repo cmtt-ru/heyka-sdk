@@ -219,23 +219,20 @@
     buttonDefaultHoverState()
 
   &--4
-    buttonSolid(var(--new-signal-03-3), var(--UI-error))
+    buttonSolid(var(--UI-error-secondary), var(--UI-error))
     buttonDefaultHoverState()
 
   &--5
-    buttonSolid(var(--new-signal-02-1), var(--UI-positive))
+    buttonSolid(var(--UI-positive-secondary), var(--UI-positive))
     buttonDefaultHoverState()
 
   // !type 6 is deprecated
-  // &--6
-  //   buttonSolid(var(--new-UI-01-3), var(--new-stroke-02))
-  //   buttonDefaultHoverState()
 
   &--7
-    buttonSquareIcon(var(--new-transparent))
+    buttonSquareIcon(transparent)
 
     &:hover
-      background var(--Background-darkgrey-hover)
+      background var(--Background-darkgrey)
 
     &:active
       background var(--Background-darkgrey-active)
@@ -253,7 +250,7 @@
       display flex
       width 24px
       height 24px
-      background var(--new-UI-01-3)
+      background var(--Button-social)
       border-radius 100%
       align-items center
       justify-content center
@@ -299,10 +296,10 @@
     buttonSolid(var(--UI-error), var(--Text-white))
 
     &:hover
-      background var(--new-signal-03-1)
+      background var(--UI-error-hover)
 
     &:active
-      background var(--new-signal-03-2)
+      background var(--UI-error-active)
 
   &--13
     border-radius 100px
@@ -359,7 +356,7 @@
       color var(--Text-primary) !important
 
   &--16
-    buttonSquareIcon(var(--new-transparent))
+    buttonSquareIcon(transparent)
     background var(--Background-darkgrey)
 
     &:hover
@@ -368,12 +365,8 @@
       background var(--Background-darkgrey-active)
 
   &--17
-    box-shadow var(--new-button-shadow-01)
-
-    &:hover
-      box-shadow var(--new-button-shadow-02)
-    &:active
-      box-shadow var(--new-button-shadow-03)
+    background var(--Background-darkgrey)
+    buttonDefaultHoverState()
 
   &--icon&--caption&--wide
     buttonWithIconAndCaption()

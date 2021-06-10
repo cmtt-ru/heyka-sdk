@@ -92,8 +92,8 @@ class Themes {
     if (Object.prototype.hasOwnProperty.call(this.storeVue.themeArray, name)) {
       for (const prop in this.storeVue.themeArray[name].colors) {
         document.documentElement.style.setProperty(prop, this.storeVue.themeArray[name].colors[prop]);
-        this.setHoverVar(prop, this.storeVue.themeArray[name].colors[prop]);
-        this.setActiveVar(prop, this.storeVue.themeArray[name].colors[prop]);
+        this.setHelperCSSVar(prop, this.storeVue.themeArray[name].colors[prop], 'hover', 90);
+        this.setHelperCSSVar(prop, this.storeVue.themeArray[name].colors[prop], 'active', 110);
       }
 
       return true;
@@ -102,28 +102,12 @@ class Themes {
     }
   }
 
-  setHoverVar(name, hex) {
-    let r = 0,
-        g = 0,
-        b = 0;
-
-    // 3 digits
-    if (hex.length == 4) {
-      r = '0x' + hex[1] + hex[1];
-      g = '0x' + hex[2] + hex[2];
-      b = '0x' + hex[3] + hex[3];
-
-    // 6 digits
-    } else if (hex.length == 7) {
-      r = '0x' + hex[1] + hex[2];
-      g = '0x' + hex[3] + hex[4];
-      b = '0x' + hex[5] + hex[6];
+  setHelperCSSVar(name, hex, suffix, lightMultiply) {
+    //! do not create helper CSS var to temporary old styles for web
+    if (name.includes('--new')) {
+      return;
     }
 
-    document.documentElement.style.setProperty(`${name}-hover`, 'rgba(' + +r + ',' + +g + ',' + +b + ',0.9)');
-  }
-
-  setActiveVar(name, hex) {
     // Convert hex to RGB first
     let r = 0,
         g = 0,
@@ -169,9 +153,9 @@ class Themes {
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
     s = +(s * 100).toFixed(1);
-    l = +(Math.min(l * 110, 100)).toFixed(1);
+    l = +(Math.min(l * lightMultiply, 100)).toFixed(1);
 
-    document.documentElement.style.setProperty(`${name}-active`, 'hsl(' + h + ',' + s + '%,' + l + '%)');
+    document.documentElement.style.setProperty(`${name}-${suffix}`, 'hsl(' + h + ',' + s + '%,' + l + '%)');
   }
 
   /**

@@ -52,8 +52,10 @@
 
             "--UI-active": "#1575F1",
             "--UI-positive": "#49AF58",
+            "--UI-positive-secondary": "#DBEFDE",
             "--UI-alert": "#FF9900",
             "--UI-error": "#FF4242",
+            "--UI-error-secondary": "#FFEDED",
             "--UI-divider-1": "rgba(0, 0, 0, 0.12)",
             "--UI-divider-2": "rgba(0, 0, 0, 0.06)",
             "--UI-divider-3": "rgba(0, 0, 0, 0.16)",
@@ -70,7 +72,9 @@
             "--Button-white": "#FFFFFF",
             "--Button-black": "#000000",
             "--Button-darkgrey": "#202020",
-            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)",
+            "--Button-social": "#E8F1FE",
+            "--Button-social-secondary": "#C8DFFC"
         }
     },
     "dark": {
@@ -125,8 +129,10 @@
 
             "--UI-active": "#3D92FF",
             "--UI-positive": "#49AF58",
+            "--UI-positive-secondary": "#102714",
             "--UI-alert": "#EE9911",
             "--UI-error": "#F85757",
+            "--UI-error-secondary": "#330D0D",
             "--UI-divider-1": "rgba(255, 255, 255, 0.12)",
             "--UI-divider-2": "rgba(255, 255, 255, 0.06)",
             "--UI-divider-3": "rgba(255, 255, 255, 0.2)",
@@ -143,7 +149,9 @@
             "--Button-white": "#1F1F1F",
             "--Button-black": "#FFFFFF",
             "--Button-darkgrey": "#202020",
-            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)",
+            "--Button-social": "#25364C",
+            "--Button-social-secondary": "#224065"
         }
     }
 }
