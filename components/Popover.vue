@@ -79,7 +79,7 @@ export default {
         color var(--new-UI-03)
 
   /deep/ a
-    .ui-button
+    .ui-button--11
       width 100%
 
   /deep/ .delimiter
