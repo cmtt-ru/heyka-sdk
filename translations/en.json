@@ -329,6 +329,9 @@
     "mutedForAll": {
       "text": "Turned off your mic",
       "turnOn": "Turn it on"
+    },
+    "cameraStopped": {
+      "text": "It seems that you have moved away from the computer, so we turned off your webcam. Don't give thanks"
     }
   },
   "modal": {
