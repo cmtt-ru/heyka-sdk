@@ -198,7 +198,9 @@
       "title": "Support",
       "text": "Let us know if you have encountered a bug or error in the application. We will try to help.",
       "report": "Report an error",
-      "logs": "Open logs"
+      "logs": "Open logs",
+      "send": "Send logs",
+      "sent": "Logs sent successfully"
     }
   },
   "call": {
