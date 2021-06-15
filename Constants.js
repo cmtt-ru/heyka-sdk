@@ -22,6 +22,7 @@ window.IS_LINUX = IS_LINUX;
 IS_ELECTRON = parsedUserAgent.ua.indexOf('Electron') !== -1;
 window.IS_ELECTRON = IS_ELECTRON;
 window.IS_IOS = IS_IOS;
+window.IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 window.IS_MOBILE = IS_MOBILE;
 
 if (IS_ELECTRON) {

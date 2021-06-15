@@ -139,7 +139,9 @@ export default {
     return {
       medianVolume: INIT_VOLUME,
       volumeHistory: [ INIT_VOLUME ],
-      currentVolume: INIT_VOLUME,
+      currentVolume: () => {
+        return window.IS_IOS ? 0 : INIT_VOLUME;
+      },
     };
   },
 
