@@ -289,8 +289,10 @@
 
     &:hover
       background var(--Background-darkgrey-hover)
+      color var(--Text-primary-hover)
     &:active
       background var(--Background-darkgrey-active)
+      color var(--Text-primary-active)
 
   &--12
     buttonSolid(var(--UI-error), var(--Text-white))
@@ -365,8 +367,15 @@
       background var(--Background-darkgrey-active)
 
   &--17
-    background var(--Background-darkgrey)
+    buttonBorder(var(--Background-darkgrey), var(--Text-primary), var(--UI-divider-2))
+    box-shadow var(--new-button-shadow-01)
     buttonDefaultHoverState()
+
+    &:hover
+      box-shadow var(--new-button-shadow-02)
+
+    &:active
+      box-shadow var(--new-button-shadow-03)
 
   &--icon&--caption&--wide
     buttonWithIconAndCaption()
