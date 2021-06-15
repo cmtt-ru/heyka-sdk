@@ -52,8 +52,10 @@
 
             "--UI-active": "#1575F1",
             "--UI-positive": "#49AF58",
+            "--UI-positive-secondary": "#DBEFDE",
             "--UI-alert": "#FF9900",
             "--UI-error": "#FF4242",
+            "--UI-error-secondary": "#FFEDED",
             "--UI-divider-1": "rgba(0, 0, 0, 0.12)",
             "--UI-divider-2": "rgba(0, 0, 0, 0.06)",
             "--UI-divider-3": "rgba(0, 0, 0, 0.16)",
@@ -64,13 +66,15 @@
             "--Background-black": "#000000",
             "--Background-white": "#FFFFFF",
             "--Background-grey": "#F5F5F5",
-            "--Background-darkgrey": "#E5E5E5",
+            "--Background-darkgrey": "#FFFFFF",
             "--Background-placeholder": "linear-gradient(90deg, rgba(215, 215, 215, 0.44) 0%, #EAEAEA 100%)",
             "--Icon-lightgrey": "#BBBEC4",
             "--Button-white": "#FFFFFF",
             "--Button-black": "#000000",
             "--Button-darkgrey": "#202020",
-            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)",
+            "--Button-social": "#E8F1FE",
+            "--Button-social-secondary": "#C8DFFC"
         }
     },
     "dark": {
@@ -119,14 +123,16 @@
             "--new-shadow-01": "0px 2px 6px rgba(0, 0, 0, 0.12)",
             "--new-shadow-02": "0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)",
             "--new-shadow-03": "0px 0px 20px rgba(0, 0, 0, 0.08), 0px 10px 30px rgba(0, 0, 0, 0.12)",
-            "--new-button-shadow-01": "0px 1px 2px rgba(255, 255, 255, 0.08), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset 1px 0px 0px rgba(255, 255, 255, 0.06), inset -1px 0px 0px rgba(255, 255, 255, 0.06)",
-            "--new-button-shadow-02": "0px 2px 4px rgba(255, 255, 255, 0.08), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset -1px 0px 0px rgba(255, 255, 255, 0.06), inset 1px 0px 0px rgba(255, 255, 255, 0.06)",
-            "--new-button-shadow-03": "0px 0px 2px rgba(255, 255, 255, 0.04), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.06), inset 0px -1px 0px rgba(255, 255, 255, 0.12), inset -1px 0px 0px rgba(255, 255, 255, 0.06), inset 1px 0px 0px rgba(255, 255, 255, 0.06)",
+            "--new-button-shadow-01": "none",
+            "--new-button-shadow-02": "none",
+            "--new-button-shadow-03": "none",
 
             "--UI-active": "#3D92FF",
             "--UI-positive": "#49AF58",
+            "--UI-positive-secondary": "#102714",
             "--UI-alert": "#EE9911",
             "--UI-error": "#F85757",
+            "--UI-error-secondary": "#330D0D",
             "--UI-divider-1": "rgba(255, 255, 255, 0.12)",
             "--UI-divider-2": "rgba(255, 255, 255, 0.06)",
             "--UI-divider-3": "rgba(255, 255, 255, 0.2)",
@@ -143,7 +149,9 @@
             "--Button-white": "#1F1F1F",
             "--Button-black": "#FFFFFF",
             "--Button-darkgrey": "#202020",
-            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)"
+            "--Button-greenradial": "radial-gradient(50% 50% at 50% 50%, #02D355 0%, #22883B 100%)",
+            "--Button-social": "#25364C",
+            "--Button-social-secondary": "#224065"
         }
     }
 }

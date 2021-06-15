@@ -19,6 +19,7 @@
         :class="{'input--with-icon': icon, 'input--with-eye': isPass , 'input--with-clear': clearable}"
         :placeholder="placeholder"
         :readonly="readonly"
+        context-menu
         @input="debounceCheck"
         @click="trySelectingAll"
         @keyup.enter="submitHandler"
@@ -346,6 +347,7 @@ export default {
       // this.localValue = this.localValue.toLowerCase();
 
       if (externalCheck) {
+        this.debounceCheck.clear();
         this.localValue = this.localValue.trim();
       } else if (!this.checkOnInput) {
         this.$parent.$emit('ui-error', this.id, false);

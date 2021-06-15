@@ -20,15 +20,6 @@
         >
           {{ channel.name }}
         </div>
-        <ui-button
-          v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
-          :type="7"
-          class="channel__more"
-          size="small"
-          height="20"
-          icon="more"
-          @click.native.prevent
-        />
       </div>
 
       <div
@@ -51,12 +42,22 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-popover.click="{name: 'Channel', data: {id: channel.id}, permissions: $permissions.editChannel(channel.id)}"
+      class="channel__more"
+      @click.prevent.stop
+    >
+      <svg-icon
+        name="more"
+        size="medium"
+      />
+    </div>
   </router-link>
 </template>
 
 <script>
 import Avatar from '@components/Avatar';
-import UiButton from '@components/UiButton';
 import { mapGetters } from 'vuex';
 
 const ANIM_TIME = 1000; // must be higher than in css in Sidebar.vue (include API time)
@@ -72,7 +73,6 @@ const MAX_USERS = 8;
 export default {
   components: {
     Avatar,
-    UiButton,
   },
   props: {
     /**
@@ -220,7 +220,7 @@ export default {
 
 <style lang="stylus" scoped>
 .router-link-active
-  background var(--new-UI-07)
+  background var(--Background-darkgrey)
 
 .channel
   padding 6px 0
@@ -231,6 +231,7 @@ export default {
   flex-direction row
   align-items flex-start
   justify-content flex-start
+  position relative
 
   &:hover
     background var(--Background-darkgrey-hover)
@@ -258,20 +259,36 @@ export default {
     width 100%
 
   &__name
-    width 134px
+    width 130px
     height 16px
     box-sizing border-box
     line-height 16px
     margin 2px 0
 
   &__more
-    color var(--Text-secondary)
-    margin 0 6px
-    flex-shrink 0
+    position absolute
+    top 0
+    bottom 0
+    right 0
+    display inline
+    width 32px
+    box-sizing border-box
+    margin-left -32px
+    border-top-right-radius 6px
+    border-bottom-right-radius 6px
+    display flex
+    flex-direction row
+    justify-content center
+    align-items flex-start
     visibility hidden
 
-    &:hover
-      background var(--new-UI-07)
+    &:hover,
+    &.context-menu--opened
+      background var(--UI-divider-2)
+      visibility visible
+
+    & svg
+      padding-top 8px
 
   &__users
     height 12px

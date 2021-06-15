@@ -247,6 +247,7 @@ function bindChannelEvents() {
     dataBuffer.delay(userId, () => {
       dataBuffer.remove(userId);
       store.commit('channels/REMOVE_USER', data);
+      store.commit('channels/REMOVE_CONVERSATION_DATA', data);
     });
   });
 
@@ -338,7 +339,6 @@ function bindUserEvents() {
 
   /** User info changed */
   client.on(eventNames.userUpdated, data => {
-    console.log('users/UPDATE_USER', data.user, data);
     store.commit('users/UPDATE_USER', data.user);
   });
 

@@ -27,6 +27,7 @@
 
 <script>
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+import Mousetrap from 'mousetrap';
 
 /**
  * Mic icons
@@ -220,11 +221,16 @@ export default {
     if (this.active) {
       this.recordVolumeHistory(true);
     }
+
+    Mousetrap.bind('space', () => {
+      this.$emit('click');
+    });
   },
 
   beforeDestroy() {
     this.recordVolumeHistory(false);
     broadcastEvents.removeAllListeners('microphone-volume');
+    Mousetrap.unbind('space');
   },
 
   methods: {

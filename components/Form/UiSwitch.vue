@@ -96,7 +96,7 @@ export default {
     position relative
     width 32px
     height 18px
-    background var(--Background-darkgrey)
+    background var(--new-UI-05) //! should be var(--Background-darkgrey), but is bad in light theme now
     border-radius 9px
     z-index 1
     flex-shrink 0
