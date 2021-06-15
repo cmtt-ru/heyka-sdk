@@ -35,7 +35,7 @@
     </div>
     <pseudo-popup @scrollable="setScrollable">
       <template #custom-header>
-        <div class="grid-shadow grid-shadow--top" />
+        <div />
       </template>
 
       <template
