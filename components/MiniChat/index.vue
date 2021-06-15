@@ -58,7 +58,6 @@
           ref="input"
           v-model="message"
           placeholder="Type message here"
-          context-menu
           @keydown.native.enter="sendHandler"
         />
       </template>
