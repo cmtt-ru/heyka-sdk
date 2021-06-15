@@ -19,6 +19,7 @@
         :class="{'input--with-icon': icon, 'input--with-eye': isPass , 'input--with-clear': clearable}"
         :placeholder="placeholder"
         :readonly="readonly"
+        context-menu
         @input="debounceCheck"
         @click="trySelectingAll"
         @keyup.enter="submitHandler"
