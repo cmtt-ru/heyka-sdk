@@ -3,7 +3,10 @@
     <pseudo-popup
       ref="pseudoPopup"
     >
-      <template #header>
+      <template
+        v-if="!IS_MOBILE"
+        #header
+      >
         Chat
       </template>
 
@@ -20,6 +23,7 @@
           :key="i"
           :ref="i === chatHistory.length - 1 ? 'last-message' : ''"
           class="mini-chat__message"
+          context-menu
         >
           <template v-if="item.user">
             <avatar
@@ -93,6 +97,7 @@ export default {
     return {
       chatHistory: [],
       message: '',
+      IS_MOBILE,
     };
   },
 
@@ -140,6 +145,7 @@ export default {
         this.$set(item, 'user', this.getUserById(item.userId));
         this.$set(item, 'htmlMessage', linkify(item.message, {
           defaultProtocol: 'https',
+          target: '_blank',
         }));
       });
     },
@@ -166,7 +172,7 @@ export default {
         } else if (i.action === 'hand-up') {
           return {
             userId: i.userId,
-            color: 'var(--new-UI-01)',
+            color: 'var(--UI-active)',
             message: this.$t('push.raisedHand'),
           };
         }
@@ -200,6 +206,13 @@ export default {
   .mini-chat
     width 320px
     height 400px
+    margin 0 auto
+
+    @media $mobile
+      width 100%
+      min-height 400px
+      height calc(100vh - 66px)
+      margin 0 auto
 
     &__dummy
       display flex
@@ -209,7 +222,7 @@ export default {
       opacity 0.5
 
     &__send
-      color var(--new-UI-01)
+      color var(--UI-active)
       margin-right -14px
 
     &__message
@@ -234,7 +247,7 @@ export default {
 
         a
           display inline
-          color var(--new-UI-01)
+          color var(--UI-active)
 
           &:hover
             opacity 0.75

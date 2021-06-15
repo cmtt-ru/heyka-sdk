@@ -133,10 +133,10 @@ export default {
         return;
       }
       if (this.data.icon === 'warning') {
-        return { color: 'var(--new-signal-03)' };
+        return { color: 'var(--UI-error)' };
       }
 
-      return { color: 'var(--new-signal-02)' };
+      return { color: 'var(--UI-positive)' };
     },
   },
 
@@ -305,8 +305,8 @@ $ANIM = 330ms
 $ANIM_DELAY = 200ms
 
 .notification
-  background-color var(--new-bg-04)
-  color var(--new-UI-02)
+  background var(--Background-darkgrey)
+  color var(--Text-primary)
   flex-shrink 0
   display flex
   flex-direction row
@@ -325,7 +325,7 @@ $ANIM_DELAY = 200ms
 
   &__icon
     margin-right 8px
-    color var(--new-signal-02)
+    color var(--UI-positive)
     flex-shrink 0
     height 100%
 

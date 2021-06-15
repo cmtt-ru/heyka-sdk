@@ -278,8 +278,9 @@ export default {
     pointer-events none
 
   &__label
-    color var(--new-UI-02)
+    color var(--Text-primary)
     flex-shrink 0
+    padding-right 16px
 
   &__header
     cursor pointer
@@ -292,20 +293,25 @@ export default {
     justify-content space-between
     align-items center
     overflow hidden
-    color var(--new-UI-04)
+    color var(--Text-secondary)
     max-width 170px
+    font-size 14px
+    font-weight normal
+    line-height 22px
 
     &:hover
-      opacity 0.8 //! временно?
+      color var(--Text-secondary-hover)
+    &:active
+      color var(--Text-secondary-active)
 
     &__icon
-      color var(--new-UI-03)
+      color var(--Text-secondary)
       margin-left 6px
       flex-shrink 0
 
   &__list
     position absolute
-    background-color var(--new-UI-09)
+    background var(--Background-darkgrey)
     top 100%
     right 0
     max-width 260px
@@ -316,7 +322,7 @@ export default {
     display none
     margin 6px 0
     padding 4px
-    max-height 300px // TODO: дождаться варианта покрасивее от Кости
+    max-height 300px
     overflow-y auto
 
     &--visible
@@ -332,16 +338,18 @@ export default {
     flex-direction row
     justify-content space-between
     align-items center
-    color var(--new-UI-04)
+    color var(--Text-secondary)
+    font-size 14px
+    line-height 16px
 
     &:hover
-      background-color var(--new-UI-06)
+      background var(--Background-grey)
 
     &__icon
-      color var(--new-signal-02)
+      color var(--UI-positive)
 
     &--selected
-      color var(--new-UI-02)
+      color var(--Text-primary)
 
 .text-ellipsis
   white-space nowrap
@@ -349,10 +357,10 @@ export default {
   overflow hidden
 
 .ui-error
-  border-color var(--new-signal-03)
+  border-color var(--UI-error)
 
 .error-text
-  color var(--new-signal-03)
+  color var(--UI-error)
   font-size 10px
   line-height 12px
   min-height 16px

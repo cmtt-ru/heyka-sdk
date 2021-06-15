@@ -198,10 +198,21 @@
       "title": "Support",
       "text": "Let us know if you have encountered a bug or error in the application. We will try to help.",
       "report": "Report an error",
-      "logs": "Open logs"
+      "logs": "Open logs",
+      "send": "Send logs",
+      "sent": "Logs sent successfully"
     }
   },
   "call": {
+    "webGrid": {
+      "joinHeader": "You’re about to join a video meeting",
+      "joinDesc": "For others to see and hear you, your browser will request access to your cam and mic. You can still turn them back off at any time.",
+      "safariHeader": "Issues with Safari",
+      "safariDesc": "The current version of Safari has known audio issues. Try to use other browser.",
+      "micAccess": "Your browser doesn't seem to have access to microphone and camera. Give it access by clicking the camera icon in the address bar.",
+      "joinButton": "Join channel",
+      "namePlaceholder": "Enter your name"
+    },
     "grid": {
       "users": "1 user | {n} users",
       "you": "(you)",
@@ -256,6 +267,16 @@
     "manageWorkspace": {
       "edit": "Edit info",
       "delete": "Delete workspace"
+    },
+    "chat": {
+      "header": "Chat"
+    },
+    "gridMore": {
+      "speakers": "Speakers on",
+      "speakersOff": "Speakers off",
+      "handUp": "Raise hand",
+      "handDown": "Lower hand",
+      "chat": "Open chat"
     }
   },
   "notifications": {
@@ -310,6 +331,9 @@
     "mutedForAll": {
       "text": "Turned off your mic",
       "turnOn": "Turn it on"
+    },
+    "cameraStopped": {
+      "text": "It seems that you have moved away from the computer, so we turned off your webcam. Don't give thanks"
     }
   },
   "modal": {
@@ -465,7 +489,8 @@
   },
   "noWorkspace": {
     "title": "You don’t have access to any workspace",
-    "description": "Create a new team or ask your co-workers to invite you (your email is {0})",
+    "description": "Create a new team or ask your co-workers to invite you",
+    "emailDescription": " (your email is {0})",
     "create": "Create workspace"
   },
   "aqi": {

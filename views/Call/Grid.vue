@@ -4,18 +4,21 @@
   >
     <div class="top-content">
       <div class="left-info">
-        <svg-icon
-          name="channel"
-          :width="40"
-          :height="40"
-          class="channel-icon"
-        />
-        <div
-          v-textfade
-          class="channel-name"
-        >
-          {{ selectedChannelName }}
+        <div class="left-info__channel">
+          <svg-icon
+            name="channel"
+            :width="40"
+            :height="40"
+            class="channel-icon"
+          />
+          <div
+            v-textfade
+            class="channel-name"
+          >
+            {{ selectedChannelName }}
+          </div>
         </div>
+
         <div class="channel-usercount">
           {{ $tc("call.grid.users", usersCount) }}
         </div>
@@ -30,26 +33,47 @@
         icon="settings"
       />
     </div>
+    <pseudo-popup @scrollable="setScrollable">
+      <template #custom-header>
+        <div />
+      </template>
 
-    <div
-      id="cell-grid"
-      class="cell-grid"
-      :style="padding"
-    >
-      <cell
-        v-for="(user, index) in users"
-        :key="user.user.id"
-        :width="Math.floor(fullGridWidth * currentGrid[index])"
-        :video-stream="videoStreams[user.user.id]"
-        :user="user.user"
-        :media-state="user.mediaState"
-      />
-    </div>
+      <template
+        #body
+      >
+        <div
+          id="cell-grid"
+          class="cell-grid"
+          :class="{'cell-grid--scrollable': scrollableGrid}"
+          :style="padding"
+        >
+          <cell
+            v-for="(user, index) in users"
+            :key="user.user.id"
+            :width="cellWidth(index)"
+            :is-mobile="isMobileWidth"
+            :video-stream="videoStreams[user.user.id]"
+            :user="user.user"
+            :media-state="user.mediaState"
+          />
+        </div>
+      </template>
+
+      <template #custom-footer>
+        <div />
+      </template>
+    </pseudo-popup>
 
     <div class="bottom-content">
-      <div class="bottom-content__col bottom-content__col--left" />
+      <div
+        v-if="!IS_MOBILE"
+        class="bottom-content__col bottom-content__col--left"
+      />
 
-      <div class="bottom-content__col bottom-content__col--center">
+      <div
+        class="bottom-content__col bottom-content__col--center"
+        :class="{'bottom-content__col--fixed-center': IS_MOBILE}"
+      >
         <call-buttons
           class="bottom-content__controls"
           :buttons="buttonsSetup"
@@ -57,7 +81,10 @@
         />
       </div>
 
-      <div class="bottom-content__col bottom-content__col--right">
+      <div
+        v-show="!IS_MOBILE"
+        class="bottom-content__col bottom-content__col--right"
+      >
         <ui-button
           popover
           class="tech-button"
@@ -69,7 +96,10 @@
           @click="handUpHandler"
         />
 
-        <mini-chat-button :height="60" />
+        <mini-chat-button
+          ref="miniChatButton"
+          :height="60"
+        />
       </div>
     </div>
   </div>
@@ -79,6 +109,7 @@
 import CallButtons from './CallButtons';
 import UiButton from '@components/UiButton';
 import MiniChatButton from '@components/MiniChat/Button';
+import PseudoPopup from '@components/PseudoPopup';
 import Cell from './Cell';
 import { GRIDS } from './grids';
 import { mapGetters } from 'vuex';
@@ -91,17 +122,18 @@ import broadcastActions from '@sdk/classes/broadcastActions';
 const cnsl = new Logger('Grid.vue', '#138D75');
 
 const BUTTON_SETUPS = {
-  default: ['camera', 'screen', 'speakers', 'microphone', 'leave'],
+  default: ['camera', 'screen', 'speakers', 'more', 'microphone', 'leave'],
   streaming: ['camera', 'screen', 'drawing', 'speakers', 'microphone', 'leave'],
 };
 
-/**
- * Aspect ratio 124 / 168;
- * @type {number}
- */
-const ASPECT_RATIO = 0.7380952381;
-
 const PADDING = 36;
+
+const MOBILE_PADDING = 8;
+
+const MOBILE_WIDTH = 767; // same as css $mobile
+
+let GRID_WIDTH = 0;
+let GRID_HEIGHT = 0;
 
 export default {
   components: {
@@ -109,6 +141,7 @@ export default {
     UiButton,
     Cell,
     MiniChatButton,
+    PseudoPopup,
   },
 
   data() {
@@ -120,6 +153,10 @@ export default {
       videoStreams: {},
       mountedTimestamp: Date.now(),
       pausedByScreenSharing: false,
+      unwatchSpeaking: null,
+      IS_MOBILE,
+      isMobileWidth: false,
+      scrollableGrid: false,
     };
   },
 
@@ -202,12 +239,6 @@ export default {
     miniChatLastMessageTimestamp(val) {
       this.miniChatBadgeKey = val;
     },
-
-    speaking(val) {
-      if (val) {
-        this.handUpHandler(false);
-      }
-    },
   },
 
   async mounted() {
@@ -222,6 +253,16 @@ export default {
     broadcastEvents.on('grid-hide', this.windowHideHandler);
 
     broadcastEvents.on('grid-expanded-focus', this.windowFocusHandler);
+
+    broadcastEvents.on('callbuttons-hand', this.handUpHandler);
+    broadcastEvents.on('callbuttons-chat', () => {
+      //! жёсткий хак. эмитим событие mouseup на кнопке чата, которая есть где-то на странице.
+      //! потому что поповеры у нас открываются только по директиве v-popover
+      const clickEvent = document.createEvent('MouseEvents');
+
+      clickEvent.initEvent('mouseup', true, true);
+      document.getElementById('mini-chat-button').dispatchEvent(clickEvent);
+    });
 
     // Send command to subscribe for all video publishers
     this.handleVideoStreams();
@@ -267,6 +308,9 @@ export default {
     broadcastEvents.removeAllListeners('grid-expand');
     broadcastEvents.off('grid-hide', this.windowHideHandler);
     broadcastEvents.off('grid-expanded-focus', this.windowFocusHandler);
+
+    broadcastEvents.removeAllListeners('callbuttons-hand');
+    broadcastEvents.removeAllListeners('callbuttons-chat');
   },
 
   methods: {
@@ -319,11 +363,26 @@ export default {
      * @param {number} index cell's index
      * @return {object}
      */
-    cellDimensions(index) {
-      return {
-        width: Math.floor(this.fullGridWidth * this.currentGrid[index]) + 'px',
-        height: Math.floor(this.fullGridWidth * ASPECT_RATIO * this.currentGrid[index]) + 'px',
-      };
+    cellWidth(index) {
+      if (this.isMobileWidth) {
+        return this.cellMobileWidth(index);
+      } else {
+        return Math.floor(this.fullGridWidth * this.currentGrid[index]);
+      }
+    },
+
+    cellMobileWidth(index) {
+      if (this.usersCount <= 2) {
+        return Math.floor(this.fullGridWidth);
+      } else if (this.usersCount % 2 === 0) {
+        return Math.floor(this.fullGridWidth / 2);
+      } else {
+        if (index === 0) {
+          return Math.floor(this.fullGridWidth);
+        } else {
+          return Math.floor(this.fullGridWidth / 2);
+        }
+      }
     },
 
     /**
@@ -331,23 +390,31 @@ export default {
      * @return {void}
      */
     resize() {
-      const bounds = document.getElementById('cell-grid');
+      GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
+      GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
 
-      if (!bounds || !this.grids) {
+      this.isMobileWidth = (GRID_WIDTH < MOBILE_WIDTH && !IS_ELECTRON);
+
+      if (!GRID_WIDTH || !this.grids) {
         return;
       }
-      const boundHeight = bounds.offsetHeight;
-      const boundWidth = bounds.offsetWidth - PADDING * 2;
-      const closest = this.findClosest(boundHeight / boundWidth, this.grids);
+
+      const boundWidth = GRID_WIDTH - PADDING * 2;
+      const closest = this.findClosest(GRID_HEIGHT / boundWidth, this.grids);
 
       this.currentGrid = closest.sizes;
 
-      this.fullGridWidth = Math.min(boundWidth, boundHeight / closest.ratio);
+      this.fullGridWidth = Math.min(boundWidth, GRID_HEIGHT / closest.ratio);
 
-      if (boundHeight / boundWidth < closest.ratio) {
-        this.padding = { padding: '0 ' + (boundWidth - boundHeight / closest.ratio) / 2 + 'px' };
+      if (GRID_HEIGHT / boundWidth < closest.ratio) {
+        this.padding = { padding: '0 ' + (boundWidth - GRID_HEIGHT / closest.ratio) / 2 + 'px' };
       } else {
         this.padding = { padding: '0' };
+      }
+
+      if (this.isMobileWidth) {
+        this.fullGridWidth = GRID_WIDTH - MOBILE_PADDING * 2;
+        this.padding = { padding: `0 ${MOBILE_PADDING}px` };
       }
     },
 
@@ -398,6 +465,18 @@ export default {
       if (value !== undefined) {
         status = value;
       }
+
+      if (status) {
+        this.unwatchSpeaking = this.$watch('speaking', (val) => {
+          if (val) {
+            this.handUpHandler(false);
+          }
+        });
+      } else {
+        if (this.unwatchSpeaking) {
+          this.unwatchSpeaking();
+        }
+      }
       broadcastActions.dispatch('app/handUpInChannel', status);
     },
 
@@ -417,6 +496,10 @@ export default {
       }
     },
 
+    setScrollable(val) {
+      this.scrollableGrid = val;
+    },
+
     userAvatar: getUserAvatarUrl,
   },
 };
@@ -427,7 +510,7 @@ export default {
     display flex
     flex-direction column
     height 100vh
-    color var(--new-white)
+    color var(--Text-white)
 
   .top-content
     height 108px
@@ -444,6 +527,11 @@ export default {
       flex-shrink 0
       border-radius 15px
 
+      @media $mobile
+        background var(--new-transparent)
+        height 24px !important
+        width 24px !important
+
   .left-info
     display flex
     flex-direction row
@@ -453,20 +541,48 @@ export default {
     line-height 24px
     color rgba(255, 255, 255, 0.5)
 
+    @media $mobile
+      font-weight 500
+      font-size 16px
+      line-height 22px
+      flex-wrap wrap
+      justify-content center
+      flex-grow 2
+      padding-left 24px
+
+    &__channel
+      display flex
+      align-items center
+
   .channel-icon
-    color: var(--new-signal-02)
+    color: var(--UI-positive)
     flex-shrink 0
 
+    @media $mobile
+      width 24px
+      height 24px
+
   .channel-name
-    color var(--new-white)
+    color var(--Text-white)
     margin 0 16px 0 4px
     font-weight bold
     font-size 32px
     line-height 36px
 
+    @media $mobile
+      font-weight 500
+      font-size 18px
+      line-height 28px
+      margin 0 0 0 4px
+
   .channel-usercount
     padding 4px 16px 0 0
     flex-shrink 0
+
+    @media $mobile
+      flex-basis 100%
+      text-align center
+      padding 4px 0 0 8px
 
   .cell-grid
     height calc(100vh - 232px)
@@ -478,9 +594,29 @@ export default {
     align-content center
     box-sizing border-box
 
+    &--scrollable
+      align-content flex-start
+
+  .call-window > /deep/.pseudo-popup
+    height auto
+
+  /deep/ .pseudo-popup__body
+    padding 0
+
+  /deep/ .pseudo-popup__header--with-shadow
+    box-shadow 0 0 16px 10px #000000
+    z-index 10
+
+  /deep/ .pseudo-popup__footer--with-shadow
+    box-shadow 0 0 16px 10px #000000
+    z-index 10
+
   .bottom-content
     margin-top 28px
     display flex
+
+    @media $mobile
+      position relative
 
     &__col
       display flex
@@ -500,6 +636,10 @@ export default {
 
           .bottom-content__controls
             margin 0
+
+      &--fixed-center
+        justify-content center !important
+        margin-left 0 !important
 
       &--left
         padding-left 40px
@@ -523,7 +663,7 @@ export default {
       top -3px
       right -3px
       border-radius 11px
-      background var(--new-signal-03)
+      background var(--UI-error)
 
   .badge-show-enter-active
     transition transform .35s cubic-bezier(0.34, 2, 0.64, 1);
@@ -537,4 +677,5 @@ export default {
 
     &__controls
       margin 0 auto
+
 </style>

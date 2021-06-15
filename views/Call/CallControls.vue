@@ -273,7 +273,7 @@ export default {
 
     &__channel
       display flex
-      color var(--new-white)
+      color var(--Text-white)
       align-items center
       line-height 18px
       margin-left -4px
@@ -284,7 +284,7 @@ export default {
 
       svg
         flex-shrink 0
-        color var(--new-signal-02)
+        color var(--UI-positive)
         transform translateY(1px)
 
       span
@@ -298,7 +298,7 @@ export default {
       flex-shrink 0
 
       &--disconnect
-        color var(--new-signal-03)
+        color var(--UI-error)
 
       &:last-child
         margin-right 0

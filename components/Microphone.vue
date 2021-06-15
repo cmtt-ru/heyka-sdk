@@ -27,6 +27,7 @@
 
 <script>
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+import Mousetrap from 'mousetrap';
 
 /**
  * Mic icons
@@ -220,11 +221,16 @@ export default {
     if (this.active) {
       this.recordVolumeHistory(true);
     }
+
+    Mousetrap.bind('space', () => {
+      this.$emit('click');
+    });
   },
 
   beforeDestroy() {
     this.recordVolumeHistory(false);
     broadcastEvents.removeAllListeners('microphone-volume');
+    Mousetrap.unbind('space');
   },
 
   methods: {
@@ -254,8 +260,8 @@ export default {
 <style lang="stylus" scoped>
 .mic
   position relative
-  background var(--new-overlay-01)
-  color var(--new-white)
+  background var(--Background-darkgrey)
+  color var(--Text-white)
   cursor pointer
   display flex
   flex-direction row
@@ -266,14 +272,14 @@ export default {
   overflow hidden
 
   &:hover
-    background var(--new-overlay-02)
+    background var(--Background-darkgrey-hover)
 
   &:active
-    background var(--new-overlay-03)
+    background var(--Background-darkgrey-active)
 
   &__volume
     transform translateZ(0)
-    background-color var(--new-signal-02)
+    background var(--UI-positive)
     position absolute
     opacity 0.5
     bottom 0
@@ -290,16 +296,6 @@ export default {
   &--disabled
     pointer-events none
     //opacity 0.5
-
-  &--header
-
-    &:hover
-      background var(--new-button-appbar-hover)
-      mix-blend-mode luminosity
-
-    &:active
-      background var(--new-button-appbar-active)
-      mix-blend-mode luminosity
 
 .volume-wrapper
   position absolute

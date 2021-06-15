@@ -5,7 +5,7 @@
   >
     <div class="popover__header">
       <div class="popover__header__text">
-        {{ $t('techTexts.actions') }}
+        {{ mobileHeader || $t('techTexts.actions') }}
       </div>
       <svg-icon
         class="popover__header__close"
@@ -28,6 +28,10 @@ export default {
       type: Number,
       default: 130,
     },
+    mobileHeader: {
+      type: String,
+      default: null,
+    },
   },
 };
 </script>
@@ -35,9 +39,9 @@ export default {
 <style lang="stylus" scoped>
   .popover
     display flex
-    background var(--new-bg-04)
+    background var(--Background-darkgrey)
     box-shadow var(--new-shadow-03)
-    color var(--new-UI-02)
+    color var(--Text-primary)
     border-radius 8px
     z-index 100
     flex-direction column
@@ -55,6 +59,7 @@ export default {
       transform none !important
       box-shadow 0px 0px 0px 300vh rgba(0, 0, 0, 0.28);
       border-radius 10px
+      max-height calc(100vh - 32px)
 
     &__header
       display none
@@ -71,15 +76,15 @@ export default {
         display flex
 
       &__close
-        color var(--new-UI-03)
+        color var(--Text-secondary)
 
   /deep/ a
-    .ui-button
+    .ui-button--11
       width 100%
 
   /deep/ .delimiter
     height 1px
-    background var(--new-UI-06)
+    background var(--UI-divider-1)
     margin 0 12px 0 38px
 
   /deep/ .buttons
@@ -92,7 +97,7 @@ export default {
   /deep/ .buttons
     padding 0
 
-  /deep/ .ui-button
+  /deep/ .ui-button--11
     margin-bottom 8px
     height 48px
     box-sizing border-box
@@ -110,11 +115,24 @@ export default {
       right 0
       left 55px
       height 1px
-      background-color var(--new-stroke-01)
+      background var(--UI-divider-2)
 
   /deep/ .ui-button__icon
     height 24px
     width 24px
     margin-right 12px
+
+// Add "popover-fullscreen" class to pages where popover should appear without margin. don't forget to remove it in beforeDestroy
+
+body.popover-fullscreen .popover
+  @media $mobile
+    width 100vw !important
+    max-width 767px
+    bottom 0 !important
+    border-bottom-left-radius 0
+    border-bottom-right-radius 0
+    border-top-left-radius 10px
+    border-top-right-radius 10px
+    max-height 100vh
 
 </style>

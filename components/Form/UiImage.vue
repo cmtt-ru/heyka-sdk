@@ -193,9 +193,8 @@ export default {
         transition 0.2s background-color ease
 
         &--no-image
-          background-color var(--new-UI-06)
-          color var(--new-UI-05)
-          border 1px solid var(--new-UI-05)
+          background var(--Background-darkgrey)
+          color var(--Text-secondary)
           box-sizing border-box
 
         &:hover
@@ -206,7 +205,7 @@ export default {
     top 0
     left 0
     object-fit cover
-    background-color var(--new-bg-04)
+    background var(--Background-white)
     filter grayscale(100%) blur(2px)
 
   input

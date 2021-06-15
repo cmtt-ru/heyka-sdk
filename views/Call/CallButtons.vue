@@ -40,7 +40,7 @@
     />
 
     <ui-button
-      v-if="buttons.includes('screen')"
+      v-if="buttons.includes('screen') && (IS_ELECTRON || !IS_MOBILE)"
       class="call-buttons__button call-buttons__screen"
       :type="7"
       popover
@@ -52,7 +52,19 @@
     />
 
     <ui-button
-      v-if="buttons.includes('speakers')"
+      v-if="buttons.includes('more') && !IS_ELECTRON && IS_MOBILE"
+      v-popover.click="{name: 'CallButtonsMore'}"
+      class="call-buttons__button"
+      :type="7"
+      popover
+      :active="mediaState.screen"
+      :size="size"
+      icon="burger"
+      :height="buttonHeight"
+    />
+
+    <ui-button
+      v-if="buttons.includes('speakers') && (IS_ELECTRON || !IS_MOBILE)"
       class="call-buttons__button"
       :type="7"
       popover
@@ -167,6 +179,13 @@ export default {
     },
   },
 
+  data() {
+    return {
+      IS_ELECTRON,
+      IS_MOBILE,
+    };
+  },
+
   computed: {
     ...mapGetters({
       mediaState: 'me/getMediaState',
@@ -224,6 +243,16 @@ export default {
     },
   },
 
+  mounted() {
+    broadcastEvents.on('callbuttons-speakers', () => {
+      return this.switchProp('speakers');
+    });
+  },
+
+  beforeDestroy() {
+    broadcastEvents.removeAllListeners('callbuttons-speakers');
+  },
+
   methods: {
     /**
      * Change our media state depending on which button was clicked
@@ -279,9 +308,6 @@ export default {
      */
     async disconnectHandler() {
       broadcastActions.dispatch('unselectChannel', this.$store.getters['me/getSelectedChannelId']);
-      if (!IS_ELECTRON) {
-        this.$router.replace({ name: 'landing' });
-      }
     },
 
     /**
@@ -319,10 +345,14 @@ export default {
 
     &__screen
       &.ui-button--active
-        background-color var(--new-signal-03)
+        background var(--UI-error)
 
     &__button
       flex-shrink 0
+
+      @media $mobile
+        height 56px !important
+        width 56px !important
 
       &--grid
         position relative
@@ -335,8 +365,8 @@ export default {
           top -3px
           right -3px
           border-radius 12px
-          background-color var(--new-UI-01)
-          border 2px solid var(--new-black)
+          background var(--UI-active)
+          border 2px solid var(--Background-black)
           box-sizing border-box
           transition transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);
           transform scale(0)
@@ -347,7 +377,7 @@ export default {
             transform scale(1)
 
       &--disconnect
-        color var(--new-signal-03)
+        color var(--UI-error)
 
       &:last-child
         margin-right 0 !important
