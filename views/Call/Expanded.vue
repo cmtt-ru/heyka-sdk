@@ -61,6 +61,7 @@
         class="bottom-controls__button"
         popover
         size="medium"
+        :icon="mediaState.microphone ? 'mic' : 'mic-off'"
         @click="switchProp('microphone')"
       />
 

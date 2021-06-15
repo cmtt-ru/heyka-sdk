@@ -2,6 +2,7 @@
   <div class="mini-chat">
     <pseudo-popup
       ref="pseudoPopup"
+      bg-color="var(--Background-darkgrey)"
     >
       <template
         v-if="!IS_MOBILE"
@@ -202,12 +203,6 @@ export default {
 </script>
 
 <style lang="stylus">
-  /deep/ .pseudo-popup__header
-    background var(--Background-darkgrey)
-
-  /deep/ .pseudo-popup__footer
-    background var(--Background-darkgrey)
-
   .mini-chat
     width 320px
     height 400px
