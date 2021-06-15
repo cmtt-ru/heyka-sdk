@@ -78,7 +78,7 @@ export default {
       &__close
         color var(--Text-secondary)
 
-  /deep/ a
+  /deep/
     .ui-button--11
       width 100%
 
