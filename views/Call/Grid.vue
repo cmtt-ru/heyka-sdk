@@ -393,7 +393,7 @@ export default {
       GRID_WIDTH = document.getElementById('cell-grid').offsetWidth;
       GRID_HEIGHT = document.getElementById('cell-grid').offsetHeight;
 
-      this.isMobileWidth = (GRID_WIDTH < MOBILE_WIDTH);
+      this.isMobileWidth = (GRID_WIDTH < MOBILE_WIDTH && !IS_ELECTRON);
 
       if (!GRID_WIDTH || !this.grids) {
         return;
