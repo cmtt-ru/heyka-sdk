@@ -279,7 +279,7 @@ export default {
     background var(--Background-darkgrey-active)
 
   &__volume
-    transform translateZ(0)
+    transform translateZ(0) scaleY(0)
     background-color #254327 //! color-dodge didn't work
     position absolute
     bottom 0
