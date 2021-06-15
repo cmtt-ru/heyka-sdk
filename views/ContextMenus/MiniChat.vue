@@ -1,5 +1,8 @@
 <template>
-  <popover class="mini-chat-popover">
+  <popover
+    class="mini-chat-popover"
+    :mobile-header="$t('popover.chat.header')"
+  >
     <mini-chat />
   </popover>
 </template>

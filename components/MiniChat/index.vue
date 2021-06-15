@@ -3,7 +3,10 @@
     <pseudo-popup
       ref="pseudoPopup"
     >
-      <template #header>
+      <template
+        v-if="!IS_MOBILE"
+        #header
+      >
         Chat
       </template>
 
@@ -93,6 +96,7 @@ export default {
     return {
       chatHistory: [],
       message: '',
+      IS_MOBILE,
     };
   },
 
@@ -200,6 +204,13 @@ export default {
   .mini-chat
     width 320px
     height 400px
+    margin 0 auto
+
+    @media $mobile
+      width 100%
+      min-height 400px
+      height calc(100vh - 66px)
+      margin 0 auto
 
     &__dummy
       display flex

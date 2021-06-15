@@ -41,41 +41,45 @@
       </div>
     </div>
 
-    <ui-button
-      v-popover.click="{name: 'Devices'}"
-      class="badge settings"
-      :type="7"
-      popover
-      :height="44"
-      icon="settings"
-    />
+    <div class="badge bottom-controls">
+      <router-link
+        :to="{ name: 'grid'}"
+      >
+        <ui-button
+          class="bottom-controls__button"
+          :type="7"
+          popover
+          :height="44"
+          icon="grid"
+        />
+      </router-link>
 
-    <router-link
-      :to="{ name: 'grid'}"
-    >
-      <ui-button
-        class="badge expanded"
-        :type="7"
+      <microphone
+        v-show="IS_MOBILE"
+        :disabled="!isDeviceAvailable('microphone')"
+        :active="mediaState.microphone"
+        class="bottom-controls__button"
         popover
-        :height="44"
-        icon="grid"
+        size="medium"
+        @click="switchProp('microphone')"
       />
-    </router-link>
 
-    <mini-chat-button class="badge chat" />
+      <mini-chat-button class="bottom-controls__button" />
 
-    <ui-button
-      popover
-      class="badge hand-up"
-      :active="getHandUpStatusByUserId(myId)"
-      size="medium"
-      :type="7"
-      :height="44"
-      icon="hand-up"
-      @click="handUpHandler"
-    />
+      <ui-button
+        popover
+        class="bottom-controls__button"
+        :active="getHandUpStatusByUserId(myId)"
+        size="medium"
+        :type="7"
+        :height="44"
+        icon="hand-up"
+        @click="handUpHandler"
+      />
+    </div>
 
     <div
+      v-show="!IS_MOBILE"
       ref="controls"
       v-draggable="controlsOptions"
       class="badge control"
@@ -97,6 +101,7 @@ import Tablet from '@components/Drawing/Tablet';
 import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import captureFrame from 'capture-frame';
+import Microphone from '../../components/Microphone.vue';
 
 import broadcastActions from '@sdk/classes/broadcastActions';
 
@@ -110,6 +115,7 @@ export default {
     Avatar,
     Tablet,
     MiniChatButton,
+    Microphone,
   },
   data() {
     return {
@@ -124,6 +130,7 @@ export default {
       isStreamPlaying: false,
       myColor: 'black',
       canDraw: false,
+      IS_MOBILE,
     };
   },
   computed: {
@@ -135,6 +142,7 @@ export default {
       getUserWhoSharesMedia: 'getUserWhoSharesMedia',
       getUserWhoSharesScreen: 'getUserWhoSharesScreen',
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
+      selectedDevices: 'app/getSelectedDevices',
     }),
     ...mapState({
       janusOptions: 'janus',
@@ -409,6 +417,32 @@ export default {
       }
       broadcastActions.dispatch('app/handUpInChannel', status);
     },
+
+    /**
+     * Change our media state depending on which button was clicked
+     * @param {string} property mediastate's property name
+     * @returns {void}
+     */
+    switchProp(property) {
+      const newState = { ...this.mediaState };
+
+      newState[property] = !this.mediaState[property];
+
+      if (newState.microphone === false) {
+        newState.speaking = false;
+      }
+
+      broadcastActions.dispatch('me/setMediaState', newState);
+    },
+
+    /**
+     * Return availability of specific device
+     * @param {string} deviceType – device type
+     * @returns {boolean}
+     */
+    isDeviceAvailable(deviceType) {
+      return !!this.selectedDevices[deviceType];
+    },
   },
 };
 </script>
@@ -481,19 +515,22 @@ export default {
   right 40px
   border-radius 11px
 
-.expanded
+.bottom-controls
   bottom 44px
   right 40px
-  border-radius 11px
+  display flex
 
-.chat
-  bottom 44px
-  right 40px + 44px + 12px
+  @media $mobile
+    bottom 36px
+    right 0
+    left 0
+    margin 0 auto
+    display flex
+    justify-content center
 
-.hand-up
-  bottom 44px
-  border-radius 11px
-  right 40px + 44px + 44px + 12px + 12px
+  &__button
+    border-radius 11px
+    margin-left 12px
 
 .control
   background-color var(--new-black)

@@ -102,7 +102,14 @@ export default {
     return {
       headerShadow: false,
       footerShadow: false,
+      isScrollable: false,
     };
+  },
+
+  watch: {
+    isScrollable(val) {
+      this.$emit('scrollable', val);
+    },
   },
 
   updated() {
@@ -134,6 +141,7 @@ export default {
       }
 
       if (this.$refs.body.scrollHeight > this.$refs.body.clientHeight) {
+        this.isScrollable = true;
         if (this.headerHasShadow) {
           this.headerShadow = this.$refs.body.scrollTop > 0;
         }
@@ -144,6 +152,7 @@ export default {
       } else {
         this.headerShadow = false;
         this.footerShadow = false;
+        this.isScrollable = false;
       }
     }),
 
