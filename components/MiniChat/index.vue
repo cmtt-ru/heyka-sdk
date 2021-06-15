@@ -202,6 +202,11 @@ export default {
 </script>
 
 <style lang="stylus">
+  /deep/ .pseudo-popup__header
+    background var(--Background-darkgrey)
+
+  /deep/ .pseudo-popup__footer
+    background var(--Background-darkgrey)
 
   .mini-chat
     width 320px
