@@ -55,9 +55,14 @@ class Microphone extends EventEmitter {
       this.createMediaStream();
     }
 
+    if (this.listeners.includes(id)) {
+      return;
+    }
+
     this.listeners.push(id);
 
     console.log('Microphone.listen -->', id);
+    console.log('Microphone.listeners length -->', this.listeners.length);
   }
 
   /**
@@ -79,6 +84,7 @@ class Microphone extends EventEmitter {
     }
 
     console.log('Microphone.forget -->', id);
+    console.log('Microphone.listeners length -->', this.listeners.length);
   }
 
   /**
