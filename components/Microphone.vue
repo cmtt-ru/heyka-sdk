@@ -8,13 +8,14 @@
     <div
       v-if="active"
       class="mic__volume"
-      :style="volumeTransform"
+      :style="medianVolumeTransform"
     />
     <div
       v-if="active"
       class="mic__volume"
-      :style="medianVolumeTransform"
+      :style="volumeTransform"
     />
+
     <svg-icon
       class="mic__icon"
       :name="iconProp.icon"
@@ -278,17 +279,18 @@ export default {
     background var(--Background-darkgrey-active)
 
   &__volume
-    transform translateZ(0)
-    background var(--UI-positive)
+    transform translateZ(0) scaleY(0)
+    background-color #254327 //! color-dodge didn't work
     position absolute
-    opacity 0.5
     bottom 0
     left 0
     right 0
     height 100%
     transform-origin bottom left
-    mix-blend-mode color-dodge
     transition transform 0.1s linear
+
+    &:nth-child(2)
+      background-color #268A2B //! color-dodge didn't work
 
   &__icon
     position relative

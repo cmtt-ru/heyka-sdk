@@ -78,9 +78,15 @@ export default {
       &__close
         color var(--Text-secondary)
 
-  /deep/ a
+  /deep/
     .ui-button--11
       width 100%
+
+      &:hover
+        background var(--Background-grey-hover)
+
+      &:active
+        background var(--Background-grey-active)
 
   /deep/ .delimiter
     height 1px

@@ -4,6 +4,7 @@
       v-if="$slots.header"
       class="pseudo-popup__header"
       :class="{'pseudo-popup__header--with-shadow': headerShadow}"
+      :style="{'background': bgColor}"
     >
       <span>
         <slot name="header" />
@@ -23,6 +24,7 @@
       v-if="$slots['custom-header']"
       class="pseudo-popup__header pseudo-popup__header--custom"
       :class="{'pseudo-popup__header--with-shadow': headerShadow}"
+      :style="{'background': bgColor}"
     >
       <slot name="custom-header" />
     </div>
@@ -31,6 +33,7 @@
       v-if="$slots.body"
       ref="body"
       class="pseudo-popup__body scroll"
+      :style="{'background': bgColor}"
     >
       <slot name="body" />
     </div>
@@ -39,6 +42,7 @@
       v-if="$slots['custom-body']"
       ref="body"
       class="pseudo-popup__body pseudo-popup__body--custom scroll"
+      :style="{'background': bgColor}"
     >
       <slot name="custom-body" />
     </div>
@@ -47,6 +51,7 @@
       v-if="$slots.footer"
       class="pseudo-popup__footer"
       :class="{'pseudo-popup__footer--with-shadow': footerShadow}"
+      :style="{'background': bgColor}"
     >
       <slot name="footer" />
     </div>
@@ -55,6 +60,7 @@
       v-if="$slots['custom-footer']"
       class="pseudo-popup__footer pseudo-popup__footer--custom"
       :class="{'pseudo-popup__footer--with-shadow': footerShadow}"
+      :style="{'background': bgColor}"
     >
       <slot name="custom-footer" />
     </div>
@@ -87,6 +93,14 @@ export default {
     footerHasShadow: {
       type: Boolean,
       default: true,
+    },
+
+    /**
+     * bg color of PseudoPopup
+     */
+    bgColor: {
+      type: String,
+      default: null,
     },
 
     /**

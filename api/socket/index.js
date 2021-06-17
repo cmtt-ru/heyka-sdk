@@ -1,4 +1,5 @@
 import store from '@/store';
+import router from '@/router';
 import eventNames from './eventNames';
 import { client, connect } from './client';
 import { getAccessToken } from '../tokens';
@@ -8,6 +9,8 @@ import Logger from '@sdk/classes/logger';
 import sounds from '@sdk/classes/sounds';
 import broadcastActions from '@sdk/classes/broadcastActions';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
+
+import { IS_ELECTRON } from '@sdk/Constants';
 
 const cnsl = new Logger('SOCKETS', '#d67a24');
 
@@ -291,6 +294,11 @@ function bindChannelEvents() {
 
     if (selectedChannelId === channelId) {
       store.dispatch('unselectChannelWithoutAPICall');
+      if (IS_ELECTRON) {
+        router.replace({ name: 'workspace' });
+      } else {
+        router.replace({ name: 'landing' });
+      }
     }
 
     store.commit('channels/REMOVE_CHANNEL', channelId);

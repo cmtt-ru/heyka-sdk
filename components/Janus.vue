@@ -314,6 +314,10 @@ export default {
       }
 
       AudioCheck.unsubscribeMutedTalk();
+
+      if (IS_ELECTRON) {
+        this.$store.dispatch('me/stopFaceMonitoring');
+      }
     },
 
     /**
