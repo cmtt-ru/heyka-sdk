@@ -1,0 +1,163 @@
+<template>
+  <div class="modal-wrapper">
+    <div class="body">
+      <input
+        ref="inputImage"
+        type="file"
+        accept=".png, .jpg, .jpeg"
+        @input="storeImageFile"
+      >
+      <img
+        :src="localImage"
+        class="img"
+      >
+      <ui-button
+        v-popover.click="{name: 'ImageMore'}"
+        :type="7"
+        class="img__button img__button--more"
+        size="small"
+        icon="more"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import UiButton from '@components/UiButton';
+
+import notify from '@libs/notify';
+import broadcastEvents from '@sdk/classes/broadcastEvents';
+
+// import Modal from '@sdk/classes/Modal';
+
+const MAX_FILE_SIZE = 1048576;
+const PRETTY_MAX_FILE_SIZE = '1Mb';
+
+export default {
+  components: {
+    UiButton,
+  },
+
+  props: {
+    /**
+      * Inner data
+    */
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      localImage: null,
+    };
+  },
+
+  computed: {
+  },
+
+  mounted() {
+    this.localImage = this.data.src;
+    broadcastEvents.on('imagemodal-edit', () => {
+      this.$refs.inputImage.click();
+    });
+    broadcastEvents.on('imagemodal-delete', () => {
+      console.log('confirm delete in modal');
+      broadcastEvents.dispatch('imagemodal-realdelete');
+      this.$emit('reject');
+    });
+  },
+
+  beforeDestroy() {
+    console.log('!!! destroying delete in modal');
+    broadcastEvents.removeAllListeners('imagemodal-edit');
+    broadcastEvents.removeAllListeners('imagemodal-delete');
+  },
+
+  methods: {
+    /**
+       * Trigger after file was selected
+       * @param {object} event - input event
+       * @returns {void}
+       */
+    async storeImageFile(event) {
+      if (event.target.files.length !== 1) {
+        return;
+      }
+      if (event.target.files[0].size > MAX_FILE_SIZE) {
+        this.tooBigImageAlert();
+
+        return;
+      }
+      const formData = new FormData();
+
+      formData.append('image', event.target.files[0]);
+
+      try {
+        this.localDisplayImage(event.target.files[0]);
+        const result = await this.$API.user.image(formData);
+
+        broadcastEvents.dispatch('imagemodal-uploaded', result.fileId);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    /**
+       * Show newly selected file locally - even before we uploaded it to servers
+       * @param {File} file - image to display
+       * @returns {void}
+       */
+    localDisplayImage(file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.localImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    /**
+       * Show "file too big" notification if... file is too big
+       * @returns {void}
+       */
+    async tooBigImageAlert() {
+      notify(`${this.$t('workspace.userSettings.bigImage')} ${PRETTY_MAX_FILE_SIZE}`, {
+        lifespan: 5000,
+        icon: 'warning',
+      });
+    },
+  },
+
+};
+</script>
+
+<style lang="stylus" scoped>
+// @import 'default.styl'
+.body
+  position relative
+  display flex
+
+.img
+  width calc(100vw - 64px)
+  max-width 496px
+  max-height 496px
+  min-height 100px
+  min-width 100px
+  background-color var(--Background-darkgrey)
+
+  &__button
+    position absolute
+    bottom 4px
+    right 4px
+    color var(--Text-primary)
+
+input
+  pointer-events none
+  user-select none
+  outline 0
+  opacity 0
+  width 0
+  height 0
+</style>

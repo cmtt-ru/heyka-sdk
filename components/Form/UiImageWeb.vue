@@ -14,7 +14,6 @@
       <label
         class="label"
         :class="{'label--no-image': !(localImage || tempSrc)}"
-        @click="showImageModal"
       >
         <svg-icon
           class="label__icon"
@@ -22,12 +21,12 @@
           :height="24"
           :width="24"
         />
-        <!-- <input
+        <input
           ref="inputImage"
           type="file"
           accept=".png, .jpg, .jpeg"
           @input="storeImageFile"
-        > -->
+        >
       </label>
     </div>
 
@@ -46,9 +45,6 @@
 import Avatar from '@components/Avatar';
 import notify from '@libs/notify';
 
-import broadcastEvents from '@sdk/classes/broadcastEvents';
-import Modal from '@sdk/classes/Modal';
-
 const MAX_FILE_SIZE = 1048576;
 const PRETTY_MAX_FILE_SIZE = '1Mb';
 
@@ -62,14 +58,6 @@ export default {
        * image url
        */
     image: {
-      type: String,
-      default: '',
-    },
-
-    /**
-       * image url
-       */
-    bigImage: {
       type: String,
       default: '',
     },
@@ -106,16 +94,6 @@ export default {
 
   mounted() {
     this.localImage = this.image;
-    broadcastEvents.on('imagemodal-uploaded', (fileId) => {
-      this.$emit('input', fileId);
-    });
-    broadcastEvents.on('imagemodal-realdelete', () => {
-      this.$emit('delete-image');
-    });
-  },
-
-  beforeDestroy() {
-    broadcastEvents.removeAllListeners('imagemodal-uploaded');
   },
 
   methods: {
@@ -175,24 +153,7 @@ export default {
     },
 
     clickInput() {
-      this.showImageModal();
-      // this.$refs.inputImage.click();
-    },
-
-    showImageModal() {
-      Modal.show({
-        name: 'EditImage',
-        data: {
-          src: this.bigImage,
-        },
-        onClose: (status) => {
-          console.log(status);
-          if (status === 'reject') {
-            console.log('REJECT!!!');
-            this.$emit('delete-image');
-          }
-        },
-      });
+      this.$refs.inputImage.click();
     },
 
     clearInput() {
