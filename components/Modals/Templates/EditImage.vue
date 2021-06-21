@@ -8,9 +8,17 @@
         @input="storeImageFile"
       >
       <img
+        v-popover.mouse.right.click="{name: 'ImageMore'}"
         :src="localImage"
         class="img"
       >
+      <ui-button
+        :type="7"
+        class="img__button img__button--close"
+        size="small"
+        icon="close"
+        @click="$emit('close')"
+      />
       <ui-button
         v-popover.click="{name: 'ImageMore'}"
         :type="7"
@@ -70,7 +78,6 @@ export default {
   },
 
   beforeDestroy() {
-    console.log('!!! destroying delete in modal');
     broadcastEvents.removeAllListeners('imagemodal-edit');
     broadcastEvents.removeAllListeners('imagemodal-delete');
   },
@@ -138,20 +145,49 @@ export default {
 .body
   position relative
   display flex
+  border-radius 4px
+  overflow hidden
+  position relative
+
+  &:after
+    content ''
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background transparent
+    border 1px solid rgba(255, 255, 255, 0.1)
+    pointer-events none
+    border-radius 4px
 
 .img
-  width calc(100vw - 64px)
+  width calc(100vw - 24px)
   max-width 496px
   max-height 496px
   min-height 100px
   min-width 100px
+  object-fit contain
   background-color var(--Background-darkgrey)
 
   &__button
     position absolute
-    bottom 4px
+    top 4px
     right 4px
     color var(--Text-primary)
+    background rgba(0,0,0,0.2)
+    width 24px
+    height 24px
+    border-radius 50%
+
+    &:hover
+      background rgba(0,0,0,0.15)
+    &:active
+      background rgba(0,0,0,0.3)
+
+    &--more
+      top initial
+      bottom 4px
 
 input
   pointer-events none

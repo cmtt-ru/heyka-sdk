@@ -3,18 +3,20 @@
     class="image"
   >
     <avatar
-      class="user__avatar"
+      class="image__avatar"
       :image="localImage"
       :size="size"
       no-color
       @load="tempSrc=null"
+      @click.native="showImageModal"
     />
 
-    <div class="input-group">
+    <div
+      v-show="!(localImage || tempSrc)"
+      class="input-group"
+    >
       <label
         class="label"
-        :class="{'label--no-image': !(localImage || tempSrc)}"
-        @click="showImageModal"
       >
         <svg-icon
           class="label__icon"
@@ -22,12 +24,12 @@
           :height="24"
           :width="24"
         />
-        <!-- <input
+        <input
           ref="inputImage"
           type="file"
           accept=".png, .jpg, .jpeg"
           @input="storeImageFile"
-        > -->
+        >
       </label>
     </div>
 
@@ -39,6 +41,15 @@
       :width="size"
       :height="size"
     >
+
+    <svg-icon
+      v-if="localImage || tempSrc"
+      class="upload-label"
+      name="image"
+      :height="24"
+      :width="24"
+      @click.native="clickInput"
+    />
   </div>
 </template>
 
@@ -116,6 +127,7 @@ export default {
 
   beforeDestroy() {
     broadcastEvents.removeAllListeners('imagemodal-uploaded');
+    broadcastEvents.removeAllListeners('imagemodal-realdelete');
   },
 
   methods: {
@@ -175,8 +187,7 @@ export default {
     },
 
     clickInput() {
-      this.showImageModal();
-      // this.$refs.inputImage.click();
+      this.$refs.inputImage.click();
     },
 
     showImageModal() {
@@ -186,9 +197,7 @@ export default {
           src: this.bigImage,
         },
         onClose: (status) => {
-          console.log(status);
           if (status === 'reject') {
-            console.log('REJECT!!!');
             this.$emit('delete-image');
           }
         },
@@ -208,7 +217,9 @@ export default {
     position relative
     flex-shrink 0
     border-radius 50%
-    overflow hidden
+
+    &__avatar
+      cursor pointer
 
     & .input-group
       position absolute
@@ -225,16 +236,12 @@ export default {
         justify-content center
         align-items center
         cursor pointer
-        background-color rgba(0, 0, 0, 0.4)
-        color white
+        background var(--Background-darkgrey)
+        color var(--UI-active)
+        box-sizing border-box
         font-size 12px
         border-radius 50%
         transition 0.2s background-color ease
-
-        &--no-image
-          background var(--Background-darkgrey)
-          color var(--Text-secondary)
-          box-sizing border-box
 
         &:hover
           background-color rgba(0, 0, 0, 0.6)
@@ -254,5 +261,23 @@ export default {
     opacity 0
     width 0
     height 0
+
+  .upload-label
+    width 24px
+    height 24px
+    padding 4px
+    box-sizing border-box
+    border-radius 6px
+    background var(--Background-darkgrey)
+    color var(--UI-active)
+    position absolute
+    bottom -2px
+    right -2px
+    cursor pointer
+
+    &:hover
+      background var(--Background-darkgrey-hover)
+    &:active
+      background var(--Background-darkgrey-active)
 
 </style>

@@ -9,6 +9,7 @@
       @close="$emit('close')"
     />
     <ui-button
+      v-if="!noClose"
       :type="7"
       icon="close"
       class="modal-wrapper-outer__close"
@@ -19,6 +20,8 @@
 
 <script>
 import UiButton from '@components/UiButton';
+
+const TEMPLATES_NO_CLOSE_BUTTON = [ 'EditImage' ];
 
 export default {
   components: {
@@ -38,6 +41,16 @@ export default {
     modal: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    noClose() {
+      if (TEMPLATES_NO_CLOSE_BUTTON.includes(this.modal.name)) {
+        return true;
+      }
+
+      return false;
     },
   },
 
