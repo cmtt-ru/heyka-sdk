@@ -455,6 +455,8 @@
       "failTitle": "Something went wrong",
       "successSubtitle": "Account created successfully",
       "failSubtitle": "Please contact technical support",
+      "regSuccess": "You've registered successfully!",
+      "authSuccess": "You've logged in successfully!",
       "openApp": "Open app",
       "downloadApp": "Download Heyka",
       "createWorkspace": "Create workspace"
