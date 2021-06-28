@@ -18,7 +18,7 @@ export function trackEvent(action) {
 export const GA_EVENTS = {
   // todo:
   // social login & signup
-  //
+  // inviteInWorkspace
 
   login: a => `Login — ${a}`,
   signup: a => `Signup — ${a}`,
@@ -32,7 +32,7 @@ export const GA_EVENTS = {
   channelJoin: 'Channel — Join',
   privateChannelJoin: 'Private Channel — Join',
 
-  pushInvite: 'Push — Invite — Accept',
+  pushInviteAccept: 'Push — Invite — Accept',
   pushInviteSend: 'Push — Invite — Send',
 
   chatMessageSend: 'Chat — Message — Send',
