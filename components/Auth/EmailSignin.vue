@@ -76,6 +76,7 @@ import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
 import signin from '@api/auth/signin';
 import notify from '@libs/notify';
+import { GA_EVENTS, trackEvent } from '@libs/analytics';
 
 export default {
   components: {
@@ -125,6 +126,8 @@ export default {
 
       try {
         await signin({ credentials: this.login });
+
+        trackEvent(GA_EVENTS.login('Email'));
 
         if (this.notifyClose) {
           this.notifyClose();

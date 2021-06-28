@@ -1,11 +1,13 @@
+const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
+
 /**
  * Send event to GA
  * @param {string} action — event name
  * @returns {void}
  */
-export default function trackEvent(action) {
+export function trackEvent(action) {
   if (window.gtag) {
-    window.gtag('event', action);
+    window.gtag('event', `${EVENT_PREFIX} — ${action}`);
   }
 }
 
@@ -14,16 +16,21 @@ export default function trackEvent(action) {
  * @type {object}
  */
 export const GA_EVENTS = {
-  login: (a) => `App — Login — ${a}`,
-  signup: (a) => `App — Signup — ${a}`,
-  signupWithInvite: (a) => `App — Signup Invite — ${a}`,
+  // todo:
+  // social login & signup
+  //
 
-  workspaceCreate: 'Web — Workspace — Create',
-  workspaceChange: 'App — Workspace — Change',
-  inviteInWorkspace: 'App — Workspace — Invite',
+  login: a => `Login — ${a}`,
+  signup: a => `Signup — ${a}`,
+  signupWithInvite: a => `Signup Invite — ${a}`,
+  socialLink: a => `Social Link — ${a}`,
 
-  channelJoin: 'App — Channel — Join',
-  privateChannelJoin: 'App — Private Channel — Join',
+  workspaceCreate: 'Workspace — Create',
+  workspaceChange: 'Workspace — Change',
+  inviteInWorkspace: 'Workspace — Invite',
+
+  channelJoin: 'Channel — Join',
+  privateChannelJoin: 'Private Channel — Join',
 
   pushInvite: 'Push — Invite — Accept',
   pushInviteSend: 'Push — Invite — Send',

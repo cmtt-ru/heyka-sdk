@@ -53,6 +53,7 @@ import { authFileStore } from '@/store/localStore';
 import { setTokens } from '@api/tokens';
 import apiSignup from '@api/auth/signup';
 import notify from '@libs/notify';
+import { GA_EVENTS, trackEvent } from '@libs/analytics';
 
 export default {
   components: {
@@ -97,14 +98,23 @@ export default {
       try {
         const data = { ...this.newUser };
 
-        if (authFileStore.get('inviteCode')) {
-          data.inviteCode = authFileStore.get('inviteCode');
+        const inviteCode = authFileStore.get('inviteCode');
+
+        if (inviteCode) {
+          data.inviteCode = inviteCode;
         }
+
         const res = await apiSignup({ user: data });
+
+        if (inviteCode) {
+          trackEvent(GA_EVENTS.signupWithInvite('Email'));
+        } else {
+          trackEvent(GA_EVENTS.signup('Email'));
+        }
 
         setTokens(res.data.credentials);
 
-        if (authFileStore.get('inviteCode')) {
+        if (inviteCode) {
           authFileStore.set('inviteCode', null);
           this.$router.push({ name: 'auth-success' });
 

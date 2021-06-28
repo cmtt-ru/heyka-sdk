@@ -19,6 +19,8 @@ import AudioQualityController from '@sdk/classes/AudioQualityController';
 import { conversationBroadcast } from '@api/socket/utils';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import notify from '@libs/notify';
+import { trackEvent, GA_EVENTS } from '@libs/analytics';
+
 const cnsl = new Logger('Janus.vue', '#AF7AC5 ');
 
 /**
@@ -211,6 +213,17 @@ export default {
 
       janusWrapper.once(JanusWrapper.events.channelJoined, async () => {
         this.setOperationFinish('join');
+
+        const channel = this.$store.getters['channels/getChannelById'](this.selectedChannelId);
+
+        if (channel) {
+          if (channel.isPrivate) {
+            trackEvent(GA_EVENTS.privateChannelJoin);
+          } else {
+            trackEvent(GA_EVENTS.channelJoin);
+          }
+        }
+
         if (this.microphone) {
           AudioCheck.checkAudio();
         } else {
