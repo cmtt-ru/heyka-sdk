@@ -170,7 +170,7 @@ export default {
 
       reader.onload = (e) => {
         this.tempSrc = e.target.result;
-        this.localImage = e.target.result;
+        // this.localImage = e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -252,7 +252,8 @@ export default {
     left 0
     object-fit cover
     background var(--Background-white)
-    filter grayscale(100%) blur(2px)
+    border-radius 50%
+    filter grayscale(50%) blur(2px)
 
   input
     pointer-events none
