@@ -8,7 +8,9 @@ import axios from 'axios';
  */
 export default async function (id, workspaceName) {
   const res = await axios.delete(`/workspaces/${id}`, {
-    name: workspaceName,
+    data: {
+      name: workspaceName,
+    },
   });
 
   return res.data;
