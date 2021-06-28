@@ -3,6 +3,7 @@ const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
 /**
  * Send event to GA
  * @param {string} action — event name
+ * @param {string} prefix — event prefix
  * @returns {void}
  */
 export function trackEvent(action, prefix = EVENT_PREFIX) {
@@ -16,10 +17,7 @@ export function trackEvent(action, prefix = EVENT_PREFIX) {
  * @type {object}
  */
 export const GA_EVENTS = {
-  // todo:
-  // social login & signup
-  // inviteInWorkspace
-
+  // todo: inviteInWorkspace
   login: a => `Login — ${a}`,
   signup: a => `Signup — ${a}`,
   signupWithInvite: a => `Signup Invite — ${a}`,
