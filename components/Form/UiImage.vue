@@ -60,8 +60,8 @@ import notify from '@libs/notify';
 import broadcastEvents from '@sdk/classes/broadcastEvents';
 import Modal from '@sdk/classes/Modal';
 
-const MAX_FILE_SIZE = 1048576;
-const PRETTY_MAX_FILE_SIZE = '1Mb';
+const MAX_FILE_SIZE = 5242880;
+const PRETTY_MAX_FILE_SIZE = '5Mb';
 
 export default {
   components: {

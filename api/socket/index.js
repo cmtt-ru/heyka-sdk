@@ -324,6 +324,7 @@ function bindChannelEvents() {
 function bindUserEvents() {
   /** User online status changed */
   client.on(eventNames.onlineStatusChanged, data => {
+    console.log('!!!!!!!!!!!!!onlineStatusChanged', data);
     store.commit('users/SET_ONLINE_STATUS', data);
   });
 
