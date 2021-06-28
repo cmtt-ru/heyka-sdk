@@ -7,7 +7,7 @@
     >
       <div
         v-if="IS_DEV"
-        class="dev-server l-mb-6"
+        class="dev-server"
       >
         {{ texts.devServer }}
       </div>
@@ -22,7 +22,7 @@
 
       <ui-input
         v-model="login.password"
-        class="l-mb-6"
+        class="l-mb-10"
         required
         type="password"
         placeholder="******"
@@ -33,14 +33,9 @@
 
       <router-link
         :to="{name:'auth-email-reset', params: {login: login.email}}"
+        class="l-mb-24 reset-pass-button"
       >
-        <ui-button
-          :type="9"
-          size="small"
-          class="l-mb-18"
-        >
-          {{ texts.reset }}
-        </ui-button>
+        {{ texts.reset }}
       </router-link>
 
       <ui-button
@@ -177,10 +172,22 @@ export default {
     display flex
     flex-direction row
     margin-top 32px
+    color var(--Text-secondary)
 
     &__link
       margin-left 8px
       color var(--UI-active)
       cursor pointer
+
+  .reset-pass-button
+    line-height 18px
+    height 18px
+    color var(--UI-active)
+    display inline-block
+
+    &:hover
+      color var(--UI-active-hover)
+    &:active
+      color var(--UI-active-active)
 
 </style>
