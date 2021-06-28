@@ -5,9 +5,9 @@ const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
  * @param {string} action — event name
  * @returns {void}
  */
-export function trackEvent(action) {
+export function trackEvent(action, prefix = EVENT_PREFIX) {
   if (window.gtag) {
-    window.gtag('event', `${EVENT_PREFIX} — ${action}`);
+    window.gtag('event', `${prefix} — ${action}`);
   }
 }
 
