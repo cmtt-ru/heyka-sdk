@@ -28,7 +28,7 @@
       >
         <div class="channel__users__avatars">
           <avatar
-            v-for="person in users"
+            v-for="person in visibleUsers"
             :key="person.id"
             :user-id="person.id"
             :size="14"
@@ -68,7 +68,7 @@ const ICON_MAP = {
   temp: 'clock',
   default: 'channel',
 };
-const MAX_USERS = 8;
+const MAX_USERS = 5;
 
 export default {
   components: {
@@ -132,6 +132,10 @@ export default {
       } else {
         return users;
       }
+    },
+
+    visibleUsers() {
+      return this.users.slice(0, MAX_USERS);
     },
 
     /**
@@ -263,7 +267,7 @@ export default {
     height 16px
     box-sizing border-box
     line-height 16px
-    margin 2px 0
+    margin 1px 0 2px
 
   &__more
     position absolute

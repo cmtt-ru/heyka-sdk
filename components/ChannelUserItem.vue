@@ -167,6 +167,7 @@ export default {
     &__name
         padding-left 8px
         flex-shrink 2
+        line-height 22px
         white-space nowrap
         overflow hidden
 
