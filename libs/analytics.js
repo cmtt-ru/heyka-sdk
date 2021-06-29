@@ -9,17 +9,21 @@ const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
  * @returns {void}
  */
 export function trackEvent(actionName, prefix = EVENT_PREFIX) {
-  const workspaceId = store.getters['me/getSelectedWorkspaceId'];
-  const action = `${prefix} — ${actionName}`;
+  try {
+    const workspaceId = store.getters['me/getSelectedWorkspaceId'];
+    const action = `${prefix} — ${actionName}`;
 
-  let data;
+    let data;
 
-  if (workspaceId) {
-    data = { workspaceId };
-  }
+    if (workspaceId) {
+      data = { workspaceId };
+    }
 
-  if (window.gtag) {
-    window.gtag('event', action, data);
+    if (window.gtag) {
+      window.gtag('event', action, data);
+    }
+  } catch (e) {
+    console.error('analytics --> trackEvent', e);
   }
 }
 
