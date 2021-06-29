@@ -3,20 +3,17 @@
     class="image"
   >
     <avatar
-      class="image__avatar"
+      class="user__avatar"
       :image="localImage"
       :size="size"
       no-color
       @load="tempSrc=null"
-      @click.native="showImageModal"
     />
 
-    <div
-      v-show="!(localImage || tempSrc)"
-      class="input-group"
-    >
+    <div class="input-group">
       <label
         class="label"
+        :class="{'label--no-image': !(localImage || tempSrc)}"
       >
         <svg-icon
           class="label__icon"
@@ -41,15 +38,6 @@
       :width="size"
       :height="size"
     >
-
-    <svg-icon
-      v-if="localImage || tempSrc"
-      class="upload-label"
-      name="image"
-      :height="24"
-      :width="24"
-      @click.native="clickInput"
-    />
   </div>
 </template>
 
@@ -57,11 +45,8 @@
 import Avatar from '@components/Avatar';
 import notify from '@libs/notify';
 
-import broadcastEvents from '@sdk/classes/broadcastEvents';
-import Modal from '@sdk/classes/Modal';
-
-const MAX_FILE_SIZE = 5242880;
-const PRETTY_MAX_FILE_SIZE = '5Mb';
+const MAX_FILE_SIZE = 1048576;
+const PRETTY_MAX_FILE_SIZE = '1Mb';
 
 export default {
   components: {
@@ -73,14 +58,6 @@ export default {
        * image url
        */
     image: {
-      type: String,
-      default: '',
-    },
-
-    /**
-       * image url
-       */
-    bigImage: {
       type: String,
       default: '',
     },
@@ -117,17 +94,6 @@ export default {
 
   mounted() {
     this.localImage = this.image;
-    broadcastEvents.on('imagemodal-uploaded', (fileId) => {
-      this.$emit('input', fileId);
-    });
-    broadcastEvents.on('imagemodal-realdelete', () => {
-      this.$emit('delete-image');
-    });
-  },
-
-  beforeDestroy() {
-    broadcastEvents.removeAllListeners('imagemodal-uploaded');
-    broadcastEvents.removeAllListeners('imagemodal-realdelete');
   },
 
   methods: {
@@ -170,7 +136,7 @@ export default {
 
       reader.onload = (e) => {
         this.tempSrc = e.target.result;
-        // this.localImage = e.target.result;
+        this.localImage = e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -190,20 +156,6 @@ export default {
       this.$refs.inputImage.click();
     },
 
-    showImageModal() {
-      Modal.show({
-        name: 'EditImage',
-        data: {
-          src: this.bigImage,
-        },
-        onClose: (status) => {
-          if (status === 'reject') {
-            this.$emit('delete-image');
-          }
-        },
-      });
-    },
-
     clearInput() {
       this.localImage = null;
     },
@@ -217,9 +169,7 @@ export default {
     position relative
     flex-shrink 0
     border-radius 50%
-
-    &__avatar
-      cursor pointer
+    overflow hidden
 
     & .input-group
       position absolute
@@ -236,12 +186,16 @@ export default {
         justify-content center
         align-items center
         cursor pointer
-        background var(--Background-darkgrey)
-        color var(--UI-active)
-        box-sizing border-box
+        background-color rgba(0, 0, 0, 0.4)
+        color white
         font-size 12px
         border-radius 50%
         transition 0.2s background-color ease
+
+        &--no-image
+          background var(--Background-darkgrey)
+          color var(--Text-secondary)
+          box-sizing border-box
 
         &:hover
           background-color rgba(0, 0, 0, 0.6)
@@ -252,8 +206,7 @@ export default {
     left 0
     object-fit cover
     background var(--Background-white)
-    border-radius 50%
-    filter grayscale(50%) blur(2px)
+    filter grayscale(100%) blur(2px)
 
   input
     pointer-events none
@@ -262,23 +215,5 @@ export default {
     opacity 0
     width 0
     height 0
-
-  .upload-label
-    width 24px
-    height 24px
-    padding 4px
-    box-sizing border-box
-    border-radius 6px
-    background var(--Background-darkgrey)
-    color var(--UI-active)
-    position absolute
-    bottom -2px
-    right -2px
-    cursor pointer
-
-    &:hover
-      background var(--Background-darkgrey-hover)
-    &:active
-      background var(--Background-darkgrey-active)
 
 </style>
