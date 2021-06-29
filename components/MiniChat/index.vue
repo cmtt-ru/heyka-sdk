@@ -81,6 +81,7 @@ import broadcastActions from '@sdk/classes/broadcastActions';
 import { escapeHtml } from '@libs/texts';
 import xss from 'xss';
 import linkify from 'linkifyjs/html';
+import { GA_EVENTS, trackEvent } from '@libs/analytics';
 
 export default {
   components: {
@@ -156,6 +157,9 @@ export default {
 
       if (sanitizedMessage) {
         broadcastActions.dispatch('app/sendMiniChatMessage', sanitizedMessage);
+
+        trackEvent(GA_EVENTS.chatMessageSend);
+
         this.$refs.pseudoPopup.scrollToBottom();
         this.message = '';
       }
