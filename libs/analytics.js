@@ -1,14 +1,25 @@
+import store from '@/store';
+
 const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
 
 /**
  * Send event to GA
- * @param {string} action — event name
+ * @param {string} actionName — event action
  * @param {string} prefix — event prefix
  * @returns {void}
  */
-export function trackEvent(action, prefix = EVENT_PREFIX) {
+export function trackEvent(actionName, prefix = EVENT_PREFIX) {
+  const workspaceId = store.getters['me/getSelectedWorkspaceId'];
+  const action = `${prefix} — ${actionName}`;
+
+  let data;
+
+  if (workspaceId) {
+    data = { workspaceId };
+  }
+
   if (window.gtag) {
-    window.gtag('event', `${prefix} — ${action}`);
+    window.gtag('event', action, data);
   }
 }
 
