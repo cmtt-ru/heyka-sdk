@@ -24,6 +24,7 @@ export function trackEvent(actionName, prefix = EVENT_PREFIX) {
 
     if (window.gtag) {
       window.gtag('event', action, data);
+      console.log('analytics --> trackEvent', action, data);
     }
   } catch (e) {
     console.error('analytics --> trackEvent', e);
