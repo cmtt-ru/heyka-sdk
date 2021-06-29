@@ -81,7 +81,7 @@ export default {
       display flex
       flex-direction row
       justify-content space-between
-      margin 5px 0 20px
+      margin 1px 0 20px
       background var(--Background-darkgrey)
       border-radius 6px
       padding 4px

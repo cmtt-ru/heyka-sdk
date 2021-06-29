@@ -96,6 +96,7 @@ const STATUS_COLORS = {
  * Sizes of holes in avatar (for status)
  */
 const STATUS_SIZES = {
+  40: 'avatar__image--dot-40',
   32: 'avatar__image--dot',
   20: 'avatar__image--dot-20',
   default: 'avatar__image--dot',
@@ -335,6 +336,9 @@ export default {
       &--dot-20
         mask-image radial-gradient(circle at calc(100% - 3px) calc(100% - 3px), transparent 5px, white 5.5px)
 
+      &--dot-40
+        mask-image radial-gradient(circle at calc(100% - 5.5px) calc(100% - 5.5px), transparent 6.5px, white 7px)
+
       & img
         position absolute
         object-fit cover
@@ -343,12 +347,12 @@ export default {
       position absolute
       bottom -2px
       right -2px
-      width calc(100% * 1 / 3)
-      height calc(100% * 1 / 3)
+      width calc(100% * 1 / 4)
+      height calc(100% * 1 / 4)
       min-width 4px
       min-height 4px
-      max-width 8px
-      max-height 8px
+      max-width 10px
+      max-height 10px
       border-radius 50%
       background-color transparent
       border 2px solid transparent
