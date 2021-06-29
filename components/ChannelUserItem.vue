@@ -153,7 +153,7 @@ export default {
     border-radius 6px
 
     &:hover,
-    &.context-menu--opened
+    &.popover--opened
       background var(--Background-darkgrey-hover)
     &:active
       background var(--Background-darkgrey-active)

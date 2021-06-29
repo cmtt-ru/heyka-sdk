@@ -3,6 +3,7 @@
     :to="'/main-window/workspace/channel/' + channel.id"
     class="channel"
     :class="{'channel--top': topChannel}"
+    popover-add-class
   >
     <svg-icon
       class="channel__type"
@@ -237,7 +238,7 @@ export default {
   justify-content flex-start
   position relative
 
-  &:hover
+  &:hover, &.popover--opened
     background var(--Background-darkgrey-hover)
 
     & .channel__more
@@ -287,7 +288,7 @@ export default {
     visibility hidden
 
     &:hover,
-    &.context-menu--opened
+    &.popover--opened
       background var(--UI-divider-2)
       visibility visible
 
