@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import store from '@/store';
 
 const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
@@ -16,7 +17,9 @@ export function trackEvent(actionName, prefix = EVENT_PREFIX) {
     let data;
 
     if (workspaceId) {
-      data = { workspaceId };
+      data = {
+        workspace_id: workspaceId,
+      };
     }
 
     if (window.gtag) {
