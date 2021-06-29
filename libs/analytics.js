@@ -32,7 +32,6 @@ export function trackEvent(actionName, prefix = EVENT_PREFIX) {
  * @type {object}
  */
 export const GA_EVENTS = {
-  // todo: inviteInWorkspace
   login: a => `Login — ${a}`,
   signup: a => `Signup — ${a}`,
   signupWithInvite: a => `Signup Invite — ${a}`,
@@ -40,7 +39,7 @@ export const GA_EVENTS = {
 
   workspaceCreate: 'Workspace — Create',
   workspaceChange: 'Workspace — Change',
-  inviteInWorkspace: 'Workspace — Invite',
+  inviteToWorkspace: 'Workspace — Invite',
 
   channelJoin: 'Channel — Join',
   privateChannelJoin: 'Private Channel — Join',
