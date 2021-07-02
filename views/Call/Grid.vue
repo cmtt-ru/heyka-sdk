@@ -513,7 +513,7 @@ export default {
     color var(--Text-white)
 
   .top-content
-    height 108px
+    height 104px
     box-sizing border-box
     padding 0 40px
     display flex
@@ -576,7 +576,7 @@ export default {
       margin 0 0 0 4px
 
   .channel-usercount
-    padding 4px 16px 0 0
+    padding 2px 16px 0 0
     flex-shrink 0
 
     @media $mobile
@@ -585,7 +585,7 @@ export default {
       padding 4px 0 0 8px
 
   .cell-grid
-    height calc(100vh - 232px)
+    height calc(100vh - 246px)
     display flex
     flex-direction row
     flex-wrap wrap
@@ -612,7 +612,7 @@ export default {
     z-index 10
 
   .bottom-content
-    margin-top 28px
+    margin-top 34px
     display flex
 
     @media $mobile

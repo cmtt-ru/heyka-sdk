@@ -276,6 +276,7 @@ export default {
       color var(--Text-white)
       align-items center
       line-height 18px
+      font-size 14px
       margin-left -4px
       margin-top 2px
 
