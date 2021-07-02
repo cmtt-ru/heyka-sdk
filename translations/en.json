@@ -278,6 +278,10 @@
       "handUp": "Raise hand",
       "handDown": "Lower hand",
       "chat": "Open chat"
+    },
+    "changePhoto":{
+      "change": "Change photo",
+      "delete": "Delete"
     }
   },
   "notifications": {
