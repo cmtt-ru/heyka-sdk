@@ -120,9 +120,6 @@ export default {
     broadcastEvents.on('imagemodal-uploaded', (fileId) => {
       this.$emit('input', fileId);
     });
-    broadcastEvents.on('imagemodal-realdelete', () => {
-      this.$emit('delete-image');
-    });
   },
 
   beforeDestroy() {

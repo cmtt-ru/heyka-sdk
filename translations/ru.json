@@ -278,6 +278,10 @@
       "handUp": "Поднять руку",
       "handDown": "Опустить руку",
       "chat": "Открыть чат"
+    },
+    "changePhoto":{
+      "change": "Сменить фото",
+      "delete": "Удалить"
     }
   },
   "notifications":{

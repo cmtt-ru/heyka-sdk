@@ -69,8 +69,6 @@ export default {
       this.$refs.inputImage.click();
     });
     broadcastEvents.on('imagemodal-delete', () => {
-      console.log('confirm delete in modal');
-      broadcastEvents.dispatch('imagemodal-realdelete');
       this.$emit('reject');
     });
   },
@@ -160,11 +158,10 @@ export default {
     border-radius 4px
 
 .img
-  width calc(100vw - 24px)
-  max-width 496px
-  max-height 496px
-  min-height 100px
-  min-width 100px
+  max-width calc(100vw - 24px)
+  max-height calc(100vh - 24px)
+  min-height 128px
+  min-width 128px
   object-fit contain
   background-color var(--Background-darkgrey)
 
