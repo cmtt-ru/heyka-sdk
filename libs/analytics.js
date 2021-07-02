@@ -1,5 +1,8 @@
 /* eslint-disable camelcase */
 import store from '@/store';
+import mixpanel from 'mixpanel-browser';
+
+mixpanel.init('62c83056acee2559192001d386ed51d6');
 
 const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
 
@@ -22,10 +25,8 @@ export function trackEvent(actionName, prefix = EVENT_PREFIX) {
       };
     }
 
-    if (window.gtag) {
-      window.gtag('event', action, data);
-      console.log('analytics --> trackEvent', action, data);
-    }
+    mixpanel.track(action, data);
+    console.log('analytics --> trackEvent', action, data);
   } catch (e) {
     console.error('analytics --> trackEvent', e);
   }
