@@ -69,8 +69,6 @@ export default {
       this.$refs.inputImage.click();
     });
     broadcastEvents.on('imagemodal-delete', () => {
-      console.log('confirm delete in modal');
-      broadcastEvents.dispatch('imagemodal-realdelete');
       this.$emit('reject');
     });
   },
