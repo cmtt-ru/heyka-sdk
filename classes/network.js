@@ -70,7 +70,7 @@ class Network extends EventEmitter {
       }
 
       /** Internet is online — try to reconnect */
-      if (this.internetState === false) {
+      if (this.internetState === false && this.active) {
         this.incrementReconnectAttempt();
         const state = await this.poll(LONG_POLLING_RECONNECT_TIMEOUT, REQUEST_TIMEOUT);
 
@@ -181,7 +181,18 @@ class Network extends EventEmitter {
    * @return {void}
    */
   watchInternetState() {
+    cnsl.log('start watch');
     this.loop();
+  }
+
+  /**
+   * Stop watching internet state
+   * @return {void}
+   */
+  stopWatch() {
+    this.active = false;
+    this.resetReconnectAttempts();
+    cnsl.log('stop watch');
   }
 }
 
