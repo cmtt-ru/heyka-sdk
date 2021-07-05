@@ -365,8 +365,12 @@ export default {
     insertVideoStreamForUser(stream) {
       const video = this.$refs['video'];
 
-      if (video.srcObject) {
-        video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+      try {
+        if (video.srcObject) {
+          video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+        }
+      } catch (e) {
+        console.error('Cell.vue --> getFrameFromVideo', e);
       }
 
       video.srcObject = stream;
