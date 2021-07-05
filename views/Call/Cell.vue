@@ -18,6 +18,9 @@
         v-show="mediaCanShow"
         ref="video"
         class="cell__feed"
+        autoplay
+        playsinline
+        muted
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
       />
       <div
