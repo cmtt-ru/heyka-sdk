@@ -210,8 +210,13 @@ class AudiobridgePlugin extends EventEmitter {
    * @returns {undefined}
    */
   detach() {
-    microphone.removeListener('speaking', this.__speakingHandler);
-    microphone.removeListener('volume-change', this.__volumeHandler);
+    try {
+      microphone.removeListener('speaking', this.__speakingHandler);
+      microphone.removeListener('volume-change', this.__volumeHandler);
+    } catch (e) {
+      console.error('Audiobridge --> deatch', e);
+    }
+
     microphone.forget('audiobridge-plugin');
 
     if (this.__pluginHandle) {
