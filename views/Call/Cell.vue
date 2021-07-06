@@ -18,6 +18,9 @@
         v-show="mediaCanShow"
         ref="video"
         class="cell__feed"
+        autoplay
+        playsinline
+        muted
         :class="{ 'cell__feed--flip': user.camera && user.id === myId }"
       />
       <div
@@ -362,8 +365,12 @@ export default {
     insertVideoStreamForUser(stream) {
       const video = this.$refs['video'];
 
-      if (video.srcObject) {
-        video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+      try {
+        if (video.srcObject) {
+          video.style.backgroundImage = `url(${this.getFrameFromVideo()})`;
+        }
+      } catch (e) {
+        console.error('Cell.vue --> getFrameFromVideo', e);
       }
 
       video.srcObject = stream;

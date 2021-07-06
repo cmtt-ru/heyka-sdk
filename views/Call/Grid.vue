@@ -344,7 +344,7 @@ export default {
     },
 
     async waitForPublisherWillAppear(userId) {
-      const maxAttempts = 5;
+      const maxAttempts = 15;
       const interval = 100;
 
       let i = 0;
