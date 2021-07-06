@@ -606,7 +606,7 @@ export default {
   .cell__inner:hover .cell__username--hidden
     opacity 1
 
-  .badge--hidden.context-menu--opened
+  .badge--hidden.popover--opened
     opacity 1
 
   &__avatar

@@ -2,6 +2,12 @@
   <div class="auth">
     <div class="auth__cover">
       <img :src="imgSrc">
+      <svg-icon
+        class="auth__cover__logo"
+        :name="logoName"
+        width="80"
+        height="36"
+      />
     </div>
 
     <div class="auth__body">
@@ -74,10 +80,18 @@ export default {
 
     imgSrc() {
       if (this.$themes.getCurrentTheme() === 'light') {
-        return require('./img/auth-cover.jpg');
+        return require('./img/auth-cover.png');
       }
 
       return require('./img/auth-cover-dark.png');
+    },
+
+    logoName() {
+      if (this.$themes.getCurrentTheme() === 'light') {
+        return 'logo-full';
+      }
+
+      return 'logo-full-dark';
     },
 
     /**
@@ -166,12 +180,18 @@ export default {
 
   &__cover
     width 220px
+    position relative
 
     img
       display block
       width 100%
       height 100%
       object-fit cover
+
+    &__logo
+      position absolute
+      top 16px
+      left 16px
 
   &__body
     display flex
@@ -187,11 +207,10 @@ export default {
       overflow hidden
 
   &__header
-    height 80px
+    height 84px
 
     .ui-button
-      margin-top 35px
-      margin-left -4px
+      margin 7px 0 0 -4px
 
     .icon--arrow-down
       transform rotate(90deg)
@@ -209,7 +228,11 @@ export default {
     h1
       font-size 26px
       font-weight 700
-      line-height 1.6
+      line-height 42px
+      margin 20px 0 1px
+
+.dev-server
+  margin-top -16px
 
 @media screen and (max-width: 519px)
   .auth__cover
@@ -224,7 +247,7 @@ export default {
   h1
     font-size 26px
     font-weight 700
-    line-height 1.6
+    line-height 42px
     margin-bottom 16px
 
   .ui-button--9

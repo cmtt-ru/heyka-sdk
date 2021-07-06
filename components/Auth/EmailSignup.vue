@@ -128,6 +128,7 @@ export default {
     display flex
     flex-direction row
     margin-top 24px
+    color var(--Text-secondary)
 
     &__link
       margin-left 8px

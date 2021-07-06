@@ -153,7 +153,7 @@ export default {
     border-radius 6px
 
     &:hover,
-    &.context-menu--opened
+    &.popover--opened
       background var(--Background-darkgrey-hover)
     &:active
       background var(--Background-darkgrey-active)
@@ -167,6 +167,7 @@ export default {
     &__name
         padding-left 8px
         flex-shrink 2
+        line-height 22px
         white-space nowrap
         overflow hidden
 

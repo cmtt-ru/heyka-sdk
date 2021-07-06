@@ -52,7 +52,7 @@ const DEFAULT_POPPER_OPTIONS = {
  * Active class when popover opened
  * @type {string}
  */
-const ACTIVE_CLASS = 'context-menu--opened';
+const ACTIVE_CLASS = 'popover--opened';
 
 /**
  * Max number for unique id
@@ -198,7 +198,34 @@ export default class Popover {
 
     document.body.appendChild(this.instance.$el);
 
-    this.element.classList.add(ACTIVE_CLASS);
+    this.classToParents(this.element);
+  }
+
+  /**
+   * Add or remove 'popover--opened' class to parents with 'popover-add-class' attribute
+   *
+   * @param {HTMLElement} node - node
+   * @param {boolean} add - true if add class, false if remove class
+   *
+   * @returns {void}
+   */
+  classToParents(node, add = true) {
+    if (add) {
+      node.classList.add(ACTIVE_CLASS);
+    } else {
+      node.classList.remove(ACTIVE_CLASS);
+    }
+
+    while (node) {
+      if (node.hasAttribute && node.hasAttribute('popover-add-class')) {
+        if (add) {
+          node.classList.add(ACTIVE_CLASS);
+        } else {
+          node.classList.remove(ACTIVE_CLASS);
+        }
+      }
+      node = node.parentNode;
+    }
   }
 
   /**
@@ -211,7 +238,7 @@ export default class Popover {
       this.instance.$destroy();
       this.instance.$el.remove();
       this.instance = null;
-      this.element.classList.remove(ACTIVE_CLASS);
+      this.classToParents(this.element, false);
     }
   }
 

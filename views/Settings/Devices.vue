@@ -20,6 +20,7 @@
     />
     <ui-button
       :type="1"
+      size="large"
       class="test-sound-button"
       @click.native="playTestSound"
     >
@@ -185,7 +186,7 @@ export default {
     margin-top 24px
 
 .test-sound-button
-  margin 10px 0
+  margin-top 8px
 
 .dropdown
   margin 6px 0

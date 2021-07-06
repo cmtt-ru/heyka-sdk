@@ -437,7 +437,7 @@ export default {
   flex-direction row
   align-items center
   background var(--Background-grey)
-  border 1px solid transparent
+  border 1px solid var(--UI-divider-2)
   border-radius 6px
   box-sizing border-box
 
@@ -457,7 +457,7 @@ export default {
 
 .input
   width 100%
-  min-height 36px
+  min-height 34px
   padding 0 12px
   box-sizing border-box
   border none

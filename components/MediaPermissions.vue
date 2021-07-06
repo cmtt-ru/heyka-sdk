@@ -430,6 +430,9 @@ export default {
         color var(--Text-secondary)
         padding 0 12px
 
+      &__sub-title
+        margin-bottom -1px
+
       &__text
         line-height 22px
         margin-top 8px

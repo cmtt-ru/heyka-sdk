@@ -213,10 +213,11 @@ export default {
     &__header
       display flex
       align-items center
-      flex 0 0 38px
+      flex 0 0 44px
       font-weight 500
       background var(--Background-white)
-      padding 3px 16px
+      padding 15px 16px 11px
+      box-sizing border-box
       transition box-shadow 0.15s ease
 
       &__close
