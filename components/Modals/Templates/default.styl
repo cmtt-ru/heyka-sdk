@@ -1,0 +1,66 @@
+.modal-wrapper
+    padding 24px 32px 32px
+    font-size 16px
+    line-height 26px
+    width 440px
+    max-height 620px
+    box-sizing border-box
+    border-radius 10px
+
+    @media $mobile
+        width calc(100vw - 32px)
+        max-width 343px
+        max-height calc(100vh - 32px)
+        max-height Min(600px, calc(100vh - 32px))
+        padding 13px 20px 16px
+
+
+    & .header
+        font-size 18px
+        line-height 22px
+        font-weight bold
+        margin-bottom 24px
+
+        @media $mobile
+            font-size 16px
+            line-height 26px
+            margin-bottom 27px
+
+    & .buttons
+        margin-top 24px
+        display flex
+        flex-direction row
+        justify-content stretch
+        align-items center
+
+        @media $mobile
+            flex-wrap wrap
+
+    & .ui-button
+        flex-grow 1
+        flex-shrink 0
+        height 48px
+        font-size 16px
+        line-height 24px
+
+        @media $mobile
+            width 100%
+
+        &:not(:first-child)
+            margin-left 16px
+
+            @media $mobile
+                margin-top 12px
+                margin-left 0
+
+    & .input-label
+        margin 24px 0 12px
+        font-weight 500
+
+
+/deep/ .input
+  height 48px
+  min-height 48px
+  box-sizing border-box
+  font-size 16px
+  line-height 26px

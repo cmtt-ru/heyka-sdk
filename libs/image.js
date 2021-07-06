@@ -77,6 +77,8 @@ export function getUserAvatarUrl(obj, size = AVATAR_SIZE_32) {
         return obj.avatarSet.image256x256;
       case size < AVATAR_SIZE_512:
         return obj.avatarSet.image512x512;
+      case size > AVATAR_SIZE_512 && !!obj.avatarSet.original:
+        return obj.avatarSet.original;
       default:
         return obj.avatarSet.image512x512;
     }

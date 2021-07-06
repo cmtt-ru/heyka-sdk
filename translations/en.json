@@ -246,7 +246,8 @@
       "idle": "Away",
       "offline": "Invisible",
       "settings": "Settings",
-      "quit": "Quit Heyka"
+      "quit": "Quit",
+      "logout": "Logout"
     },
     "userInChannel": {
       "profile": "Open profile",
@@ -277,6 +278,10 @@
       "handUp": "Raise hand",
       "handDown": "Lower hand",
       "chat": "Open chat"
+    },
+    "changePhoto":{
+      "change": "Change photo",
+      "delete": "Delete"
     }
   },
   "notifications": {
