@@ -420,10 +420,10 @@
       "workspace": "Вас пригласили в воркспейс"
     },
     "main": {
-      "title": "Войти в Heyka"
+      "title": "Вход в Heyka"
     },
     "email": {
-      "title": "Войти в Heyka",
+      "title": "Вход в Heyka",
       "reset": "Сбросить пароль",
       "newMember": "Нет аккаунта?",
       "signup": "Зарегистрироваться",
