@@ -66,11 +66,12 @@
 <script>
 import UiButton from '@components/UiButton';
 import { UiForm, UiInput } from '@components/Form';
-import { heykaStore } from '@/store/localStore';
+import { authFileStore, heykaStore } from '@/store/localStore';
 import { WEB_URL } from '@sdk/Constants';
 import { errorMessages } from '@api/errors/types';
 import signin from '@api/auth/signin';
 import notify from '@libs/notify';
+import { GA_EVENTS, trackEvent } from '@libs/analytics';
 
 export default {
   components: {
@@ -120,6 +121,14 @@ export default {
 
       try {
         await signin({ credentials: this.login });
+
+        const inviteCode = authFileStore.get('inviteCode');
+
+        if (inviteCode) {
+          trackEvent(GA_EVENTS.inviteToWorkspace);
+        }
+
+        trackEvent(GA_EVENTS.login('Email'));
 
         if (this.notifyClose) {
           this.notifyClose();
