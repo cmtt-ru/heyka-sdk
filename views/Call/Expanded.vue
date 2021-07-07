@@ -4,30 +4,32 @@
     class="expanded-window"
     @dblclick="showGridHandler"
   >
-    <div class="sharing-wrapper wrapper">
-      <video
-        ref="video"
-        class="sharing"
-      />
-      <img
-        v-show="showPreview"
-        ref="preview"
-        class="video-preview"
-      >
-      <div
-        v-if="canDraw"
-        class="tablet-wrapper wrapper"
-      >
-        <div class="tablet">
-          <tablet
-            :aspect-ratio="1 / videoAspectRatio"
-            :my-id="myId"
-            :color="myColor"
-            @data="onDrawingData"
-          />
+    <zoom-pan style="height: 100%">
+      <div class="sharing-wrapper wrapper">
+        <video
+          ref="video"
+          class="sharing"
+        />
+        <img
+          v-show="showPreview"
+          ref="preview"
+          class="video-preview"
+        >
+        <div
+          v-if="canDraw"
+          class="tablet-wrapper wrapper"
+        >
+          <div class="tablet">
+            <tablet
+              :aspect-ratio="1 / videoAspectRatio"
+              :my-id="myId"
+              :color="myColor"
+              @data="onDrawingData"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </zoom-pan>
 
     <div class="badge user">
       <avatar
@@ -103,6 +105,7 @@ import mediaCapturer from '@classes/mediaCapturer';
 import janusVideoroomWrapper from '@sdk/classes/janusVideoroomWrapper';
 import captureFrame from 'capture-frame';
 import Microphone from '../../components/Microphone.vue';
+import ZoomPan from '@components/ZoomPan';
 
 import broadcastActions from '@sdk/classes/broadcastActions';
 
@@ -117,6 +120,7 @@ export default {
     Tablet,
     MiniChatButton,
     Microphone,
+    ZoomPan,
   },
   data() {
     return {
