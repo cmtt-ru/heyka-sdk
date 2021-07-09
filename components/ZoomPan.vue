@@ -4,7 +4,6 @@
     class="zoom-pan"
     @wheel="wheelHandler"
     @mousedown="mouseDownHandler"
-    @mouseup="mouseUpHandler"
     @mousemove="mouseMoveHandler"
   >
     <div
@@ -37,16 +36,23 @@ export default {
 
       mouseX: 0,
       mouseY: 0,
+
+      isMouseDown: false,
+      downX: 0,
+      downY: 0,
     };
   },
 
   async mounted() {
     this.resizeObserver = new ResizeObserver(this.updateSizes);
     this.resizeObserver.observe(this.$refs.root);
+
+    document.addEventListener('mouseup', this.mouseUpHandler);
   },
 
   beforeDestroy() {
     this.resizeObserver.unobserve(this.$refs.root);
+    document.removeEventListener('mouseup', this.mouseUpHandler);
   },
 
   methods: {
@@ -77,6 +83,14 @@ export default {
         this.containerY += e.deltaY * DIRECTION;
       }
 
+      this.zoomAndPan();
+    },
+
+    /**
+     * Restrict axis and translate container
+     * @returns {void}
+     */
+    zoomAndPan() {
       /**
        * Restrict scale
        */
@@ -114,18 +128,28 @@ export default {
     },
 
     mouseDownHandler(e) {
-      this.mouseX = e.offsetX;
-      this.mouseY = e.offsetY;
+      this.isMouseDown = true;
+      this.downX = e.offsetX;
+      this.downY = e.offsetY;
     },
 
     mouseUpHandler(e) {
-      this.mouseX = e.offsetX;
-      this.mouseY = e.offsetY;
+      this.isMouseDown = false;
     },
 
     mouseMoveHandler(e) {
       this.mouseX = e.offsetX;
       this.mouseY = e.offsetY;
+
+      if (this.isMouseDown && (e.ctrlKey || e.metaKey)) {
+        const dx = this.downX - this.mouseX;
+        const dy = this.downY - this.mouseY;
+
+        this.containerX -= dx;
+        this.containerY -= dy;
+
+        this.zoomAndPan();
+      }
     },
 
     /**

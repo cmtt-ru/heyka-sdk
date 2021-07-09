@@ -154,6 +154,13 @@ export default {
      * @returns {void}
      */
     mouseDownHandler($event) {
+      /**
+       * Disabled due Zoom integration in expanded
+       */
+      if ($event.ctrlKey || $event.metaKey) {
+        return;
+      }
+
       this.isMouseDown = true;
       const dot = {
         x: $event.offsetX / this.drawDimensions.width,
