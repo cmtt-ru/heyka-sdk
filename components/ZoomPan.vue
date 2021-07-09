@@ -3,6 +3,8 @@
     ref="root"
     class="zoom-pan"
     @wheel="wheelHandler"
+    @mousedown="mouseDownHandler"
+    @mouseup="mouseUpHandler"
     @mousemove="mouseMoveHandler"
   >
     <div
@@ -11,7 +13,7 @@
     >
       <slot />
     </div>
-    <div class="dot" />
+    <!--    <div class="dot" />-->
   </div>
 </template>
 
@@ -20,6 +22,7 @@
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const WHEEL_K = 100;
+const MAX_DELTA = 1.2;
 const DIRECTION = -1;
 
 export default {
@@ -55,22 +58,19 @@ export default {
     wheelHandler(e) {
       e.preventDefault();
 
-      // console.log(this.mouseX / this.rootWidth);
+      if (e.ctrlKey || e.metaKey) {
+        let i = Math.exp(-e.deltaY / WHEEL_K);
 
-      if (e.ctrlKey) {
-        const i = Math.exp(-e.deltaY / WHEEL_K);
+        i = Math.min(Math.abs(i), MAX_DELTA) * Math.sign(i);
 
         this.containerScale *= i;
-
-        // eslint-disable-next-line no-unused-vars
-        // const { width, height, x, y } = this.$refs.root.getBoundingClientRect();
 
         if (this.containerScale < MAX_ZOOM && this.containerScale > MIN_ZOOM) {
           // this.containerX = (this.containerScale - 1) * (this.rootWidth / 2 - this.mouseX);
           // this.containerY = (this.containerScale - 1) * (this.rootHeight / 2 - this.mouseY);
 
-          this.containerX += ((i - 1) * (((this.rootWidth / 2 - this.mouseX) * this.containerScale) - this.containerX));
-          this.containerY += ((i - 1) * (((this.rootHeight / 2 - this.mouseY) * this.containerScale) - this.containerY));
+          // this.containerX += ((i - 1) * (((this.rootWidth / 2 - this.mouseX) * this.containerScale) - this.containerX));
+          // this.containerY += ((i - 1) * (((this.rootHeight / 2 - this.mouseY) * this.containerScale) - this.containerY));
         }
       } else {
         this.containerX += e.deltaX * DIRECTION;
@@ -111,6 +111,16 @@ export default {
       }
 
       this.$refs.container.style.transform = 'translate(' + this.containerX + 'px, ' + this.containerY + 'px) scale(' + this.containerScale + ')';
+    },
+
+    mouseDownHandler(e) {
+      this.mouseX = e.offsetX;
+      this.mouseY = e.offsetY;
+    },
+
+    mouseUpHandler(e) {
+      this.mouseX = e.offsetX;
+      this.mouseY = e.offsetY;
     },
 
     mouseMoveHandler(e) {
