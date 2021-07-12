@@ -22,6 +22,7 @@ const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const WHEEL_K = 100;
 const MAX_DELTA = 1.2;
+const MIN_DELTA = 0.8;
 const DIRECTION = -1;
 
 export default {
@@ -68,6 +69,7 @@ export default {
         let i = Math.exp(-e.deltaY / WHEEL_K);
 
         i = Math.min(Math.abs(i), MAX_DELTA) * Math.sign(i);
+        i = Math.max(Math.abs(i), MIN_DELTA) * Math.sign(i);
 
         if (this.containerScale * i < MAX_ZOOM && this.containerScale * i > MIN_ZOOM) {
           const mouseX2 = this.mouseX - this.containerX + this.rootWidth * (this.containerScale - 1) / 2;
