@@ -72,8 +72,8 @@ export default {
         this.containerScale *= i;
 
         if (this.containerScale < MAX_ZOOM && this.containerScale > MIN_ZOOM) {
-          // this.containerX = (this.containerScale - 1) * (this.rootWidth / 2 - this.mouseX);
-          // this.containerY = (this.containerScale - 1) * (this.rootHeight / 2 - this.mouseY);
+          this.containerX += (i - 1) * (this.rootWidth * this.containerScale / (2 * i) - this.mouseX);
+          this.containerY += (i - 1) * (this.rootHeight * this.containerScale / (2 * i) - this.mouseY);
 
           // this.containerX += ((i - 1) * (((this.rootWidth / 2 - this.mouseX) * this.containerScale) - this.containerX));
           // this.containerY += ((i - 1) * (((this.rootHeight / 2 - this.mouseY) * this.containerScale) - this.containerY));
