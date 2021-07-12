@@ -138,6 +138,10 @@ export default {
      */
     selectedCameraDevice(deviceId) {
       if (janusWrapper && this.camera) {
+        if (IS_ELECTRON) {
+          this.$store.dispatch('me/stopFaceMonitoring');
+        }
+
         janusWrapper.setCameraDevice(deviceId);
       }
     },
