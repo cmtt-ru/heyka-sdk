@@ -69,23 +69,19 @@ export default {
 
         i = Math.min(Math.abs(i), MAX_DELTA) * Math.sign(i);
 
-        this.containerScale *= i;
+        if (this.containerScale * i < MAX_ZOOM && this.containerScale * i > MIN_ZOOM) {
+          const mouseX2 = this.mouseX - this.containerX + this.rootWidth * (this.containerScale - 1) / 2;
+          const mouseY2 = this.mouseY - this.containerY + this.rootHeight * (this.containerScale - 1) / 2;
 
-        if (this.containerScale < MAX_ZOOM && this.containerScale > MIN_ZOOM) {
-          const MouseX2 = this.mouseX - this.containerX + this.rootWidth * (this.containerScale / i - 1) / 2;
-          const MouseY2 = this.mouseY - this.containerY + this.rootHeight * (this.containerScale / i - 1) / 2;
-
-          this.containerX += (i - 1) * (this.rootWidth * this.containerScale / (2 * i) - MouseX2);
-          this.containerY += (i - 1) * (this.rootHeight * this.containerScale / (2 * i) - MouseY2);
-
-          // this.containerX += ((i - 1) * (((this.rootWidth / 2 - this.mouseX) * this.containerScale) - this.containerX));
-          // this.containerY += ((i - 1) * (((this.rootHeight / 2 - this.mouseY) * this.containerScale) - this.containerY));
+          this.containerX = this.rootWidth * (this.containerScale * i - 1) / 2 + this.mouseX - mouseX2 * i;
+          this.containerY = this.rootHeight * (this.containerScale * i - 1) / 2 + this.mouseY - mouseY2 * i;
         }
+
+        this.containerScale *= i;
       } else {
         this.containerX += e.deltaX * DIRECTION;
         this.containerY += e.deltaY * DIRECTION;
       }
-
       this.zoomAndPan();
     },
 
@@ -141,8 +137,8 @@ export default {
     },
 
     mouseMoveHandler(e) {
-      this.mouseX = e.offsetX;
-      this.mouseY = e.offsetY;
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
 
       if (this.isMouseDown && (e.ctrlKey || e.metaKey)) {
         const dx = this.downX - this.mouseX;
@@ -164,6 +160,8 @@ export default {
 
       this.rootWidth = width;
       this.rootHeight = height;
+
+      console.log('WIDTH >>>>>>>>>>>>>', this.rootWidth);
     },
   },
 };
@@ -178,6 +176,7 @@ export default {
       position absolute
       width 100%
       height 100%
+      transform-origin center
 
     .dot
       position absolute
