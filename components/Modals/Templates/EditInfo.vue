@@ -8,7 +8,7 @@
       v-if="data.avatar!==undefined"
       class="avatar-wrapper"
     >
-      <ui-image
+      <ui-image-web
         ref="avatarInput"
         :image="avatarUrl(data.avatar, 88)"
         class="avatar"
@@ -64,7 +64,7 @@
 
 <script>
 import UiButton from '@components/UiButton';
-import { UiForm, UiInput, UiImage } from '@components/Form';
+import { UiForm, UiInput, UiImageWeb } from '@components/Form';
 
 import { getUserAvatarUrl } from '@libs/image';
 
@@ -73,7 +73,7 @@ export default {
     UiButton,
     UiForm,
     UiInput,
-    UiImage,
+    UiImageWeb,
   },
 
   props: {
