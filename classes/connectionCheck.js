@@ -55,6 +55,8 @@ class ConnectionCheck extends EventEmitter {
     store.commit('app/SET_CONNECTION_STATUS', {
       socket: state,
     });
+
+    this.emit('socket-reconnected');
   }
 
   /**
