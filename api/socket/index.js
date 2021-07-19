@@ -269,6 +269,7 @@ function bindChannelEvents() {
 
     if (unselectData) {
       store.commit('channels/REMOVE_USER', unselectData);
+      store.commit('channels/REMOVE_CONVERSATION_DATA', data);
       dataBuffer.remove(userId);
     }
 
@@ -360,13 +361,13 @@ function bindUserEvents() {
   });
 
   /** User joined workspace */
-  client.on(eventNames.userJoined, async () => {
-    store.dispatch('updateCurrentWorkspaceState');
+  client.on(eventNames.userJoined, async (data) => {
+    store.commit('users/ADD_USER', data.user);
   });
 
   /** User leaved workspace */
-  client.on(eventNames.userLeavedWorkspace, async () => {
-    store.dispatch('updateCurrentWorkspaceState');
+  client.on(eventNames.userLeavedWorkspace, async (data) => {
+    store.commit('users/REMOVE_USER', data.userId);
   });
 
   /** Me kicked from workspace */
