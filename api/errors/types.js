@@ -39,4 +39,8 @@ export const errorMessages = {
 
   // Email verification
   verificationCodeIsNotValid: 'Verification code is not valid',
+
+  // Delete account
+  cannotDeleteAdminUser: 'You can not delete account while you have admin rights in at least one workspace',
+
 };
