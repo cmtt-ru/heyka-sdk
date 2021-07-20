@@ -2,9 +2,27 @@
 import store from '@/store';
 import mixpanel from 'mixpanel-browser';
 
-mixpanel.init('62c83056acee2559192001d386ed51d6');
+// mixpanel.init('62c83056acee2559192001d386ed51d6');
+mixpanel.init('865a3093f42e49a97ce69aa50eb34860', {
+  loaded() {
+    console.log('~~~~~~ get_distinct_id', mixpanel.get_distinct_id());
+  },
+});
 
 const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
+
+window.MP = mixpanel;
+
+export function login() {
+  mixpanel.reset();
+  mixpanel.identify('user-id');
+
+  mixpanel.people.set({
+    Name: 'Acme',
+    Plan: 'Premium',
+    'Upgrade date': new Date(),
+  });
+}
 
 /**
  * Send event to GA
@@ -13,6 +31,9 @@ const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
  * @returns {void}
  */
 export function trackEvent(actionName, prefix = EVENT_PREFIX) {
+  return;
+
+  // eslint-disable-next-line no-unreachable
   try {
     const workspaceId = store.getters['me/getSelectedWorkspaceId'];
     const action = `${prefix} — ${actionName}`;
