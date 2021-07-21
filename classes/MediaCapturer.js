@@ -43,9 +43,29 @@ export default class MediaCapturer extends EventEmitter {
    * Get media stream by source id
    *
    * @param {string} sourceId – source id
+   * @param {number} sourceIndex – source index
    * @returns {Promise<MediaStream>}
    */
-  async getStream(sourceId) {
+  async getStream(sourceId, sourceIndex) {
+    const displays = await window.ipcRenderer.invoke('remote-get-all-displays');
+    const display = displays[sourceIndex];
+
+    console.log('~~~~~~~~~~~~~~~~~');
+    console.log('sourceId', sourceId);
+    console.log('sourceIndex', sourceIndex);
+    console.log('displays', displays);
+    console.log('selected display', display);
+
+    let maxWidth = 1920;
+    let maxHeight = 1920;
+
+    if (display) {
+      maxWidth = display.size.width;
+      maxHeight = display.size.height;
+      console.log('maxWidth', maxWidth, 'maxHeight', maxHeight);
+    }
+    console.log('~~~~~~~~~~~~~~~~~');
+
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
@@ -54,8 +74,8 @@ export default class MediaCapturer extends EventEmitter {
           chromeMediaSourceId: sourceId,
           minWidth: 0,
           minHeight: 0,
-          maxWidth: 1920,
-          maxHeight: 1920,
+          maxWidth,
+          maxHeight,
           maxFrameRate: 15,
         },
       },
