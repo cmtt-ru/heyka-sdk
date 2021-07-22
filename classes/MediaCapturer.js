@@ -50,21 +50,13 @@ export default class MediaCapturer extends EventEmitter {
     const displays = await window.ipcRenderer.invoke('remote-get-all-displays');
     const display = displays[sourceIndex];
 
-    console.log('~~~~~~~~~~~~~~~~~');
-    console.log('sourceId', sourceId);
-    console.log('sourceIndex', sourceIndex);
-    console.log('displays', displays);
-    console.log('selected display', display);
-
     let maxWidth = 1920;
     let maxHeight = 1920;
 
     if (display) {
       maxWidth = display.size.width;
       maxHeight = display.size.height;
-      console.log('maxWidth', maxWidth, 'maxHeight', maxHeight);
     }
-    console.log('~~~~~~~~~~~~~~~~~');
 
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
