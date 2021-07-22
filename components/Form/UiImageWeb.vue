@@ -45,8 +45,8 @@
 import Avatar from '@components/Avatar';
 import notify from '@libs/notify';
 
-const MAX_FILE_SIZE = 1048576;
-const PRETTY_MAX_FILE_SIZE = '1Mb';
+const MAX_FILE_SIZE = 5242880;
+const PRETTY_MAX_FILE_SIZE = '5Mb';
 
 export default {
   components: {
