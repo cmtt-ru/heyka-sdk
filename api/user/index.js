@@ -9,6 +9,7 @@ import checkPermissions from './checkPermissions';
 import editProfile from './editProfile';
 import image from './image';
 import muteForAll from './muteForAll';
+import deleteAccount from './deleteAccount';
 
 export default {
   setMediaState,
@@ -22,4 +23,5 @@ export default {
   editProfile,
   image,
   muteForAll,
+  deleteAccount,
 };
