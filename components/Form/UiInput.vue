@@ -56,6 +56,7 @@ const CHECK_DELAY = 500;
 const NUMBER_REGEXP = /^\d*$/;
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEXP = /^[a-z0-9]([a-z0-9_.\-]*)@([a-z0-9.\-]+)([.][a-z]{2,})$/i;
+const NO_EMOJI_REGEXP = /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g;
 
 export default {
 
@@ -354,7 +355,9 @@ export default {
 
         return;
       }
-      text = text.trim();
+      text = text.replace(NO_EMOJI_REGEXP, '').trim();
+
+      this.localValue = text;
 
       if (text.length === 0) {
         const res = this.checkEmpty();
