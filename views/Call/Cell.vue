@@ -1,7 +1,6 @@
 <template>
   <div
     class="cell"
-    :class="{'cell--reconnecting': reconnectingStatus(user.id)}"
     :style="cellDimensions"
   >
     <div
@@ -216,7 +215,7 @@ export default {
       getUsersWhoShareMedia: 'getUsersWhoShareMedia',
       myId: 'me/getMyId',
       audioQualityStatus: 'channels/getAudioQualityStatusByUserId',
-      reconnectingStatus: 'channels/getReconnectingStatusByUserId',
+      // reconnectingStatus: 'channels/getReconnectingStatusByUserId',
       getHandUpStatusByUserId: 'channels/getHandUpStatusByUserId',
     }),
 
