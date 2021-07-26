@@ -279,9 +279,13 @@
       "handDown": "Lower hand",
       "chat": "Open chat"
     },
-    "changePhoto":{
+    "changePhoto": {
       "change": "Change photo",
       "delete": "Delete"
+    },
+    "deleteAccount": {
+      "header": "Delete account",
+      "desc": "Enter your name to proceed"
     }
   },
   "notifications": {
