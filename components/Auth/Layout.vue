@@ -39,12 +39,12 @@
         </div>
 
         <div class="auth__footer">
-          <p>
-            {{ texts.footer.privacy }} <a
-              style="text-decoration: underline; display: initial"
-              :href="privacyLink"
-            >{{ texts.footer.privacyLink }}</a>
-          </p>
+          <!--          <p>-->
+          <!--            {{ texts.footer.privacy }} <a-->
+          <!--              style="text-decoration: underline; display: initial"-->
+          <!--              :href="privacyLink"-->
+          <!--            >{{ texts.footer.privacyLink }}</a>-->
+          <!--          </p>-->
         </div>
       </div>
     </div>

@@ -44,7 +44,7 @@
     "channel": {
       "join": "Connect",
       "disconnect": "Disconnect",
-      "emptyDesc": "Enter the channel to invite others",
+      "emptyDesc": "Enter the channel to start chatting",
       "invite": "Invite to channel",
       "inviteCopied": "Invite link copied",
       "invitesDeleted": "All invites are deleted",
@@ -53,7 +53,7 @@
       "support": "Report a bug"
     },
     "user": {
-      "privateTalkButton": "Private talk",
+      "privateTalkButton": "Private call",
       "inviteButtonStart": "Invite to",
       "alreadyIn": "Already in",
       "inviteBySlackButton": "Send invite via Slack",
@@ -92,12 +92,12 @@
     },
     "channelInvite": {
       "header": "Invite to channel",
-      "userTab": "User list",
+      "userTab": "Users",
       "guestTab": "Guest link",
       "userInSameChannel": "Already in your channel",
       "slackInvite": "Invite via Slack",
       "inviteUsers": "Send invite | Send invite | Send {n} invites",
-      "linkText": "Unregistered users can join your call via browser. You need to activate a temporary link.",
+      "linkText": "Unregistered users can join your call via a web browser. You need to activate a temporary link.",
       "generateUrl": "Generate URL",
       "linkDisableTimeout": "This link will be disabled in {n}",
       "linkDeactivatedNotif": "Invite link deactivated!",
@@ -106,13 +106,13 @@
       "invitationsSent": "Invitations sent"
     },
     "invite":{
-      "header": "Add to workspace",
+      "header": "Invite members",
       "link": "Link",
       "email": "Email",
       "linkHeader": "Users can join your workspace via this temporary link.",
       "copy": "Copy link",
       "addEmail": "Add email",
-      "expires": "Invite link copied. It will expire in 30 days",
+      "expires": "Link copied. It will expire in 30 days",
       "send": "Send",
       "sendSuccess": "You have successfully sent",
       "inviteAmount": "1 invitation | {n} invitations",
@@ -150,7 +150,7 @@
       "generalCategory": "General",
       "appearanceCategory": "Appearance",
       "autorunCategory": "Autorun",
-      "advancedCategory": "Advanced options",
+      "advancedCategory": "Advanced",
       "languageLabel": "Language",
       "behaviourLabel": "Run app from",
       "behaviours": {
@@ -166,9 +166,9 @@
       },
       "automaticallySwitch": "Automatically",
       "resize": "Resizeable window",
-      "nomic": "Disable mic after hanging up",
-      "muteHotkey": "Ctrl+Shift+M mutes the mic",
-      "macMuteHotkey": "Cmd+Shift+M mutes the mic",
+      "nomic": "Always join with the mic off",
+      "muteHotkey": "Mute with Ctrl+Shift+M",
+      "macMuteHotkey": "Mute with Cmd+Shift+M",
       "closeOverlay": "Show «Close» button in call overlay",
       "restartNow": "Restart now",
       "serverLabel": "Server",
@@ -185,7 +185,7 @@
     },
     "network": {
       "transparencyCategory": "Transparency",
-      "transparency": "We are transparent and respect your privacy. This tab shows last 100 requests that are made to our servers.",
+      "transparency": "We are transparent and respect your privacy. This tab shows the last 100 requests that have been made to our servers. We will continue to develop this section.",
       "googleCategory": "Enable Google Analytics",
       "googleLabel": "Allow"
     },
@@ -220,13 +220,13 @@
     },
     "sharing": {
       "title": "Sharing preview",
-      "screen": "Screen",
+      "screen": "Full screen",
       "window": "Window",
       "drawing": "Drawing",
       "start": "Start sharing",
       "stop": "Stop sharing",
       "cancel": "Cancel",
-      "ongoingSharing": "Broadcasting now"
+      "ongoingSharing": "Sharing now"
     }
   },
   "popover": {
@@ -237,7 +237,7 @@
     },
     "griduser": {
       "fullscreen": "Fullscreen",
-      "mute": "Mute for all",
+      "mute": "Mute",
       "handUp": "Raise hand"
     },
     "userProfile": {
@@ -252,14 +252,14 @@
     "userInChannel": {
       "profile": "Open profile",
       "poke": "Send push",
-      "mute": "Mute for all"
+      "mute": "Mute"
     },
     "channel": {
       "edit": "Edit",
       "delete": "Delete",
       "members": "Members",
       "leave": "Leave channel",
-      "invite": "Invite to channel"
+      "invite": "Invite"
     },
     "manageUser": {
       "admin": "Make an admin",
@@ -310,12 +310,12 @@
     },
     "notImplemented": "This feature is not implemented yet",
     "deleteChannel": {
-      "text": "Are you sure you want to delete channel?",
+      "text": "Are you sure you want to delete the channel",
       "yes": "Yes, delete",
       "no": "No"
     },
     "login": {
-      "wrongPass": "Wrong email/password!",
+      "wrongPass": "Wrong email or password!",
       "passReset": "Check your email inbox!"
     },
     "importantSetting": {
@@ -396,7 +396,7 @@
   },
   "autoUpdate": {
     "message": "Updated version of Heyka is available and will be installed at the next launch",
-    "install": "Install",
+    "install": "Update",
     "later": "Later",
     "noUpdate": "No updates available",
     "downloading": "Downloading update..."
@@ -429,12 +429,12 @@
       "workspace": "You're invited to workspace"
     },
     "main": {
-      "title": "Login to Heyka"
+      "title": "Welcome"
     },
     "email": {
-      "title": "Login to Heyka",
+      "title": "Welcome",
       "reset": "Reset password",
-      "newMember": "Not a member?",
+      "newMember": "Don't have an account?",
       "signup": "Sign up",
       "login": "Login",
       "devServer": "🌈 You're connecting to dev server"
@@ -517,9 +517,9 @@
   },
   "slackInvite": {
     "webWait": "Loading...",
-    "noWorkspaces": "Your workspace is not connected with Slack.",
+    "noWorkspaces": "Your workspace is not connected with Slack",
     "connect": "Connect with Slack",
-    "canInvite": "You can invite members from {0}. Select teammates.",
+    "canInvite": "Invite members from {0}",
     "selectAll": "Select all",
     "deselectAll": "Deselect all",
     "inviteUsers": "Send invite | Send invite | Send {n} invites",
@@ -589,14 +589,14 @@
   "mediaPermissions": {
     "onboarding": {
       "title": "Just a minute",
-      "subTitle": "To use Heyka, please allow access to your devices",
+      "subTitle": "To use Heyka, allow access to devices",
       "microphone": "Microphone",
       "camera": "Camera",
       "screen": "Screen sharing",
       "skip": "Skip this step"
     },
     "microphone": {
-      "title": "Heyka needs permission to use your microphone",
+      "title": "Heyka needs access to the microphone",
       "subTitle": "Otherwise no one can hear you",
       "settings": "Go to the settings"
     },
