@@ -233,6 +233,8 @@ class JanusWrapper extends EventEmitter {
       const stream = await mediaCapturer.getCameraStream(deviceId);
 
       this.__videoroomPlugin.replaceStream(stream);
+
+      this.emit(JANUS_WRAPPER_EVENTS.startCameraStream, stream);
     }
   }
 
@@ -260,7 +262,7 @@ class JanusWrapper extends EventEmitter {
     switch (type) {
       case 'camera':
         stream = await mediaCapturer.getCameraStream(source);
-        this.emit('start-camera-stream', stream);
+        this.emit(JANUS_WRAPPER_EVENTS.startCameraStream, stream);
         break;
 
       case 'screen':
