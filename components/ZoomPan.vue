@@ -143,8 +143,8 @@ export default {
       this.mouseY = e.clientY;
 
       if (this.isMouseDown && (e.ctrlKey || e.metaKey)) {
-        const dx = this.downX - this.mouseX;
-        const dy = this.downY - this.mouseY;
+        const dx = this.downX - e.offsetX;
+        const dy = this.downY - e.offsetY;
 
         this.containerX -= dx;
         this.containerY -= dy;
