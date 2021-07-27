@@ -56,7 +56,9 @@ class ConnectionCheck extends EventEmitter {
       socket: state,
     });
 
-    this.emit('socket-reconnected');
+    if (state) {
+      this.emit('socket-reconnected');
+    }
   }
 
   /**
