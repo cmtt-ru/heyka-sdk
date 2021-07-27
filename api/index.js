@@ -11,6 +11,7 @@ import { handleError } from './errors';
 import trottleAPI from './throttle';
 import initialProcess from './initialProcess';
 import axios from 'axios';
+import router from '@/router';
 import { updateTokens, checkAndRefreshTokens } from './tokens';
 import store from '@/store';
 import connectionCheck from '@sdk/classes/connectionCheck';
@@ -26,6 +27,8 @@ const cnsl = new Logger('API', '#eeb837');
 axios.defaults.baseURL = API_URL;
 
 const apiBuffer = {};
+
+const UNAUTHORIZED = 403;
 
 /**
  * Inject's middleware function in all api methods
@@ -123,6 +126,12 @@ function middleware(func, functionName, namespace) {
         await sockets.reconnect();
 
         return middleware(func, functionName).apply(null, arguments);
+      }
+
+      /** Route to 403 on web if unauthorized */
+
+      if (!IS_ELECTRON && err.response.status === UNAUTHORIZED) {
+        router.replace({ name: 'error-403' });
       }
 
       /** Global error handler */

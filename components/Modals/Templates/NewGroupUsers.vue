@@ -182,6 +182,7 @@ export default {
 
       if (workspaceData) {
         this.workspaceUsers = workspaceData.users
+          .filter(user => !user.temporaryUser)
           .filter(el => !this.data.joinedUsers.find(user => user.id === el.id));
       }
     },
