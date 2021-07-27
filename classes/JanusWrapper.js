@@ -249,9 +249,10 @@ class JanusWrapper extends EventEmitter {
    * Publish video stream
    * @param {string} type "camera" or "screen"
    * @param {string} source Source id (camera device id or screen source id)
+   * @param {?number} index Source index
    * @returns {void}
    */
-  async publishVideoStream(type = 'camera', source) {
+  async publishVideoStream(type = 'camera', source, index) {
     let stream = null;
 
     cnsl.debug('Start sharing video', type, source);
@@ -263,7 +264,7 @@ class JanusWrapper extends EventEmitter {
         break;
 
       case 'screen':
-        stream = await mediaCapturer.getStream(source);
+        stream = await mediaCapturer.getStream(source, index);
         break;
 
       case 'stream':

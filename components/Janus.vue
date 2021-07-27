@@ -236,7 +236,7 @@ export default {
 
         if (this.screen && !janusWrapper.isLocalVideoStream()) {
           if (IS_ELECTRON) {
-            janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id);
+            janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id, this.janusOptions.sharingSource.index);
           } else {
             janusWrapper.publishVideoStream('stream', await mediaCapturer.getScreenStream());
           }
@@ -359,7 +359,7 @@ export default {
       }
       this.setOperationStart('publish');
       if (IS_ELECTRON) {
-        janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id);
+        janusWrapper.publishVideoStream('screen', this.janusOptions.sharingSource.id, this.janusOptions.sharingSource.index);
       } else {
         janusWrapper.publishVideoStream('stream', await mediaCapturer.getScreenStream());
       }
