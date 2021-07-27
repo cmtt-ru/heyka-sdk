@@ -548,8 +548,8 @@ export default {
   box-shadow 0 0 0 1px var(--UI-divider-1)
   max-width 292px
 
-  //&--hidden
-  //  opacity 0
-  //  pointer-events none
+  &--hidden
+    opacity 0
+    pointer-events none
 
 </style>

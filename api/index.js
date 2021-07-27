@@ -77,6 +77,12 @@ function middleware(func, functionName, namespace) {
           throw new Error(`Can't call API method '${functionName}'. No internet connection`);
         }
 
+        if (!client.connected && store.getters['me/getSelectedChannelId'] && func.important) {
+          addApiCallToBuffer(functionName, namespace, arguments);
+
+          throw new Error(`Can't call API method '${functionName}'. No socket connection`);
+        }
+
         store.dispatch('app/addPrivacyLog', {
           category: 'api',
           method: functionName,
@@ -180,6 +186,10 @@ async function releaseApiCallBuffer() {
  */
 if (isMainWindow()) {
   connectionCheck.on('internet-reconnected', () => {
+    releaseApiCallBuffer();
+  });
+
+  connectionCheck.on('socket-reconnected', () => {
     releaseApiCallBuffer();
   });
 }
