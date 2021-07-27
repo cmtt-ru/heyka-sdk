@@ -279,9 +279,13 @@
       "handDown": "Опустить руку",
       "chat": "Открыть чат"
     },
-    "changePhoto":{
+    "changePhoto": {
       "change": "Сменить фото",
       "delete": "Удалить"
+    },
+    "deleteAccount": {
+      "header": "Удалить аккаунт",
+      "desc": "Введите своё имя для подтверждения"
     }
   },
   "notifications":{
