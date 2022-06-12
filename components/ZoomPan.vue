@@ -162,8 +162,6 @@ export default {
 
       this.rootWidth = width;
       this.rootHeight = height;
-
-      console.log('WIDTH >>>>>>>>>>>>>', this.rootWidth);
     },
   },
 };
