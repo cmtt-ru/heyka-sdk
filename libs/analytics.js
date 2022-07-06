@@ -1,8 +1,4 @@
 /* eslint-disable camelcase */
-import store from '@/store';
-import mixpanel from 'mixpanel-browser';
-
-mixpanel.init('62c83056acee2559192001d386ed51d6');
 
 const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
 
@@ -14,19 +10,13 @@ const EVENT_PREFIX = IS_ELECTRON ? 'App' : 'Web';
  */
 export function trackEvent(actionName, prefix = EVENT_PREFIX) {
   try {
-    const workspaceId = store.getters['me/getSelectedWorkspaceId'];
     const action = `${prefix} — ${actionName}`;
 
-    let data;
-
-    if (workspaceId) {
-      data = {
-        workspace_id: workspaceId,
-      };
+    if (window.gtag) {
+      window.gtag('event', `${prefix} — ${action}`);
     }
 
-    mixpanel.track(action, data);
-    console.log('analytics --> trackEvent', action, data);
+    console.log('analytics --> trackEvent', action);
   } catch (e) {
     console.error('analytics --> trackEvent', e);
   }
